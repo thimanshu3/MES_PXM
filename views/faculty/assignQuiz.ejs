@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assign Quiz</title>
+
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="stylesheet" href="/css/dataTables.min.css">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+</head>
+
+<body>
+
+    <%-include('../partials/config')%>
+
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="fas fa-users icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>Assign Quiz
+                                    <div class="page-title-subheading">
+                                        <div class="d-flex justify-content-center ">
+                                            Assign Awesome Quizzes curated by you & powered by Amigos' LMS to Students.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mb-4">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="card-hover-shadow-2x mb-3 card">
+                                    <div class="card-header-tab card-header d-flex justify-content-between">
+                                        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                            <i class="header-icon fas fa-cart-plus">
+                                            </i>Quiz List
+                                        </div>
+                                    </div>
+                                    <div class="scroll-area">
+                                        <div class="scrollbar-container ps">
+
+                                            <div class="p-2">
+                                                <ul class="todo-list-wrapper list-group list-group-flush" id="quizList">
+                                                    <% allQuiz.forEach(q => { %>
+
+                                                    <li class="list-group-item college mb-3 shadow-lg"
+                                                        style="cursor: pointer;">
+                                                        <div class="widget-content p-0">
+                                                            <div class="widget-content-wrapper">
+
+                                                                <div class="widget-content-left">
+                                                                    <div class="custom-radio custom-control">
+                                                                        <input name="quiz" type="radio"
+                                                                            value="<%=q._id %>" id="<%=q._id %> "
+                                                                            class="custom-control-input">
+                                                                        <label class="custom-control-label"
+                                                                            for="<%= q._id %> ">&nbsp;</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="widget-content-left mr-2">
+                                                                    <img width="60" height="40" class="rounded"
+                                                                        src="https://www.fiveminute.in/assets/image/quiz-default-img.jpg"
+                                                                        alt="">
+                                                                </div>
+                                                                <div class="widget-content-left mr-1">
+                                                                    <div class="widget-heading"> <%= q.name %>
+                                                                    </div>
+                                                                    <div class="widget-subheading">
+                                                                        <i>published At</i>
+                                                                        <%=
+                                                                new Date(q.publishedAt).toLocaleDateString('en-GB', {
+                                                                    year: '2-digit',
+                                                                    month: 'short',
+                                                                day: 'numeric'
+                                                                }) %>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="widget-content-right w-25">
+                                                                    <span class="col badge badge-soft-danger mb-1">
+                                                                        <%=q.duration %> min
+                                                                    </span>
+                                                                    <span class="col badge badge-soft-primary">
+                                                                        <%=q.numberOfQuestions %> Ques.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <% }); %>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer d-flex justify-content-end">
+                                        <button data-toggle="modal" data-target="#assignQuiz" type="button"
+                                            class="btn btn-sm btn-dark">
+                                            Assign Quiz
+                                            <i class="fas fa-arrow-right"></i>
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <table class="table" id="studenttable">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th scope="col">
+                                                        <div class="custom-checkbox custom-control">
+                                                            <input name="students" type="checkbox" id="sid-"
+                                                                class="custom-control-input ckbCheckAll">
+                                                            <label class="custom-control-label" for="sid-"></label>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Specialization</th>
+                                                    <th scope="col">Semester</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% students.forEach(s => { %>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <div class="custom-checkbox custom-control">
+                                                            <input type="checkbox" value="<%=s.id %>" id="<%=s.id %> "
+                                                                class="custom-control-input checkBoxClass">
+                                                            <label class="custom-control-label"
+                                                                for="<%= s.id %> ">&nbsp;</label>
+                                                        </div>
+                                                    </th>
+                                                    <td><%= s.firstName %> <%= s.lastName %></td>
+                                                    <td><%= s.specialization %> </td>
+                                                    <td><%= s.semester %> </td>
+                                                </tr>
+                                                <% }) %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- questions import modal -->
+    <div class="modal" id="assignQuiz" tabindex="-1" data-keyboard="false" data-backdrop="static" role="dialog"
+        aria-labelledby="importStudentModal" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row" style="border:4px dashed #cccccc; margin:10px;">
+                        <div class="col-md-12 text-center" style="padding:20px;background-color:#f2f2f2">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <a href="#" class="center">
+                                        <h3>Fill details to Assign Quiz</h3>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <p class="text-bold-600 text-danger">All fields are mandatory</p>
+                                <div class="form-group">
+                                    <label for="assignTitle"><b class="text-danger">*</b>Assignment title</label>
+                                    <input type="text" placeholder="enter assignment title here" name="assignTitle"
+                                        id="assignTitle" class="form-control" required>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="startdate"><b class="text-danger">*</b> Start Date</label>
+                                        <input type="datetime-local" name="startdate" id="startdate"
+                                            class="form-control" required>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="enddate"><b class="text-danger">*</b>End Date</label>
+                                        <input type="datetime-local" name="enddate" id="enddate" class="form-control"
+                                            required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                    <button type="submit" id="assignQuizBtn" class="btn btn-dark">Assign</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- questions import modal end -->
+
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(".ckbCheckAll").click(function () {
+            $(".checkBoxClass").prop('checked', $(this).prop('checked'));
+        });
+        $('#studenttable thead th').each(function (index) {
+            if (index === 1) {
+                var title = $(this).text();
+                $(this).html('<input class="form-control form-control-sm" type="text" placeholder="Search ' + title + '" />');
+            }
+        });
+        var selectBoxSearch = [2, 3];
+        $('#studenttable').dataTable({
+            "aLengthMenu": [[10, 25, 50, 75, -1], [10, 25, 50, 75, "All"]],
+            "iDisplayLength": 10,
+            searching: true,
+            paging: true,
+            pageLength: 50,
+            info: false,
+            scrollCollapse: true,
+            scrollY: '60vh',
+            fixedHeader: true,
+            bSort: false,
+            initComplete: function () {
+                // Apply the search
+                this.api().columns().every(function (index) {
+                    if (selectBoxSearch.includes(index)) {
+                        var column = this;
+                        var select = $('<select class="form-control-sm form-control"><option value=""></option></select>')
+                            .appendTo($(column.header()).empty())
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+
+                        column.data().unique().sort().each(function (d, j) {
+                            if (d.includes('>')) {
+                                let s = d.split('>')
+                                select.append(`<option value="${s[1].replace('</a')}">${s[1].replace('</a', '')}</option>`)
+                            }
+                            else {
+                                select.append('<option value="' + d + '">' + d + '</option>')
+                            }
+                        });
+                    }
+
+                    var that = this;
+                    $('input:text', this.header()).on('keyup change clear', function () {
+                        if (that.search() !== this.value) {
+                            that
+                                .search(this.value)
+                                .draw();
+                        }
+                    });
+                });
+            },
+
+        });
+
+        $('#assignQuizBtn').on('click', function () {
+            let students = [];
+            $("input:checkbox:checked").each(function () {
+                students.push($(this).val());
+            });
+            students.remove('on')
+            if ($('input[name="quiz"]:checked') !== undefined && students.length) {
+                if ($('#assignTitle').val() != "" && $('#startdate').val() != "" && $('#enddate').val() != "") {
+                    $('#assignQuizBtn').attr('disabled', 'true')
+                    fetch('/faculty/assignQuiz', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            start: new Date($('#startdate').val()),
+                            end: new Date($('#enddate').val()),
+                            title: $('#assignTitle').val(),
+                            quizId: $('input[name="quiz"]:checked').val(),
+                            studentIds: students
+                        })
+                    }).then(function (res) {
+                        return res.json()
+                    }).then(function (json) {
+                        if (json.status === 201) {
+                            iziToast.success({
+                                message: json.message
+                            })
+                            setTimeout(() => {
+                                location.href = json.redirect || '/faculty/quiz'
+                            }, 750)
+                        } else {
+                            iziToast.error({
+                                title: 'Error',
+                                message: json.message
+                            })
+                            $('#assignQuizBtn').removeAttr('disabled')
+                        }
+                    }).catch(console.log)
+                }
+                else {
+                    iziToast.warning({
+                        title: 'invailid selection',
+                        message: "assignment title, start date or end date not provided"
+                    })
+                }
+            }
+            else {
+                iziToast.warning({
+                    title: 'invailid selection',
+                    message: "please select quiz and students to assign quiz"
+                })
+            }
+        })
+        Array.prototype.remove = function () {
+            var what, a = arguments, L = a.length, ax;
+            while (L && this.length) {
+                what = a[--L];
+                while ((ax = this.indexOf(what)) !== -1) {
+                    this.splice(ax, 1);
+                }
+            }
+            return this;
+        };
+
+    </script>
+</body>
+
+</html>

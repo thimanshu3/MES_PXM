@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assign Faculty</title>
+
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+</head>
+<style>
+    * {
+        outline: 0;
+    }
+
+    ul.ks-cboxtags {
+        list-style: none;
+        padding: 20px;
+    }
+
+    ul.ks-cboxtags li {
+        display: inline;
+
+    }
+
+    ul.ks-cboxtags li label {
+        background-color: rgba(255, 255, 255, .9);
+        border: 2px solid rgba(139, 139, 139, .3);
+        color: #adadad;
+        border-radius: 25px;
+        white-space: nowrap;
+        margin: 5px 0px;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        transition: all .2s;
+    }
+
+    ul.ks-cboxtags li label {
+        padding: 8px 12px;
+        cursor: pointer;
+    }
+
+    ul.ks-cboxtags li label::before {
+        font-style: normal;
+        font-variant: normal;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        font-size: 12px;
+        padding: 2px 6px 2px 2px;
+        content: "\f067";
+        transition: transform .3s ease-in-out;
+    }
+
+    ul.ks-cboxtags li input[type="checkbox"]:checked+label::before {
+        content: "\f00c";
+        transform: rotate(-360deg);
+        transition: transform .3s ease-in-out;
+    }
+
+    ul.ks-cboxtags li input[type="checkbox"]:checked+label {
+        border: 2px solid #1bdbf8;
+        background-color: #12bbd4;
+        color: #fff;
+        transition: all .2s;
+    }
+
+    ul.ks-cboxtags li input[type="checkbox"] {
+        display: absolute;
+    }
+
+    ul.ks-cboxtags li input[type="checkbox"] {
+        position: absolute;
+        opacity: 0;
+    }
+
+    ul.ks-cboxtags li input[type="checkbox"]:focus+label {
+        border: 2px solid #e9a1ff;
+    }
+
+
+
+    .align-top {
+        vertical-align: top !important;
+    }
+
+    .align-middle {
+        vertical-align: middle !important;
+    }
+
+    .d-inline-block {
+        display: inline-block !important;
+    }
+
+
+    .m-b-0 {
+        margin-bottom: 0px;
+    }
+
+    .m-r-15 {
+        margin-right: 15px;
+    }
+
+    .img-radius {
+        border-radius: 50%;
+    }
+
+    .user-profile-list table tbody tr:hover td {
+        cursor: pointer;
+        color: #fff;
+        background: #7267EF;
+    }
+
+    .user-profile-list table tbody tr:hover td h6 {
+        color: #fff;
+    }
+
+    .user-profile-list table tr td {
+        vertical-align: middle;
+        border: none;
+    }
+
+    .user-profile-list table tr td {
+        background: #fff;
+        position: relative;
+    }
+
+    .user-profile-list table tr td:first-child {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+    .inputGroup {
+        background-color: #fff;
+        display: block;
+        margin: 10px 0;
+        position: relative;
+    }
+
+    .inputGroup label {
+        padding: 12px 30px;
+        width: 100%;
+        display: block;
+        text-align: left;
+        color: #3C454C;
+        cursor: pointer;
+        position: relative;
+        z-index: 2;
+        -webkit-transition: color 200ms ease-in;
+        transition: color 200ms ease-in;
+        overflow: hidden;
+    }
+
+    .inputGroup label:before {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        content: '';
+        background-color: #5562eb;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%) scale3d(1, 1, 1);
+        transform: translate(-50%, -50%) scale3d(1, 1, 1);
+        -webkit-transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 0;
+        z-index: -1;
+    }
+
+    .inputGroup label:after {
+        width: 32px;
+        height: 32px;
+        content: '';
+        border: 2px solid #D1D7DC;
+        background-color: #fff;
+        background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
+        background-repeat: no-repeat;
+        background-position: 2px 3px;
+        border-radius: 50%;
+        z-index: 2;
+        position: absolute;
+        right: 30px;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        cursor: pointer;
+        -webkit-transition: all 200ms ease-in;
+        transition: all 200ms ease-in;
+    }
+
+    .inputGroup input:checked~label {
+        color: #fff;
+    }
+
+    .inputGroup input:checked~label:before {
+        -webkit-transform: translate(-50%, -50%) scale3d(56, 56, 1);
+        transform: translate(-50%, -50%) scale3d(56, 56, 1);
+        opacity: 1;
+    }
+
+    .inputGroup input:checked~label:after {
+        background-color: #54E0C7;
+        border-color: #54E0C7;
+    }
+
+    .inputGroup input {
+        width: 32px;
+        height: 32px;
+        -webkit-box-ordinal-group: 2;
+        order: 1;
+        z-index: 2;
+        position: absolute;
+        right: 30px;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        cursor: pointer;
+        visibility: hidden;
+    }
+</style>
+
+<body>
+
+    <%-include('../partials/config')%>
+
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="fas fa-link icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>Faculty assignment
+                                    <div class="page-title-subheading">
+                                        <div class="d-flex justify-content-center ">
+                                            Assign semester and specialization to the Faculty.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="loginReport" class="mb-0 table table-borderless table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Full Name</th>
+                                                    <th>specialization</th>
+                                                    <th>Email</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Full Name</th>
+                                                    <th>specialization</th>
+                                                    <th>Email</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <% const colors = ["g", "alternate", "info", "success", "primary",
+                                                "warning", "dark", "secondary", "soft-link", "soft-dark", "soft-info",
+                                                "soft-warning", "soft-danger", "soft-success", "soft-secondary",
+                                                "soft-primary"]; %>
+                                                <%faculties.forEach((item, index) => {%>
+                                                <tr class="align-baseline">
+                                                    <td><%= (index+1) %> </td>
+                                                    <td class="sorting_1 align-baseline">
+                                                        <div
+                                                            style="<%=item.isHOD ? ' border-left: .25rem solid #4e73df!important;border: 1px solid #e3e6f0;border-radius: .35rem;' : '' %>">
+                                                            <div class=" d-inline-block card-body">
+                                                                <img src="/uploads/userProfile/<%=item.profileImageSource%>"
+                                                                    alt="user image" class="img-radius align-middle img
+                                                                     m-r-15" style="width:40px;">
+                                                                <div class="d-inline-block align-middle">
+                                                                    <h6 class="m-b-0"><%= item.firstName %>
+                                                                        <%= item.lastName %></h6>
+                                                                    <% if(item.isHOD){ %>
+                                                                    <p class="m-b-0"><span
+                                                                            style="background: #f6e3da; color: #d31313;border-color: #daf6e7; font-size: 10px;"
+                                                                            class="badge badge-sm ">
+                                                                            Hod - <%=item.hodSpecializationName%>
+                                                                        </span>
+                                                                    </p>
+                                                                    <% } %>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td
+                                                        class="align-baseline badge p-1 badge-<%= colors[item.specialization]%>">
+                                                        <%= specializations[item.specialization] %>
+                                                    </td>
+                                                    <td><span
+                                                            class="badge badge-pill badge-light"><%= item.email %></span>
+                                                    </td>
+                                                    <td class="d-flex" id="<%=item.id + '-assign-button-td'%>">
+                                                        <% if(!item.isHOD){ %>
+                                                        <button class="btn btn-link btn-sm"
+                                                            onclick="assignFaculty('<%= item.id %>' , '<%= item.firstName %>' , '<%= item.lastName %>' , '<%=item.profileImageSource%>', '<%=specializations[item.specialization]%>')"
+                                                            data-target=".bd-example-modal-sm" data-toggle="modal">
+                                                            <i class="fas fa-link"></i>
+                                                        </button>
+                                                        <button class="ml-2 btn btn-sm btn-link"
+                                                            data-target=".bd-example-modal-sm2" data-toggle="modal"
+                                                            onclick="openHodAssignModal('<%= JSON.stringify(specializations)%>','<%= item.id %>')">
+                                                            Make HoD
+                                                        </button>
+                                                        <% } else { %>
+                                                        <button class="ml-2 btn btn-sm btn-danger"
+                                                            data-original-title="Remove From HoD Role"
+                                                            data-toggle="tooltip" title="" data-placement="top"
+                                                            onclick="removeHodRole('<%=item.id%>')">
+                                                            Remove HoD
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                        <% } %>
+                                                    </td>
+                                                </tr>
+                                                <%})%>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+        style="display: none;" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-5">
+                                <img style="width: 100%;" id="facProImag" class="rounded img">
+                            </div>
+                            <div class="col">
+                                <h4 class="card-title text-dark" id="facName"></h4>
+                                <h6><span class="badge badge-sm badge-info" id="facSpec"></span>
+                                </h6>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="text-center">
+                            <span class="text-uppercase text-secondary">
+                                Select Semeters to assgin
+                            </span>
+
+                        </div>
+                        <div class="d-flex justify-content-center ">
+                            <span id="loader" style="display: none;" class="text-center mt-4"><i
+                                    class="spinner spinner-dark spinner-right"></i></span>
+                        </div>
+
+                        <ul class="ks-cboxtags" id="semesterList">
+
+                        </ul>
+                        <hr>
+                        <div class="text-center">
+                            <span class="text-uppercase text-secondary">
+                                Select Specialization to assgin
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-center ">
+                            <span id="loader2" style="display: none;" class="text-center mt-4"><i
+                                    class="spinner spinner-dark spinner-right"></i></span>
+                        </div>
+                        <ul class="ks-cboxtags" id="specializationsList">
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button id="facultyId" onclick="postAssignFaculty()" class="btn btn-link"
+                        data-dismiss="modal">Assign
+                        &nbsp;<i class="fas fa-check"></i></button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- second modal  -->
+    <div class="modal bd-example-modal-sm2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+        style="display: none;" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="text-center border-bottom">
+                        <span class="text-uppercase text-secondary">
+                            Select Specialization to assgin
+                        </span>
+                    </div>
+                    <br>
+                    <div id="specialization-hod" class="col-12">
+
+                    </div>
+                    <hr>
+                    <div class="text-center">
+                        <span class="text-danger">
+                            <b>*</b> do you want to make this faculty as HoD ?
+                        </span>
+                        <div class="col-12 mt-4">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="hodAgreeCheck">
+                                <label class="form-check-label" for="hodAgreeCheck">Yes, i want to make this faculty as
+                                    HoD</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="hodModal" class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        var globleFacultyId;
+        $(document).ready(function () {
+            var selectBoxSearch = [2];
+            var table = $('#loginReport').DataTable({
+                searching: true,
+                paging: true,
+                pageLength: 50,
+                info: false,
+                scrollCollapse: true,
+                scrollY: '60vh',
+                initComplete: function () {
+                    // Apply the search
+                    this.api().columns().every(function (index) {
+                        if (selectBoxSearch.includes(index)) {
+                            var column = this;
+                            var select = $('<select class="form-control-sm form-control"><option value=""></option></select>')
+                                .appendTo($(column.footer()).empty())
+                                .on('change', function () {
+                                    var val = $.fn.dataTable.util.escapeRegex(
+                                        $(this).val()
+                                    );
+
+                                    column
+                                        .search(val ? '^' + val + '$' : '', true, false)
+                                        .draw();
+                                });
+
+                            column.data().unique().sort().each(function (d, j) {
+                                select.append('<option value="' + d + '">' + d + '</option>')
+                            });
+                        }
+                        var that = this;
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+                    });
+                }
+            });
+        })
+
+        const assignFaculty = (id, fn, ln, prof, sp) => {
+            $('#semesterList').empty()
+            $('#specializationsList').empty()
+            $('#facProImag').attr("src", `/uploads/userProfile/${prof}`);
+            $('#facultyId').attr("faculty-Id", `${id}`);
+            $('#facName').text(`${fn} ${ln}`)
+            $('#facSpec').text(`${sp}`)
+            $('#loader').show()
+            $('#loader2').show()
+
+            fetch(`/spoc/assignFaculty/${id}`)
+
+                .then(function (res) {
+                    return res.json()
+                })
+                .then(function (json) {
+                    if (json.status == 404)
+                        iziToast.error({
+                            message: json.message
+                        })
+                    else if (json.status == 500)
+                        iziToast.error({
+                            title: json.message,
+                            message: json.error
+                        })
+                    else if (json.status == 200) {
+                        $('#loader').hide()
+                        $('#loader2').hide()
+
+                        let semesters = ''
+                        let specializations = ''
+
+                        json.data.semesters.forEach(a => {
+                            let checked = (a.isAssigned ? 'checked' : '');
+                            semesters += `
+                               <li><input name="semester" type="checkbox" id="${a.value}" value="${a.value}" ${checked}><label for="${a.value}">${a.value}&nbsp;sem
+                                </label>
+                            </li>
+                            `
+                        });
+
+
+                        json.data.specializations.forEach(b => {
+                            let checked = (b.isAssigned ? 'checked' : '');
+                            specializations += `
+                              <li><input name="specialization" type="checkbox" id="special${b.id}" value="${b.id}" ${checked}><label for="special${b.id}">${b.name}
+                                </label>
+                            </li> 
+                            `
+                        })
+
+                        $('#semesterList').append(semesters)
+                        $('#specializationsList').append(specializations)
+                    }
+                    else
+                        iziToast.error({
+                            message: 'Something Went Wrong!'
+                        })
+                })
+                .catch(err => console.log(err))
+        }
+
+
+        const postAssignFaculty = () => {
+
+            let semesters = [];
+            let specializations = [];
+            const id = $('#facultyId').attr("faculty-Id");
+
+            $.each($("input[name='semester']:checked"), function () {
+                let obj = {}
+                obj.value = parseInt($(this).val())
+                obj.isAssigned = true
+                semesters.push(obj)
+            });
+
+            $.each($("input[name='specialization']:checked"), function () {
+                let obj = {}
+                obj.id = parseInt($(this).val())
+                obj.isAssigned = true
+                specializations.push(obj)
+            });
+
+            if (semesters.length == 0)
+                iziToast.error({
+                    title: "empty",
+                    message: "select atleast one semester"
+                })
+
+            if (specializations.length == 0)
+                iziToast.error({
+                    title: "empty",
+                    message: "select atleast one specialization"
+                })
+
+            if (!semesters.length == 0 && !specializations.length == 0) {
+                fetch('/spoc/assignFaculty', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        facultyId: id,
+                        semesters,
+                        specializations
+                    })
+                })
+                    .then(function (res) {
+                        return res.json()
+                    })
+                    .then(function (json) {
+                        if (json.status == 200)
+                            iziToast.success({
+                                message: json.message
+                            })
+                        else if (json.status == 400)
+                            iziToast.error({
+                                title: json.message,
+                                message: json.error
+                            })
+                        else
+                            iziToast.error({
+                                message: json.message
+                            })
+                    })
+                    .catch(err => console.log(err))
+            }
+        }
+
+        const openHodAssignModal = (allSpec, fId) => {
+            globleFacultyId = fId;
+            $('#hodAssignSubmitBtn').remove()
+            $('#hodAgreeCheck').prop("checked", false);
+            let allSpecilizations = JSON.parse(allSpec)
+            $('#specialization-hod').empty()
+            let item = ''
+            Object.keys(allSpecilizations).forEach((a, index) => {
+                item += `<div class="inputGroup">
+                            <input id="spec-${index}" name="hodspec" value="${a}" type="radio"/>
+                            <label for="spec-${index}">${allSpecilizations[a]}</label>
+                        </div>`
+                index++;
+            })
+            $('#specialization-hod').append(item);
+
+        }
+
+        $("#hodAgreeCheck").change(function () {
+            if ($('input[name=hodspec]').is(':checked')) {
+                var ischecked = $(this).is(':checked');
+                if (ischecked) {
+                    $('#hodModal').append(`<button id="hodAssignSubmitBtn"  onclick="postAssignHoD()" class="btn btn-link"
+                        data-dismiss="modal" > Sure,
+                    Submit
+                    &nbsp; <i class="fas fa-arrow-right"></i></button > `)
+                } else {
+                    $('#hodAssignSubmitBtn').remove()
+                }
+            }
+            else {
+                $('#hodAgreeCheck').prop("checked", false);
+                $('#hodAssignSubmitBtn').remove()
+                iziToast.error({
+                    title: "Specialization not selected",
+                    message: "Please select one specialization to assign"
+                })
+
+            }
+        });
+
+        function postAssignHoD() {
+            fetch('/spoc/assignFaculty/hod', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    specializationId: $('input[name=hodspec]:checked').val(),
+                    facultyId: globleFacultyId
+                })
+            })
+                .then(function (res) {
+                    return res.json()
+                })
+                .then(function (json) {
+                    if (json.status === 201) {
+                        location.reload(true)
+                    } else {
+                        iziToast.error({
+                            message: json.message || 'Something Went Wrong!'
+                        })
+                    }
+                })
+                .catch(console.log)
+        }
+
+        function removeHodRole(facultyId) {
+            iziToast.question({
+                timeout: 20000,
+                close: false,
+                overlay: true,
+                displayMode: 'once',
+                id: 'question',
+                zindex: 999,
+                title: 'Hey',
+                message: 'Are you sure about that?',
+                position: 'center',
+                buttons: [
+                    ['<button><b>YES</b></button>', function (instance, toast) {
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                        fetch('/spoc/assignFaculty/hod/' + facultyId, {
+                            method: 'DELETE'
+                        }).then(function (res) {
+                            return res.json()
+                        }).then(function (json) {
+                            location.reload(true)
+                        }).catch(console.log)
+                    }, true],
+                    ['<button>NO</button>', function (instance, toast) {
+
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                    }],
+                ],
+                onClosing: function (instance, toast, closedBy) {
+                    console.info('Closing | closedBy: ' + closedBy);
+                },
+                onClosed: function (instance, toast, closedBy) {
+                    console.info('Closed | closedBy: ' + closedBy);
+                }
+            });
+        }
+
+        $(".img")
+            .on('load', function () { console.log("image loaded correctly"); })
+            .on('error', function () { console.log($(this).attr('src', '/uploads/userProfile/default-user.png')); })
+            ;
+    </script>
+</body>
+
+</html>

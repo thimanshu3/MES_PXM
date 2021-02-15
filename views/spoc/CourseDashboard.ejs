@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=course.name%></title>
+
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="stylesheet" href="/css/loader.css">
+    <link rel="stylesheet" href="/css/coursedashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+
+</head>
+<style>
+    *,
+    html,
+    body {
+        font-family: 'Comfortaa', cursive;
+    }
+
+
+    header {
+        display: grid;
+        grid-template-areas: "hero";
+        -webkit-box-align: center;
+        align-items: center;
+        height: 65vh;
+        max-height: 600px;
+        background-color: #f9fbfd;
+    }
+
+    header>* {
+        grid-area: hero;
+    }
+
+    header img {
+        -o-object-fit: cover;
+        object-fit: cover;
+        -o-object-position: 5vw -5vmin;
+        object-position: 5vw -5vmin;
+        height: 100%;
+        width: 80%;
+        justify-self: end;
+        -webkit-transition: 180ms width ease-in;
+        transition: 180ms width ease-in;
+    }
+
+    @media (min-width: 60rem) {
+        header img {
+            width: 60%;
+        }
+    }
+
+    header .hero__content {
+        margin: 1rem 0 1rem 5%;
+        max-width: 35%;
+        min-width: 30ch;
+        z-index: 1;
+        background-color: rgba(249, 251, 253, 0.8);
+        border-radius: 1rem;
+        padding: 0.5rem 0.5rem 0.5rem 0;
+    }
+
+    header .hero__content h1 {
+        font-size: 3rem;
+        color: #3c87b3;
+        font-weight: 500;
+        margin: 0 0 1rem;
+    }
+
+    header .hero__content p {
+        font-size: 1.25rem;
+        color: #5b7788;
+    }
+</style>
+
+<body>
+
+    <%-include('../partials/config')%>
+
+
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <div class="app-sidebar sidebar-shadow" style="overflow-y: scroll;">
+                <div class="app-header__logo">
+                    <div class="logo-src"></div>
+                    <div class="header__pane ml-auto">
+                        <div>
+                            <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                                data-class="closed-sidebar">
+                                <span class="hamburger-box">
+                                    <span class="hamburger-inner"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-header__mobile-menu">
+                    <div>
+                        <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="app-header__menu">
+                    <span>
+                        <button type="button"
+                            class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                            <span class="btn-icon-wrapper">
+                                <i class="fa fa-ellipsis-v fa-w-6"></i>
+                            </span>
+                        </button>
+                    </span>
+                </div>
+
+                <ul class="services-c mt-4" style="width: 100%;">
+                    <li>
+                        <ul class="ordered-chapters p-0">
+                            <!-- unit -->
+                            <%Object.keys(courseContent).forEach(key => {%>
+                            <li class="p-1 collapsed" data-toggle="collapse"
+                                data-target="#id-<%=courseContent[key].id%>" id="<%=courseContent[key].id%>"
+                                href="#id-<%=key%>" role="button">
+                                <span style="cursor:pointer;">
+                                    Unit - <%=courseContent[key].unitNumber%>
+                                </span>
+                                <ul class="collapse p-0" id="id-<%=key%>" style="list-style: none;">
+                                    <!-- topics -->
+                                    <%courseContent[key].topics.forEach(t => {%>
+                                    <li class="p-0 list">
+                                        <a href="#" class="nostyle">
+                                            <div id="topic-<%=t.objectResourceId%>"
+                                                class="_1izmd02f rc-NavSingleItemDisplay d-flex">
+
+                                                <!-- condition div end -->
+                                                <div onclick="getCourseContent('<%=t.objectResourceId%>')">
+                                                    <div class="rc-NavItemName caption-text">
+                                                        <span class="rc-A11yScreenReaderOnly"><%=t.name%></span>
+                                                        <%=t.name%>
+                                                    </div>
+                                                    <span class="rc-EffortText caption-text text-hint">
+                                                        <%=t.duration%> min
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <%})%>
+                                    <!-- topics end -->
+                                </ul>
+                            </li>
+                            <hr>
+                            <%})%>
+                            <!-- unit end -->
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon" style="padding: 0.1rem;">
+                                    <img src="/uploads/courseImages/<%=course.imageSource%>"
+                                        style="width: 100%;object-fit:cover;" height="100%">
+                                </div>
+                                <div><%=course.name%>
+                                    <div class="page-title-subheading">
+                                        <a href="/spoc/courses" class="text-center text-dark"
+                                            style="text-decoration: none;">
+                                            <i class="fas fa-arrow-left fa-fw"></i>&emsp;Back
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- loader -->
+                    <div id="loader">
+                        <div>
+                            <div class="sk-folding-cube">
+                                <div class="sk-cube1 sk-cube shadow-lg"></div>
+                                <div class="sk-cube2 sk-cube shadow-lg"></div>
+                                <div class="sk-cube4 sk-cube shadow-lg"></div>
+                                <div class="sk-cube3 sk-cube shadow-lg"></div>
+                            </div>
+                            <center>
+                                <strong>
+                                    <h4>Fetching your Topic...</h4>
+                                </strong>
+                            </center>
+                        </div>
+                    </div>
+                    <!-- loader end -->
+                    <div class="col-12  mb-4">
+                        <header id="BannerHero">
+                            <div class="hero__content">
+                                <h1>Hey</h1>
+                                <p>Expand <span class="text-danger">UNIT</span> list to view <span
+                                        class="text-primary">TOPICS</span></p>
+                                <a href="#" class="button"><i class="fas fa-back"></i></a>
+                            </div>
+                            <img src="https://miro.medium.com/max/2786/1*CLl6k5r7TiObVrJUCkP_Hw.png"
+                                alt="Illustration from the Happy Bunch collection by Pablos Stanley">
+                        </header>
+                        <div id="course-content">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+    <script>
+        function validate() {
+            if ($("#course-content").find("#me").length > 0) {
+                document.getElementById('BannerHero').style.display = "none";
+            }
+            else {
+                document.getElementById('BannerHero').style.display = "grid";
+            }
+        }
+        $(function () {
+            validate()
+        });
+
+    </script>
+    <script>
+        $(window).on('load', function () {
+            $("#loader").fadeOut(1000);
+            if (localStorage.getItem("currentId") && localStorage.getItem("content")) {
+                let courseID = document.getElementsByClassName("collapsed")[0].id;
+                if (courseID == localStorage.getItem("PreviousCourseID")) {
+                    $('#course-content').empty()
+                    $('#course-content').append(`<div id="me">${localStorage.getItem("content")}</div>`)
+                    let previousId = localStorage.getItem("currentId")
+                    validate()
+                    let previous = document.getElementById(`topic-${previousId}`)
+                    $('.list a .rc-NavSingleItemDisplay').removeClass('active-topic');
+                    previous.classList.add("active-topic")
+                }
+                else {
+                    localStorage.clear()
+                }
+            }
+        });
+
+
+
+    </script>
+
+    <script>
+        async function getCourseContent(id) {
+            localStorage.setItem("currentId", id)
+            let curruent = document.getElementById(`topic-${id}`)
+            await $('.list a .rc-NavSingleItemDisplay').removeClass('active-topic');
+            await curruent.classList.add("active-topic")
+            $("#loader").show()
+            fetch(`/courseContent/${id}`)
+                .then(res => res.json())
+                .then(json => {
+                    if (json.message)
+                        return iziToast.error({
+                            title: 'Error',
+                            message: json.message,
+                            position: 'topRight'
+                        })
+                    if (json.data) {
+                        $("#loader").fadeOut(1000);
+                        localStorage.setItem("content", json.data)
+                        localStorage.setItem("PreviousCourseID", document.getElementsByClassName("collapsed")[0].id)
+                        $('#course-content').empty()
+                        $('#course-content').append(`<div id="me">${json.data}</div>`)
+                        $(".app-main_inner").scrollTop()
+                        validate()
+                        return
+                    }
+                    $("#loader").fadeOut(1000);
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Something Went Wrong!',
+                        position: 'topRight'
+                    })
+                })
+                .catch(err => { console.log(err); $("#loader").fadeOut(1000); })
+        }
+    </script>
+
+</body>
+
+</html>

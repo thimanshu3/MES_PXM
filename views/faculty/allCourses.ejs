@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBM Courses</title>
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="stylesheet" href="/css/cards.css">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+</head>
+<style>
+    *,
+    ::after,
+    ::before {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: .25em .4em;
+        font-size: 75%;
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25rem;
+        -webkit-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+        .badge {
+            -webkit-transition: none;
+            transition: none;
+        }
+    }
+
+    .badge:empty {
+        display: none;
+    }
+
+    .badge-pill {
+        padding-right: .6em;
+        padding-left: .6em;
+        border-radius: 10rem;
+    }
+
+    .position-absolute {
+        position: absolute !important;
+    }
+
+    @media print {
+
+        *,
+        ::after,
+        ::before {
+            text-shadow: none !important;
+            -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+        }
+
+        .badge {
+            border: 1px solid #000;
+        }
+    }
+
+    ::selection {
+        background: #aabfc9;
+    }
+
+    ::-moz-selection {
+        background: #aabfc9;
+    }
+
+    .badge-theme-1 {
+        background-color: #145388 !important;
+        color: #fff;
+    }
+
+    .badge {
+        padding: .6em .75em;
+        font-size: 74%;
+    }
+
+    .badge.badge-pill {
+        padding-right: 1.25em;
+        padding-left: 1.25em;
+    }
+
+    .badge.badge-top-left {
+        top: 10px;
+        left: -7px;
+    }
+</style>
+
+<body>
+
+    <%-include('../partials/config')%>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="fas fa-book-reader icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>Courses List
+                                    <div class="page-title-subheading">
+                                        <div class="d-flex justify-content-center ">
+                                            All courses assigned to your college under your specialization track.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <% if(courses.length === 0) {%>
+                            <div class="border col-12">
+                                <div class="card-body text-center">
+                                    <!-- Image -->
+                                    <img src="/assets/images/undraw_empty.svg" alt="..." class="img-fluid"
+                                        style="max-width: 182px;">
+
+                                    <!-- Title -->
+                                    <h1>
+                                        No Course available
+                                    </h1>
+
+                                    <!-- Subtitle -->
+                                    <p class="text-muted">
+                                        Ask SPoC to assign you &nbsp;<a style="text-decoration: none;" href="#"><b
+                                                class="text-primary">COURSES</b></a> based on
+                                        your specialization track.
+                                    </p>
+
+                                </div>
+                            </div>
+                            <%} else{%>
+                            <%courses.forEach(course => {%>
+                            <div class="col-sm-6 col-md-4 col-lg-3">
+                                <div class="card" style="min-height: 400px; max-height: 400px; width: 100%;">
+                                    <img src="/uploads/courseImages/<%=course.imageSource%>" class="card-img-top img"
+                                        style=" height: 120px;">
+                                    <span
+                                        class="badge badge-pill badge-info position-absolute badge-top-left"><%=course.iceCourseCode%></span>
+                                    <div class="card-body">
+                                        <p class="h5 card-title"><%=course.name%></p>
+                                        <p class="card-text text-sm">
+                                            <small
+                                                style="overflow: hidden;text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 7; line-height: 1.1rem; -webkit-box-orient: vertical;"
+                                                class="text-dark"><%=course.description%></small>
+                                        </p>
+                                    </div>
+                                    <div class="text-center d-flex card-footer">
+                                        <a href="/faculty/courses/<%=course.id%>"
+                                            class="border-0 btn-transition btn btn-block btn-outline-primary">
+                                            View <i class="fas fa-eye ml-1"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <%})}%>
+                        </div>
+                    </div>
+                </div>
+                            <%-include('../partials/footerpage.ejs')%>
+
+            </div>
+        </div>
+    </div>
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+    <script>
+        $(".img")
+            .on('load', function () { console.log("image loaded correctly"); })
+            .on('error', function () { console.log($(this).attr('src', '/uploads/courseImages/default-course.png')); })
+            ;
+    </script>
+</body>
+
+</html>

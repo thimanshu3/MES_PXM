@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Assignments</title>
+
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+</head>
+<style>
+    /*! CSS Used from: Embedded */
+    .fa {
+        font-family: 'FontAwesome';
+    }
+
+    .fa {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .full-width {
+        width: 100% !important;
+    }
+
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+    .d-block {
+        display: block;
+    }
+
+    .double-wrap {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+    }
+
+    .fa {
+        font-family: FontAwesome !important;
+    }
+
+    .listing img {
+        max-width: 100px;
+        max-height: 100px;
+        display: block;
+        margin: 0 auto;
+        overflow: hidden;
+        font-size: 11px;
+        line-height: 12px;
+    }
+
+    .listing {
+        padding: 15px;
+        background: #fff;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(19, 74, 159, .1);
+        display: flex;
+        position: relative;
+    }
+
+    .listing .wrapper_left {
+        width: calc(100% - 200px);
+        padding-right: 15px;
+        display: flex;
+    }
+
+    .listing .img {
+        width: 142px;
+        border-radius: 8px;
+        border: 1px solid #ececec;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 90px;
+        overflow: hidden;
+        transition: .3s;
+        position: relative;
+        box-shadow: 1px 1px 7px rgba(0, 0, 0, .2);
+        z-index: 0;
+    }
+
+    .listing .img img {
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 8px;
+    }
+
+    .listing .cptn {
+        width: calc(100% - 100px);
+        padding-left: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .listing .title {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .listing h2 {
+        margin: 0;
+        font-size: 14px;
+        line-height: 19px;
+        color: #000;
+        width: calc(100% - 250px);
+        padding-right: 5px;
+        transition: .3s;
+    }
+
+    .listing h3 {
+        font-size: 12px;
+        line-height: 16px;
+        color: #484848;
+        font-weight: 400;
+        margin: 5px 0 0;
+    }
+
+    .listing .btm_sect,
+    .listing .date {
+        display: flex;
+        align-items: center;
+    }
+
+    .listing .date {
+        font-size: 12px;
+        color: #176ede;
+        font-weight: 600;
+    }
+
+    .listing .date img {
+        width: 16px;
+        margin-right: 5px;
+    }
+
+    .listing .tags {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: calc(100% - 185px);
+    }
+
+    .listing .wrapper_right {
+        width: 265px;
+        border-left: 1px solid #d0e2eb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .listing .registered {
+        width: calc(100% - 100px);
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: space-around;
+        padding-right: 15px;
+    }
+
+    .small {
+        font-size: 12px;
+    }
+
+    .medium-margin-right {
+        margin-right: 10px;
+    }
+
+    .fa {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .fa-users:before {
+        content: "\f0c0";
+    }
+
+    .listing:hover .img {
+        transform: scale(1.05);
+    }
+
+    .listing:hover h2 {
+        color: #176ede;
+    }
+
+    @media (max-width:1024px) {
+        .listing {
+            flex-wrap: wrap;
+            position: relative;
+            padding: 12px 12px 0;
+            margin: 0 -15px 6px;
+            border-radius: 0;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, .14);
+            border-top: 1px solid #e3e3e3;
+        }
+
+        .listing .wrapper_left,
+        .listing h2 {
+            width: 100%;
+            padding-right: 0;
+        }
+
+        .listing h3 {
+            white-space: normal;
+        }
+
+        .listing .img {
+            width: 132px;
+            height: 74px;
+        }
+
+        .listing .cptn {
+            width: calc(100% - 132px);
+            padding-left: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .listing .wrapper_right {
+            width: 100%;
+            border-left: 0;
+        }
+    }
+
+    .listing .ribbon {
+        width: 260px;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .listing .ribbon div {
+        border-radius: 10px;
+        line-height: 14px;
+        display: inline-block;
+        padding: 2px 7px;
+        font-weight: 600;
+        margin-right: 5px;
+    }
+
+    .page-separator {
+        position: relative;
+        color: #868e96;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        z-index: 0;
+    }
+
+    .page-separator {
+        margin-bottom: 1rem;
+    }
+
+    .page-separator:before {
+        content: "";
+        height: 1px;
+        width: 100%;
+        top: 50%;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .page-separator:before {
+        background-color: rgba(0, 0, 0, .1);
+    }
+
+    .page-separator:before {
+        left: 0;
+    }
+
+    .page-separator__text {
+        display: inline-flex;
+        max-width: 90%;
+        text-transform: uppercase;
+        font-size: .9375rem;
+        color: #303956;
+        font-weight: 600;
+        letter-spacing: 2px;
+        font-family: Exo\ 2, Helvetica Neue, Arial, sans-serif;
+    }
+
+    .page-separator__text {
+        border-radius: .25rem;
+        background-color: #f5f7fa;
+    }
+
+    .page-separator__text {
+        padding-right: .5rem;
+    }
+
+    .page-separator__text:hover {
+        text-decoration: none;
+    }
+
+    .page-separator {
+        position: relative;
+        color: #868e96;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        z-index: 0;
+    }
+
+    .page-separator {
+        margin-bottom: 1rem;
+    }
+
+    .page-separator:before {
+        content: "";
+        height: 1px;
+        width: 100%;
+        top: 50%;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .page-separator:before {
+        background-color: rgba(0, 0, 0, .1);
+    }
+
+    .page-separator:before {
+        left: 0;
+    }
+
+    .page-separator__text {
+        display: inline-flex;
+        max-width: 90%;
+        text-transform: uppercase;
+        font-size: .9375rem;
+        color: #303956;
+        font-weight: 600;
+        letter-spacing: 2px;
+        font-family: Exo\ 2, Helvetica Neue, Arial, sans-serif;
+    }
+
+    .page-separator__text {
+        border-radius: .25rem;
+        background-color: #f5f7fa;
+    }
+
+    .page-separator__text {
+        padding-right: .5rem;
+    }
+
+    .page-separator__text:hover {
+        text-decoration: none;
+    }
+
+    .fa {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .full-width {
+        width: 100% !important;
+    }
+
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+    .d-block {
+        display: block;
+    }
+
+    .double-wrap {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+    }
+
+    .fa {
+        font-family: FontAwesome !important;
+    }
+
+    .listing img {
+        max-width: 100px;
+        max-height: 100px;
+        display: block;
+        margin: 0 auto;
+        overflow: hidden;
+        font-size: 11px;
+        line-height: 12px;
+    }
+
+    .listing {
+        padding: 15px;
+        background: #fff;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(19, 74, 159, .1);
+        display: flex;
+        position: relative;
+    }
+
+    .listing .wrapper_left {
+        width: calc(100% - 200px);
+        padding-right: 15px;
+        display: flex;
+    }
+
+    .listing .img {
+        width: 142px;
+        border-radius: 8px;
+        border: 1px solid #ececec;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 90px;
+        overflow: hidden;
+        transition: .3s;
+        position: relative;
+        box-shadow: 1px 1px 7px rgba(0, 0, 0, .2);
+        z-index: 0;
+    }
+
+    .listing .img img {
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 8px;
+    }
+
+    .listing .cptn {
+        width: calc(100% - 100px);
+        padding-left: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .listing .title {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .listing h2 {
+        margin: 0;
+        font-size: 14px;
+        line-height: 19px;
+        color: #000;
+        width: calc(100% - 250px);
+        padding-right: 5px;
+        transition: .3s;
+    }
+
+    .listing h3 {
+        font-size: 12px;
+        line-height: 16px;
+        color: #484848;
+        font-weight: 400;
+        margin: 5px 0 0;
+    }
+
+    .listing .btm_sect,
+    .listing .date {
+        display: flex;
+        align-items: center;
+    }
+
+    .listing .date {
+        font-size: 12px;
+        color: #176ede;
+        font-weight: 600;
+    }
+
+    .listing .date img {
+        width: 16px;
+        margin-right: 5px;
+    }
+
+    .listing .tags {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: calc(100% - 185px);
+    }
+
+    .listing .wrapper_right {
+        width: 265px;
+        border-left: 1px solid #d0e2eb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .listing .registered {
+        width: calc(100% - 100px);
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: space-around;
+        padding-right: 15px;
+    }
+
+    .small {
+        font-size: 12px;
+    }
+
+    .medium-margin-right {
+        margin-right: 10px;
+    }
+
+    .fa {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .fa-users:before {
+        content: "\f0c0";
+    }
+
+    .listing:hover .img {
+        transform: scale(1.05);
+    }
+
+    .listing:hover h2 {
+        color: #176ede;
+    }
+
+    @media (max-width:1024px) {
+        .listing {
+            flex-wrap: wrap;
+            position: relative;
+            padding: 12px 12px 0;
+            margin: 0 -15px 6px;
+            border-radius: 0;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, .14);
+            border-top: 1px solid #e3e3e3;
+        }
+
+        .listing .wrapper_left,
+        .listing h2 {
+            width: 100%;
+            padding-right: 0;
+        }
+
+        .listing h3 {
+            white-space: normal;
+        }
+
+        .listing .img {
+            width: 132px;
+            height: 74px;
+        }
+
+        .listing .cptn {
+            width: calc(100% - 132px);
+            padding-left: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .listing .wrapper_right {
+            width: 100%;
+            border-left: 0;
+        }
+    }
+
+    .listing .ribbon {
+        width: 260px;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .listing .ribbon div {
+        border-radius: 10px;
+        line-height: 14px;
+        display: inline-block;
+        padding: 2px 7px;
+        font-weight: 600;
+        margin-right: 5px;
+    }
+
+    @font-face {
+        font-family: FontAwesome;
+        src: url(https://d8it4huxumps7.cloudfront.net/font/fontawesome-webfont.eot);
+        src: url(https://d8it4huxumps7.cloudfront.net/font/fontawesome-webfont.eot) format('embedded-opentype'), url(https://d8it4huxumps7.cloudfront.net/font/fontawesome-webfont.woff2) format('woff2'), url(https://d8it4huxumps7.cloudfront.net/font/fontawesome-webfont.woff) format('woff'), url(https://d8it4huxumps7.cloudfront.net/font/fontawesome-webfont.ttf) format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+</style>
+
+<body>
+
+    <%-include('../partials/config')%>
+
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="fas fa-users icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>Quiz Assignments
+                                    <div class="page-title-subheading">
+                                        <div class="d-flex justify-content-center ">
+                                            View all your quiz assignments here.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container mb-4">
+                        <div class="page-separator">
+                            <div class="page-separator__text">Live Quizes</div>
+                        </div>
+                        <% if(live.length === 0) {%>
+                        <div class="border col-12">
+                            <div class="card-body text-center">
+                                <!-- Image -->
+                                <img src="/assets/images/undraw_empty.svg" alt="..." class="img-fluid"
+                                    style="max-width: 182px;">
+
+                                <!-- Title -->
+                                <h3>
+                                    No Live Assignments Available
+                                </h3>
+
+                            </div>
+                        </div>
+                        <%} else{
+                         live.forEach(quiz => { %>
+                        <div class="listing ">
+                            <div class="wrapper_left">
+                                <a class="img cursor-pointer" href="/faculty/quizAssignments/<%= quiz.id %>"><img
+                                        class="no-lazy" alt="Ninja Wave"
+                                        src="/uploads/quizImages/<%= quiz.quizImageSource %>"></a>
+                                <div class="cptn">
+                                    <div class="full-width">
+                                        <div class="title">
+                                            <h2 class="double-wrap cursor-pointer df">
+                                                <a class="d-block inherit-color"
+                                                    href="/faculty/quizAssignments/<%= quiz.id %> ">
+                                                    <span style="font-weight: 700;"> <%= quiz.quizName %> </span>
+                                                </a>
+                                            </h2>
+                                            <div class="ribbon align-items-start">
+                                                <div class="start-time-block align-items-start">
+                                                    <div class="small caps light text-secondary label"
+                                                        style="font-weight: 400;">Created by:</div>
+                                                    <div class="regular bold desc">
+                                                        <%= quiz.createdBy %>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <h3 class="double-wrap cursor-pointer "> <%= quiz.title %> </h3>
+                                    </div>
+                                    <div class="btm_sect ">
+                                        <div class="date cursor-pointer ">
+                                            <img alt="<%= quiz.title %>"
+                                                src="https://d8it4huxumps7.cloudfront.net/uploads/images/d2c-images/calendar.svg">
+                                            <%= new Date(quiz.start).toLocaleDateString('en-GB', {
+                                                        year: '2-digit',
+                                                        month: 'short',
+                                                        day: 'numeric'
+                                                    }) %> - <%= new Date(quiz.end).toLocaleDateString('en-GB', {
+                                                        year: '2-digit',
+                                                        month: 'short',
+                                                        day: 'numeric'
+                                                    }) %>
+                                        </div>
+                                        <div class="tags">
+                                            <div class="start-time-block">
+                                                <div class="small caps light label">Created on:</div>
+                                                <div class="regular bold desc dark" style="font-weight: 600">
+                                                    <%= formatDateMoment(quiz.createdAt) %> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrapper_right ">
+                                <div class="registered ">
+                                    <span class="event-participation badge badge-soft-light small medium-margin-right">
+                                        <i class="fa fa-users"></i>
+                                        <%= quiz.numberOfParticipants %> participant
+                                    </span>
+                                    <br>
+                                    <span class="event-participation badge badge-soft-light small medium-margin-right">
+                                        <i class="fa fa-question-circle"></i>
+                                        <%= quiz.numberOfQuestions %> Questions
+                                    </span>
+                                </div>
+
+                            </div>
+                            <!-- <div style="font-size: 12px;color: #dd3136;background: #fff;font-weight: 600;position: absolute;right: 110px;top: -10px;padding: 0 10px 2px;border-radius: 3px;line-height: normal;border: 1px solid rgba(212,28,34,.2);"> Quiz Ended </div> -->
+                        </div>
+                        <% })} %>
+                        <br>
+                        <div class="page-separator">
+                            <div class="page-separator__text">Upcoming Quizes</div>
+                        </div>
+                        <br>
+                        <% if(upcoming.length === 0) {%>
+                        <div class="border col-12">
+                            <div class="card-body text-center">
+                                <!-- Image -->
+                                <img src="/assets/images/undraw_empty.svg" alt="..." class="img-fluid"
+                                    style="max-width: 182px;">
+
+                                <!-- Title -->
+                                <h3>
+                                    No Upcoming Assignments Available
+                                </h3>
+
+                            </div>
+                        </div>
+                        <%} else{
+                         upcoming.forEach(quiz => { %>
+                        <div class="listing ">
+                            <div class="wrapper_left">
+                                <a class="img cursor-pointer" href="/faculty/quizAssignments/<%= quiz.id %>"><img
+                                        class="no-lazy" alt="Ninja Wave"
+                                        src="/uploads/quizImages/<%= quiz.quizImageSource %>"></a>
+                                <div class="cptn">
+                                    <div class="full-width">
+                                        <div class="title">
+                                            <h2 class="double-wrap cursor-pointer df">
+                                                <a class="d-block inherit-color"
+                                                    href="/faculty/quizAssignments/<%= quiz.id %> ">
+                                                    <span style="font-weight: 700;"> <%= quiz.quizName %> </span>
+                                                </a>
+                                            </h2>
+                                            <div class="ribbon align-items-start">
+                                                <div class="start-time-block align-items-start">
+                                                    <div class="small caps light text-secondary label"
+                                                        style="font-weight: 400;">Created by:</div>
+                                                    <div class="regular bold desc">
+                                                        <%= quiz.createdBy %>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <h3 class="double-wrap cursor-pointer "> <%= quiz.title %> </h3>
+                                    </div>
+                                    <div class="btm_sect ">
+                                        <div class="date cursor-pointer ">
+                                            <img alt="<%= quiz.title %>"
+                                                src="https://d8it4huxumps7.cloudfront.net/uploads/images/d2c-images/calendar.svg">
+                                            <%= new Date(quiz.start).toLocaleDateString('en-GB', {
+                                                        year: '2-digit',
+                                                        month: 'short',
+                                                        day: 'numeric'
+                                                    }) %> - <%= new Date(quiz.end).toLocaleDateString('en-GB', {
+                                                        year: '2-digit',
+                                                        month: 'short',
+                                                        day: 'numeric'
+                                                    }) %>
+                                        </div>
+                                        <div class="tags">
+                                            <div class="start-time-block">
+                                                <div class="small caps light label">Created on:</div>
+                                                <div class="regular bold desc dark" style="font-weight: 600">
+                                                    <%= formatDateMoment(quiz.createdAt) %> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrapper_right ">
+                                <div class="registered ">
+                                    <span class="event-participation badge badge-soft-light small medium-margin-right">
+                                        <i class="fa fa-users"></i>
+                                        <%= quiz.numberOfParticipants %> participant
+                                    </span>
+                                    <br>
+                                    <span class="event-participation badge badge-soft-light small medium-margin-right">
+                                        <i class="fa fa-question-circle"></i>
+                                        <%= quiz.numberOfQuestions %> Questions
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <div
+                                style="font-size: 12px;color: #313add;background: #fff;font-weight: 600;position: absolute;right: 110px;top: -10px;padding: 0 10px 2px;border-radius: 3px;line-height: normal;border: 1px solid rgba(28, 83, 212, 0.2);">
+                                Upcoming
+                            </div>
+                        </div>
+                        <% })} %>
+                        <br>
+                        <div class="page-separator">
+                            <div class="page-separator__text">Past Quizes</div>
+                        </div>
+                        <br>
+                        <% if(past.length === 0) {%>
+                        <div class="border col-12">
+                            <div class="card-body text-center">
+                                <!-- Image -->
+                                <img src="/assets/images/undraw_empty.svg" alt="..." class="img-fluid"
+                                    style="max-width: 182px;">
+                                <!-- Title -->
+                                <h3>
+                                    No Past Assignments Available
+                                </h3>
+                            </div>
+                        </div>
+                        <%} else{
+                         past.forEach(quiz => { %>
+                        <div class="listing " style="border: 1px solid #f55c82;">
+                            <div class="wrapper_left">
+                                <a class="img cursor-pointer" href="/faculty/quizAssignments/<%= quiz.id %>"><img
+                                        class="no-lazy" alt="Ninja Wave"
+                                        src="/uploads/quizImages/<%= quiz.quizImageSource %>"></a>
+                                <div class="cptn">
+                                    <div class="full-width">
+                                        <div class="title">
+                                            <h2 class="double-wrap cursor-pointer df">
+                                                <a class="d-block inherit-color"
+                                                    href="/faculty/quizAssignments/<%= quiz.id %> ">
+                                                    <span style="font-weight: 700;"> <%= quiz.quizName %> </span>
+                                                </a>
+                                            </h2>
+                                            <div class="ribbon align-items-start">
+                                                <div class="start-time-block align-items-start">
+                                                    <div class="small caps light text-secondary label"
+                                                        style="font-weight: 400;">Created by:</div>
+                                                    <div class="regular bold desc">
+                                                        <%= quiz.createdBy %>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <h3 class="double-wrap cursor-pointer "> <%= quiz.title %> </h3>
+                                    </div>
+                                    <div class="btm_sect ">
+                                        <div class="date cursor-pointer ">
+                                            <img alt="<%= quiz.title %>"
+                                                src="https://d8it4huxumps7.cloudfront.net/uploads/images/d2c-images/calendar.svg">
+                                            <%= new Date(quiz.start).toLocaleDateString('en-GB', {
+                                                        year: '2-digit',
+                                                        month: 'short',
+                                                        day: 'numeric'
+                                                    }) %> - <%= new Date(quiz.end).toLocaleDateString('en-GB', {
+                                                        year: '2-digit',
+                                                        month: 'short',
+                                                        day: 'numeric'
+                                                    }) %>
+                                        </div>
+                                        <div class="tags">
+                                            <div class="start-time-block">
+                                                <div class="small caps light label">Created on:</div>
+                                                <div class="regular bold desc dark" style="font-weight: 600">
+                                                    <%= formatDateMoment(quiz.createdAt) %> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrapper_right ">
+                                <div class="registered ">
+                                    <span class="event-participation badge badge-soft-light small medium-margin-right">
+                                        <i class="fa fa-users"></i>
+                                        <%= quiz.numberOfParticipants %> participant
+                                    </span>
+                                    <br>
+                                    <span class="event-participation badge badge-soft-light small medium-margin-right">
+                                        <i class="fa fa-question-circle"></i>
+                                        <%= quiz.numberOfQuestions %> Questions
+                                    </span>
+                                </div>
+
+                            </div>
+                            <div
+                                style="font-size: 12px;color: #dd3136;background: #fff;font-weight: 600;position: absolute;right: 110px;top: -10px;padding: 0 10px 2px;border-radius: 3px;line-height: normal;border: 1px solid rgba(212,28,34,.2);">
+                                Quiz Ended </div>
+
+
+                        </div>
+                        <% })} %>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+
+</body>
+
+</html>

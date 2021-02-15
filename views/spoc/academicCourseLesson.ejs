@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=lesson.name%></title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/cards.css">
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/studentCdashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+</head>
+<style>
+    *,
+    html,
+    body {
+        font-family: 'Comfortaa', cursive;
+    }
+
+    * {
+        font-family: 'Comfortaa', cursive;
+    }
+
+    *::after,
+    *,
+    *::before {
+        box-sizing: border-box;
+    }
+
+    a {
+        color: #949393;
+    }
+
+    a,
+    a:hover {
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #3e416d;
+    }
+
+    a {
+        cursor: pointer;
+    }
+
+    h3,
+    h1,
+    h4,
+    p {
+        margin-top: 0;
+    }
+
+    h1,
+    h4,
+    h3 {
+        margin-bottom: .5rem;
+    }
+
+    p {
+        margin-bottom: 1rem;
+    }
+
+    strong {
+        font-weight: bolder;
+    }
+
+    a {
+        background-color: transparent;
+    }
+
+    a {
+        -webkit-text-decoration-skip: objects;
+    }
+
+    p {
+        margin-left: 0;
+    }
+
+    p {
+        margin-right: 0;
+    }
+
+    img {
+        border-bottom-style: none;
+    }
+
+    p {
+        margin-top: 0;
+    }
+
+    img {
+        vertical-align: middle;
+    }
+
+    img {
+        border-left-style: none;
+    }
+
+    img {
+        border-right-style: none;
+    }
+
+    img {
+        border-top-style: none;
+    }
+
+    p {
+        margin-bottom: .104166667in;
+    }
+
+    h3,
+    h1 {
+        margin-bottom: .9375pc;
+    }
+
+    h1 {
+        font-weight: 600;
+    }
+
+    h1 {
+        text-transform: capitalize;
+    }
+
+    h3,
+    h1 {
+        margin-left: 0;
+    }
+
+    h1 {
+        color: #3e416d;
+    }
+
+    h3,
+    h1 {
+        margin-right: 0;
+    }
+
+    h3,
+    h1 {
+        margin-top: 0;
+    }
+
+    h4,
+    h3 {
+        text-transform: capitalize;
+    }
+
+    h3,
+    h4 {
+        font-weight: 600;
+    }
+
+    h3,
+    h4 {
+        color: #3e416d;
+    }
+
+    h4 {
+        margin-left: 0;
+    }
+
+    h4 {
+        margin-bottom: .9375pc;
+    }
+
+    h4 {
+        margin-right: 0;
+    }
+
+    h4 {
+        margin-top: 0;
+    }
+
+    h1 {
+        font-size: .21875in;
+    }
+
+    h1 {
+        line-height: 1.2;
+    }
+
+    h3 {
+        font-size: 1.0625pc;
+    }
+
+    h3,
+    h4 {
+        line-height: 1.4;
+    }
+
+    h4 {
+        font-size: 16px;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    @media (min-width: 960px) {
+        h1 {
+            font-size: 2.1875pc;
+        }
+
+        h1 {
+            font-weight: 600;
+        }
+
+        h3 {
+            font-size: 1.5625pc;
+        }
+
+        h4,
+        h3 {
+            line-height: 1.4;
+        }
+
+        h4 {
+            font-size: 15.75pt;
+        }
+    }
+
+    h4,
+    h1,
+    h3 {
+        margin-left: 0;
+    }
+
+    h1,
+    h3,
+    h4 {
+        margin-bottom: .15625in;
+    }
+
+    h1,
+    h3,
+    h4 {
+        margin-right: 0;
+    }
+
+    h3,
+    h4,
+    h1 {
+        margin-top: 0;
+    }
+
+    h3,
+    h1,
+    h4 {
+        font-weight: 600;
+    }
+
+    h4,
+    h1,
+    h3 {
+        color: #3e416d;
+    }
+
+    h3,
+    h1,
+    h4 {
+        text-transform: capitalize;
+    }
+
+    [class~=container] {
+        padding-right: .9375pc;
+    }
+
+    [class~=container] {
+        padding-left: .15625in;
+    }
+
+    [class~=container] {
+        margin-right: auto;
+    }
+
+    [class~=container] {
+        margin-left: auto;
+    }
+
+
+
+    ::placeholder {
+        color: #808080;
+    }
+
+    ::placeholder {
+        opacity: 1;
+    }
+
+    .container {
+        box-sizing: content-box;
+    }
+
+
+
+    .container {
+        margin-left: auto;
+    }
+
+    .container {
+        margin-right: auto;
+    }
+
+    .container {
+        padding-left: 15px;
+    }
+
+    .container {
+        padding-right: 15px;
+    }
+
+    .container {
+        padding-top: .208333333in;
+    }
+
+    @media (min-width: 960px) {
+        .container {
+            padding-left: 35px;
+        }
+
+        .container {
+            padding-right: 35px;
+        }
+
+        .container {
+            padding-top: 0pc;
+        }
+    }
+
+    [class~=container]::after,
+    [class~=container]::before {
+        content: "";
+    }
+
+    [class~=container-small] {
+        margin-left: auto;
+    }
+
+    .container> :last-child {
+        margin-bottom: 0;
+    }
+
+    [class~=container-small] {
+        margin-right: auto;
+    }
+
+    [class~=container]::before,
+    [class~=container]::after {
+        display: table;
+    }
+
+    [class~=container-small] {
+        max-width: 90%;
+    }
+
+    [class~=container]::after {
+        clear: both;
+    }
+
+    [class~=page-content] {
+        display: block;
+    }
+
+    [class~=page-content] {
+        position: relative;
+    }
+
+    @media (max-width: 1220px) {
+        [class~=page-content] {
+            margin-left: 0px !important;
+        }
+
+        [class~=page-content] {
+            margin-top: 60px !important;
+        }
+    }
+
+    .blog-article-single .blog-article-meta {
+        margin-left: 0 !important;
+    }
+
+    .blog-article-single .blog-article-meta {
+        margin-bottom: .15625in !important;
+    }
+
+    [class~=blog-article-meta] strong {
+        color: #a0a0a0;
+    }
+
+    [class~=blog-article-meta] strong {
+        padding-right: 7.5pt;
+    }
+
+    [class~=blog-article-meta] strong {
+        border-right-width: .0625pc;
+    }
+
+    .blog-article-single .blog-article-meta {
+        margin-right: 0 !important;
+    }
+
+    [class~=blog-article-meta] strong {
+        border-right-style: solid;
+    }
+
+    [class~=blog-article-meta] {
+        padding-left: 0;
+    }
+
+    [class~=blog-article-meta] {
+        padding-bottom: 0;
+    }
+
+    [class~=blog-article-meta] strong {
+        border-right-color: #d0d0d0;
+    }
+
+    [class~=blog-article-meta] {
+        padding-right: 0;
+    }
+
+    [class~=blog-article-meta] {
+        padding-top: 0;
+    }
+
+    [class~=blog-article-meta] {
+        line-height: 1.2;
+    }
+
+    [class~=blog-article-meta] strong {
+        border-image: none;
+    }
+
+    [class~=blog-article-meta] {
+        margin-left: 0pc;
+    }
+
+    [class~=blog-article-meta] a {
+        padding-left: 6pt;
+    }
+
+    .blog-article-single .blog-article-meta {
+        margin-top: .15625in !important;
+    }
+
+    [class~=blog-article-meta] {
+        margin-bottom: .9375pc;
+    }
+
+    [class~=blog-article-meta] a {
+        color: #3e416d;
+    }
+
+    [class~=blog-article-meta] {
+        margin-right: 0pc;
+    }
+
+    [class~=blog-article-meta] a {
+        font-weight: 600;
+    }
+
+    [class~=blog-article-meta] {
+        margin-top: .9375pc;
+    }
+
+    [class~=blog-article-meta] {
+        text-transform: uppercase;
+    }
+
+    [class~=blog-article-meta] {
+        font-size: .8125pc !important;
+    }
+
+    .blog-article-single .blog-article-meta {
+        color: white;
+    }
+
+    [class~=blog-article-content-read] {
+        background-color: white;
+    }
+
+    [class~=blog-article-content-read] {
+        border-radius: .166666667in;
+    }
+
+    [class~=blog-article-content-read] {
+        margin-top: -60pt;
+    }
+
+    [class~=blog-article-content-read],
+    [class~=blog-article-single] {
+        position: relative;
+    }
+
+    [class~=blog-article-content-read] {
+        padding-left: 1.875pc;
+    }
+
+    [class~=blog-article-content-read] {
+        padding-bottom: 1.875pc;
+    }
+
+    [class~=blog-article-content-read] {
+        padding-right: 1.875pc;
+    }
+
+    [class~=blog-article-content-read] {
+        padding-top: 1.875pc;
+    }
+
+    [class~=blog-article-content-read] h4 {
+        margin-top: 1.75pc;
+    }
+
+    [class~=blog-article-single],
+    [class~=blog-auther-user-name],
+    [class~=blog-article-auther] img {
+        width: 100%;
+    }
+
+    [class~=blog-article-single] {
+        height: 322.5pt;
+    }
+
+    [class~=blog-article-content-read] p {
+        line-height: 1.8;
+    }
+
+    [class~=blog-article-content-read] p {
+        font-size: 11.25pt;
+    }
+
+    [class~=blog-article-single] {
+        display: flex;
+    }
+
+    [class~=blog-article-single] {
+        background-size: cover;
+    }
+
+    [class~=blog-article-single] {
+        align-items: center;
+    }
+
+    [class~=blog-article-single] {
+        background-blend-mode: color-burn;
+    }
+
+    [class~=blog-article-content-read] p {
+        letter-spacing: .0125pc;
+    }
+
+    [class~=blog-article-single] {
+        background-color: rgba(0, 0, 0, .4);
+    }
+
+    [class~=blog-article-single] {
+        text-align: center;
+    }
+
+    [class~=blog-article-single] h1 {
+        margin-left: 0;
+    }
+
+    [class~=blog-article-single] {
+        border-radius: 0 0 1.875pc 30px;
+    }
+
+    [class~=blog-article-single] h1 {
+        margin-bottom: .375in;
+    }
+
+    [class~=blog-article-single] h1 {
+        margin-right: 0;
+    }
+
+    [class~=blog-article-single] {
+        padding-bottom: .729166667in;
+    }
+
+    [class~=blog-auther-user-name] {
+        line-height: 13.5pt;
+    }
+
+    [class~=blog-auther-user-name] {
+        padding-left: 0;
+    }
+
+    [class~=blog-article-single] h1 {
+        margin-top: .375in;
+    }
+
+    [class~=blog-article-single] h1 {
+        font-size: 2.1875pc;
+    }
+
+    [class~=blog-auther-user-name] {
+        padding-bottom: 6pt;
+    }
+
+    [class~=blog-auther-user-name] {
+        padding-right: 0;
+    }
+
+    [class~=blog-auther-user-name] {
+        padding-top: 11.25pt;
+    }
+
+    [class~=blog-auther-user-name] {
+        display: block;
+    }
+
+    [class~=blog-auther-user-name],
+    [class~=blog-article-single] h1 {
+        color: white;
+    }
+
+    [class~=blog-auther-user-name] {
+        font-size: 1.125pc;
+    }
+
+    [class~=blog-article-single] h1 {
+        max-width: 9.166666667in;
+    }
+
+    .blog-article-single .blog-article-meta a,
+    .blog-article-single .blog-article-meta strong {
+        color: white;
+    }
+
+    [class~=blog-article-auther] img {
+        width: 37.5pt;
+    }
+
+    [class~=blog-article-auther] img {
+        display: inline-block;
+    }
+
+    [class~=blog-article-auther] img {
+        border-radius: 50%;
+    }
+
+    [class~=blog-article-auther] img {
+        image-rendering: -webkit-optimize-contrast;
+    }
+
+    [class~=blog-article-auther] img {
+        height: 37.5pt;
+    }
+
+    @media (max-width: 768px) {
+        [class~=blog-article-single] h1 {
+            font-size: 1.5625pc;
+        }
+
+        [class~=blog-article-single] h1,
+        [class~=blog-article-content-read] h4 {
+            margin-left: 0;
+        }
+
+        [class~=blog-article-single] h1 {
+            margin-bottom: .3125in;
+        }
+
+        [class~=blog-article-single] h1,
+        [class~=blog-article-content-read] h4 {
+            margin-right: 0;
+        }
+
+        [class~=blog-article-single] h1 {
+            margin-top: .3125in;
+        }
+
+        [class~=blog-article-content-read] h4 {
+            margin-bottom: 0;
+        }
+
+        [class~=blog-article-content-read] h4 {
+            margin-top: 0;
+        }
+
+        [class~=blog-article-single] {
+            width: 100%;
+        }
+
+        [class~=blog-article-single] {
+            height: 300px;
+        }
+
+        [class~=blog-article-content-read] {
+            border-radius: 0;
+        }
+
+        [class~=blog-article-meta] {
+            font-size: .125in !important;
+        }
+    }
+
+    span[class~=item-tag] {
+        font-size: .78125pc;
+    }
+
+    span[class~=item-tag] {
+        font-weight: 600;
+    }
+
+    span[class~=item-tag] {
+        font-weight: 400;
+    }
+
+    span[class~=item-tag] {
+        color: #696969;
+    }
+
+    span[class~=item-tag] {
+        background-color: #fff;
+    }
+
+    span[class~=item-tag] {
+        border-radius: 4px;
+    }
+
+    span[class~=item-tag] {
+        padding-left: 9pt;
+    }
+
+    span[class~=item-tag] {
+        padding-bottom: 3.75pt;
+    }
+
+    span[class~=item-tag] {
+        padding-right: 9pt;
+    }
+
+    span[class~=item-tag] {
+        padding-top: 3.75pt;
+    }
+
+    span[class~=item-tag] {
+        line-height: 15.75pt;
+    }
+
+    span[class~=item-tag] {
+        margin-bottom: .09375in;
+    }
+
+    span[class~=item-tag] {
+        position: absolute;
+    }
+
+    span[class~=item-tag] {
+        top: 30px;
+    }
+
+    span[class~=item-tag] {
+        left: 2pc;
+    }
+
+    span[class~=item-tag] {
+        z-index: 110;
+    }
+
+    span[class~=item-tag] {
+        transition: .4s;
+    }
+
+    a:active,
+    a:hover {
+        outline: none;
+    }
+
+    strong {
+        font-weight: 600;
+    }
+
+    img {
+        vertical-align: middle;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        box-sizing: border-box;
+    }
+
+    ::selection {
+        background: rgb(38, 16, 80);
+        color: #fff;
+        text-shadow: none;
+    }
+
+    @media print {
+
+        *,
+        *::before,
+        *::after {
+            background: transparent !important;
+            color: black !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+
+        a,
+        a:visited {
+            text-decoration: underline;
+        }
+
+        img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+        }
+
+        p,
+        h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h3 {
+            page-break-after: avoid;
+        }
+    }
+
+    .mb-3 {
+        margin-bottom: 1rem !important;
+    }
+
+    .p-0 {
+        padding: 0 !important;
+    }
+
+    @media print {
+
+        *,
+        *::before,
+        *::after {
+            text-shadow: none !important;
+            box-shadow: none !important;
+        }
+
+        a:not(.btn) {
+            text-decoration: underline;
+        }
+
+        img {
+            page-break-inside: avoid;
+        }
+
+        p,
+        h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h3 {
+            page-break-after: avoid;
+        }
+
+
+    }
+
+    [class^="icon-feather-"] {
+        font-family: 'Feather-Icons' !important;
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .icon-feather-arrow-left:before {
+        content: "\e910";
+    }
+</style>
+
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <div class="header-container light-theme">
+            <div class="header">
+                <div class="header__title">
+                    <a class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect header__button header__button--nav"
+                        href="#" onclick="window.top.close()" data-upgraded=",MaterialButton,MaterialRipple">
+                        <i class="fas fa-arrow-left"></i><span class="mdl-button__ripple-container"><span
+                                class="mdl-ripple"></span></span>
+                    </a>
+
+                    <h1 class="headline-5">
+                        <%=lesson.number%>. <%=lesson.name%>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <!-- header/navbar area end -->
+        <div class="app-main">
+            <div class="app-main__outer pl-0">
+                <div class="app-main__inner">
+                    <div class="row">
+                        <div class="col-md-2 col-xl-2 col-lg-2 col-sm-12">
+                            <div class="card"
+                                style="width: 100%;  position: -webkit-sticky;position: sticky; top: 80px;">
+                                <div class="card-body">
+                                    <button id="CloseBtn" class="btn btn-danger btn-block">
+                                        Close This Tab
+                                    </button>
+                                </div>
+                                <div class="card-footer d-flex justify-content-center">
+                                    <span class="text-dark" style="font-size: 13px;">Read time
+                                        <strong class="text-danger">
+                                            <%= lesson.duration %> Min
+                                        </strong>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-10 col-xl-10 col-lg-10 col-sm-12">
+                            <!-- <%-lesson.content%> -->
+                            <div class="page-content">
+                                <div class="blog-article-single" data-src="../assets/images/blog/img-8.jpg" uk-img=""
+                                    style="background-image: url(&quot;https://evie.undraw.co/images/undraw_creation.svg&quot;);">
+                                    <div class="container-small">
+                                        <h4 class="text-white">Outcome :- </h4>
+                                        <h1> <%-lesson.outcome%> </h1>
+                                    </div>
+                                </div>
+                                <div class="container-fluid p-0">
+                                    <!-- Blog Post Content -->
+                                    <div class="container-small blog-article-content-read">
+                                        <%-lesson.content%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+    <script>
+        $('#CloseBtn').on('click', function (e) {
+            window.top.close()
+        })
+    </script>
+
+</body>
+
+
+</html>

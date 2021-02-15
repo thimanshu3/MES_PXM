@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add IBM Course</title>
+
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/cards.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+</head>
+
+<body>
+    <%-include('../partials/config')%>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="fas fa-home icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>Create Course
+                                    <div class="page-title-subheading">
+                                        <div class="d-flex justify-content-center ">
+                                            Create custom course to add on LMS.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="card col-12">
+                            <form action="/admin/addCourse" enctype="multipart/form-data" method="POST">
+                                <div class="card-body">
+                                    <div class="card-body">
+                                        <div class="form-row ">
+                                            <div class="form-group col-md-6">
+                                                <label for="name"><b class="text-danger">*</b> Course Name</label>
+                                                <div>
+                                                    <input type="text" class="form-control" name="name" id="name"
+                                                        required="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="image">Course Image</label>
+                                                <div>
+                                                    <div class="col-12">
+                                                        <input type="file" id="image" name="image"
+                                                            class="form-control-file" accept="image/*">
+                                                        <small class="form-text"><b class="text-danger">*</b> only png,
+                                                            jpeg,
+                                                            jpg format
+                                                            accepted.
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-12">
+                                                <label for="description"><b class="text-danger">*</b> Course
+                                                    Description</label>
+                                                <textarea class="form-control" name="description" id="description"
+                                                    style="height: 100px;"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                <label for="ilorCode"><b class="text-danger">*</b> Course ILOR
+                                                    Code</label>
+                                                <div>
+                                                    <input type="text" class="form-control" name="ilorCode"
+                                                        id="ilorCode" required="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="iceCourseCode"><b class="text-danger">*</b>ICE Course
+                                                    Code</label>
+                                                <div>
+                                                    <input type="text" class="form-control" name="iceCourseCode"
+                                                        id="iceCourseCode" required="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="semester"><b class="text-danger">*</b> Select
+                                                    Semester</label>
+                                                <div>
+                                                    <select class="form-control" name="semester" id="semester" required>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="specializationId"><b class="text-danger">*</b>Select
+                                                    Specialization</label>
+                                                <div>
+                                                    <select class="form-control" name="specializationId"
+                                                        id="specializationId" required>
+                                                        <%specializations.forEach(s => {%>
+                                                        <option value="<%=s.id%>"><%=s.name%></option>
+                                                        <%})%>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group d-flex justify-content-end">
+                                            <!-- <button id="submitbtn" type="submit" class="btn btn-primary">Save
+                                                                                Details</button> -->
+                                            <button style="text-decoration: none;" id="submitbtn" type="submit"
+                                                class="btn btn-link">Save
+                                                Details <i style="font-size: 1rem;margin-left: 0.3;"
+                                                    class="pe-7s-server metismenu-icon"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+
+</body>
+
+</html>

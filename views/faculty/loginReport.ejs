@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Report</title>
+
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+
+</head>
+
+<body>
+
+    <%-include('../partials/config')%>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="fas fa-home icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>Login Reports of all users in your college
+                                    <div class="page-title-subheading">
+                                        <div class="d-flex justify-content-center ">
+                                            View and Export user logs as excel , csv , pdf or print the logs.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Login Reports</h5>
+                                    <div class="table-responsive">
+                                        <table id="loginReport" class="mb-0 table table-borderless">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Full Name</th>
+                                                    <th>Login Count</th>
+                                                    <th>Last Login</th>
+                                                    <th>Role</th>
+                                                    <th>Email</th>
+
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <%
+                                                const roles = {
+                                                    1: 'SPoC',
+                                                    2: 'Faculty',
+                                                    3: 'Student',
+                                                }
+                                                const colors = ["5","alternate", "info",  "warning"]
+                                            %>
+                                                <%loginReports.forEach((item, index) => {%>
+                                                <tr>
+                                                    <th scope="row"><%=index+1%></th>
+                                                    <td><%=item.firstName%> <%=item.lastName%></td>
+                                                    <td><span
+                                                            class="badge-pill badge badge-light"><%=item.loginCount%></span>
+                                                    </td>
+                                                    <td><%=item.lastLogin ? formatDateMoment(item.lastLogin) : 'N/A'%>
+                                                    </td>
+                                                    <td><span
+                                                            class="badge badge-pill badge-<%=colors[item.role]%>"><%=roles[item.role]%></span>
+                                                    </td>
+                                                    <td><a href="mailto:<%=item.email%>"
+                                                            data-original-title="<%=item.email%>"
+                                                            aria-describedby="tooltip232856" data-toggle="tooltip"
+                                                            title="" data-placement="top"
+                                                            class="btn btn-sm btn-focus"><i
+                                                                class="fas fa-envelope"></i></a>
+                                                    </td>
+
+                                                    <td><span
+                                                            class="badge badge-<%=item.active ? 'success' : 'danger'%>"><%=item.active ? 'Active' : 'Inactive'%></span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <button class="btn btn-primary"
+                                                                data-target=".bd-example-modal-sm" data-toggle="modal"
+                                                                onclick="displayReport('<%=item.id%>')">Report</button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <%})%>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- login timeline modal -->
+    <div class="modal bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+        style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content scroll-area-lg">
+                <div class="modal-body scrollbar-container ps--active-y ps">
+                    <table class="mb-0 table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Login Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="loginReportModalTBody">
+                        </tbody>
+
+                    </table>
+                    <div class="d-flex justify-content-center">
+                        <span id="loader" style="display: none;" class="text-center mt-4"><i
+                                class="spinner spinner-dark spinner-right"></i></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- login timeline modal end -->
+
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            var table = $('#loginReport').DataTable({
+                searching: true,
+                paging: true,
+                pageLength: 50,
+                info: false,
+                scrollCollapse: true,
+                scrollY: '60vh',
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
+            });
+        })
+    </script>
+
+    <script>
+        function displayReport(id) {
+            $('#img-no').remove()
+            $('#loginReportModalTBody').empty()
+            $('#loader').show()
+
+            fetch(`/faculty/loginReport/${id}`)
+                .then(function (res) {
+                    return res.json()
+                })
+                .then(function (json) {
+                    if (json.status == 404)
+                        iziToast.error({
+                            message: json.message
+                        })
+                    else if (json.status == 500)
+                        iziToast.error({
+                            title: json.message,
+                            message: json.error
+                        })
+                    else if (json.status == 200) {
+                        $('#loader').hide()
+                        const loginReports = json.data.loginReport
+                        if (loginReports.length == 0)
+                            return $('.modal-body').append(`<div id="img-no" class="border col-12">
+                            <div class=" text-center">
+                                <!-- Image -->
+                                <img src="https://dashkit.goodthemes.co/assets/img/illustrations/scale.svg" alt="..." class="img-fluid"
+                                    style="max-width: 180px">
+                                <h4>
+                                    No reports yet.
+                                </h4>
+                            </div>
+                        </div>`)
+                        let elements = ''
+                        loginReports.forEach(function (r, index) {
+                            let d = new Date(r.createdAt)
+                            elements += `
+                                <tr>
+                                    <th scope="row">${index + 1}</th>
+                                    <td>${d.toString().slice(0, -31)}</td>
+                                </tr>
+                            `
+                        })
+                        $('#loginReportModalTBody').append(elements)
+                    }
+                    else
+                        iziToast.error({
+                            message: 'Something Went Wrong!'
+                        })
+                })
+                .catch(err => console.log(err))
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+</head>
+<style>
+    .widget-chart {
+        text-align: center;
+        padding: 1rem;
+        position: relative;
+    }
+
+    .widget-chart .widget-chart-content {
+        position: relative;
+        z-index: 5;
+    }
+
+    .widget-chart .widget-numbers {
+        font-weight: bold;
+        font-size: 2.5rem;
+        display: block;
+        line-height: 1;
+        margin: 1rem auto;
+    }
+
+    .widget-chart .widget-subheading {
+        margin: -0.5rem 0 0;
+        display: block;
+        opacity: .6;
+    }
+
+    .widget-chart .widget-subheading:first-child {
+        margin-top: 0;
+    }
+
+    .widget-chart .widget-chart-flex {
+        display: flex;
+        align-items: center;
+        align-content: center;
+        margin-bottom: 1rem;
+    }
+
+    .widget-chart .widget-chart-flex:last-child {
+        margin-bottom: 0;
+    }
+
+    .widget-chart.text-left {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .widget-chart.text-left .widget-numbers {
+        margin-left: 0;
+    }
+
+    .widget-chart.text-left .widget-chart-content {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        flex: 1;
+        position: relative;
+    }
+
+    .widget-chart2 .widget-chart-flex {
+        display: flex;
+        align-items: baseline;
+        align-content: center;
+        margin-bottom: 0;
+    }
+
+    .widget-chart2 .widget-chart-flex .widget-numbers {
+        font-weight: normal;
+    }
+
+    .widget-chart2 .widget-chat-wrapper-outer {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        max-width: 100%;
+    }
+
+
+    @media (max-width: 767.98px) {
+        body .card.mb-3 {
+            margin-bottom: 15px !important;
+        }
+    }
+
+    .card.mb-3 {
+        margin-bottom: 30px !important;
+    }
+
+    @media (max-width: 767.98px) {
+        .app-container .page-top-wrapper::after {
+            display: none !important;
+        }
+
+        .app-container .page-top-wrapper .page-hero {
+            min-height: 100px;
+            height: auto;
+            padding: 6.75rem 0 1.5rem;
+        }
+
+        .app-container .page-top-wrapper .page-hero .hero-p {
+            margin-top: 1rem;
+            line-height: 1.6rem;
+        }
+
+        .app-container .page-top-wrapper .page-hero .hero-h3 {
+            display: none;
+        }
+
+        .app-container .page-top-wrapper .page-hero .page-hero-inner {
+            padding: 1.5rem;
+        }
+
+        .icon-wrapper {
+            margin-top: 0.75rem !important;
+        }
+
+        .page-top-wrapper-alt2 .page-hero {
+            padding: 1.5rem 0 !important;
+        }
+
+        .page-top-wrapper-alt2 .page-hero .page-hero-inner {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+
+        .page-top-wrapper-alt2 .page-hero .page-hero-inner .hero-h3 {
+            display: block !important;
+        }
+
+        .page-top-wrapper-alt2 .page-hero .page-hero-inner .hero-p.mb-5 {
+            margin-bottom: 1.5rem !important;
+        }
+    }
+
+    .icon-wrapper {
+        display: flex;
+        align-content: center;
+        align-items: center;
+    }
+
+    .icon-wrapper {
+        width: 54px;
+        height: 54px;
+        margin: 5px auto 0.66667rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .icon-wrapper .icon-wrapper-bg {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: 3;
+        opacity: .2;
+    }
+
+    .icon-wrapper i {
+        margin: 0 auto;
+        font-size: 1.7rem;
+        position: relative;
+        z-index: 5;
+    }
+
+    .icon-wrapper i:before {
+        margin-top: -3px;
+    }
+
+    [class^="lnr-"] {
+        font-family: 'Linearicons-Free';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .lnr-store:before {
+        content: "\E82D";
+    }
+
+    .page-top-wrapper {
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+        background-color: #2a2b2f;
+        background-image: url(https://wallpapercave.com/wp/wp3404265.jpg);
+        border-bottom: #dee2e6 solid 1px;
+    }
+
+    .page-top-wrapper::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 7;
+        width: 100%;
+        height: 100%;
+        background: rgba(42, 43, 47, 0.3);
+    }
+
+    .page-top-wrapper-alt .page-hero {
+        height: auto;
+    }
+
+    .page-top-wrapper-alt2 .page-hero {
+        min-height: 100px;
+    }
+
+    .page-hero {
+        position: relative;
+        min-height: 500px;
+    }
+
+    .page-hero .hero-p,
+    .page-hero .hero-h3 {
+        color: #fff;
+        text-align: center;
+        max-width: 740px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .page-hero .hero-p {
+        font-size: 1.25rem;
+        color: #adb5bd;
+    }
+
+    .page-hero .hero-h3 {
+        font-size: 2.3rem;
+        font-weight: 500;
+        font-weight: normal;
+        margin: 2rem auto 1.2rem;
+    }
+
+    .page-hero .page-hero-inner {
+        margin: 0 auto;
+        position: relative;
+        z-index: 7;
+        padding: 50px 0 0;
+        width: 100%;
+    }
+
+    .page-hero-bottom .page-hero-inner {
+        padding: 3rem 0;
+        text-align: center;
+    }
+
+    h3 {
+        font-family: "Bariol", sans-serif;
+    }
+
+    .btn-big {
+        font-family: "Rubik", sans-serif;
+        font-size: 1rem;
+        font-weight: 400;
+    }
+
+    .buy-buttons .btn-success {
+        padding: 1.3rem 2rem;
+        text-transform: uppercase;
+        font-size: 1.1rem;
+    }
+
+    .buy-buttons .btn-success span {
+        opacity: .8;
+        padding-right: 1rem;
+    }
+
+    @media (max-width: 991.98px) {
+        .page-hero .hero-h3 {
+            font-size: 1.4rem;
+        }
+
+        .page-hero .hero-p {
+            font-size: .9rem;
+        }
+    }
+</style>
+
+<body>
+
+    <%-include('../partials/config')%>
+    <!-- 
+    <%=User.email%>
+
+    <form action="/user/logout?_method=DELETE" method="POST">
+        <button type="submit">Sign Out</button>
+    </form> -->
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="fas fa-home icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>Hello <%=User.firstName + ' ' + User.lastName%>
+                                    <div class="page-title-subheading">
+                                        <div class="d-flex justify-content-center ">
+                                            This is a learning management system which will help you get a headstart at
+                                            latest technologies, and keep track of your
+                                            progress while you learn and grow.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- hero -->
+                    <div class="page-top-wrapper page-top-wrapper-alt page-top-wrapper-alt2">
+                        <div name="buy-now">
+                            <div class="page-hero page-hero-bottom">
+                                <div class="page-hero-inner">
+                                    <h6 class="text-white mb-3">Welcome to IBM ICE Learning Management System</h6>
+                                    <h3 class="hero-h3 mb-3 mt-2"><%= collegeName.toUpperCase() %> </h3>
+                                    <p class="hero-p mb-4 text-white">IBM ICE TRACK</p>
+                                    <div class="buy-buttons p-0">
+                                        <a class="btn btn-light p-2 btn-sm mr-1" href="/spoc/students">
+                                            Students
+                                        </a>
+                                        Or
+                                        <a class="btn btn-sm p-2 btn-light ml-1" href="/spoc/courses">
+                                            Go to your courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- hero -->
+                    <div class="row" style="margin-top: 4%;">
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-left card">
+                                <div class="widget-chat-wrapper-outer">
+                                    <div class="widget-chart-content">
+                                        <h6 class="widget-subheading text-uppercase">Students</h6>
+                                        <div class="widget-chart-flex">
+                                            <div class="widget-numbers mb-0 w-100">
+                                                <div class="widget-chart-flex">
+                                                    <div class="fsize-4">
+                                                        <small class="opacity-5"><i
+                                                                class="icon-gradient bg-ripe-malin fas fa-users"></i></small>
+                                                        <%=students%>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <a href="/spoc/students">
+                                                view
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-left card">
+                                <div class="widget-chat-wrapper-outer">
+                                    <div class="widget-chart-content">
+                                        <h6 class="widget-subheading text-uppercase">Faculties</h6>
+                                        <div class="widget-chart-flex">
+                                            <div class="widget-numbers mb-0 w-100">
+                                                <div class="widget-chart-flex">
+                                                    <div class="fsize-4 text-danger">
+                                                        <small class="opacity-5 text-muted"><i
+                                                                class="fas fa-address-card icon-gradient bg-ripe-malin"></i></small>
+                                                        <%=faculties%>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <a href="/spoc/faculties">
+                                                view
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-left card">
+                                <div class="widget-chat-wrapper-outer">
+                                    <div class="widget-chart-content">
+                                        <h6 class="widget-subheading text-uppercase">Courses</h6>
+                                        <div class="widget-chart-flex">
+                                            <div class="widget-numbers mb-0 w-100">
+                                                <div class="widget-chart-flex">
+                                                    <div class="fsize-4">
+
+                                                        <small class=" font-icon-lg opacity-5">
+                                                            <i class="fa fa-database icon-gradient bg-ripe-malin">
+                                                            </i>
+                                                        </small>
+                                                        <%=courses%>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <a href="/spoc/courses">
+                                                view
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card-shadow-primary mb-3 widget-chart widget-chart2 text-left card">
+                                <div class="widget-chat-wrapper-outer">
+                                    <div class="widget-chart-content">
+                                        <h6 class="widget-subheading">Specializations</h6>
+                                        <div class="widget-chart-flex">
+                                            <div class="widget-numbers mb-0 w-100">
+                                                <div class="widget-chart-flex">
+                                                    <div class="fsize-4">
+                                                        <small class="opacity-5"><i
+                                                                class=" fas fa-code-fork"></i></small>
+                                                        <%=specializations%>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+</body>
+
+</html>

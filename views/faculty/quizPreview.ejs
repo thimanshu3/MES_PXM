@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview || <%=quiz.name%></title>
+
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/cards.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="stylesheet" href="/css/quizPreview.css">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <%-include('../partials/config')%>
+
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <div class="app-main" style="padding: 0;">
+            <!-- side bar area -->
+            <!-- <%-include('../partials/sidebar.ejs')%> -->
+            <!-- sidebar area end -->
+            <div class="app-main__outer" style="padding:0;">
+                <div class="app-main__inner">
+                    <div class="app-page-title" style="margin: -30px -30px 5px;">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="fas fa-trophy icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>Preview Quiz
+                                    <div class="page-title-subheading">
+                                        <ol class="breadcrumb" style="width: 100%;">
+                                            <li class="breadcrumb-item" style="font-size: small;"><a href="/">Home</a>
+                                            </li>
+                                            <li class="breadcrumb-item" style="font-size: small;"><a
+                                                    href="/faculty/quiz">Quiz Mania</a>
+                                            </li>
+                                            <li class="breadcrumb-item active" style="font-size: small;"
+                                                aria-current="page">
+                                                <%=quiz.name%></li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix d-flex page-title-actions">
+                                <p class="mr-1">Time:</p>
+                                <div class="ml-2">
+                                    <progress value="0" max="<%= quiz.duration * 60%>" id="pbar"></progress>
+                                </div>
+                                <p class="duration-timer ml-2"><span id="remainSideBar">Starting...</span> /
+                                    <%= quiz.duration%>:00</p>
+
+                            </div>
+
+                            <div class="page-title-actions">
+
+                                <div class="d-inline-block">
+                                    <button class="btn btn-primary publish-btn" <%=quiz.isPublished ? 'disabled' : ''%>>
+                                        <%=quiz.isPublished ? 'Already Published' : 'Publish Quiz'%>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="scroll-area-lg" style="height: 590px">
+                                    <div class="scrollbar-container ps ps--active-y">
+                                        <div id="question-controller">
+                                            <div id="mCSB_1"
+                                                class="mCustomScrollBox mCS-dark-3 mCSB_vertical mCSB_inside"
+                                                tabindex="0">
+                                                <div id="mCSB_1_container" class="mCSB_container collapse in">
+
+                                                    <h4>List of <%= quiz.questions.length%> Questions
+                                                        <span>(<%= quiz.questions.length%> Points)</span>
+                                                    </h4>
+                                                    <input type="hidden" id="platform_type" value="codehire">
+                                                    <div class="questions-list">
+                                                        <ul id="questionli">
+                                                            <% function shuffleArray(array) {
+                                                                let arrayP = array
+                                                                var currentIndex = arrayP.length
+                                                                    , temporaryValue
+                                                                    , randomIndex
+                                                                    ;
+                                                                while (0 !== currentIndex) {
+                                                                    randomIndex = Math.floor(Math.random() * currentIndex);
+                                                                    currentIndex -= 1;
+                                                                    temporaryValue = arrayP[currentIndex];
+                                                                    arrayP[currentIndex] = arrayP[randomIndex];
+                                                                    arrayP[randomIndex] = temporaryValue;
+                                                                }
+                                                                return arrayP;
+                                                            } %>
+                                                            <% shuffleArray(quiz.questions).forEach((question, index) => { %>
+                                                            <li id="ques-<%=question._id%>"
+                                                                onclick="listItemShow('<%= index %>')" class="clearfix">
+                                                                <div class="question-number">
+                                                                    <h6><%= ++index %>. </h6>
+
+                                                                </div>
+                                                                <a class="list-full-module jquery">
+                                                                    <div class="question-details">
+                                                                        <h6
+                                                                            style="cursor: pointer;overflow: hidden;text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+                                                                            <%- question.text %> </h6>
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                            <% }) %>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card" style="box-shadow: 5px 5px 8px 5px #f2f2f2;border: 0px; ">
+
+                                    <div id="game" class="justify-center card-body">
+                                        <p style="font-size: 1.3rem;margin-top: 2%;" id="questionstatement"></p>
+                                        <input id="qid" type="hidden" value="">
+                                        <hr>
+                                        <!-- Card stats -->
+                                        <div id="choicesContainer" class="row"
+                                            style="margin-top: 5%; list-style-type:none;">
+
+
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end card-footer">
+                                        <button id="previousQuestion" class="btn-outline-danger btn">Previous</button>
+                                        <button id="nextQuestion" class="btn btn-danger ml-2">Next <i
+                                                class="fas fa-arrow-right"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"
+        integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q=="
+        crossorigin="anonymous"></script>
+    <script>
+        //main question object
+        var questions = <%-JSON.stringify(quiz.questions) %>;
+        var colors = ['warning', 'success', 'primary', 'danger', 'info', 'dark']
+        var finalData = [];
+
+
+        $('.publish-btn').click(function () {
+            iziToast.question({
+                timeout: 20000,
+                close: false,
+                overlay: true,
+                displayMode: 'once',
+                id: 'question',
+                zindex: 999,
+                title: 'Hey',
+                message: 'Are you sure about that?',
+                position: 'center',
+                buttons: [
+                    ['<button><b>YES Publish the quiz</b></button>', function (instance, toast) {
+                        fetch('/faculty/quiz/publish/<%=quiz.id%>', { method: 'POST' })
+                            .then(res => res.json())
+                            .then(json => {
+                                iziToast.success({
+                                    message: 'Quiz Published Successfully'
+                                })
+                                $('.publish-btn').text('Published!')
+                                $('.publish-btn').attr('disabled', true)
+                            })
+                            .catch(console.log)
+
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                    }, true],
+                    ['<button>NO</button>', function (instance, toast) {
+
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                    }],
+                ],
+                onClosing: function (instance, toast, closedBy) {
+                    console.info('Closing | closedBy: ' + closedBy);
+                },
+                onClosed: function (instance, toast, closedBy) {
+                    console.info('Closed | closedBy: ' + closedBy);
+                }
+            });
+
+        })
+
+    </script>
+
+    <script>
+        var currentQuestion = 0;
+        $(function () {
+            currentQuestion = localStorage.getItem('currentActiveQuestion') === null ? 0 : localStorage.getItem('currentActiveQuestion')
+            showQuestion(currentQuestion, 'next')
+        });
+
+        const showQuestion = (index, path) => {
+            localStorage.setItem('currentActiveQuestion', index)
+            $("#questionli li").removeClass("current");
+            $(`#ques-${questions[index]._id}`).addClass('current')
+            $('#qid').val(`${questions[index]._id}`)
+            let choices = '';
+            $('#questionstatement').html(questions[index].text)
+
+
+            questions[index].choices.forEach((choice, i) => {
+                choices += `
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12" >
+                        <div class="align-items-start">
+                            <div class="icon icon-shape text-white bg-${colors[i++]} shadow card rounded-circle text-center"
+                                style="width:35px; height:35px;border:0px; position: absolute; top: -15px; left: 2px; z-index: 100">
+                                <strong class="mt-2">${(i + 9).toString(36).toUpperCase()}</strong>
+                            </div>
+                        </div>
+                        <label for="id-${choice._id}">
+                            <input value="${choice._id}" type="${questions[index].type == 'single' ? 'radio' : 'checkbox'}" name="${questions[index].type == 'single' ? 'single' : 'multi'}" class="card-input-element d-none"
+                                id="id-${choice._id}" ${prevChecked(questions[index]._id, choice._id)} >
+                            <div
+                                class="p-2 card card-body shadow d-flex flex-row justify-content-between align-items-center">
+                            <p class="ml-3 mb-0">
+                                ${choice.text}
+                                </p>
+                            </div>
+                        </label>
+                    </div>
+                `
+            });
+            $('#choicesContainer').html(choices)
+            animateQuizBox(path)
+        }
+        const prevChecked = (qid, oid) => {
+            if (finalData.length !== 0) {
+                finalData.forEach(b => {
+                    if (b.id === qid) {
+                        b.options.forEach(c => {
+                            if (c === oid) {
+                                return 'checked'
+                            }
+                        })
+                    }
+                }
+                )
+            }
+        }
+
+        $('#nextQuestion').on('click', function () {
+            let obj = {
+                options: []
+            };
+
+            $('#choicesContainer :input').each(function () {
+                if (this.checked) {
+                    obj.id = questions[parseInt(currentQuestion)]._id;
+                    obj.options.push($(this).val())
+                }
+            })
+            if (obj.options.length) {
+                let flag = true
+                finalData.forEach(el => {
+                    if (el.id === obj.id) {
+                        el.options = obj.options
+                        flag = false
+                    }
+                })
+                if (flag) {
+                    finalData.push(obj)
+                }
+            }
+            if (currentQuestion <= questions.length - 2) {
+                currentQuestion++;
+                showQuestion(currentQuestion, 'next');
+                $('#previousQuestion').attr('disabled', false)
+            }
+            else if (currentQuestion === parseInt(questions.length - 1)) {
+                console.info(currentQuestion, questions.length - 1)
+                $('#nextQuestion').hide()
+            }
+            else {
+                $('#nextQuestion').attr('disabled', true)
+            }
+        })
+        $('#previousQuestion').on('click', function () {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion(currentQuestion, 'previous');
+                $('#nextQuestion').attr('disabled', false)
+            }
+            else {
+                $('#previousQuestion').attr('disabled', true)
+            }
+        })
+
+    </script>
+    <script>
+        function animateQuizBox(path) {
+            if (path == 'next') {
+                anime({
+                    targets: '#choicesContainer .card',
+                    translateX: [250, 0],
+                    easing: 'easeInOutQuad',
+                    opacity: [0, 0.3, 0.6, 1],
+                    duration: 600,
+                })
+                anime({
+                    targets: '#questionstatement',
+                    duration: 800,
+                    translateX: [250, 0],
+                    easing: 'easeInOutQuad',
+                    opacity: [0, 0.3, 0.6, 1],
+                    opacity: [0, 1],
+                })
+            }
+            else {
+                anime({
+                    targets: '#choicesContainer .card',
+                    translateX: [-250, 0],
+                    easing: 'easeInOutQuad',
+                    opacity: [0, 0.3, 0.6, 1],
+                    duration: 600,
+                })
+                anime({
+                    targets: '#questionstatement',
+                    duration: 800,
+                    translateX: [-250, 0],
+                    easing: 'easeInOutQuad',
+                    opacity: [0, 0.3, 0.6, 1],
+                    opacity: [0, 1],
+                })
+            }
+        }
+        const listItemShow = (index) => {
+            if (parseInt(index) === parseInt(questions.length - 1)) {
+                showQuestion(index, 'next')
+                $('#nextQuestion').hide()
+            }
+            else {
+                $('#nextQuestion').show()
+                currentQuestion = index;
+                showQuestion(currentQuestion, 'next')
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        const COUNTER_KEY = 'my-counter';
+
+        function countDown(i, callback) {
+            timer = setInterval(function () {
+                minutes = parseInt(i / 60, 10);
+                seconds = parseInt(i % 60, 10);
+                document.getElementById("pbar").value = parseInt('<%= quiz.duration * 60 %>') - i;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                $('#remainSideBar').html(minutes + ':' + seconds);
+                if ((i--) > 0) {
+                    window.sessionStorage.setItem(COUNTER_KEY, i);
+                } else {
+                    window.sessionStorage.removeItem(COUNTER_KEY);
+                    clearInterval(timer);
+                    callback();
+                }
+            }, 1000);
+        }
+        window.onload = function () {
+            var countDownTime = window.sessionStorage.getItem(COUNTER_KEY) || parseInt('<%= quiz.duration * 60 %>');
+            countDown(countDownTime, function () {
+                localStorage.removeItem('currentActiveQuestion');
+            });
+        };
+        window.addEventListener('beforeunload', function (event) {
+            event.preventDefault()
+            var message = 'Important: Please click on \'Save\' button to leave this page.';
+            if (typeof event == 'undefined') {
+                event = window.event;
+            }
+            if (event) {
+                event.returnValue = message;
+            }
+            return message;
+        });
+
+
+    </script>
+
+</body>
+
+</html>

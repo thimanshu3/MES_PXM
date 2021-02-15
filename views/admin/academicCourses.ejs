@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Courses</title>
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="stylesheet" href="/css/cards.css">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+</head>
+<style>
+    /*! CSS Used from: Embedded */
+    *,
+    :after,
+    :before {
+        box-sizing: border-box;
+    }
+
+    a {
+        color: rgba(39, 44, 51, .7);
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: rgba(6, 7, 8, .7);
+        text-decoration: underline;
+    }
+
+    img {
+        vertical-align: middle;
+    }
+
+    .media {
+        align-items: flex-start;
+    }
+
+    .media-body {
+        flex: 1;
+    }
+
+    .align-items-center {
+        align-items: center !important;
+    }
+
+    @media print {
+        a:not(.btn) {
+            text-decoration: underline;
+        }
+
+        img {
+            page-break-inside: avoid;
+        }
+
+        p {
+            orphans: 3;
+            widows: 3;
+        }
+    }
+
+    .lh-1 {
+        line-height: 1rem;
+    }
+
+    .text-50 {
+        color: rgba(39, 44, 51, .5) !important;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    .card-title {
+        font-size: .8rem;
+        font-weight: 600;
+        color: #303956;
+        line-height: 1.25;
+    }
+
+    .card-title {
+        font-weight: 500;
+    }
+
+    .media-left {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .media-body {
+        flex: 1 1 0%;
+    }
+
+    .media {
+        display: flex;
+        flex-flow: row wrap;
+    }
+</style>
+
+<body>
+
+    <%-include('../partials/config')%>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="fas fa-book-reader icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>All Courses
+                                    <div class="page-title-subheading">
+                                        <div class="d-flex justify-content-center ">
+                                            Assgin, view and manage all the available courses.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%  if(courses.length === 0) {%>
+                    <div class="border col-12">
+                        <div class="card-body text-center">
+                            <!-- Image -->
+                            <img src="/assets/images/undraw_empty.svg" alt="..." class="img-fluid"
+                                style="max-width: 182px;">
+
+                            <!-- Title -->
+                            <h1>
+                                No Academic course available
+                            </h1>
+
+                            <!-- Subtitle -->
+                            <p class="text-muted">
+                                Unable to find &nbsp;<a style="text-decoration: none;" href="#"><b
+                                        class="text-primary">Academic Courses</b></a>
+                                in this college
+                            </p>
+
+                        </div>
+                    </div>
+                    <% } else {%>
+                    <div class="container">
+                        <div class="row">
+                            <%courses.sort((a, b) => a.semester - b.semester).forEach(course => {%>
+                            <div class="col-sm-6 col-md-4 col-lg-3">
+                                <div class="card" style="min-height: 390px; max-height: 390px; width: 100%;">
+                                    <img src="/uploads/courseImages/<%=course.imageSource%>" class="card-img-top img"
+                                        style=" height: 120px;">
+                                    <span
+                                        class="badge badge-pill badge-secondary position-absolute badge-top-left"><%=course.specializationName %></span>
+                                    <div class="card-body border">
+
+                                        <p> <a href="/admin/academicCourses/<%=course.id%>"
+                                                class="h5 card-title text-primary"><%=course.name%></a></p>
+                                        <p class="card-text text-sm">
+                                            <small
+                                                style="overflow: hidden;text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 5; line-height: 1.1rem; -webkit-box-orient: vertical;"
+                                                class="text-dark"><%=course.description%></small>
+                                        </p>
+                                    </div>
+                                    <div class="text-center d-flex card-footer justify-content-between">
+                                        <div class="d-flex justify-content-center mb-2">
+                                            <div class="nav-item navbar-list__item">
+                                                <div class="media align-items-center">
+                                                    <span class="media-left">
+                                                        <img src="https://i.pinimg.com/originals/87/c6/75/87c675329f916328e2735ff219b17108.png"
+                                                            style="height: 45px; width: 80px;" alt="avatar"
+                                                            class="rounded-circle">
+                                                    </span>
+                                                    <div class="media-body">
+                                                        <a
+                                                            class="card-title m-0"><%=User.id === course.creator ? 'Me' : course.creatorFirstName + ' ' +course.creatorLastName%></a>
+                                                        <p class="text-50 lh-1 mb-0">Creator</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%})%>
+                        </div>
+                    </div>
+                    <%}%>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+    <script>
+        $(".img")
+            .on('load', function () { console.log("image loaded correctly"); })
+            .on('error', function () { console.log($(this).attr('src', '/uploads/courseImages/default-course.png')); })
+            ;
+    </script>
+</body>
+
+</html>

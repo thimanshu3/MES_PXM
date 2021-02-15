@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=quizAssignment.title%></title>
+
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/cards.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="stylesheet" href="/css/quizPreview.css">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<style>
+    .container1 {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        display: grid;
+        place-items: center;
+    }
+
+    .items {
+        background: #fffffe;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        border-top: 10px solid #0b5aa2;
+    }
+
+    .items-head p {
+        padding: 5px 20px;
+        margin: 10px;
+        color: #0b5aa2;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .items-head hr {
+        width: 20%;
+        margin: 0px 30px;
+        border: 1px solid #0b5aa2;
+    }
+
+    .items-body {
+        padding: 10px;
+        margin: 10px;
+        display: grid;
+        grid-gap: 10px;
+    }
+
+    .items-body-content {
+        padding: 10px;
+        padding-right: 0px;
+        display: grid;
+        grid-template-columns: 10fr 1fr;
+        font-size: 13px;
+        grid-gap: 10px;
+        border: 1px solid transparent;
+        cursor: pointer;
+    }
+
+    .items-body-content:hover {
+        border-radius: 15px;
+        border: 1px solid #0b5aa2;
+    }
+
+    .items-body-content i {
+        align-self: center;
+        font-size: 15px;
+        color: #0b5aa2;
+        font-weight: bold;
+        animation: icon 1.5s infinite forwards;
+    }
+
+    @keyframes icon {
+
+        0%,
+        100% {
+            transform: translate(0px);
+        }
+
+        50% {
+            transform: translate(3px);
+        }
+    }
+</style>
+
+<body>
+
+    <%-include('../partials/config')%>
+
+    <div id="app" class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <div class="app-main" style="padding: 0;">
+           
+            <div class="app-main__outer" style="padding:0;">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div >
+                                    <img src="/uploads/quizImages/default-quiz.png" style="width: 70px;" alt="">
+                                </div>
+                                <div class="ml-4">Amigos QuizMania
+                                    <a id="mainobj" data-toggle="modal" data-target="#assignQuiz"
+                                        aria-hidden="true"></a>
+                                        <a id="phirseChalaya" data-toggle="modal" data-target="#oneOnly"
+                                        aria-hidden="true"></a>
+                                </div>
+                            </div>
+                            <div class="clearfix d-flex page-title-actions">
+                                <p id="sabsemain" onclick="toggleFullScreen()" class="mr-1">Time:</p>
+                                <div class="ml-2">
+                                    <progress value="0" max="<%= quiz.duration * 60%>" id="pbar"></progress>
+                                </div>
+                                <p class="duration-timer ml-2"><span id="remainSideBar">Starting...</span> /
+                                    <%= quiz.duration%>:00</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="scroll-area-lg" style="height: calc( 100vh - 130px );">
+                                    <div class="scrollbar-container ps ps--active-y">
+                                        <div id="question-controller">
+                                            <div id="mCSB_1"
+                                                class="mCustomScrollBox mCS-dark-3 mCSB_vertical mCSB_inside"
+                                                tabindex="0">
+                                                <div id="mCSB_1_container" class="mCSB_container collapse in">
+
+                                                    <h4>List of <%= quiz.questions.length%> Questions
+                                                        <span>(<%= quiz.questions.length%> Points)</span>
+                                                    </h4>
+                                                    <input type="hidden" id="platform_type" value="codehire">
+                                                    <div class="questions-list">
+                                                        <ul id="questionli">
+                                                            <% function shuffleArray(array) {
+                                                                let arrayP = array
+                                                                var currentIndex = arrayP.length
+                                                                    , temporaryValue
+                                                                    , randomIndex
+                                                                    ;
+                                                                while (0 !== currentIndex) {
+                                                                    randomIndex = Math.floor(Math.random() * currentIndex);
+                                                                    currentIndex -= 1;
+                                                                    temporaryValue = arrayP[currentIndex];
+                                                                    arrayP[currentIndex] = arrayP[randomIndex];
+                                                                    arrayP[randomIndex] = temporaryValue;
+                                                                }
+                                                                return arrayP;
+                                                            } %>
+                                                            <% shuffleArray(quiz.questions).forEach((question, index) => { %>
+                                                            <li id="ques-<%=question._id%>"
+                                                                onclick="listItemShow('<%= index %>')" class="clearfix">
+                                                                <div class="question-number">
+                                                                    <h6><%= ++index %>. </h6>
+
+                                                                </div>
+                                                                <a class="list-full-module jquery">
+                                                                    <div class="question-details">
+                                                                        <h6
+                                                                            style="cursor: pointer;overflow: hidden;text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+                                                                            <%- question.text %> </h6>
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                            <% }) %>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card" style="box-shadow: 5px 5px 8px 5px #f2f2f2;border: 0px; ">
+                                    <div id="game" class="justify-center card-body">
+                                        <p style="font-size: 1.3rem;margin-top: 2%;" id="questionstatement"></p>
+                                        <input id="qid" type="hidden" value="">
+                                        <hr>
+                                        <!-- Card stats -->
+                                        <div id="choicesContainer" class="row"
+                                            style="margin-top: 5%; list-style-type:none;">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between card-footer">
+                                        <button id="saveResponse" class="btn btn-primary">Save Answer</button>
+                                        <div>
+                                        <button id="previousQuestion" class="btn-outline-danger btn">Previous</button>
+                                        <button id="nextQuestion" class="btn btn-danger ml-2">Next <i
+                                                class="fas fa-arrow-right"></i></button>
+                                            <button id="endQuiz" type="submit" style="display: none;" class="btn btn-dark ml-2">End Quiz<i
+                                                    class="fa fa-hourglass-end ml-2"></i></button>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- questions import modal -->
+    <div class="modal fade" id="assignQuiz" tabindex="-1" data-keyboard="false" data-backdrop="static" role="dialog"
+        aria-labelledby="importStudentModal" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row" style="border:4px dashed #cccccc; margin:10px;">
+                        <div class="col-md-12 text-center" style="padding:20px;background-color:#f2f2f2">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <a href="#" class="center">
+                                        <h3 id="esquestion">Instructions For the Quiz</h3>
+                                    </a>
+                                </div>
+                            </div>
+                            <br><br>
+                            <div class="container1">
+                                <div class="items">
+                                    <div class="items-body">
+                                        <div class="items-body-content">
+                                            <span>Wirte Instructions here use items body element as li items and
+                                                write</span>
+                                            <i class="fa fa-angle-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-light" id="startQuiz" data-dismiss="modal">Take me to the game <i
+                            class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- questions import modal end -->
+    <!-- one already open modal -->
+        <div class="modal fade" id="oneOnly" tabindex="-1" data-keyboard="false" data-backdrop="static" role="dialog"
+        aria-labelledby="importStudentModal" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row" style="border:4px dashed #cccccc; margin:10px;">
+                        <div class="col-md-12 text-center" style="padding:20px;background-color:#f2f2f2">
+                            <h3 class="text-danger" id="esquestion">One Instance Of QuizMania already opened Please close this tab.</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+
+
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"
+        integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q=="
+        crossorigin="anonymous"></script>
+        <script>
+            var quizAssignmentResponseId = '<%=quizAssignmentResponse._id %>'
+            var questions = <%-JSON.stringify(quiz.questions) %>;
+            var questiond = '<%=remainingDuration %>';
+            
+        </script>
+   <script src="/js/quizManiaStudent.js"></script>
+</body>
+
+</html>

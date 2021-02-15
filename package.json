@@ -1,0 +1,72 @@
+{
+    "name": "mespim",
+    "version": "1.0.0",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "cross-env NODE_ENV=development nodemon server.js",
+        "prod": "cross-env NODE_ENV=production node server.js",
+        "lint": "eslint .",
+        "init": "node init.js",
+        "flushDB": "node flushDB.js",
+        "seedData": "node seedData.js", 
+        "exportDB": "node exportDB.js",
+        "importDB": "node importDB.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/thimanshu3/MES_PXM.git"
+    },
+    "keywords": [
+        "PIM"
+    ],
+    "author": "Himanshu Tak",
+    "projectOwners": [
+        {
+            "name": "Himanshu Tak",
+            "email": "clubtermoo@gmail.com"
+        },
+        {
+            "name": "Garvit Solanki",
+            "email": "garvitsolanki5@gmail.com"
+        }
+    ],
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/thimanshu3/MES_PXM/issues"
+    },
+    "homepage": "https://github.com/thimanshu3/MES_PXM#readme",
+    "devDependencies": {
+        "eslint": "^7.17.0",
+        "nodemon": "^2.0.6"
+    },
+    "dependencies": {
+        "@elastic/elasticsearch": "^7.10.0",
+        "async": "^3.2.0",
+        "bcryptjs": "^2.4.3",
+        "connect-redis": "^5.0.0",
+        "cross-env": "^7.0.3",
+        "dotenv": "^8.2.0",
+        "ejs": "^3.1.5",
+        "express": "^4.17.1",
+        "express-flash": "^0.0.2",
+        "express-session": "^1.17.1",
+        "helmet": "^4.3.1",
+        "joi": "^17.3.0",
+        "method-override": "^3.0.0",
+        "moment": "^2.29.1",
+        "mongoose": "^5.11.9",
+        "morgan": "^1.10.0",
+        "multer": "^1.4.2",
+        "mysql2": "^2.2.5",
+        "node-cron": "^2.0.3",
+        "node-fetch": "^2.6.1",
+        "nodemailer": "^6.4.17",
+        "passport": "^0.4.1",
+        "passport-google-oauth20": "^2.0.0",
+        "passport-local": "^1.0.0",
+        "read-excel-file": "^5.0.0",
+        "redis": "^3.0.2",
+        "sequelize": "^6.3.5"
+    }
+}

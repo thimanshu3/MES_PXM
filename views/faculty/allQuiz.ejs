@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Quiz</title>
+
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+</head>
+<style>
+    a {
+        color: rgba(39, 44, 51, .7);
+        text-decoration: none;
+    }
+
+    a {
+        background-color: transparent;
+    }
+
+    a:hover {
+        color: rgba(6, 7, 8, .7);
+        text-decoration: underline;
+    }
+
+
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+    }
+
+    .card {
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid #dfe2e6;
+        border-radius: .5rem;
+    }
+
+    .card-title {
+        margin-bottom: 2rem;
+    }
+
+    .card-subtitle {
+        margin-top: -.5rem;
+        margin-bottom: 0;
+    }
+
+
+
+    .card-footer:last-child {
+        border-radius: 0 0 .5rem .5rem;
+    }
+
+    .rounded {
+        border-radius: .25rem !important;
+    }
+
+
+    .mr-12pt {
+        margin-right: .75rem !important;
+    }
+
+    @media print {
+
+        *,
+        :after,
+        :before {
+            text-shadow: none !important;
+            box-shadow: none !important;
+        }
+
+        a:not(.btn) {
+            text-decoration: underline;
+        }
+
+        img {
+            page-break-inside: avoid;
+        }
+    }
+
+    .avatar {
+        font-size: 1rem;
+        display: inline-block;
+        width: 6rem;
+        height: 6rem;
+        position: relative;
+        z-index: 0;
+    }
+
+    .avatar-img {
+        width: 100%;
+        height: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
+    }
+
+    .avatar.avatar-4by3 {
+        width: 6rem;
+    }
+
+    .flex {
+        flex: 1 1 0% !important;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    .card {
+        margin-bottom: 1.5rem;
+    }
+
+    .card {
+        transition: box-shadow .28s cubic-bezier(.4, 0, .2, 1);
+        will-change: box-shadow;
+    }
+
+    .card {
+        box-shadow: 0 3px 3px -2px rgba(39, 44, 51, .1), 0 3px 4px 0 rgba(39, 44, 51, .04), 0 1px 8px 0 rgba(39, 44, 51, .02);
+    }
+
+    .card-sm .card-body,
+    .card-sm .card-footer {
+        padding: .625rem .75rem;
+    }
+</style>
+
+<body>
+
+    <%-include('../partials/config')%>
+
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="fas fa-trophy icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>All Quiz
+                                    <div class="page-title-subheading">
+                                        <div class="d-flex justify-content-center ">
+                                            Awesome Quiz powered by Amigos' LMS.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="page-title-actions">
+                                <div class="d-inline-block">
+                                    <a href="/faculty/addQuiz" style="text-decoration: none;" class="btn btn-link">
+                                        <span class="btn-icon-wrapper pr-2 opacity-7">
+                                            <i class="fas fa-plus"></i>
+                                        </span>
+                                        Create New
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid mb-4">
+                        <div class="row">
+                            <% allQuiz.forEach(quiz => { %>
+                            <div class="col-md-4 col-xl-4 col-lg-4 col-sm-6 col-xs-12">
+                                <div class="card card-group-row__card card-sm">
+                                    <div class="card-body">
+                                        <div class="d-flex">
+                                            <a href="/faculty/quiz/<%= quiz._id %>" class="avatar avatar-4by3 mr-12pt">
+                                                <img src="/uploads/quizImages/<%=quiz.imageSource%>"
+                                                    alt="Angular Routing In-Depth" class="avatar-img rounded">
+                                                <span class="overlay__content"></span>
+                                            </a>
+                                            <div class="flex mt-2 text-right">
+                                                <a class="card-title mb-3"
+                                                    style="overflow: hidden;text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"
+                                                    href="/faculty/quiz/<%=quiz._id%>"><%=quiz.name%></a>
+                                                <div class="card-subtitle text-primary mb-2" style="font-size: medium;">
+                                                    <%=quiz.numberOfQuestions%>
+                                                    Questions</div>
+                                                <div class="flex">
+                                                    Curated on
+                                                    <span class="badge badge-soft-secondary">
+                                                        <%= new Date(quiz.createdAt).toLocaleDateString('en-GB', {
+                                                        year: '2-digit',
+                                                        month: 'short',
+                                                        day: 'numeric'
+                                                    })
+                                        %> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer  d-flex justify-content-between">
+                                        <% if(quiz.isPublished){ %>
+                                        <span class="badge badge-success">Published</span>
+                                        <% }else{ %>
+                                        <span class="badge badge-danger">Draft</span>
+                                        <% } %>
+                                        <span class="badge  badge-soft-info"><%=quiz.duration%> min</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}) %>
+                        </div>
+                    </div>
+                </div>
+                            <%-include('../partials/footerpage.ejs')%>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+
+</body>
+
+</html>

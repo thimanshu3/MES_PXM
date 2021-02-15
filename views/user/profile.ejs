@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="stylesheet" href="/css/cards.css">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+
+</head>
+
+<body>
+    <%-include('../partials/config')%>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-4 col-xl-4">
+                            <div class="card-shadow-primary card-border text-dark mb-3 card bg-light">
+                                <div class="dropdown-menu-header">
+                                    <div class="dropdown-menu-header-inner bg-light">
+                                        <div class="menu-header-content">
+                                            <div class="avatar-icon-wrapper mb-3 avatar-icon-xl">
+                                                <div class="avatar-icon"
+                                                    style="height: 250px; width: 310px; border-radius: 5px;">
+                                                    <img src="/uploads/userProfile/<%=profile.profileImageSource%>"
+                                                        alt="Avatar">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center d-flex card-footer justify-content-center">
+                                    <form class="" action="/user/profile/profileImage" method="POST"
+                                        enctype="multipart/form-data">
+                                        <input type="file" name="profileImage" id="profileImage" required>
+
+                                        <button class="mt-4 btn btn-link btn-sm" type="submit">Update Profile
+                                            Image</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-xl-8 col-sm-12">
+                            <form id="updateStudentForm" class="col-md-12 mx-auto card" method="POST"
+                                action="/user/profile?_method=PATCH">
+                                <div class="card-body">
+                                    <div class="form-row ">
+                                        <div class="form-group col-md-6">
+                                            <label for="firstName"> First
+                                                name</label>
+                                            <div>
+                                                <input type="text" class="form-control" name="firstName" id="firstName"
+                                                    value="<%=profile.firstName%>" required=""
+                                                    <%=User.role === 3 && 'disabled'%>>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="lastName"> Last
+                                                name</label>
+                                            <div>
+                                                <input class="form-control" type="text" name="lastName" id="lastName"
+                                                    value="<%=profile.lastName%>" required=""
+                                                    <%=User.role === 3 && 'disabled'%>>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="email"> Email</label>
+                                            <div>
+                                                <input class="form-control" type="email" id="email"
+                                                    value="<%=profile.email%>" required="" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="contactNumber"> Contact
+                                                Number</label>
+                                            <div>
+                                                <input class="form-control" type="tel" name="contactNumber"
+                                                    id="contactNumber" minlength="10" maxlength="10"
+                                                    value="<%=profile.contactNumber%>" required=""
+                                                    <%=User.role === 3 && 'disabled'%>>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="gender"> Gender</label>
+                                            <div>
+                                                <select class="form-control" name="gender" id="gender"
+                                                    <%=User.role === 3 && 'disabled'%>>
+                                                    <option value="male" <%=profile.gender === 'male' && 'selected'%>>
+                                                        Male
+                                                    </option>
+                                                    <option value="female"
+                                                        <%=profile.gender === 'female' && 'selected'%>>
+                                                        Female</option>
+                                                    <option value="other" <%=profile.gender === 'other' && 'selected'%>>
+                                                        Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="alternateEmail">Alt Email</label>
+                                            <div>
+                                                <input class="form-control" type="email" name="alternateEmail"
+                                                    id="alternateEmail" value="<%=profile.alternateEmail%>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="githubUrl">Github Profile</label>
+                                            <div>
+                                                <input type="url" name="githubUrl" id="githubUrl" class="form-control"
+                                                    value="<%=profile.githubUrl%>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="linkedinUrl">Linkedin Profile</label>
+                                            <div>
+                                                <input type="url" name="linkedinUrl" class="form-control"
+                                                    id="linkedinUrl" value="<%=profile.linkedinUrl%>">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div class="card-footer form-group d-flex justify-content-end">
+                                            <button id="submitbtn" type="submit" class="btn btn-primary">Update
+                                                Details</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+</body>
+
+</html>

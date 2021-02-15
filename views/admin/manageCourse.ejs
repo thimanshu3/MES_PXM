@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Course - <%=course.name%></title>
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/cards.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+</head>
+
+<body>
+
+    <%-include('../partials/config')%>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="fas fa-book-reader icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>Manage Course Details
+                                    <div class="page-title-subheading">
+                                        <div class="d-flex justify-content-center ">
+                                            Update course details and Add, View, Manage units in the course.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="page-title-actions">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="card col-12">
+                            <div class="card-header">
+                                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                    <i class="header-icon fas fa-university icon-gradient bg-happy-itmeo"></i>
+                                    Course Details
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <form action="/admin/courses/<%=course.id%>?_method=PATCH"
+                                        class="col-md-4 col-lg-4 col-xl-4" enctype="multipart/form-data" method="POST">
+                                        <div class="col-12">
+                                            <img id="output" src="/uploads/courseImages/<%=course.imageSource%>"
+                                                style="width: 100%; height: 170px;" />
+                                        </div>
+                                        <hr>
+                                        <div class="form-group">
+                                            <input type="file" id="image" name="image" class="form-control-file"
+                                                accept="image/*" onchange="loadFile(event)">
+                                            <small class="form-text"><b class="text-danger">*</b>
+                                                only png,
+                                                jpeg,
+                                                jpg format
+                                                accepted.
+                                            </small>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" style=" text-decoration: none;" class="btn text-black btn-link">Update Image</button>
+                                        </div>
+                                    </form>
+                                    <form id="" class="col-md-8 col-lg-8 col-xl-8"
+                                        action="/admin/courses/<%=course.id%>?_method=PUT" method="POST">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label for="courseName"><b class="text-danger">*</b> Course
+                                                    Name</label>
+                                                <div>
+                                                    <input type="text" class="form-control" name="name" id="courseName"
+                                                        value="<%= course.name %>" required="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="logoSource"><b class="text-danger">*</b> Course
+                                                    Description</label>
+                                                <textarea class="form-control" name="description"
+                                                    style="height: 100px;"><%=course.description%></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="courseIlorCode"><b class="text-danger">*</b> Course ILOR
+                                                    Code</label>
+                                                <div>
+                                                    <input type="text" class="form-control" name="ilorCode"
+                                                        id="courseIlorCode" value="<%=course.ilorCode%>" required="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="IceCourseCode"><b class="text-danger">*</b>ICE Course
+                                                    Code</label>
+                                                <div>
+                                                    <input type="text" class="form-control" name="iceCourseCode"
+                                                        id="IceCourseCode" value="<%=course.iceCourseCode%>"
+                                                        required="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="semester"><b class="text-danger">*</b> Select
+                                                    Semester</label>
+                                                <div>
+                                                    <select class="form-control" name="semester" id="semester" required>
+                                                        <option value="1" <%=course.semester===1 ? 'selected' : ''%>>1
+                                                        </option>
+                                                        <option value="2" <%=course.semester===2 ? 'selected' : ''%>>2
+                                                        </option>
+                                                        <option value="3" <%=course.semester===3 ? 'selected' : ''%>>3
+                                                        </option>
+                                                        <option value="4" <%=course.semester===4 ? 'selected' : ''%>>4
+                                                        </option>
+                                                        <option value="5" <%=course.semester===5 ? 'selected' : ''%>>5
+                                                        </option>
+                                                        <option value="6" <%=course.semester===6 ? 'selected' : ''%>>6
+                                                        </option>
+                                                        <option value="7" <%=course.semester===7 ? 'selected' : ''%>>7
+                                                        </option>
+                                                        <option value="8" <%=course.semester===8 ? 'selected' : ''%>>8
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="specialization"><b class="text-danger">*</b>Select
+                                                    Specialization</label>
+                                                <div>
+                                                    <select class="form-control" name="specializationId"
+                                                        id="specialization" required>
+                                                        <%specializations.forEach(s => {%>
+                                                        <option value="<%=s.id%>"
+                                                            <%=course.specializationId===s.id ? 'selected' : ''%>>
+                                                            <%=s.name%></option>
+                                                        <%})%>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group d-flex justify-content-end mt-4">
+                                            <button style=" text-decoration: none;" id="submitbtn" type="submit"
+                                                class="btn btn-link btn-lg">Update
+                                                Details <i style="font-size: 1rem;margin-left: 0.3;"
+                                                    class="pe-7s-server metismenu-icon"></i></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                            <h2 style="font-weight: 200">Course&nbsp;Unit Details</h2>
+                            <button data-toggle="modal" data-target="#AddUnit" type="button"
+                                class="btn btn-lg btn-primary">
+                                <span class="btn-icon-wrapper pr-2 opacity-7">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                                Add Unit
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="row mb-4">
+                        <%Object.keys(courseContent).forEach(key => {%>
+                        <div class="col-md-3 col-lg-3 col-xl-3 col-sm-6">
+                            <div class="card">
+                                <div class="d-flex justify-content-center card-header">
+                                    <span>
+                                        Unit - <%=courseContent[key].unitNumber%>
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    <a href="<%=course.id%>/<%=courseContent[key].id%>"
+                                        class="btn btn-block btn-outline-primary">
+                                        Manage <i class="fas fa-cogs"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <%})%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="AddUnit" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Confirm Unit Creation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <p style="font-size: large;" class="text-danger">Once added the Unit can't be removed!</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary text-capitalize" data-dismiss="modal">cancel</button>
+                    <form action="/admin/courses/<%=course.id%>/addUnit" method="POST"><button type="submit"
+                            class="btn btn-primary text-capitalize">Confirm</button></form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+    <script>
+        var loadFile = function (event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('output');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        };
+        $(document).ready(function () {
+            var table = $('#topicTable-1').DataTable({
+                searching: true,
+                paging: true,
+                pageLength: 50,
+                info: false,
+                scrollCollapse: true,
+                scrollY: '60vh',
+            })
+        })
+    </script>
+</body>
+
+</html>

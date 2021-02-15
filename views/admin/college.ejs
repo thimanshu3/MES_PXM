@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College</title>
+
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/cards.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="stylesheet" href="/css/dataTables.min.css">
+
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+</head>
+
+
+<body>
+
+    <%-include('../partials/config')%>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="fas fa-university icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div><%=College.name%>
+                                    <div class="page-title-subheading">
+                                        College and associated member's details.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="page-title-actions">
+                                <div class="d-inline-block">
+                                    <button class="btn btn-<%= active ? 'success' : 'danger' %>"
+                                        onclick="changeCollegeActive('<%= active ? false : true %>')">
+                                        <%= active ? "Deactivate": "Activate"%> All Users
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- college ui -->
+                    <div class="mb-3 card main-card">
+                        <div class="card-header">
+                            <ul class="nav">
+                                <li class="nav-item">
+                                    <a data-toggle="tab" href="#tab-eg1-0" class="active nav-link">Basic Details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a data-toggle="tab" href="#tab-eg1-1" class="nav-link">Students</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a data-toggle="tab" href="#tab-eg1-2" class="nav-link">Faculties</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a data-toggle="tab" href="#tab-eg1-3" class="nav-link">Courses</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane active show" id="tab-eg1-0" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-md-4 col-lg-4 col-xl-4">
+                                            <div class="card-shadow-primary card-border mb-3 card">
+                                                <div class="dropdown-menu-header">
+                                                    <div class="dropdown-menu-header-inner bg-light">
+                                                        <div class="menu-header-image opacity-4"
+                                                            style="background-color: #ffffff;">
+                                                        </div>
+                                                        <div class="menu-header-content">
+                                                            <div class="avatar-icon-wrapper mb-3 avatar-icon-xl">
+                                                                <div class="avatar-icon"
+                                                                    style="border-radius: 100%; height: 100px; width: 100px;">
+                                                                    <img
+                                                                        src="/uploads/collegeLogo/<%=College.logoSource%>">
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <h6 class="menu-header-title text-dark">
+                                                                    <%=College.name%>
+                                                                </h6>
+                                                                <h6 class="menu-header-subtitle"><a
+                                                                        class="menu-header-subtitle text-info"
+                                                                        style="text-decoration: none;"
+                                                                        href="<%=College.website%>"
+                                                                        target="_blank"><%=College.website%></a></h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="p-3 text-center">
+                                                        <h6
+                                                            class="text-primary text-uppercase font-size-md opacity-5 font-weight-normal">
+                                                            address :-</h6>
+                                                        <P class="text-dark"><%=College.address%></P>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 col-lg-8 col-xl-8">
+                                            <form class="mx-auto col-12" id="updateCollegeDetails">
+                                                <h3 class="card-title">College Details</h3>
+                                                <hr>
+                                                <div class="form-row  border-bottom">
+                                                    <div class="form-group col-md-6 col-xl-6 col-lg-6">
+                                                        <label for="name">Name</label>
+                                                        <input class="form-control" type="text" name="name" id="name"
+                                                            value=" <%=College.name%>" required>
+                                                    </div>
+                                                    <div class="form-group col-md-6 col-xl-6 col-lg-6">
+                                                        <label for="website">Website</label>
+                                                        <div>
+                                                            <input class="form-control" type="url" name="website"
+                                                                value="<%=College.website%>" id="website" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-12 col-xl-12 col-lg-12">
+                                                        <label for="address">Address</label>
+                                                        <div>
+                                                            <textarea class="form-control" type="text" name="address"
+                                                                id="address" required><%=College.address%> </textarea>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-row  border-bottom">
+                                                    <div class="form-group col-md-6 col-xl-6 col-lg-6">
+                                                        <label for="directorName"> Director Name</label>
+                                                        <input class="form-control" type="text" name="directorName"
+                                                            id="directorName" value=" <%=College.directorName%>"
+                                                            required>
+                                                    </div>
+                                                    <div class="form-group col-md-6 col-xl-6 col-lg-6">
+                                                        <label for="directorEmail">Director Email</label>
+                                                        <div>
+                                                            <input class="form-control" type="email"
+                                                                name="directorEmail" value="<%=College.directorEmail%>"
+                                                                id=" directorEmail" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-6 col-xl-6 col-lg-6">
+                                                        <label for="directorContactNumber">Director Contact
+                                                            Number</label>
+                                                        <div>
+                                                            <input class="form-control" type="tel"
+                                                                name="directorContactNumber"
+                                                                value="<%=College.directorContactNumber%>"
+                                                                id="directorContactNumber" minlength="10"
+                                                                maxlength="10">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="d-flex justify-content-end">
+                                                    <button style="text-decoration: none;" id="submitbtn" type="submit"
+                                                        class="btn btn-link">Update
+                                                        Details <i style="font-size: 1rem;margin-left: 0.3;"
+                                                            class="pe-7s-server metismenu-icon"></i></button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <hr class="mb-4">
+                                    <div class="row">
+                                        <div class="col-md-4 col-lg-4 col-xl-4">
+                                            <div class="card-shadow-primary card-border mb-3 card">
+                                                <div class="dropdown-menu-header">
+                                                    <div class="dropdown-menu-header-inner bg-light">
+                                                        <div class="menu-header-content">
+                                                            <div class="avatar-icon-wrapper mb-3 avatar-icon-xl">
+                                                                <div class="avatar-icon"
+                                                                    style="border-radius: 100%; height: 100px; width: 100px;">
+                                                                    <img
+                                                                        src="/uploads/userProfile/<%=spoc.profileImageSource%>">
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <h5 class="menu-header-title text-dark">
+                                                                    <%=spoc.firstName%> <%=spoc.lastName%>
+                                                                </h5>
+                                                                <h6 class="menu-header-subtitle"><a
+                                                                        class="menu-header-subtitle text-info"
+                                                                        style="text-decoration: none;"
+                                                                        href="mailto:<%=spoc.email%>"
+                                                                        target="_blank"><%=spoc.email%></a></h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="p-3 text-center">
+                                                    <h5 class="text-dark">SPoC</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 col-lg-8 col-xl-8">
+                                            <form id="updateSpoc">
+                                                <h3 class="card-title">Spoc Details</h3>
+                                                <hr>
+                                                <div class="form-row mb-2">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="firstName">First Name</label>
+                                                        <input class="form-control" type="text" name="firstName"
+                                                            value="<%=spoc.firstName %>" id="firstName">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="lastName">Last Name</label>
+                                                        <div>
+                                                            <input class="form-control" type="text" name="lastName"
+                                                                id="lastName" value="<%=spoc.lastName %>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="email">Email</label>
+                                                        <div>
+                                                            <input class="form-control" type="email"
+                                                                value="<%=spoc.email%>" name="email" id="email">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="contactNumber">Contact Number</label>
+                                                        <div>
+                                                            <input class="form-control" type="tel"
+                                                                value="<%=spoc.contactNumber%>" name="contactNumber"
+                                                                id="contactNumber" minlength="10" maxlength="10">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="githubUrl">Github Profile</label>
+                                                        <div>
+                                                            <input type="url" name="githubUrl" id="githubUrl"
+                                                                class="form-control" value="<%=spoc.githubUrl || ''%>"
+                                                                placeholder="ex:- https://github.com/amigos">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="linkedinUrl">Linkedin Profile</label>
+                                                        <div>
+                                                            <input class="form-control" type="url"
+                                                                value="<%=spoc.linkedinUrl || ''%>" name="linkedinUrl"
+                                                                id="linkedinUrl"
+                                                                placeholder="ex:- https://linkedin.com/in/amigos">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="form-group d-flex justify-content-end card-footer">
+                                                    <button style="text-decoration: none;" type="submit"
+                                                        class="btn btn-link">
+                                                        Update SPoC <i style="font-size: 1rem;margin-left: 0.3;"
+                                                            class="pe-7s-server metismenu-icon"></i></button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab-eg1-1" role="tabpanel">
+                                    <!-- DataTales Example -->
+                                    <div class="main-card">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table id="studenttable" class="table table table-borderless">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Name</th>
+                                                            <th>Specialization</th>
+                                                            <th>Active</th>
+                                                            <th>Semester</th>
+                                                            <th>Contact</th>
+                                                            <th>Social</th>
+                                                            <th>action</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Name</th>
+                                                            <th>Specialization</th>
+                                                            <th>Active</th>
+                                                            <th>Semester</th>
+                                                            <th>Contact</th>
+                                                            <th>Social</th>
+                                                            <th>action</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                    <tbody>
+                                                        <% const colors = ["g", "alternate", "info", "success", "primary", "warning", "dark", "secondary", "soft-link", "soft-dark", "soft-info", "soft-warning", "soft-danger", "soft-success", "soft-secondary", "soft-primary"] %>
+                                                        <%students.forEach((student, index) => {%>
+                                                        <tr>
+                                                            <td><%=index+1%></td>
+                                                            <td>
+                                                                <h6><%=student.firstName + ' ' + student.lastName%></h6>
+                                                            </td>
+                                                            <td
+                                                                class="p-1 badge badge-sm badge-<%= colors[student.specialization]%>">
+                                                                <%=specializations[student.specialization] || student.specialization%>
+                                                            </td>
+                                                            <td><% if (student.active) { %>
+                                                                <span id="activeBadge-<%=student.id%>"
+                                                                    class="badge badge-success">ACTIVE</span>
+                                                                <%} else { %>
+                                                                <span id="activeBadge-<%=student.id%>"
+                                                                    class="badge badge-danger">INACTIVE</span>
+                                                                <% } %></td>
+                                                            <td><span
+                                                                    class=" badge badge-pill badge-secondary"><%=student.semester%></span>
+                                                            </td>
+                                                            <td>
+
+                                                                <div class="d-flex">
+                                                                    <a href="mailto:<%=student.email%>"
+                                                                        class=" btn btn-sm btn-danger"
+                                                                        style="background-color: maroon;"
+                                                                        data-original-title="<%=student.email%>"
+                                                                        aria-describedby="tooltip232856"
+                                                                        data-toggle="tooltip" title=""
+                                                                        data-placement="top">
+                                                                        <i style=" color: white;"
+                                                                            class="fas fa-envelope"></i>
+                                                                    </a>
+                                                                    <a href="tel:<%=student.contactNumber%>"
+                                                                        class="ml-2 btn btn-sm btn-secondary"
+                                                                        data-original-title="<%=student.contactNumber%>"
+                                                                        aria-describedby="tooltip232856"
+                                                                        data-toggle="tooltip" title=""
+                                                                        data-placement="top">
+                                                                        <i class="fas fa-phone"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex">
+                                                                    <a href="<%=student.githubUrl || '#'%>"
+                                                                        class="btn btn-light btn-sm p-0">
+                                                                        <img style="width: 20px; height: 20px;"
+                                                                            src="https://github.githubassets.com/images/modules/logos_page/Octocat.png"
+                                                                            alt="">
+                                                                    </a>
+                                                                    <a href="<%=student.linkedinUrl || '#'%>"
+                                                                        class=" ml-2 btn btn-info btn-sm p-0"
+                                                                        style="height: 20px;">
+                                                                        <img src="data:image/png;base64,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"
+                                                                            style="width: 20px; height: 20px;" alt="">
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+
+                                                            <td>
+                                                                <div class="d-flex">
+                                                                    <a href="/admin/students/<%=student.id%>"
+                                                                        class="btn-shadow shadow rounded-circle btn-sm text-white btn-primary btn"><i
+                                                                            class="fas fa-external-link-square-alt"></i></a>
+                                                                    <button id="changeActiveStudent-<%=student.id%>"
+                                                                        class=" ml-2 btn-shadow shadow rounded-circle btn-sm text-white btn-dark btn"
+                                                                        onclick="changeActive('<%=student.id%>')">
+                                                                        <i
+                                                                            class="fas <%=student.active ? 'fa-trash' : 'fa-undo'%>"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <%})%>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- datatable end -->
+                                </div>
+                                <!-- Faculties tab -->
+                                <div class="tab-pane" id="tab-eg1-2" role="tabpanel">
+                                    <% if(faculties.length === 0) {%>
+                                    <div class="container-fluid">
+                                        <article>
+                                            <div class="d-flex flex-row justify-content-center">
+                                                <img style="width: 250px;" src="../../assets/images/undraw_empty.svg"
+                                                    alt="">
+                                            </div>
+                                            <br>
+                                            <div class="d-flex justify-content-center">
+                                                <h4 class="">No Data to show</h4>
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <%} else{%>
+                                    <div class="row">
+                                        <%faculties.forEach(faculty => {%>
+                                        <div class="col-sm-12 col-md-6 col-xl-4">
+                                            <div class="mb-3 profile-responsive card">
+                                                <div class="dropdown-menu-header">
+                                                    <div class="dropdown-menu-header-inner bg-light">
+                                                        <div class=" menu-header-image opacity-4"
+                                                            style="background-image: url('<%=faculty.profileImageSource%>');">
+                                                        </div>
+                                                        <div class="menu-header-content btn-pane-right">
+                                                            <div
+                                                                class="avatar-icon-wrapper mr-3 avatar-icon-xl btn-hover-shine">
+                                                                <div class="avatar-icon rounded">
+                                                                    <img src="/uploads/userProfile/<%=faculty.profileImageSource%>"
+                                                                        alt="Profile Image">
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <h5 class="menu-header-title text-dark"
+                                                                    style="font-size: 1rem;">
+                                                                    <%=faculty.firstName + ' ' + faculty.lastName%>
+                                                                </h5>
+                                                                <h6 class="menu-header-subtitle text-dark"
+                                                                    style="font-size: 0.8rem;">
+                                                                    <%=faculty.email%>
+                                                                </h6>
+                                                                <span
+                                                                    class="text-primary badge badge-pill badge-sm badge-light mt-2 menu-header-subtitle">
+                                                                    <%=specializations[faculty.specialization] || faculty.specialization%>
+                                                                </span>
+                                                            </div>
+                                                            <div class="menu-header-btn-pane">
+                                                                <a href="/admin/faculties/<%=faculty.id%>" type="button"
+                                                                    class="btn btn-light">View</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <%})%>
+                                    </div>
+                                    <%}%>
+                                </div>
+                                <!-- Faculties tab end -->
+                                <div class="tab-pane" id="tab-eg1-3" role="tabpanel">
+                                    <% if(assignedCourses.length === 0) {%>
+                                    <div class="container-fluid">
+                                        <article>
+                                            <div class="d-flex flex-row justify-content-center">
+                                                <img style="width: 250px;" src="../../assets/images/undraw_empty.svg"
+                                                    alt="">
+                                            </div>
+                                            <br>
+                                            <div class="d-flex justify-content-center">
+                                                <h4 class="">No <span class="text-danger"> Courses</span> assigned to
+                                                    this college</h4>
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <%} else{%>
+                                    <div class="container">
+                                        <div class="row">
+                                            <%assignedCourses.forEach(course => {%>
+                                            <div class="col-sm-6 col-md-4 col-lg-3">
+                                                <div class="card"
+                                                    style="min-height: 400px; max-height: 400px; width: 100%;">
+                                                    <img src="/uploads/courseImages/<%=course.imageSource%>"
+                                                        class="card-img-top " style=" height: 120px;">
+                                                    <span
+                                                        class="badge badge-pill badge-info position-absolute badge-top-left"><%=course.iceCourseCode%></span>
+                                                    <div class="card-body">
+                                                        <p class="h5 card-title"><%=course.name%></p>
+                                                        <p class="card-text text-sm">
+                                                            <small
+                                                                style="overflow: hidden;text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 7; line-height: 1.1rem; -webkit-box-orient: vertical;"
+                                                                class="text-dark"><%=course.description%></small>
+                                                        </p>
+                                                    </div>
+                                                    <div class="text-center d-block card-footer">
+                                                        <a href="/admin/courses/<%=course.id%>/preview"
+                                                            class="border-0 btn-transition btn-block btn btn-light">
+                                                            View Details
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%})%>
+                                        </div>
+                                    </div>
+                                    <% }%>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- college ui end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+
+
+        $('#updateCollegeDetails').submit(function (e) {
+            e.preventDefault()
+            const { name, address, website, directorName, directorEmail, directorContactNumber } = e.currentTarget.elements
+            fetch('/admin/colleges/<%=College.id%>', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name.value,
+                    address: address.value,
+                    website: website.value,
+                    directorName: directorName.value,
+                    directorEmail: directorEmail.value,
+                    directorContactNumber: directorContactNumber.value
+                })
+            })
+                .then(function (res) {
+                    return res.json()
+                })
+                .then(function (json) {
+                    if (json.status == 200)
+                        iziToast.success({
+                            message: json.message
+                        })
+                    else if (json.status == 400)
+                        iziToast.error({
+                            title: json.message,
+                            message: json.error
+                        })
+                    else
+                        iziToast.error({
+                            message: json.message
+                        })
+                })
+                .catch(err => console.log(err))
+        })
+        $('#updateSpoc').submit(function (e) {
+            e.preventDefault()
+            const { firstName, lastName, email, contactNumber, githubUrl, linkedinUrl } = e.currentTarget.elements
+            fetch('/admin/colleges/<%=spoc.id%>', {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    firstName: firstName.value,
+                    lastName: lastName.value,
+                    email: email.value,
+                    contactNumber: contactNumber.value,
+                    githubUrl: githubUrl.value,
+                    linkedinUrl: linkedinUrl.value
+                })
+            })
+                .then(function (res) {
+                    return res.json()
+                })
+                .then(function (json) {
+                    if (json.status == 200)
+                        iziToast.success({
+                            message: json.message
+                        })
+                    else if (json.status == 400)
+                        iziToast.error({
+                            title: json.message,
+                            message: json.error
+                        })
+                    else
+                        iziToast.error({
+                            message: json.message
+                        })
+                })
+                .catch(err => console.log(err))
+        })
+
+        function changeCollegeActive(active) {
+            fetch(`/admin/colleges/<%=College.id%>?active=${active.toString()}`, { method: 'DELETE' })
+                .then(function (res) {
+                    return res.json()
+                })
+                .then(function (json) {
+
+                    if (json.status == 200) {
+                        iziToast.info({
+                            message: json.message
+                        })
+                    }
+                    else
+                        iziToast.error({
+                            message: json.message
+                        })
+                }).then(() => location.reload(true))
+                .catch(err => console.log(err))
+        }
+
+        $('#studenttable tfoot th').each(function (index) {
+            if (index === 1) {
+                var title = $(this).text();
+                $(this).html('<input class="form-control form-control-sm" type="text" placeholder="Search ' + title + '" />');
+            }
+        });
+
+        var selectBoxSearch = [2];
+        $('#studenttable').dataTable(
+            {
+                searching: true,
+                paging: true,
+                pageLength: 50,
+                info: false,
+                scrollCollapse: true,
+                scrollY: '60vh',
+                fixedHeader: true,
+                initComplete: function () {
+                    // Apply the search
+                    this.api().columns().every(function (index) {
+                        if (selectBoxSearch.includes(index)) {
+                            var column = this;
+                            var select = $('<select class="form-control-sm form-control"><option value=""></option></select>')
+                                .appendTo($(column.footer()).empty())
+                                .on('change', function () {
+                                    var val = $.fn.dataTable.util.escapeRegex(
+                                        $(this).val()
+                                    );
+
+                                    column
+                                        .search(val ? '^' + val + '$' : '', true, false)
+                                        .draw();
+                                });
+
+                            column.data().unique().sort().each(function (d, j) {
+                                select.append('<option value="' + d + '">' + d + '</option>')
+                            });
+                        }
+                        var that = this;
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+                    });
+                }
+            }
+        );
+
+        function changeActive(id) {
+            fetch(`/admin/user/${id}`, {
+                method: 'DELETE'
+            })
+                .then(res => res.json())
+                .then(json => {
+                    if (json.status === 200) {
+                        iziToast.info({
+                            message: json.message
+                        })
+                        $(`#activeBadge-${id}`).text(json.active ? 'ACTIVE' : 'INACTIVE')
+                        document.querySelector(`#activeBadge-${id}`).classList.remove('badge-success')
+                        document.querySelector(`#activeBadge-${id}`).classList.remove('badge-danger')
+                        document.querySelector(`#activeBadge-${id}`).classList.add(json.active ? 'badge-success' : 'badge-danger')
+                        $(`#changeActiveStudent-${id}`).empty()
+                        $(`#changeActiveStudent-${id}`).append(`
+                            <i class="fas ${json.active ? 'fa-trash' : 'fa-undo'}"></i>
+                        `)
+                    } else {
+                        iziToast.error({
+                            message: json.message
+                        })
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+    </script>
+</body>
+
+</html>

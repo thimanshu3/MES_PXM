@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add College</title>
+
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+</head>
+<style></style>
+
+<body>
+
+    <%-include('../partials/config')%>
+
+
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="fas fa-university icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>Add College
+                                    <div class="page-title-subheading">
+                                        <div class="d-flex justify-content-center ">
+                                            <div class="d-flex justify-content-center ">
+                                                Fill following form to register college on the LMS portal.
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="main-card mb-3 shadow-lg card">
+                        <div class="card-body">
+                            <h5 class="card-title">College Basic Details</h5>
+                            <hr>
+                            <form id="addCollege" class="col-md-11 mx-auto" action="/admin/addCollege" method="POST"
+                                enctype="multipart/form-data">
+                                <div class="form-row mb-2">
+                                    <div class="form-group col-md-6">
+                                        <label for="name"><b class="text-danger">*</b> Institution Name</label>
+                                        <div>
+                                            <input onkeyup="search('name', this.value, false)" type="text"
+                                                class="form-control" id="name" name="name"
+                                                placeholder="Enter College/Institution Name" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="address"><b class="text-danger">*</b> Institution Address</label>
+                                        <div>
+                                            <input type="text" class="form-control" id="address" name="address"
+                                                placeholder="Enter College/Institution address" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row border-bottom">
+                                    <div class="form-group col-md-6">
+                                        <label for="logoSource">Institution Logo</label>
+                                        <div>
+                                            <div class="col-sm-10">
+                                                <input type="file" id="logoSource" name="logoSource"
+                                                    class="form-control-file" accept="image/*">
+                                                <small class="form-text"><b class="text-danger">*</b> only png, jpeg,
+                                                    jpg format
+                                                    accepted.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="website">Institution Website</label>
+                                        <div>
+                                            <input type="url" class="form-control" id="website" name="website"
+                                                placeholder=" https://example.com" value="http://" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <h3 class="card-title">Director Details</h3>
+                                <hr>
+                                <div class="form-row  border-bottom">
+                                    <div class="form-group col-md-4">
+                                        <label for="directorName"><b class="text-danger">*</b> Full Name</label>
+                                        <input class="form-control" type="text" name="directorName" id="directorName"
+                                            required>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="directorEmail"><b class="text-danger">*</b> Email</label>
+                                        <div>
+                                            <input class="form-control" type="email" name="directorEmail"
+                                                id="directorEmail" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="directorContactNumber"><b class="text-danger">*</b> Phone
+                                            Number</label>
+                                        <div>
+                                            <input class="form-control" type="tel" name="directorContactNumber"
+                                                id="directorContactNumber" minlength="10" maxlength="10" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <h3 class="card-title">Spoc Details</h3>
+                                <hr>
+                                <div class="form-row mb-2">
+                                    <div class="form-group col-md-4">
+                                        <label for="spocFirstName"><b class="text-danger">*</b> First Name</label>
+                                        <input class="form-control" type="text" name="spocFirstName" id="spocFirstName"
+                                            required>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="spocLastName"><b class="text-danger">*</b> Last Name</label>
+                                        <div>
+                                            <input class="form-control" type="text" name="spocLastName"
+                                                id="spocLastName" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="spocEmail"><b class="text-danger">*</b> Email</label>
+                                        <div>
+                                            <input onkeyup="search('email' , this.value , true)" class="form-control"
+                                                type="email" name="spocEmail" id="spocEmail" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row mb-2">
+                                    <div class="form-group col-md-4">
+                                        <label for="spocContactNumber"><b class="text-danger">*</b> Contact
+                                            Number</label>
+                                        <div>
+                                            <input class="form-control" type="tel" name="spocContactNumber"
+                                                id="spocContactNumber"
+                                                onkeyup="search('contactNumber' , this.value , true)" minlength="10"
+                                                maxlength="10" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <label for="spocGender"><b class="text-danger">*</b> Gender</label>
+                                        <div>
+                                            <select class="form-control" name="spocGender" id="spocGender">
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="spocAlternateEmail">Alternate Email</label>
+                                        <div>
+                                            <input type="email" class="form-control" name="spocAlternateEmail"
+                                                id="spocAlternateEmail">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="spocGithubUrl">Github Profile</label>
+                                        <div>
+                                            <input type="url" name="spocGithubUrl" id="spocGithubUrl"
+                                                class="form-control" placeholder="ex:- https://github.com/amigos">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="spocLinkedinUrl">Linkedin Profile</label>
+                                        <div>
+                                            <input class="form-control" type="url" name="spocLinkedinUrl"
+                                                id="spocLinkedinUrl" placeholder="ex:- https://linkedin.com/in/amigos">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group d-flex justify-content-end card-footer">
+                                    <button style="text-decoration: none;" id="submitbtn" type="submit"
+                                        class="btn btn-link">Save
+                                        Details <i style="font-size: 1rem;margin-left: 0.3;"
+                                            class="pe-7s-server metismenu-icon"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+
+    <!-- spinner -->
+    <script>
+        $('form').on('submit', function (e) {
+            var submit = $(this).find('[clicked=true]')[0];
+            if (!submit.hasAttribute('disabled')) {
+                submit.setAttribute('disabled', true);
+                $('#submitbtn').addClass('spinner spinner-white spinner-right')
+                setTimeout(function () {
+                    submit.removeAttribute('disabled');
+                }, 1000);
+            }
+            submit.removeAttribute('clicked');
+        });
+        $('[type=submit]').on('click touchstart', function () {
+            this.setAttribute('clicked', true);
+        });
+
+        const search = (nameKey, value, type) => {
+            if (type === false) {
+                const c = JSON.parse('<%- JSON.stringify(colleges) %>')
+                c.forEach(a => {
+                    if (a[`${nameKey}`] === value) {
+                        iziToast.warning({
+                            title: "Caution",
+                            close: false,
+                            timeout: 3000,
+                            message: `This College ${nameKey} Already Exists`,
+                            position: 'center',
+                            overlay: true,
+                        })
+                        $(`#${nameKey}`).val('')
+                    }
+                });
+            }
+            else {
+                const s = JSON.parse('<%- JSON.stringify(spocs) %>')
+                value = nameKey == 'contactNumber' ? parseInt(value) : value;
+                let i = nameKey == "email" ? 'Email' : 'ContactNumber';
+                s.forEach(a => {
+                    if (a[`${nameKey}`] === value) {
+                        iziToast.warning({
+                            title: "Caution",
+                            close: false,
+                            timeout: 3000,
+                            message: `This SPOC ${nameKey} Already Exists`,
+                            position: 'center',
+                            overlay: true,
+                        })
+                        $(`#spoc${i}`).val('')
+                    }
+                });
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

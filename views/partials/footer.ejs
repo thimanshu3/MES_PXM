@@ -1,0 +1,38 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap');    .amigos-footer-container {
+        font-family: 'Comfortaa', cursive;
+        font-size: 16px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .amigos-heart {
+        color: red;
+        animation: colorCycle 2s linear infinite;
+        font-size: x-large;
+    }
+
+    @keyframes colorCycle {
+        0% {
+            color: red;
+        }
+
+        25% {
+            color: blue;
+        }
+
+        50% {
+            color: green;
+        }
+
+        75% {
+            color: goldenrod;
+        }
+    }
+</style>
+
+<div class="amigos-footer-container">
+    <span>Made with <i class="amigos-heart">♥</i> by <b class="text-primary">Amigos</b> &copy; <%= new Date().getFullYear()  %></span>
+</div>

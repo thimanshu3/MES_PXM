@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+</head>
+<style>
+    @media (max-width: 767.98px) {
+        .app-container .page-top-wrapper::after {
+            display: none !important;
+        }
+
+        .app-container .page-top-wrapper .page-hero {
+            min-height: 100px;
+            height: auto;
+            padding: 6.75rem 0 1.5rem;
+        }
+
+        .app-container .page-top-wrapper .page-hero .hero-p {
+            margin-top: 1rem;
+            line-height: 1.6rem;
+        }
+
+        .app-container .page-top-wrapper .page-hero .hero-h3 {
+            display: none;
+        }
+
+        .app-container .page-top-wrapper .page-hero .page-hero-inner {
+            padding: 1.5rem;
+        }
+
+        .icon-wrapper {
+            margin-top: 0.75rem !important;
+        }
+
+        .page-top-wrapper-alt2 .page-hero {
+            padding: 1.5rem 0 !important;
+        }
+
+        .page-top-wrapper-alt2 .page-hero .page-hero-inner {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+
+        .page-top-wrapper-alt2 .page-hero .page-hero-inner .hero-h3 {
+            display: block !important;
+        }
+
+        .page-top-wrapper-alt2 .page-hero .page-hero-inner .hero-p.mb-5 {
+            margin-bottom: 1.5rem !important;
+        }
+    }
+
+    .icon-wrapper {
+        display: flex;
+        align-content: center;
+        align-items: center;
+    }
+
+    .icon-wrapper {
+        width: 54px;
+        height: 54px;
+        margin: 5px auto 0.66667rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .icon-wrapper .icon-wrapper-bg {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: 3;
+        opacity: .2;
+    }
+
+    .icon-wrapper i {
+        margin: 0 auto;
+        font-size: 1.7rem;
+        position: relative;
+        z-index: 5;
+    }
+
+    .icon-wrapper i:before {
+        margin-top: -3px;
+    }
+
+    [class^="lnr-"] {
+        font-family: 'Linearicons-Free';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .lnr-store:before {
+        content: "\E82D";
+    }
+
+    .page-top-wrapper {
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+        background-color: #2a2b2f;
+        background-image: url(https://wallpapercave.com/wp/wp3404265.jpg);
+        border-bottom: #dee2e6 solid 1px;
+    }
+
+    .page-top-wrapper::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 7;
+        width: 100%;
+        height: 100%;
+        background: rgba(42, 43, 47, 0.3);
+    }
+
+    .page-top-wrapper-alt .page-hero {
+        height: auto;
+    }
+
+    .page-top-wrapper-alt2 .page-hero {
+        min-height: 100px;
+    }
+
+    .page-hero {
+        position: relative;
+        min-height: 500px;
+    }
+
+    .page-hero .hero-p,
+    .page-hero .hero-h3 {
+        color: #fff;
+        text-align: center;
+        max-width: 740px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .page-hero .hero-p {
+        font-size: 1.25rem;
+        color: #adb5bd;
+    }
+
+    .page-hero .hero-h3 {
+        font-size: 2.3rem;
+        font-weight: 500;
+        font-weight: normal;
+        margin: 2rem auto 1.2rem;
+    }
+
+    .page-hero .page-hero-inner {
+        margin: 0 auto;
+        position: relative;
+        z-index: 7;
+        padding: 50px 0 0;
+        width: 100%;
+    }
+
+    .page-hero-bottom .page-hero-inner {
+        padding: 3rem 0;
+        text-align: center;
+    }
+
+    h3 {
+        font-family: "Bariol", sans-serif;
+    }
+
+    .btn-big {
+        font-family: "Rubik", sans-serif;
+        font-size: 1rem;
+        font-weight: 400;
+    }
+
+    .buy-buttons .btn-success {
+        padding: 1.3rem 2rem;
+        text-transform: uppercase;
+        font-size: 1.1rem;
+    }
+
+    .buy-buttons .btn-success span {
+        opacity: .8;
+        padding-right: 1rem;
+    }
+
+    @media (max-width: 991.98px) {
+        .page-hero .hero-h3 {
+            font-size: 1.4rem;
+        }
+
+        .page-hero .hero-p {
+            font-size: .9rem;
+        }
+    }
+
+    /*! CSS Used fontfaces */
+    @font-face {
+        font-family: 'Linearicons-Free';
+        src: url(https://architectui.com/static/media/Linearicons-Free.b9b7f23c.eot);
+        src: url(https://architectui.com/static/media/Linearicons-Free.b9b7f23c.eot) format("embedded-opentype"), url(https://architectui.com/static/media/Linearicons-Free.03e91f12.woff2) format("woff2"), url(https://architectui.com/static/media/Linearicons-Free.65060723.woff) format("woff"), url(https://architectui.com/static/media/Linearicons-Free.2f3e9f80.ttf) format("truetype"), url(https://architectui.com/static/media/Linearicons-Free.71ad32ce.svg) format("svg");
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Bariol';
+        font-style: normal;
+        font-weight: 500;
+        src: local("Bariol"), local("Bariol"), url(https://architectui.com/static/media/BariolRegular.565752f3.woff) format("woff");
+    }
+
+    @font-face {
+        font-family: 'Rubik';
+        font-style: normal;
+        font-weight: 400;
+        src: local("Rubik"), local("Rubik"), url(https://architectui.com/static/media/rubik-400-normal.cebc4ea4.woff2) format("woff2");
+    }
+
+    img {
+        border-style: none;
+    }
+
+
+    .contain {
+        max-width: 73.75rem;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 48px;
+        padding-bottom: 48px;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .contain::after {
+        clear: both;
+        content: "";
+        display: block;
+    }
+
+    @media screen and (min-width: 48rem) {
+        .contain {
+            padding-top: 96px;
+            padding-bottom: 96px;
+        }
+    }
+
+    @media screen and (min-width: 30rem) {
+        .contain {
+            padding-left: 15.84px;
+            padding-right: 15.84px;
+        }
+    }
+
+    @media screen and (min-width: 48rem) {
+        .contain {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+    }
+
+    @media screen and (min-width: 73.75rem) {
+        .contain {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+    p {
+        margin-top: 0;
+        margin-bottom: 24px;
+        font-size: 0.875rem;
+        line-height: 24px;
+        color: #525c65;
+        font-weight: 400;
+    }
+
+    @media screen and (min-width: 48rem) {
+        p {
+            margin-bottom: 24px;
+        }
+    }
+
+    @media screen and (min-width: 48rem) {
+        p {
+            font-size: 1rem;
+            line-height: 28px;
+        }
+    }
+
+    h2 {
+        margin-top: 0;
+        margin-bottom: 24px;
+        color: #2e3d49;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    @media screen and (min-width: 48rem) {
+        h2 {
+            margin-bottom: 24px;
+        }
+    }
+
+    h2 {
+        font-size: 1.75rem;
+        line-height: 36px;
+        font-weight: 300;
+    }
+
+    @media screen and (min-width: 48rem) {
+        h2 {
+            font-size: 2rem;
+            line-height: 36px;
+        }
+    }
+
+
+    .lms-advantage h2 {
+        font-size: 1.5rem;
+        line-height: 2.5rem;
+    }
+
+    @media screen and (min-width: 48rem) {
+        .lms-advantage h2 {
+            font-size: 2rem;
+            line-height: 3.5rem;
+        }
+    }
+
+    .lms-advantage .header {
+        text-align: center;
+        padding: 0 1.25rem;
+        margin-bottom: 1.563rem;
+    }
+
+    .lms-advantage .header h2 {
+        font-size: 1.5rem;
+    }
+
+    @media screen and (min-width: 48rem) {
+        .lms-advantage .header h2 {
+            font-size: 2rem;
+        }
+    }
+
+    @media screen and (min-width: 48rem) {
+        .lms-advantage .header {
+            margin-bottom: 3.125rem;
+        }
+    }
+
+    .lms-advantage .features {
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+        -webkit-box-align: center;
+        align-items: center;
+    }
+
+    @media screen and (min-width: 73.75rem) {
+        .lms-advantage .features {
+            flex-wrap: wrap;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            flex-direction: row;
+        }
+    }
+
+    .lms-advantage .features .feature {
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+    }
+
+    .lms-advantage .features .feature .feature-header {
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        margin-left: 2.5%;
+    }
+
+    .lms-advantage .features .feature .image {
+        width: 17rem;
+        height: 10rem;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        margin-right: 1.563rem;
+        margin-bottom: 1.563rem;
+        display: none;
+    }
+
+    .lms-advantage .features .feature .title {
+        font-weight: 600;
+        font-size: 1.125rem;
+        color: #000;
+        line-height: 2rem;
+        margin-top: 0.625rem;
+        margin-bottom: 0.625rem;
+        margin-left: 1.125rem;
+        width: 12.5rem;
+    }
+
+    .lms-advantage .features .feature .description {
+        font-size: 0.875rem;
+        line-height: 1.5rem;
+        max-width: 20rem;
+        margin: 0.9375rem 1.25rem 1.5625rem 1.563rem;
+    }
+
+    .lms-advantage .features .feature .icon-image {
+        box-shadow: 10px 10px 25px 0 rgba(0, 0, 0, 0.1);
+        background: #fff;
+        width: 3.875rem;
+        height: 3.875rem;
+        border-radius: 50%;
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        align-items: center;
+    }
+
+    .lms-advantage .features .feature .icon-image img {
+        height: auto;
+    }
+
+    @media screen and (min-width: 48rem) {
+        .lms-advantage .features .feature {
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            flex-direction: row;
+            max-width: none;
+            -webkit-box-pack: justify;
+            justify-content: space-between;
+            margin: 1.563rem;
+        }
+
+        .lms-advantage .features .feature .feature-header {
+            margin-left: -4rem;
+            padding-top: 1rem;
+            -webkit-box-align: normal;
+            align-items: normal;
+        }
+
+        .lms-advantage .features .feature .image {
+            -webkit-box-flex: 1;
+            flex: 1 0 13.125rem;
+            height: 13.125rem;
+            width: 13.125rem;
+            margin-right: 2rem;
+            margin-bottom: 0;
+            display: block;
+        }
+
+        .lms-advantage .features .feature .title {
+            font-size: 1.125rem;
+            line-height: 2rem;
+            margin-top: 0;
+            margin-left: 1.5rem;
+            width: 15.63rem;
+        }
+
+        .lms-advantage .features .feature .description {
+            font-size: 0.875rem;
+            line-height: 1.5rem;
+            width: 28rem;
+        }
+    }
+
+    @media screen and (min-width: 62rem) {
+        .lms-advantage .features .feature .title {
+            width: 25rem;
+        }
+
+        .lms-advantage .features .feature .description {
+            max-width: none;
+            width: 31.25rem;
+        }
+    }
+
+    @media screen and (min-width: 73.75rem) {
+        .lms-advantage .features .feature {
+            width: 33.5rem;
+        }
+
+        .lms-advantage .features .feature:nth-child(2n) {
+            margin-left: 2rem;
+        }
+
+        .lms-advantage .features .feature .title {
+            width: 15.63rem;
+        }
+
+        .lms-advantage .features .feature .description {
+            max-width: none;
+            width: 18.75rem;
+        }
+    }
+</style>
+
+<body>
+
+    <%-include('../partials/config')%>
+    <!-- 
+    <%=User.email%>
+
+    <form action="/user/logout?_method=DELETE" method="POST">
+        <button type="submit">Sign Out</button>
+    </form> -->
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="page-top-wrapper page-top-wrapper-alt page-top-wrapper-alt2">
+                        <div name="buy-now">
+                            <div class="page-hero page-hero-bottom">
+                                <div class="page-hero-inner">
+                                    <h6 class="text-white mb-3">WELCOME TO</h6>
+
+                                    <h3 class="hero-h3 mb-3 mt-2"><%=collegeName.toUpperCase() %></h3>
+                                    <p class="hero-p mb-4 text-white">IBM ICE TRACK</p>
+                                    <div class="buy-buttons p-0">
+                                        <a class="btn btn-light p-2 btn-sm mr-1" href="/student/faq">
+                                            How It Works ?
+                                        </a>
+                                        Or
+                                        <a class="btn btn-sm p-2 btn-light ml-1" href="/student/courses">
+                                            Go to your courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <section class="lms-advantage-banner lms-core">
+                        <div class="lms-advantage lms-core">
+                            <div class="contain">
+                                <div class="header">
+                                    <h2>All Our <b class="text-primary">Courses</b> Include</h2>
+                                    <p></p>
+                                </div>
+                                <hr>
+
+                                <div class="features">
+                                    <!-- <div class="feature lms-core">
+                                        <div class="image"
+                                            style="background-image: url(../assets/images/undraw-s1.svg);">
+                                        </div>
+                                        <div>
+                                            <div class="feature-header">
+                                                <div class="icon-image"
+                                                    style="border-right:4px;border-right-color: #006699;border-right-style:solid">
+                                                    <img
+                                                        src="//www.udacity.com/www-proxy/contentful/assets/2y9b3o528xhq/2hOt81JN06lrDcxRKPUXOT/f16a6fbd6904a05df1b4a3e7ff6f8218/experts.svg">
+                                                </div>
+                                                <p class="title lms-core text-center"
+                                                    style="border-left: 4px solid #006699;">
+                                                    <span> Assignments and projects from faculties</span>
+                                                </p>
+                                            </div>
+                                            <div class="description">do shadb </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="feature lms-core">
+                                        <div class="image"
+                                            style="background-image: url(../assets/images/undraw_teaching.svg);">
+                                        </div>
+                                        <div>
+                                            <div class="feature-header">
+                                                <div class="icon-image"
+                                                    style="border-right:4px;border-right-color: #b20000;border-right-style:solid">
+                                                    <img
+                                                        src="//www.udacity.com/www-proxy/contentful/assets/2y9b3o528xhq/7z9cBzRbfbCJV5r3n4z1gy/6c4494fce7582ba3b72e3209753ec626/coding-icon.svg">
+                                                </div>
+                                                <p class="title lms-core text-center"
+                                                    style="border-left: 4px solid #b20000;">
+                                                    <span class="ml-2">Techinical faculties support</span>
+                                                </p>
+                                            </div>
+                                            <div class="description">Our knowledgeable
+                                                mentors guide your
+                                                learning and are focused on answering your questions, motivating you
+                                                and keeping you on
+                                                track.</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="feature lms-core ">
+                                        <div class="image"
+                                            style="background-image: url(../assets/images/undraw_social_interaction_cy9i.svg);">
+                                        </div>
+                                        <div>
+                                            <div class="feature-header">
+                                                <div class="icon-image"
+                                                    style="border-right:4px;border-right-color:#551a8b;border-right-style:solid">
+                                                    <img
+                                                        src="//www.udacity.com/www-proxy/contentful/assets/2y9b3o528xhq/753EFF3UhcMMUythiZIOoc/c7daef06c3876eddf8ecaa01026f1d46/career.svg">
+                                                    
+                                                </div>
+                                                
+                                                <p class="title lms-core text-center"
+                                                    style="border-left: 4px solid #551a8b;">
+                                                    <span>Personal career coach and career
+                                                        services</span></p>
+                                            </div>
+                                            <div class="description">Our knowledgeable
+                                                mentors guide your
+                                                learning and are focused on answering your questions, motivating you
+                                                and keeping you on
+                                                track.</div>
+                                        </div>
+                                    </div> -->
+                                    <div class="feature lms-core">
+                                        <div class="image"
+                                            style="background-image: url(../assets/images/undraw_online_collaboration_7pfp.svg);">
+                                        </div>
+                                        <div>
+                                            <div class="feature-header">
+                                                <div class="icon-image" style="border-right: 4px solid #00a86b ;"><img
+                                                        src="//www.udacity.com/www-proxy/contentful/assets/2y9b3o528xhq/573uHj1EeYECLyuovPLJO4/a914f0f72469788f909a5c5df9db775f/learningsched.svg">
+                                                    <!---->
+                                                </div>
+                                                <!---->
+                                                <p class="title lms-core text-center"
+                                                    style="border-left:4px;border-left-color:#00a86b;border-left-style:solid">
+                                                    <span>Flexible learning program</span>
+                                                </p>
+                                            </div>
+                                            <div class="description">Get a custom
+                                                learning plan tailored to
+                                                fit your busy life. Learn at your own pace and reach your personal
+                                                goals on the schedule
+                                                that works best for you.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+</body>
+
+</html>

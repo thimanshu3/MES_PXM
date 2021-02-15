@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Faculty</title>
+
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+</head>
+
+<body>
+
+    <%-include('../partials/config')%>
+
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="fas fa-chalkboard-teacher icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>Add Faculty
+                                    <div class="page-title-subheading">
+                                        <div class="d-flex justify-content-center ">
+                                            <div class="d-flex justify-content-center ">
+                                                Fill the following details to add a faculty member.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-card mb-3 card">
+                        <div class="card-body">
+                            <h5 class="card-title">Add Faculty Form</h5>
+                            <hr>
+                            <form id="signupForm" class="col-md-12 mx-auto" action="/admin/addFaculty" method="POST">
+                                <div class="form-row ">
+                                    <div class="form-group col-md-6">
+                                        <label for="firstName"><b class="text-danger">*</b> First name</label>
+                                        <div>
+                                            <input type="text" class="form-control" name="firstName" id="firstName"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="lastName"><b class="text-danger">*</b> Last name</label>
+                                        <div>
+                                            <input class="form-control" type="text" name="lastName" id="lastName"
+                                                required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="email"><b class="text-danger">*</b> Email</label>
+                                        <div>
+                                            <input class="form-control" type="email" name="email" id="email" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="contactNumber"><b class="text-danger">*</b> Contact Number</label>
+                                        <div>
+                                            <input class="form-control" type="tel" name="contactNumber"
+                                                id="contactNumber" minlength="10" maxlength="10" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="college"><b class="text-danger">*</b> Select College</label>
+                                        <select class="form-control" name="college" id="college">
+                                            <%Colleges.forEach(college => {%>
+                                            <option value="<%=college.id%>"><%=college.name%></option>
+                                            <%})%>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="specialization"><b class="text-danger">*</b> Select
+                                            Specialization</label>
+                                        <select class="form-control" name="specialization" id="specialization">
+                                            <%Specializations.forEach(specialization => {%>
+                                            <option value="<%=specialization.id%>"><%=specialization.name%></option>
+                                            <%})%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="gender"><b class="text-danger">*</b> Gender</label>
+                                        <div>
+                                            <select class="form-control" name="gender" id="gender">
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="alternateEmail">Alt Email</label>
+                                        <div>
+                                            <input class="form-control" type="email" name="alternateEmail"
+                                                id="alternateEmail">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+
+                                    <div class="form-group col-md-6">
+                                        <label for="githubUrl">Github Profile</label>
+                                        <div>
+                                            <input type="url" name="githubUrl" id="githubUrl" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="linkedinUrl">Linkedin Profile</label>
+                                        <div>
+                                            <input type="url" name="linkedinUrl" class="form-control" id="linkedinUrl">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group d-flex justify-content-end">
+                                    <!-- <button id="submitbtn" type="submit" class="btn btn-primary">Save
+                                        Details</button> -->
+                                    <button style="text-decoration: none;" id="submitbtn" type="submit"
+                                        class="btn btn-link">Save
+                                        Details <i style="font-size: 1rem;margin-left: 0.3;"
+                                            class="pe-7s-server metismenu-icon"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+    <!-- spinner -->
+    <script>
+        $('form').on('submit', function (e) {
+            var submit = $(this).find('[clicked=true]')[0];
+            if (!submit.hasAttribute('disabled')) {
+                submit.setAttribute('disabled', true);
+                $('#submitbtn').addClass('spinner spinner-white spinner-right')
+                setTimeout(function () {
+                    submit.removeAttribute('disabled');
+                }, 1000);
+            }
+            submit.removeAttribute('clicked');
+        });
+        $('[type=submit]').on('click touchstart', function () {
+            this.setAttribute('clicked', true);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Assign College Course</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="stylesheet" href="/css/dataTables.min.css">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+</head>
+<style>
+    .fade2 {
+        transform: scale(.9);
+        opacity: 0;
+        transition: all .2s linear;
+    }
+
+    .fade2.show {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    dropdown {
+        position: relative;
+        left: 50px;
+        top: 50px;
+    }
+
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(26, 54, 126, 0.125);
+        border-radius: .25rem;
+    }
+
+    .progress {
+        display: flex;
+        height: 1rem;
+        overflow: hidden;
+        font-size: .75rem;
+        background-color: #e9ecef;
+        border-radius: .25rem;
+    }
+
+    .progress-bar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        background-color: #3f6ad8;
+        transition: width 0.6s ease;
+    }
+
+    @media screen and (prefers-reduced-motion: reduce) {
+        .progress-bar {
+            transition: none;
+        }
+    }
+
+    .card {
+        box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
+        border-width: 0;
+        transition: all .2s;
+    }
+
+    .card-shadow-primary {
+        box-shadow: 0 0.46875rem 2.1875rem rgba(63, 106, 216, 0.03), 0 0.9375rem 1.40625rem rgba(63, 106, 216, 0.03), 0 0.25rem 0.53125rem rgba(63, 106, 216, 0.05), 0 0.125rem 0.1875rem rgba(63, 106, 216, 0.03);
+    }
+
+    .progress .progress-bar:last-child {
+        border-top-right-radius: .25rem;
+        border-bottom-right-radius: .25rem;
+    }
+
+    .progress.progress-bar-xs {
+        height: .3rem;
+    }
+
+    .widget-chart {
+        text-align: center;
+        padding: 1rem;
+        position: relative;
+    }
+
+    .widget-chart .widget-numbers {
+        font-weight: bold;
+        font-size: 2.5rem;
+        display: block;
+        line-height: 1;
+        margin: 1rem auto;
+    }
+
+    .widget-chart.text-left {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .widget-chart.text-left .widget-numbers {
+        margin-left: 0;
+    }
+
+    .widget-content {
+        padding: 1rem;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .widget-content .widget-content-wrapper {
+        display: flex;
+        flex: 1;
+        position: relative;
+        align-items: center;
+    }
+
+    .widget-content .widget-content-right {
+        margin-left: auto;
+    }
+
+    .widget-content .widget-numbers {
+        font-weight: bold;
+        font-size: 1.8rem;
+        display: block;
+    }
+
+    .widget-content .widget-content-outer {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+    }
+
+    @media (max-width: 991.98px) {
+        .widget-content .widget-numbers {
+            font-size: 1.6rem;
+            line-height: 1;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+
+        .card.mb-3 {
+            margin-bottom: 30px !important;
+        }
+    }
+</style>
+
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-exapnd2 icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>Available Courses To Assign
+                                    <div class="page-title-subheading">
+                                        <div class="d-flex justify-content-center ">
+                                            Select Course from the below list and assign to the college.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="page-title-actions">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4">
+                            <div class="card-hover-shadow-2x mb-3 card" style="height: 30rem;">
+                                <div class="card-header-tab card-header">
+                                    <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                        <i class="header-icon fas fa-university">
+                                        </i>College
+                                        List
+                                    </div>
+
+                                </div>
+                                <div class="scroll-area-lg">
+                                    <div class="scrollbar-container" style="overflow-y: scroll;">
+                                        <div class="p-2">
+                                            <ul id="college" class="todo-list-wrapper list-group list-group-flush">
+                                                <% colleges.forEach(college => {%>
+                                                <li id="<%= college.id %>" class="list-group-item college mb-3"
+                                                    data-college="<%=college.id%>" style="border: 0; cursor: pointer;">
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-wrapper ">
+                                                            <div class="widget-content-left mr-3">
+                                                                <div class="widget-content-left">
+                                                                    <img width="42" class="rounded"
+                                                                        src="/uploads/collegeLogo/<%= college.logoSource %>"
+                                                                        alt="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="widget-content-left">
+                                                                <div class="widget-heading"><%= college.name %>
+                                                                </div>
+                                                                <div class="widget-subheading">
+                                                                    <%= college.directorEmail %> </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <%}) %>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-lg-8">
+                            <div class="card-hover-shadow-2x mb-3 card" style="height: 30rem;">
+                                <div class="card-header-tab card-header d-flex justify-content-between">
+                                    <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                        <i class="header-icon fas fa-cart-plus">
+                                        </i>Course List
+                                    </div>
+
+                                    <div class="d-inline-block">
+                                        <button data-toggle="modal" data-target="#exampleModal" type="button"
+                                            class="btn-shadow btn btn-info">
+                                            <span class="btn-icon-wrapper pr-2 opacity-7">
+                                                <i class="pe-7s-plane"></i>
+                                            </span>
+                                            Customize
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="scroll-area">
+                                    <div class="scrollbar-container" style="overflow-y: scroll;">
+
+                                        <div class="p-2">
+                                            <div id="loader" style="display: none;">
+                                                <img style="width: 100%; height: 24rem;"
+                                                    src="/assets/images/loading.gif" alt="">
+                                            </div>
+                                            <ul class="todo-list-wrapper list-group list-group-flush" id="coursesList">
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="d-block text-right card-footer">
+                                    <button id="assignSelected" style="text-decoration: none
+                                    ;" class="btn btn-link">Assign &nbsp; <i class="fas fa-check"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade2" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        style="display: none;" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row" style="border:4px dashed #cccccc; margin:10px;">
+                        <div class="col-md-12 text-center" style="padding:20px;background-color:#f2f2f2">
+                            <!-- Api banani hai -->
+                            <div class="col-12">
+
+                                <div class="form-group col-12">
+                                    <label for="expiresAt" class="text-bold-600 text-danger">* select courses expiration
+                                        date here</label>
+                                    <input name="expiresAt" id="expiresAt" type="date" class="form-control"
+                                        autocomplete="off">
+                                </div>
+
+                                <div class="col-12">
+                                    <br>
+                                    <p class="text-dark">By Default the Course Expiration Date is 6 months from
+                                        date of Assigning.</p>
+                                    <p class="text-info">(you can customize this date as per need)
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade2" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        style="display: none;" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">This course is assigned to <span class="text-danger"
+                            id="statCount"></span>&nbsp;Students</h5>
+                    <button class="btn btn-sm btn-info" data-toggle="popover" title="Course Revoke"
+                        data-content="This course and course progress of students will not be longer available"><i
+                            class="fas fa-info"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table id="UserLoginReport" style="height: 80%;" class="mb-0 table table-hover scroll-area-lg">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Full Name</th>
+                                <th>Semester</th>
+                                <th>Assigned at</th>
+                                <th>Expires at</th>
+                            </tr>
+                        </thead>
+                        <tbody class="scrollbar-container ps--active-y ps" id="affecteduserModalTBody">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button id="submitRevokeBtn" type="button" class="btn btn-link" data-dismiss="modal">Yes,
+                        Revoke</button>
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        var CollegeId
+        const colors = ["g", "alternate", "info", "success", "primary", "warning", "dark", "secondary", "soft-link", "soft-dark", "soft-info", "soft-warning", "soft-danger", "soft-success", "soft-secondary", "soft-primary"];
+        $('#college li').click(function () {
+            CollegeId = this.id
+            $("#loader").show();
+            index = $(this).index();
+            $(`.college`).css("border-left", "0px")
+            $(`.college`).removeClass('shadow-lg')
+            // check which li item is selected
+            $(':radio').eq(index).prop('checked', true)
+            $(`#${this.id}`).css("border-left", "3px solid blue")
+            $(`#${this.id}`).addClass("shadow-lg")
+            fetch(`/admin/assignCollegeCourse/courses/${this.id}`)
+                .then(function (res) {
+                    return res.json()
+                })
+                .then(function (json) {
+                    if (json.status == 404) {
+                        $("#loader").fadeIn(15000)
+                        iziToast.error({
+                            message: json.message
+                        })
+                    }
+                    else if (json.status == 500) {
+                        $("#loader").hide();
+                        iziToast.error({
+                            title: json.message,
+                            message: json.error
+                        })
+                    }
+                    else if (json.status == 200) {
+                        const date = json.formatDateMoment
+                        $("#coursesList").empty()
+                        let liItems = ''
+                        const spec = {
+                            1: 'primary',
+                            2: 'info'
+                        }
+                        json.data.courses.forEach(course => {
+                            liItems += ` <li class="list-group-item">
+                                            <div class="todo-indicator bg-info"></div>
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-wrapper">
+                                                            <div class="widget-content-left mr-2">
+                                                                <div class="custom-checkbox custom-control">
+                                                                    <input type="checkbox" name="CourseSelect" id="${course.id}"
+                                                                        class="custom-control-input justone" ${course.assigned ? 'checked' : ''}>
+                                                                    <label class="custom-control-label"
+                                                                        for="${course.id}">&nbsp;</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="widget-content-left mr-3">
+                                                                <div class="widget-content-left">
+                                                                    <img width="100" class="rounded"
+                                                                        src="/uploads/courseImages/${course.imageSource}"
+                                                                        alt="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="widget-content-left">
+                                                                <div class="widget-heading mb-2">${course.name}
+                                                                </div>
+                                                                <div class=" text-dark mb-2">
+                                                                    <span style="font-size: 8px" class="badge badge-pill badge-sm badge-${colors[course.specializationId]}">
+                                                                        ${course.specializationName}
+                                                                    </span>
+                                                                </div>
+                                                                <div class=" text-dark" style="font-size : 10px">
+                                                                    Semester :-<span class="badge badge-sm badge-light" style="font-size : 10px" >
+                                                                        ${course.semester}
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="widget-content-right">
+                                                                <div class="widget-sub-heading mb-2" style="font-size : 11px">
+                                                                    ${course.assignedAt !== null ? moment(course.assignedAt).format() : ''} %>
+                                                                </div>
+                                                                <div class=" text-dark mb-2">
+                                                                    <span style="font-size: 9px" class="badge badge-pill badge-sm badge-${course.expiresAt !== null ? 'danger' : 'dark'}">
+                                                                        ${course.expiresAt !== null ? moment(course.expiresAt) : 'not assigned'}
+                                                                    </span>
+                                                                </div>
+                                                                <div data-toggle="modal" data-target="#exampleModal1" type="button" class="widget-content-right widget-content-actions text-center">
+                                                                    <button style="display: ${course.expiresAt === null ? 'none' : ''}" onclick="getRevokeAffectedStudents('${course.assignId}')" 
+                                                                        class="border-0 btn-transition btn btn-outline-danger">
+                                                                        Revoke&nbsp;<i class="fa fa-trash-alt"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                              
+                                                </div>
+                                            </div>
+                                        </li>`;
+                        });
+                        $("#coursesList").append(liItems)
+                        $("#loader").hide();
+                    }
+                })
+                .catch(err => console.log(err))
+        });
+        // assign selected 
+        $("#assignSelected").click(function () {
+            iziToast.question({
+                overlay: true,
+                toastOnce: true,
+                id: 'question',
+                title: 'Hey',
+                message: 'Are you sure?',
+                position: 'center',
+                buttons: [
+                    ['<button><b>YES Assign</b></button>', function (instance, toast) {
+                        assignSelected()
+                        instance.hide({ transitionOut: 'fadeOut' }, toast)
+                    }, true],
+                    ['<button>NO</button>', function (instance, toast) {
+                        instance.hide({ transitionOut: 'fadeOut' }, toast);
+                    }]
+                ]
+            });
+        });
+        const assignSelected = () => {
+            $('#assignSelected').addClass('spinner spinner-dark spinner-right')
+            if (!CollegeId)
+                return
+            var data = {
+                courseIds: [],
+                collegeId: CollegeId,
+                expiresAt: $('#expiresAt').val()
+            }
+            $('input[name="CourseSelect"]:checked').each(function () {
+                data.courseIds.push(this.id);
+            });
+            fetch('/admin/assignCollegeCourse', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(function (res) {
+                    return res.json()
+                })
+                .then(function (json) {
+                    if (json.status == 201) {
+                        $('#assignSelected').removeClass('spinner spinner-dark spinner-right')
+                        iziToast.success({
+                            message: json.message
+                        })
+                        fetch(`/admin/assignCollegeCourse/courses/${CollegeId}`)
+                            .then(function (res) {
+                                return res.json()
+                            })
+                            .then(function (json) {
+                                if (json.status == 404) {
+                                    $('#assignSelected').removeClass('spinner spinner-dark spinner-right')
+                                    $("#loader").fadeIn(15000)
+                                    iziToast.error({
+                                        message: json.message
+                                    })
+                                }
+                                else if (json.status == 500) {
+                                    $('#assignSelected').removeClass('spinner spinner-dark spinner-right')
+                                    $("#loader").hide();
+                                    iziToast.error({
+                                        title: json.message,
+                                        message: json.error
+                                    })
+                                }
+                                else if (json.status == 200) {
+                                    $("#coursesList").empty()
+                                    let liItems = ''
+                                    const spec = {
+                                        1: 'primary',
+                                        2: 'info'
+                                    }
+                                    json.data.courses.forEach(course => {
+                                        liItems += ` <li class="list-group-item">
+                                            <div class="todo-indicator bg-info"></div>
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-wrapper">
+                                                            <div class="widget-content-left mr-2">
+                                                                <div class="custom-checkbox custom-control">
+                                                                    <input type="checkbox" name="CourseSelect" id="${course.id}"
+                                                                        class="custom-control-input justone" ${course.assigned ? 'checked' : ''}>
+                                                                    <label class="custom-control-label"
+                                                                        for="${course.id}">&nbsp;</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="widget-content-left mr-3">
+                                                                <div class="widget-content-left">
+                                                                    <img width="100" class="rounded"
+                                                                        src="/uploads/courseImages/${course.imageSource}"
+                                                                        alt="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="widget-content-left">
+                                                                <div class="widget-heading mb-2">${course.name}
+                                                                </div>
+                                                                <div class=" text-dark mb-2">
+                                                                    <span style="font-size: 8px" class="badge badge-pill badge-sm badge-${colors[course.specializationId]}">
+                                                                        ${course.specializationName}
+                                                                    </span>
+                                                                </div>
+                                                                <div class=" text-dark" style="font-size : 10px">
+                                                                    Semester :-<span class="badge badge-sm badge-light" style="font-size : 10px" >
+                                                                        ${course.semester}
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="widget-content-right">
+                                                                <div class="widget-sub-heading mb-2" style="font-size : 11px">
+                                                                    ${course.assignedAt !== null ? moment(course.assignedAt).format() : ''} %>
+                                                                </div>
+                                                                <div class=" text-dark mb-2">
+                                                                    <span style="font-size: 9px" class="badge badge-pill badge-sm badge-${course.expiresAt !== null ? 'danger' : 'dark'}">
+                                                                        ${course.expiresAt !== null ? moment(course.expiresAt) : 'not assigned'}
+                                                                    </span>
+                                                                </div>
+                                                                <div data-toggle="modal" data-target="#exampleModal1" type="button" class="widget-content-right widget-content-actions text-center">
+                                                                    <button style="display: ${course.expiresAt === null ? 'none' : ''}" onclick="getRevokeAffectedStudents('${course.assignId}')" 
+                                                                        class="border-0 btn-transition btn btn-outline-danger">
+                                                                        Revoke&nbsp;<i class="fa fa-trash-alt"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                              
+                                                </div>
+                                            </div>
+                                        </li>`;
+                                    });
+                                    $("#coursesList").append(liItems)
+                                    $("#loader").hide();
+                                }
+                            })
+                            .catch(err => console.log(err))
+                    } else if (json.status == 400) {
+                        iziToast.warning({
+                            title: 'Validation Error!',
+                            message: json.message
+                        })
+                    } else {
+                        iziToast.error({
+                            message: json.message
+                        })
+                    }
+                })
+                .catch(err => console.log(err))
+        }
+
+        function getRevokeAffectedStudents(id) {
+            $('#UserLoginReport').DataTable().destroy()
+            $('#affecteduserModalTBody').empty()
+            fetch(`/admin/assignCollegeCourse/courses/revoke/${id}`)
+                .then(res => res.json())
+                .then(json => {
+                    if (json.status === 200 && json.data) {
+                        $('#statCount').text(`${json.data.courseAssignedToStudents.length}`);
+                        liItems = '';
+                        json.data.courseAssignedToStudents.forEach(s => {
+                            liItems += ` <tr>
+                                <td>1</td>
+                                <td class="text-dark">${s.studentDetails.firstName}&nbsp;${s.studentDetails.lastName}</td>
+                                <td> <span class="badge-primary badge">${s.studentDetails.semester}</span></td>
+                                <td class="text-dark"><b>${s.createdAt}</b></td>
+                                <td class="text-danger"><b>${s.expiresAt}</b></td>
+                            </tr>`
+                        })
+                        $('#affecteduserModalTBody').append(liItems)
+                        $('#UserLoginReport').dataTable()
+                        $('#submitRevokeBtn').on('click', function () {
+                            revokeCourse(id)
+                        })
+                    }
+                }).catch(error => console.log(error))
+        }
+
+        function revokeCourse(id) {
+            fetch(`/admin/assignCollegeCourse/courses/revoke/${id}`, { method: 'DELETE' })
+                .then(res => res.json())
+                .then(json => {
+                    if (json.status === 200) {
+                        iziToast.success({
+                            message: json.message
+                        })
+                    }
+                }).then(() => {
+                    fetch(`/admin/assignCollegeCourse/courses/${CollegeId}`)
+                        .then(function (res) {
+                            return res.json()
+                        })
+                        .then(function (json) {
+                            if (json.status == 404) {
+                                $('#assignSelected').removeClass('spinner spinner-dark spinner-right')
+                                $("#loader").fadeIn(15000)
+                                iziToast.error({
+                                    message: json.message
+                                })
+                            }
+                            else if (json.status == 500) {
+                                $('#assignSelected').removeClass('spinner spinner-dark spinner-right')
+                                $("#loader").hide();
+                                iziToast.error({
+                                    title: json.message,
+                                    message: json.error
+                                })
+                            }
+                            else if (json.status == 200) {
+                                $("#coursesList").empty()
+                                let liItems = ''
+                                const spec = {
+                                    1: 'primary',
+                                    2: 'info'
+                                }
+                                json.data.courses.forEach(course => {
+                                    liItems += ` <li class="list-group-item">
+                                                <div class="todo-indicator bg-info"></div>
+                                                <div class="widget-content p-0">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left mr-2">
+                                                            <div class="custom-checkbox custom-control">
+                                                                <input type="checkbox" name="CourseSelect" id="${course.id}" class="custom-control-input justone"
+                                                                    ${course.assigned ? 'checked' : ''}>
+                                                                <label class="custom-control-label" for="${course.id}">&nbsp;</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget-content-left mr-3">
+                                                            <div class="widget-content-left">
+                                                                <img width="100" class="rounded" src="/uploads/courseImages/${course.imageSource}" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading mb-2">${course.name}
+                                                            </div>
+                                                            <div class=" text-dark mb-2">
+                                                                <span style="font-size: 8px"
+                                                                    class="badge badge-pill badge-sm badge-${colors[course.specializationId]}">
+                                                                    ${course.specializationName}
+                                                                </span>
+                                                            </div>
+                                                            <div class=" text-dark" style="font-size : 10px">
+                                                                Semester :-<span class="badge badge-sm badge-light" style="font-size : 10px">
+                                                                    ${course.semester}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-sub-heading mb-2" style="font-size : 11px">
+                                                                ${course.assignedAt !== null ? moment(course.assignedAt).format() : ''} %>
+                                                            </div>
+                                                            <div class=" text-dark mb-2">
+                                                                <span style="font-size: 9px"
+                                                                    class="badge badge-pill badge-sm badge-${course.expiresAt !== null ? 'danger' : 'dark'}">
+                                                                    ${course.expiresAt !== null ? moment(course.expiresAt) : 'not assigned'}
+                                                                </span>
+                                                            </div>
+                                                            <div data-toggle="modal" data-target="#exampleModal1" type="button"
+                                                                class="widget-content-right widget-content-actions text-center">
+                                                                <button style="display: ${course.expiresAt === null ? 'none' : ''}"
+                                                                    onclick="getRevokeAffectedStudents('${course.assignId}')"
+                                                                    class="border-0 btn-transition btn btn-outline-danger">
+                                                                    Revoke&nbsp;<i class="fa fa-trash-alt"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                            </li>`;
+                                });
+                                $("#coursesList").append(liItems)
+                                $("#loader").hide();
+                            }
+                        })
+                        .catch(err => console.log(err))
+                })
+                .catch(error => console.log(error))
+        }
+
+        $('#sideBarBtnId').on('classChange', function () {
+            console.log('namaste this is me')
+            if ($('.hamburger--elastic').hasClass('is-active'))
+                $('#sidebarImg').hide()
+            else
+                $('#sidebarImg').show()
+        });
+    </script>
+
+</body>
+
+</html>

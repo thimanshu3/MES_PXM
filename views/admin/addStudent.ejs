@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student</title>
+
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+    <script src="/js/routes.js"></script>
+</head>
+
+<body>
+
+    <%-include('../partials/config')%>
+
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="fas fa-user icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>Add Student
+                                    <div class="page-title-subheading">
+                                        <div class="d-flex justify-content-center ">
+                                            <div class="d-flex justify-content-center ">
+                                                Fill the following details to add a student or import students by
+                                                clicking
+                                                on the&nbsp;<b class="text-primary">Import</b>&nbsp;button.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="page-title-actions">
+                                <div class="d-inline-block">
+                                    <button data-toggle="modal" data-target="#importStudentModal" type="button"
+                                        class="btn btn-lg btn-primary mb-2">
+                                        <span class="btn-icon-wrapper pr-2 opacity-7">
+                                            <i class="pe-7s-plane"></i>
+                                        </span>
+                                        Import Students
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="main-card mb-3 card">
+                        <div class="card-body">
+                            <h5 class="card-title">Add Student Form</h5>
+                            <hr>
+                            <form id="addStudentForm" class="col-md-12 mx-auto" action="/admin/addStudent"
+                                method="POST">
+                                <div class="form-row ">
+                                    <div class="form-group col-md-6">
+                                        <label for="firstName"><b class="text-danger">*</b> First name</label>
+                                        <div>
+                                            <input type="text" class="form-control" name="firstName" id="firstName"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="lastName"><b class="text-danger">*</b> Last name</label>
+                                        <div>
+                                            <input class="form-control" type="text" name="lastName" id="lastName"
+                                                required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="email"><b class="text-danger">*</b> Email</label>
+                                        <div>
+                                            <input class="form-control" type="email" name="email" id="email" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="contactNumber"><b class="text-danger">*</b> Contact Number</label>
+                                        <div>
+                                            <input class="form-control" type="tel" name="contactNumber"
+                                                id="contactNumber" minlength="10" maxlength="10" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="college"><b class="text-danger">*</b> Select College</label>
+                                        <select class="form-control" name="college" id="college">
+                                            <%Colleges.forEach(college => {%>
+                                            <option value="<%=college.id%>"><%=college.name%></option>
+                                            <%})%>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="specialization"><b class="text-danger">*</b> Select
+                                            Specialization</label>
+                                        <select class="form-control" name="specialization" id="specialization">
+                                            <%Specializations.forEach(specialization => {%>
+                                            <option value="<%=specialization.id%>"><%=specialization.name%></option>
+                                            <%})%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="enrollmentYear"><b class="text-danger">*</b> Enrollment Year</label>
+                                        <div>
+                                            <input class="form-control" type="number" name="enrollmentYear"
+                                                id="enrollmentYear" min="2000" max="3000" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="semester"><b class="text-danger">*</b> Select Semester</label>
+                                        <div>
+                                            <select class="form-control" name="semester" id="semester" required>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="gender"><b class="text-danger">*</b> Gender</label>
+                                        <div>
+                                            <select class="form-control" name="gender" id="gender">
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="alternateEmail">Alt Email</label>
+                                        <div>
+                                            <input class="form-control" type="email" name="alternateEmail"
+                                                id="alternateEmail">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="githubUrl">Github Profile</label>
+                                        <div>
+                                            <input type="url" name="githubUrl" id="githubUrl" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="linkedinUrl">Linkedin Profile</label>
+                                        <div>
+                                            <input type="url" name="linkedinUrl" class="form-control" id="linkedinUrl">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group d-flex justify-content-end">
+                                    <!-- <button id="submitbtn" type="submit" class="btn btn-primary">Save
+                                        Details</button> -->
+                                    <button style="text-decoration: none;" id="submitbtn" type="submit"
+                                        class="btn btn-link">Save
+                                        Details <i style="font-size: 1rem;margin-left: 0.3;"
+                                            class="pe-7s-server metismenu-icon"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="importStudentModal" tabindex="-1" role="dialog" aria-labelledby="importStudentModal"
+        style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="/admin/addStudent/import" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="row" style="border:4px dashed #cccccc; margin:10px;">
+                            <div class="col-md-12 text-center" style="padding:20px;background-color:#f2f2f2">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <a href="#" class="center">
+                                            <h3>Import Students</h3>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="col-12">
+                                        <br>
+                                        <p class="text-bold-600 text-danger">Supported extension .xlsx</p>
+                                        <a href="/uploads/students_import_template.xlsx"
+                                            download="students_import_template.xlsx" class="center btn btn-sm btn-link"
+                                            style="background-color: white; text-decoration: none;">Download
+                                            Template</a>
+                                    </div>
+                                    <br />
+                                    <div class="form-group col-12">
+                                        <label for="college-import-modal"><b class="text-danger">*</b> Select College
+                                            from List</label>
+                                        <select name="college" id="college-import-modal" class="form-control" required>
+                                            <%Colleges.forEach(college => {%>
+                                            <option value="<%=college.id%>"><%=college.name%></option>
+                                            <%})%>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label for="specialization-import-modal"><b class="text-danger">*</b> Select
+                                            Specialization from List</label>
+                                        <select name="specialization" id="specialization-import-modal"
+                                            class="form-control" required>
+                                            <%Specializations.forEach(specialization => {%>
+                                            <option value="<%=specialization.id%>"><%=specialization.name%></option>
+                                            <%})%>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label for="file"><b class="text-danger">*</b> Select File</label>
+                                        <input type="file" name="file" id="file" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                        <button type="submit" id="submitbtn" class="btn btn-dark">Import</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+    <!-- spinner -->
+    <script>
+        $('form').on('submit', function (e) {
+            var submit = $(this).find('[clicked=true]')[0];
+            if (!submit.hasAttribute('disabled')) {
+                submit.setAttribute('disabled', true);
+                $('#submitbtn').addClass('spinner spinner-dark spinner-right')
+                setTimeout(function () {
+                    submit.removeAttribute('disabled');
+                }, 1000);
+            }
+            submit.removeAttribute('clicked');
+        });
+        $('[type=submit]').on('click touchstart', function () {
+            this.setAttribute('clicked', true);
+        });
+    </script>
+</body>
+
+</html>

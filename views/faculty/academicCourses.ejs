@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Courses</title>
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="stylesheet" href="/css/cards.css">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+</head>
+<style>
+    /*! CSS Used from: Embedded */
+    *,
+    :after,
+    :before {
+        box-sizing: border-box;
+    }
+
+    a {
+        color: rgba(39, 44, 51, .7);
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: rgba(6, 7, 8, .7);
+        text-decoration: underline;
+    }
+
+    img {
+        vertical-align: middle;
+    }
+
+    .media {
+        align-items: flex-start;
+    }
+
+    .media-body {
+        flex: 1;
+    }
+
+    .align-items-center {
+        align-items: center !important;
+    }
+
+    @media print {
+        a:not(.btn) {
+            text-decoration: underline;
+        }
+
+        img {
+            page-break-inside: avoid;
+        }
+
+        p {
+            orphans: 3;
+            widows: 3;
+        }
+    }
+
+    .lh-1 {
+        line-height: 1rem;
+    }
+
+    .text-50 {
+        color: rgba(39, 44, 51, .5) !important;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    .card-title {
+        font-size: .8rem;
+        font-weight: 600;
+        color: #303956;
+        line-height: 1.25;
+    }
+
+    .card-title {
+        font-weight: 500;
+    }
+
+    .media-left {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .media-body {
+        flex: 1 1 0%;
+    }
+
+    .media {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    .badge-top-left-2 {
+        top: 40px;
+        left: -7px;
+    }
+
+    .badge {
+        padding: .4em !important;
+        font-size: 74%;
+    }
+
+
+
+    .position-absolute {
+        position: absolute !important;
+    }
+
+    @media print {
+
+        *,
+        ::after,
+        ::before {
+            text-shadow: none !important;
+            -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+        }
+    }
+
+
+
+
+    .btn {
+        border-radius: 50px;
+        outline: initial !important;
+        box-shadow: none !important;
+        box-shadow: initial !important;
+        font-size: .8rem;
+        padding: .5rem 1.25rem .5rem 1.25rem;
+        transition: background-color box-shadow .1s linear;
+    }
+
+    .btn-header-light {
+        color: #d7d7d7;
+        border-color: transparent;
+        background: 0 0;
+    }
+
+    .btn-header-light:hover {
+        background-color: transparent;
+        border-color: #d7d7d7;
+    }
+
+    .icon-button {
+        padding: 0;
+        font-size: 14px;
+        width: 34px;
+        height: 34px;
+        line-height: 34px;
+    }
+
+    .card-top-buttons {
+        padding: 1rem;
+        right: -5px;
+        top: -5px;
+    }
+
+    @media (max-width:575px) {
+        .card-top-buttons {
+            padding: .35rem;
+        }
+    }
+
+    .modal.fade .modal-dialog {
+        -webkit-transition: -webkit-transform 0.3s ease-out;
+        transition: -webkit-transform 0.3s ease-out;
+        transition: transform 0.3s ease-out;
+        transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+        -webkit-transform: translate(0, -50px);
+        transform: translate(0, -50px);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .modal.fade .modal-dialog {
+            -webkit-transition: none;
+            transition: none;
+        }
+    }
+
+
+    .modal.right .modal-dialog {
+        -webkit-transform: translate3d(0%, 0, 0);
+        -ms-transform: translate3d(0%, 0, 0);
+        -o-transform: translate3d(0%, 0, 0);
+        transform: translate3d(0%, 0, 0);
+    }
+
+    .modal.right .modal-dialog {
+        position: fixed;
+        margin: auto;
+        width: 500px;
+        max-width: 100%;
+        height: 100%;
+    }
+
+    .modal.right .modal-content {
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .modal.right .modal-body {
+        padding: 15px 15px 80px;
+    }
+
+    .modal.right.fade .modal-dialog {
+        right: -500px;
+        -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+        transition: opacity 0.3s linear, right 0.3s ease-out;
+    }
+
+    .modal.right.fade.show .modal-dialog {
+        right: 0;
+    }
+
+    .modal.right .modal-content {
+        border-radius: 0;
+        border: none;
+    }
+
+    .modal-footer-fixed {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: #fff;
+        border-radius: 0;
+    }
+
+    .loader-modal {
+        background: rgba(0, 153, 255, 1);
+        animation: bgg 16087ms ease-in alternate infinite;
+    }
+
+    @keyframes bgg {
+        0% {
+            background: rgba(0, 153, 255, 1);
+        }
+
+        50% {
+            background: rgba(41, 255, 121, 1);
+        }
+
+        100% {
+            background: rgba(255, 74, 88, 1);
+        }
+    }
+
+    .loader {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        width: 50px;
+        height: 50px;
+        margin: auto;
+    }
+
+    .loader .circle {
+        position: absolute;
+        width: 38px;
+        height: 38px;
+        opacity: 0;
+        transform: rotate(225deg);
+        animation-iteration-count: infinite;
+        animation-name: orbit;
+        animation-duration: 5.5s;
+    }
+
+    .loader .circle:after {
+        content: '';
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0 0 9px rgba(255, 255, 255, .7);
+    }
+
+    .loader .circle:nth-child(2) {
+        animation-delay: 240ms;
+    }
+
+    .loader .circle:nth-child(3) {
+        animation-delay: 480ms;
+    }
+
+    .loader .circle:nth-child(4) {
+        animation-delay: 720ms;
+    }
+
+    .loader .circle:nth-child(5) {
+        animation-delay: 960ms;
+    }
+
+    .loader .bg {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        margin-left: -16px;
+        margin-top: -16px;
+        border-radius: 13px;
+        background-color: rgba(0, 153, 255, 0.69);
+        animation: bgg 16087ms ease-in alternate infinite;
+    }
+
+    @keyframes orbit {
+        0% {
+            transform: rotate(225deg);
+            opacity: 1;
+            animation-timing-function: ease-out;
+        }
+
+        7% {
+            transform: rotate(345deg);
+            animation-timing-function: linear;
+        }
+
+        30% {
+            transform: rotate(455deg);
+            animation-timing-function: ease-in-out;
+        }
+
+        39% {
+            transform: rotate(690deg);
+            animation-timing-function: linear;
+        }
+
+        70% {
+            transform: rotate(815deg);
+            opacity: 1;
+            animation-timing-function: ease-out;
+        }
+
+        75% {
+            transform: rotate(945deg);
+            animation-timing-function: ease-out;
+        }
+
+        76% {
+            transform: rotate(945deg);
+            opacity: 0;
+        }
+
+        100% {
+            transform: rotate(945deg);
+            opacity: 0;
+        }
+    }
+</style>
+
+<body>
+
+    <%-include('../partials/config')%>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="fas fa-book-reader icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>All Courses
+                                    <div class="page-title-subheading">
+                                        <div class="d-flex justify-content-center ">
+                                            Assgin, view and manage all the available courses.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <% if(courses.length === 0){ %>
+                            <div class="border col-12">
+                                <div class="card-body text-center">
+                                    <!-- Image -->
+                                    <img src="/assets/images/undraw_empty.svg" alt="..." class="img-fluid"
+                                        style="max-width: 182px;">
+
+                                    <!-- Title -->
+                                    <h1>
+                                        No Course available
+                                    </h1>
+
+                                    <!-- Subtitle -->
+                                    <p class="text-muted">
+                                        Please create some &nbsp;<a style="text-decoration: none;" href="#"><b
+                                                class="text-primary">Academic Courses</b></a> to assign and manage
+                                        courses
+                                    </p>
+                                    <a class="btn btn-primary" href="/faculty/addAcademicCourse">Add Academic Course</a>
+                                </div>
+                            </div>
+                            <% } else { courses.sort((a, b) => a.semester - b.semester).forEach(course => {%>
+                            <div class="col-sm-6 col-md-4 col-lg-3" id="main-card">
+                                <div class="card" data-role="<%=course.specializationName %>"
+                                    style="min-height: 390px; max-height: 390px; width: 100%; <%=User.id === course.creator ? 'border:2px solid red; border-radius: 5px;' : ''%> ">
+
+                                    <img src="/uploads/courseImages/<%=course.imageSource%>" class="card-img-top img"
+                                        style=" height: 120px;">
+                                    <span id="specializationBadge"
+                                        class="badge badge-pill badge-light position-absolute badge-top-left"><%=course.specializationName %></span>
+                                    <span id="specializationBadge"
+                                        class="badge badge-pill badge-danger position-absolute badge-top-left-2"><%=course.semester %>
+                                        sem</span>
+                                    <% if(User.id === course.creator){ %>
+                                    <div class="position-absolute card-top-buttons">
+                                        <button class="btn btn-dark   icon-button" data-toggle="modal"
+                                            data-target="#exampleModal1" onclick="fetchCourse('<%=course.id%>')">
+                                            <i class="fas fa-edit"></i></button></div>
+                                    <% } %>
+                                    <div class="card-body border">
+                                        <p> <a href="/faculty/academicCourses/<%=course.id%>"
+                                                class="h5 card-title text-primary"><%=course.name%></a>
+                                        </p>
+                                        <p class="card-text text-sm">
+                                            <small
+                                                style="overflow: hidden;text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 5; line-height: 1.1rem; -webkit-box-orient: vertical;"
+                                                class="text-dark"><%=course.description%></small>
+                                        </p>
+                                    </div>
+                                    <div class="text-center d-flex card-footer justify-content-between">
+                                        <div class="d-flex justify-content-center mb-2">
+                                            <div class="nav-item navbar-list__item">
+                                                <div class="media align-items-center">
+                                                    <span class="media-left">
+                                                        <img src="https://i.pinimg.com/originals/87/c6/75/87c675329f916328e2735ff219b17108.png"
+                                                            style="height: 45px; width: 80px;" alt="avatar"
+                                                            class="rounded-circle">
+                                                    </span>
+                                                    <div class="media-body">
+                                                        <a
+                                                            class="card-title m-0"><%=User.id === course.creator ? 'Me' : course.creatorFirstName +' '+ course.creatorLastName%>
+                                                        <%= User.role %> </a>
+                                                        <p class="text-50 lh-1 mb-0">Creator</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%})}%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%-include('../partials/footerpage.ejs')%>
+
+    </div>
+    
+    <div class="modal fade right" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        style="display: none;" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button onclick="updateCourse();" id="modalBtn" style=" text-decoration: none;"
+                        class="btn btn-lg shadow btn-link">Update
+                        Course</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+
+    <script>
+
+
+        $('#specializationDropDown').on('change', function () {
+            var value = $(this).val().toLowerCase();
+            $(`#academicCoursesList #main-card`).filter(function () {
+                $(this).toggle(
+                    $(this)
+                        .find('#specializationBadge')
+                        .text()
+                        .toLowerCase()
+                        .indexOf(value) > -1)
+
+            });
+        })
+
+        const fetchCourse = (cid) => {
+            $('.modal-body').empty()
+            $('.modal-content').addClass('loader-modal')
+            $('.modal-body').append(`<div class='loader'>
+                                    <div class="bg"></div>
+                                    <div class='circle'></div>
+                                    <div class='circle'></div>
+                                    <div class='circle'></div>
+                                    <div class='circle'></div>
+                                    <div class='circle'></div>
+                                    </div>
+                                    `)
+            fetch(`/faculty/academicCourses/course/${cid}`).then(res => res.json()).then(json => {
+                if (json.status === 200) {
+                    $('.modal-body').empty()
+                    $('.modal-content').removeClass('loader-modal')
+                    $('.modal-body').append(`
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-12">
+                                <img id="output" class="img" src="/uploads/courseImages/${json.academicCourse.imageSource}" style="width: 100%; height: 200px;" />
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <input type="file" id="image" name="image" class="form-control-file" accept="image/*"
+                                    onchange="loadFile(event)">
+                                <small class="form-text"><b class="text-danger">*</b>
+                                    only png,
+                                    jpeg,
+                                    jpg format
+                                    accepted.
+                                </small>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <div class="form-row">
+                            <hr>
+                                <div class="form-group col-md-12">
+                                    <label for="courseName"><b class="text-danger">*</b> Course
+                                        Name</label>
+                                    <div>
+                                        <input type="text" class="form-control" name="name" id="courseName" value="${json.academicCourse.name}"
+                                            required="">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="logoSource"><b class="text-danger">*</b> Course
+                                        Description</label>
+                                    <textarea id="courseD" class="form-control" name="description" style="height: 100px;">${json.academicCourse.description}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `)
+                    $('#modalBtn').val(json.academicCourse.id)
+                }
+                else if (json.status === 500) {
+                    iziToast.error({
+                        title: 'Error',
+                        message: err.message || 'Something Went Wrong!',
+                        position: 'topRight',
+                        timeout: 10000
+                    })
+                    location.href = '/'
+                } else {
+                    iziToast.error({
+                        title: 'Error',
+                        message: err.message || 'Something Went Wrong!',
+                        position: 'topRight',
+                        timeout: 10000
+                    })
+                }
+            }).catch(err => console.log(err))
+        }
+        const updateCourse = () => {
+            const formData = new FormData()
+            formData.append('name', $('#courseName').val())
+            formData.append('image', document.getElementById("image").files[0])
+            formData.append('description', $('#courseD').val())
+            $('#modalBtn').attr('disabled', true)
+            fetch(`/faculty/academicCourses/course/${$('#modalBtn').val()}`, {
+                method: 'PATCH',
+                body: formData
+            }).then(res => res.json()).then(json => {
+                if (json.status === 200) {
+                    location.href = '/faculty/academicCourses'
+                }
+                else {
+                    iziToast.error({
+                        title: 'Error',
+                        message: err.message || 'Something Went Wrong!',
+                        position: 'topRight',
+                        timeout: 10000
+                    })
+                }
+            }).catch(err => console.log(err));
+        }
+
+        var loadFile = function (event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('output');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        };
+        $(".img")
+            .on('load', function () { console.log("image loaded correctly"); })
+            .on('error', function () { console.log($(this).attr('src', '/uploads/courseImages/default-course.png')); })
+            ;
+    </script>
+</body>
+
+</html>

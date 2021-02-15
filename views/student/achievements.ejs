@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Assignments</title>
+
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+    
+</head>
+<style>
+
+/*! CSS Used from: Embedded */
+a{color:#949393;}
+a,a:hover{text-decoration:none;}
+a:hover{color:#3e416d;}
+a{cursor:pointer;}
+h3,p{margin-top:0;}
+h3{margin-bottom:.5rem;}
+p{margin-bottom:1rem;}
+a{background-color:transparent;}
+a{-webkit-text-decoration-skip:objects;}
+p{margin-left:0;}
+p{margin-right:0;}
+img{border-bottom-style:none;}
+p{margin-top:0;}
+img{vertical-align:middle;}
+img{border-left-style:none;}
+img{border-right-style:none;}
+img{border-top-style:none;}
+p{margin-bottom:.104166667in;}
+h3{margin-bottom:.9375pc;}
+h3{margin-left:0;}
+h3{margin-right:0;}
+h3{margin-top:0;}
+h3{text-transform:capitalize;}
+h3{font-weight:600;}
+h3{color:#3e416d;}
+h3{font-size:1.0625pc;}
+h3{line-height:1.4;}
+a:hover{text-decoration:none;}
+@media (min-width: 960px){
+h3{font-size:1.5625pc;}
+h3{line-height:1.4;}
+}
+h3{margin-left:0;}
+h3{margin-bottom:.15625in;}
+h3{margin-right:0;}
+h3{margin-top:0;}
+h3{font-weight:600;}
+h3{color:#3e416d;}
+h3{text-transform:capitalize;}
+::placeholder{color:#808080;}
+::placeholder{opacity:1;}
+[class~=blog-post]{display:flex;}
+[class~=blog-post-thumbnail-inner] img{height:100%;}
+[class~=blog-post]{background:#fff;}
+[class~=blog-post]{margin-bottom:26.25pt;}
+[class~=blog-post]{box-shadow:0 3px .125in rgba(0,0,0,.1);}
+[class~=blog-post-thumbnail-inner] img{width:100%;}
+[class~=blog-post-thumbnail-inner] img{object-fit:cover;}
+[class~=blog-post-thumbnail-inner] img{position:absolute;}
+[class~=blog-post-thumbnail-inner] img{top:0;}
+[class~=blog-post]{box-shadow:0in .125pc 7px -2.25pt #000;}
+/* [class~=blog-post-thumbnail-inner] img{left:0;} */
+[class~=blog-post]{border-radius:.072916667in;}
+[class~=blog-post-content] h3{font-size:15.75pt;}
+[class~=blog-post-thumbnail],[class~=blog-post]{overflow:hidden;}
+[class~=blog-post]{transition:.3s;}
+[class~=blog-post-thumbnail]{flex:0 0 auto;}
+[class~=blog-post-thumbnail]{max-width:none;}
+[class~=blog-post-thumbnail]{max-height:100%;}
+[class~=blog-post-thumbnail]{position:relative;}
+[class~=blog-post-content] h3{line-height:22.5pt;}
+[class~=blog-post-content] h3{margin-bottom:.072916667in;}
+[class~=blog-post-thumbnail]{width:15%;}
+[class~=blog-post-content] h3{display:block;}
+[class~=blog-post-thumbnail-inner]{height:100%;}
+[class~=blog-post-thumbnail-inner]{width:100%;}
+[class~=blog-post-thumbnail-inner]{overflow:hidden;}
+[class~=blog-post-thumbnail-inner]{box-shadow:0 .03125in 9pt rgba(0,0,0,.15);}
+[class~=blog-post-thumbnail-inner]{transition:.3s;}
+span[class~=blog-post-info-date]{font-weight:600;}
+span[class~=blog-post-info-date]{color:#909090;}
+span[class~=blog-post-info-date]{font-size:.125in;}
+[class~=blog-post-content]{flex:1;}
+[class~=blog-post-content]{padding-left:1.5625pc;}
+span[class~=blog-post-info-tag]{display:inline-block!important;}
+span[class~=blog-post-info-tag]{padding-left:.6rem!important;}
+span[class~=blog-post-info-tag]{padding-bottom:.26rem!important;}
+[class~=blog-post-content]{padding-bottom:1.5625pc;}
+span[class~=blog-post-info-tag]{padding-right:.6rem!important;}
+span[class~=blog-post-info-tag]{padding-top:.26rem!important;}
+span[class~=blog-post-info-tag]{font-size:.7rem!important;}
+[class~=blog-post-content]{padding-right:1.5625pc;}
+span[class~=blog-post-info-tag]{font-weight:600!important;}
+span[class~=blog-post-info-tag]{border-radius:10rem!important;}
+[class~=blog-post-content]{padding-top:1.5625pc;}
+span[class~=blog-post-info-tag]{line-height:1!important;}
+span[class~=blog-post-info-tag]{transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;}
+[class~=blog-post-content] p{padding-left:0;}
+[class~=blog-post-content] p{padding-bottom:0;}
+[class~=blog-post-content] p{padding-right:0;}
+[class~=blog-post-content] p{padding-top:0;}
+[class~=blog-post-content] p{display:block;}
+[class~=blog-post-content] p{margin-left:0;}
+[class~=blog-post-content] p{margin-bottom:6px!important;}
+[class~=blog-post]:hover{box-shadow:0 3px 28px rgba(0,0,0,.1);}
+[class~=blog-post-content] p{margin-right:0;}
+[class~=blog-post-content] p{margin-top:0;}
+[class~=blog-post-content] p{font-size:18px;}
+[class~=blog-post-content] p{font-size:.9375pc;}
+[class~=blog-post-content] p{color:#808080;}
+[class~=blog-post-content] p{font-weight:500;}
+[class~=blog-post-content] p{line-height:.239583333in;}
+.blog-post:hover .blog-post-content h3{transition:.3s;}
+.blog-post:hover .blog-post-content h3{color:#0610a0;}
+[class~=blog-post-content-info]{align-items:center;}
+[class~=blog-post-content-info]{justify-content:space-between;}
+[class~=blog-post-content-info]{display:flex;}
+[class~=blog-post-content-info]{margin-bottom:9px;}
+@media (max-width: 768px){
+[class~=blog-post-content] h3{font-size:13.5pt;}
+[class~=blog-post-content] h3{line-height:18pt;}
+[class~=blog-post]{flex-direction:column;}
+[class~=blog-post-thumbnail]{width:80%;}
+[class~=blog-post-thumbnail]{height:200px;}
+.blog-post-content{padding-left:.208333333in;}
+.blog-post-content{padding-bottom:.208333333in;}
+.blog-post-content{padding-right:.208333333in;}
+[class~=blog-post-content] h3{margin-bottom:.072916667in;}
+[class~=blog-post-content] p{font-size:15px;}
+.blog-post-content{padding-top:.208333333in;}
+}
+a:active,a:hover{outline:none;}
+img{vertical-align:middle;}
+img{max-width:100%;height:auto;box-sizing:border-box;}
+::selection{background:rgb(38, 16, 80);color:#fff;text-shadow:none;}
+@media print{
+*,*::before,*::after{background:transparent!important;color:black!important;box-shadow:none!important;text-shadow:none!important;}
+a,a:visited{text-decoration:underline;}
+img{page-break-inside:avoid;}
+img{max-width:100%!important;}
+p,h3{orphans:3;widows:3;}
+h3{page-break-after:avoid;}
+}
+
+@media print{
+*,*::before,*::after{text-shadow:none!important;box-shadow:none!important;}
+a:not(.btn){text-decoration:underline;}
+img{page-break-inside:avoid;}
+p,h3{orphans:3;widows:3;}
+h3{page-break-after:avoid;}
+}
+</style>
+<body>
+
+    <%-include('../partials/config')%>
+
+        <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+            <!-- header/ navbar area -->
+            <%-include('../partials/header.ejs')%>
+                <!-- header/navbar area end -->
+
+                <div class="app-main">
+                    <!-- side bar area -->
+                    <%-include('../partials/sidebar.ejs')%>
+                        <!-- sidebar area end -->
+                        <div class="app-main__outer">
+                            <div class="app-main__inner">
+                                <div class="app-page-title">
+                                    <div class="page-title-wrapper">
+                                        <div class="page-title-heading">
+                                            <div class="page-title-icon">
+                                                <i class="fas fa-users icon-gradient bg-mean-fruit">
+                                                </i>
+                                            </div>
+                                            <div>My Achievements
+                                                <div class="page-title-subheading">
+                                                    <div class="d-flex justify-content-center ">
+                                                        Upload Your certificates and badges here.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="page-title-actions">
+                                            <div class="d-inline-block">
+                                                <a style="text-decoration: none;" data-toggle="modal" data-target=".bd-example-modal-lg" class="btn btn-link">
+                                                    <span class="btn-icon-wrapper pr-2 opacity-7">
+                                                        <i class="fas fa-plus"></i>
+                                                    </span>
+                                                    Add New 
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                              <div class="container">
+                                  <div class="col-10" style="margin: auto;">
+                                <a class="blog-post" target="_blank" href="https://www.coursera.org/account/accomplishments/certificate/E5ZNNURSABB2" >
+                                    <!-- Blog Post Thumbnail -->
+                                    <div class="blog-post-thumbnail">
+                                        <div class="blog-post-thumbnail-inner">
+                                            <img src="https://i.pinimg.com/originals/a8/54/f2/a854f2287274a36338bddd6cd82ad3ea.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <!-- Blog Post Content -->
+                                    <div class="blog-post-content">
+                                        <div class="blog-post-content-info">
+                                            <span class="blog-post-info-tag btn btn-soft-primary"> Coursera </span>
+                                            <span class="blog-post-info-date">10 June 2020</span>
+                                        </div>
+                                        <h3>Reliable Google Cloud Infrastructure: Design and Process</h3>
+                                        <div>
+                                            <p class="text-dark"><b>Issue Date:</b>&nbsp;<span><%=new Date() %> </span></p>
+                                            <p class="text-dark"><b>Expiration Date:</b>&nbsp;<span>
+                                                    this course does not expires
+                                                </span></p>
+                                            <p class="text-dark"><b>Grade Achieved:</b>&nbsp;<span>
+                                                  93%
+                                                </span></p>
+                                        </div>
+                                    </div>
+                                </a>
+                                </div>
+                                
+                              </div>
+                                
+                            </div>
+                        </div>
+                </div>
+        </div>
+
+<!-- add new modal -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add new certificate or achievements</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/faculty/addAcademicCourse" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="courseName"><b class="text-danger">*</b>
+                            Name</label>
+                        <div>
+                            <input type="text" class="form-control" name="name" id="courseName" value="" required="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="courseName"><b class="text-danger">*</b>Issuing Organization
+                                Name</label>
+                            <div>
+                                <input type="text" class="form-control" name="name" id="courseName" value="" required="">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="courseName"><b class="text-danger">*</b>Issue Date</label>
+                            <div>
+                                <input type="datetime-local" class="form-control" name="name" id="courseName" value="" required="">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="courseName"><b class="text-danger">*</b>Expiration Date</label>
+                            <div>
+                                <input type="datetime-local" class="form-control" name="name" id="courseName" value="" required="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="courseName"><b class="text-danger">*</b>Credential URL</label>
+                            <div>
+                                <input type="url" class="form-control" name="name" id="courseName" value="" required="">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="courseName"><b class="text-danger">*</b>Grade Achieved</label>
+                            <div>
+                                <input type="number" class="form-control" name="name" id="courseName" value="" required="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+           
+        </div>
+    </div>
+</div>
+<!-- add new modal end -->
+
+
+        <script src="/js/main.js"></script>
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/iziToast.min.js"></script>
+        <script src="/js/flashMessage.js"></script>
+        
+
+</body>
+
+</html>

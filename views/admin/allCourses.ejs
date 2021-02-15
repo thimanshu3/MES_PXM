@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBM Courses</title>
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="stylesheet" href="/css/cards.css">
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+</head>
+<style>
+
+</style>
+
+<body>
+
+    <%-include('../partials/config')%>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="fas fa-book-reader icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>All Courses
+                                    <div class="page-title-subheading">
+                                        <div class="d-flex justify-content-center ">
+                                            Assgin, view and manage all the available courses.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <% if(courses.length === 0){ %>
+                            <div class="border col-12">
+                                <div class="card-body text-center">
+                                    <!-- Image -->
+                                    <img src="/assets/images/undraw_empty.svg" alt="..." class="img-fluid"
+                                        style="max-width: 182px;">
+
+                                    <!-- Title -->
+                                    <h1>
+                                        No IBM Course available
+                                    </h1>
+
+                                    <!-- Subtitle -->
+                                    <p class="text-muted">
+                                        Unable to find &nbsp;<a style="text-decoration: none;" href="#"><b
+                                                class="text-primary">IBM Courses</b></a>
+
+                                    </p>
+                                    <a href="/admin/addCourse" class="btn btn-primary">
+                                        Create IBM Course
+                                    </a>
+                                </div>
+                            </div>
+
+                            <% } else { courses.forEach(course => {%>
+                            <div class="col-sm-6 col-md-4 col-lg-3">
+                                <div class="card" style="min-height: 400px; max-height: 400px; width: 100%;">
+                                    <img src="/uploads/courseImages/<%=course.imageSource%>" class="card-img-top img"
+                                        style=" height: 120px;">
+                                    <span
+                                        class="badge badge-pill badge-info position-absolute badge-top-left"><%=course.iceCourseCode%></span>
+                                    <div class="card-body">
+                                        <p class="h5 card-title"><%=course.name%></p>
+                                        <p class="card-text text-sm">
+                                            <small
+                                                style="overflow: hidden;text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 7; line-height: 1.1rem; -webkit-box-orient: vertical;"
+                                                class="text-dark"><%=course.description%></small>
+                                        </p>
+                                    </div>
+                                    <div class="text-center d-flex card-footer justify-content-between">
+                                        <a href="/admin/courses/<%=course.id%>/preview"
+                                            class="border-0 btn-transition btn btn-outline-primary">
+                                            View <i class="fas fa-eye ml-1"></i>
+                                        </a>
+                                        <a href="/admin/courses/<%=course.id%>"
+                                            class="border-0 btn-transition btn btn-outline-secondary">
+                                            Manage <i class="fas fa-cogs"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <%})}%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+    <script>
+        $(".img")
+            .on('load', function () { console.log("image loaded correctly"); })
+            .on('error', function () { console.log($(this).attr('src', '/uploads/courseImages/default-course.png')); })
+            ;
+    </script>
+</body>
+
+</html>

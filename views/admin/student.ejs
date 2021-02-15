@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student</title>
+
+    <link rel="stylesheet" href="/css/iziToast.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/spinner.css">
+    <link rel="stylesheet" href="/css/cards.css">
+    <link rel="stylesheet" href="/css/progress.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css"
+        integrity="sha512-QmxybGIvkSI8+CGxkt5JAcGOKIzHDqBMs/hdemwisj4EeGLMXxCm9h8YgoCwIvndnuN1NdZxT4pdsesLXSaKaA=="
+        crossorigin="anonymous" />
+    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+</head>
+
+<body>
+
+    <%-include('../partials/config')%>
+    <div style="display: none;" id="studentId"><%=student.id%></div>
+
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <!-- header/ navbar area -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header/navbar area end -->
+
+        <div class="app-main">
+            <!-- side bar area -->
+            <%-include('../partials/sidebar.ejs')%>
+            <!-- sidebar area end -->
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="fas fa-user icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>User Details
+                                    <div class="page-title-subheading">
+                                        <div class="d-flex justify-content-center ">
+                                            Manage this user or see details.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="page-title-actions">
+                                <div class="d-inline-block">
+                                    <button id="changeActive" type="button"
+                                        class="btn-shadow  btn <%=student.active ? 'btn-success' : 'btn-danger'%>">
+                                        <span class="btn-icon-wrapper pr-2 opacity-7">
+                                            <i class="pe-7s-rocket" style="font-size: 1rem; color: #fff;"></i>
+                                        </span>
+                                        <span id="isActive"><%=student.active ? 'Active' : 'Inactive'%></span>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="main-card  col-12">
+                            <div class="mb-3 card">
+                                <div class=" card-header">
+                                    <ul class="nav nav-justified">
+                                        <li class="nav-item">
+                                            <a data-toggle="tab" href="#tab-eg-0" class="active nav-link">Student
+                                                Details</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a data-toggle="tab" href="#tab-eg-1" class="nav-link">Current IBM
+                                                Courses</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a data-toggle="tab" href="#tab-eg-2" class="nav-link">Current Academic
+                                                Courses</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a data-toggle="tab" href="#tab-eg-3" class="nav-link">Previous IBM
+                                                Courses</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a data-toggle="tab" href="#tab-eg-4" class="nav-link">Previous Academic
+                                                Courses</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active show" id="tab-eg-0" role="tabpanel">
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-4 col-xl-4">
+                                                    <div
+                                                        class="card-shadow-primary card-border text-dark mb-3 card bg-light">
+                                                        <div class="dropdown-menu-header">
+                                                            <div class="dropdown-menu-header-inner bg-light">
+                                                                <div class="menu-header-content">
+                                                                    <div
+                                                                        class="avatar-icon-wrapper mb-3 avatar-icon-xl">
+                                                                        <div class="avatar-icon"
+                                                                            style="height: 100px; width: 100px; border-radius: 5px;">
+                                                                            <img src="/uploads/userProfile/<%=student.profileImageSource%>"
+                                                                                alt="Avatar"></div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <h5 class="menu-header-title text-dark">
+                                                                            <%=student.firstName + ' ' + student.lastName%>
+                                                                        </h5>
+                                                                        <h6 class="menu-header-subtitle text-dark"
+                                                                            style="font-size: 0.9rem;">
+                                                                            <%=student.email%></h6>
+                                                                        <h6 class="menu-header-subtitle text-dark"
+                                                                            style="font-size: 0.9rem;">
+                                                                            <%=student.contactNumber%></h6>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="text-center d-flex card-footer justify-content-center">
+                                                            <a href="<%=student.linkedinUrl || '#'%>"
+                                                                class="btn btn-sm btn-light p-0 ">
+                                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAb1BMVEUAd7f///8AcrUAbrMAdbbK3Ou30uaMttcAc7U/jcJ7rdKGsNN0pM2vy+IAbLIAa7L3+/0Le7ns9Pnh7fVZmcjY5/Kox+Aafrvy+fxIkcTA1+mbwNwzh7+0z+Td6vNspM2UvNrR4u9insoAZrAjhL6yZ374AAAHJklEQVR4nO2d6ZaqvBKGQxIxtJsgiuDc6uH+r/GAQ7fSDEVClMqX91+v1WAeMleqKsR70WI7TfKYYFWcJ9Pt4hWJPP9x2EhGBf90OTXEBWVy4zcQpjETny7hIBIyDmsIjzn7dMkGlNwvq4ShtKP+HhLs8Ep4ijD3vjrxaPdMeIo+XSADuiNeCUMbAQvEw4NwKW1rojdxtrgT7u0aZH7FgxthatM08SoZXgntbKJX8bgkDO2twqIS/YIwsLUXlhKJRxby06UwKrYmvs2NtCDckhn9dCGMip5IYnM3LDriN8ktnixIOekTvCYLkHj26RI4ORkQv+rTpTAkzqmM6D4I9jxCbnWsFWci2Z3XN+PHfJVeiCXGx7tEtA/nr8Zkb7uJ7GGUm4lXo9XFEhudENs6vlLnzIZ1LdtU2+ezvvFvv+Ssha9Qit1UF6XtgMWIg9vcynZdgJ53wIzIvroBPW+H11AgAgig512wjqg3uzhA80+XVFWsc5R5yMc5Z/AMCughNbv+nKMCNMFYiZzDAT0Po0mLTvsQ7hAOp/LYh3CBcNrvMc6U2qNrpuK7HyG+8wEKngxvOqBburHabX2zVugI+w00xVCDjjACrkkfWqOzL/Yl9Ag2QrnshkJO2LMfztEZ+/uOpfhGGhp2Uz3rjI+ww4pYFT7XI77vR/iNbw/M1r0I0Q2lBWGvjnhGuMkXmz6EX+i2FqTfnD9Ht2Yr1WeHeMJYhX2WNXOEvbAU1KhfTBU4qxB28lRqi7QKCbSdrinGYeYmHkOmfdTxDDxrO8S/KcDaCW8SWcdef44csEDkqzbAZYa5id4lWw4w0Hti3MTycz3fMcA7TbyK17p9rRKbIk+FzKcv/fF42tvEV4pTSZNp6G+3fji9FH9Y0QEr4pxSVoha6D/r5OTkZKd4OXgjtMJ2SxQzkowiSuIszzMaRZIZD+8QzWo+UuMtTzUuhiiTWXJKJ8enLdt6OQlPl1wyU7s0TtnmX6MSWn8gw1ne/NC/S1zzVPFD8Vc1RdCvFv4sNgLJ6a59l3+o6yo06bAmT6pPcZmdOo1Cq2k8/GJYnrt+dvGXkF66HvIWL7GdQibAA1k/GJgRcjzz91AmBhR1+9RQo6TVjlD5uWE3pSDntk3lq9IT5Kkff00aN8bk1Mvnw/VHCvPVr/wgzAXgcvsuPOrpQFdoPlzAFczHtOrSBiO8ncdx5nf/a91PDoQII6wmZuhBKHhft527jmSYAcc0Ie+yxjZrng+CaJhQgA4NjCKaJYSdijQjDrEsN0vY17GsquUA1jCjhP9TGkWfNUBgoEnCb9Bc2y59DxCThL3COZqkHchiknAQrXTb6egJtX0kxk+o60MwfkJdXyUEhJr+ZggIvalWJWIg1Euqh4HQ08rIhoJQy+cMBaGWAzYOQp1ZHwfhViMQAgehp7E4RUKoMZoiIdQIlX8v4XyxXC5VjG8r9fnifYTLNIkpux6GBrO+z2tEBr6LcLKJqLhPa5xTRkAnH79STzzyHsJFUs1tx2m/4ED1ZABvIfTr8hNy2X0G+Sv10MB3EDZdrkH33S7mD6knA3gD4a5xuqbw0LK58pxvntBvKRss09hVyotv44SLVkNSBH5R9Rh6PITtJeM59D3KMbqmCQ8dixFwqiplY41pwqyj+4DDrcOREnZPYxLohqJ8A4Jhwq4qhKfjUg60Nkt47p7FoFnxluMkhJz+AZPIKGflMEsIubYA6G6jnP/HKCFo3wrsiMo7RKOEINsDNO9BPEbCBFQo4FCjepGFUUJQ1+EUtodSPdA3SQg8MwIOpqpJDU0STmADPDujJUxhS0lgkw9GSAjcDjCYA7HqBtG4fymAEDblYyaEmRUdoSP8JCHMkIGZEDbSqB4h4iFU9TTFQ6h6NjMGQthI4wgdoSN0hI7QETpCR+gIHaEjdISO0BE6QkfoCB2hI3SEjtAROkJH6AgdoSN0hI7QETpCR+gIHaEjdISO0BE6QkfoCB2hI4QIdiXwn7z6oEAeYBoECrvt9Z+iJzvnkLdXo6pgF88DYyJ5AiJUjbAEfcE/CeG4AERF+tD4ctDl2coZBwiJOlvc8W96EkDwLjzbOM+7v5dW7nL51RrEuT7VfT267xhsgMGHV4ms6yunehn2qcyDRu2j+q/HWdz8UBCwXt+cM972sn2/t9X+QouUHupdoNaX2Xitl9N/S8oTJRJlJP90EQwrJ1qZoscvkRD1lIooRGdEYz2HQWxL9FK2j15yQTRymyJQsQMgXmpzM2VhQehZvazzSkKLK5GlV0L9C4XGKlEmXSwJj5YOp/xq/iDXHbL+3V5jVHQ1Q14JvZmNtRjdUoLfCL2ZdbXI74APQi+Vdg03Qj5yvjwIvWM21NWlIxBn+Y+N9YewvPvKEkbBxJMZ+4nQm6eBZC2XpSMQ54LJIH02pT4TFlqEX5sMklV0nIqzzdehYr/+PyJejj+qK5H5AAAAAElFTkSuQmCC"
+                                                                    style="width: 25px; height: 26px; " alt="">
+                                                            </a>
+                                                            <a href="<%=student.githubUrl || '#'%>"
+                                                                class="btn btn-info p-0 btn-sm  ml-2">
+                                                                <img style="width: 28px; height: 25px;"
+                                                                    src="https://github.githubassets.com/images/modules/logos_page/Octocat.png"
+                                                                    alt="">
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <p>Created At: <%=formatDateMoment(student.createdAt)%></p>
+                                                    <p>Last Updated At: <%=formatDateMoment(student.updatedAt)%></p>
+                                                    <p>Last Login At:
+                                                        <%=lastLogin ? formatDateMoment(lastLogin) : 'N/A'%></p>
+                                                </div>
+                                                <div class="col-md-8 col-xl-8 col-sm-12">
+                                                    <form id="updateStudentForm" class="col-md-12 mx-auto">
+                                                        <div class="form-row ">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="firstName"> First
+                                                                    name</label>
+                                                                <div>
+                                                                    <input type="text" class="form-control"
+                                                                        name="firstName" id="firstName"
+                                                                        value="<%=student.firstName%>" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="lastName"> Last
+                                                                    name</label>
+                                                                <div>
+                                                                    <input class="form-control" type="text"
+                                                                        name="lastName" id="lastName"
+                                                                        value="<%=student.lastName%>" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="email"> Email</label>
+                                                                <div>
+                                                                    <input class="form-control" type="email"
+                                                                        name="email" id="email"
+                                                                        value="<%=student.email%>" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="contactNumber"> Contact
+                                                                    Number</label>
+                                                                <div>
+                                                                    <input class="form-control" type="tel"
+                                                                        name="contactNumber" id="contactNumber"
+                                                                        minlength="10" maxlength="10"
+                                                                        value="<%=student.contactNumber%>" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-12">
+                                                                <label for="college">
+                                                                    College</label>
+                                                                <input class="form-control" type="text" name="college"
+                                                                    id="college" value="<%=college.name%>" disabled>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="specialization"> Select
+                                                                    Specialization</label>
+                                                                <select class="form-control" name="specialization"
+                                                                    id="specialization">
+                                                                    <%specializations.forEach(s => {%>
+                                                                    <option value="<%=s.id%>"
+                                                                        <%=student.specialization===s.id ? 'selected' : ' '%>>
+                                                                        <%=s.name%></option>
+                                                                    <%})%>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="enrollmentYear">
+                                                                    Enrollment Year</label>
+                                                                <div>
+                                                                    <input class="form-control" type="number"
+                                                                        name="enrollmentYear" id="enrollmentYear"
+                                                                        min="2000" max="3000"
+                                                                        value="<%=student.enrollmentYear%>" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-4">
+                                                                <label for="semester">
+                                                                    Semester</label>
+                                                                <div>
+                                                                    <select class="form-control" name="semester"
+                                                                        id="semester">
+                                                                        <option value="1"
+                                                                            <%=student.semester===1 ? 'selected' : ' '%>>
+                                                                            1</option>
+                                                                        <option value="2"
+                                                                            <%=student.semester===2 ? 'selected' : ' '%>>
+                                                                            2</option>
+                                                                        <option value="3"
+                                                                            <%=student.semester===3 ? 'selected' : ' '%>>
+                                                                            3</option>
+                                                                        <option value="4"
+                                                                            <%=student.semester===4 ? 'selected' : ' '%>>
+                                                                            4</option>
+                                                                        <option value="5"
+                                                                            <%=student.semester===5 ? 'selected' : ' '%>>
+                                                                            5</option>
+                                                                        <option value="6"
+                                                                            <%=student.semester===6 ? 'selected' : ' '%>>
+                                                                            6</option>
+                                                                        <option value="7"
+                                                                            <%=student.semester===7 ? 'selected' : ' '%>>
+                                                                            7</option>
+                                                                        <option value="8"
+                                                                            <%=student.semester===8 ? 'selected' : ' '%>>
+                                                                            8</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="gender"> Gender</label>
+                                                                <div>
+                                                                    <select class="form-control" name="gender"
+                                                                        id="gender">
+                                                                        <option value="male"
+                                                                            <%=student.gender === 'male' ? 'selected' : ' '%>>
+                                                                            Male</option>
+                                                                        <option value="female"
+                                                                            <%=student.gender === 'female' ? 'selected' : ' '%>>
+                                                                            Female</option>
+                                                                        <option value="other"
+                                                                            <%=student.gender === 'other' ? 'selected' : ' '%>>
+                                                                            Other</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-4">
+                                                                <label for="alternateEmail">Alt Email</label>
+                                                                <div>
+                                                                    <input class="form-control" type="email"
+                                                                        name="alternateEmail" id="alternateEmail"
+                                                                        value="<%=student.alternateEmail%>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="githubUrl">Github Profile</label>
+                                                                <div>
+                                                                    <input type="url" name="githubUrl" id="githubUrl"
+                                                                        class="form-control"
+                                                                        value="<%=student.githubUrl%>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="linkedinUrl">Linkedin Profile</label>
+                                                                <div>
+                                                                    <input type="url" name="linkedinUrl"
+                                                                        class="form-control" id="linkedinUrl"
+                                                                        value="<%=student.linkedinUrl%>">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div>
+                                                            <div
+                                                                class="card-footer form-group d-flex justify-content-end">
+                                                                <button id="submitbtn" type="submit"
+                                                                    class="btn btn-primary">Update
+                                                                    Details</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab-eg-1" role="tabpanel">
+                                            <div class="row">
+                                                <% if(courses.length === 0) {%>
+                                                <div class="container-fluid">
+                                                    <article>
+                                                        <div class="d-flex flex-row justify-content-center">
+                                                            <img style="width: 250px;"
+                                                                src="../../assets/images/undraw_empty.svg" alt="">
+                                                        </div>
+                                                        <br>
+                                                        <div class="text-center">
+                                                            <h4 class="text-muted">Don't have access to any
+                                                                course...!</h4>
+                                                            <h4 class="text-muted">Please assign<a
+                                                                    style="text-decoration: none;" href="#"><b
+                                                                        class="text-primary">&nbsp;Course</b></a> to
+                                                                this
+                                                                student.
+                                                            </h4>
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                                <%} else{%>
+                                                <%courses.forEach(course => {%>
+                                                <div class="main-card mb-3 col-12">
+                                                    <div class="card-body">
+                                                        <div class="lms-S12nCourseCards">
+                                                            <div>
+                                                                <div class=""
+                                                                    style="min-height: 112px; margin-bottom: 0px;">
+                                                                    <div class="_f9somja">
+                                                                        <div class="_1aedxnp p-a-1 m-b-0"
+                                                                            data-courselenium="CourseCard~c4C7Kpm0EemfgRICI_I3ug">
+                                                                            <div class="_wtr3fd lms-CourseEnrolledCard"
+                                                                                data-courselenium="CourseEnrolledCard~c4C7Kpm0EemfgRICI_I3ug">
+                                                                                <div class="horizontal-box">
+                                                                                    <div role="button">
+                                                                                        <div class="_1q7na7ad m-r-1"
+                                                                                            role="presentation"><img
+                                                                                                src="/uploads/courseImages/<%=course.imageSource%>"
+                                                                                                srcset="/uploads/courseImages/<%=course.imageSource%>"
+                                                                                                class="course-logo"
+                                                                                                alt=""
+                                                                                                style="max-width: 100px; max-height: 100px;">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="lms-CourseEnrolledRunningPublicSessionCard row flex-1">
+                                                                                        <div
+                                                                                            class="col-xs-12 col-sm-8 col-md-9">
+                                                                                            <div role="button">
+                                                                                                <div>
+                                                                                                    <h5
+                                                                                                        class="m-b-1 m-r-1 font-md">
+                                                                                                        <%=course.name%>
+                                                                                                    </h5>
+                                                                                                </div>
+                                                                                                <div>
+
+                                                                                                    <span>
+                                                                                                        Course Expires
+                                                                                                        on
+                                                                                                        <%=formatDateMoment(course.expiresAt)%>
+                                                                                                    </span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div
+                                                                                                class="CourseProgressInfo mt-3">
+                                                                                                <span
+                                                                                                    class="label-text">progress</span>
+
+                                                                                                <%
+                                                                                                                                                                    const totalUnitsCount = course.units.length
+                                                                                                                                                                    const incompleteCount = course.units.filter(u => u.completedAt == null).length
+                                                                                                                                                                %>
+
+                                                                                                <div class="_10b1w5r"
+                                                                                                    style="height: 5px; border-radius: 4px;">
+                                                                                                    <div
+                                                                                                        class="mb-3 mt-2 progress">
+                                                                                                        <div class="progress-bar"
+                                                                                                            role="progressbar"
+                                                                                                            aria-valuenow="<%=(totalUnitsCount-incompleteCount)*100/totalUnitsCount%>"
+                                                                                                            aria-valuemin="0"
+                                                                                                            aria-valuemax="100"
+                                                                                                            style="width: <%=(totalUnitsCount-incompleteCount)*100/totalUnitsCount%>%;">
+                                                                                                            <%=((totalUnitsCount-incompleteCount)*100/totalUnitsCount).toFixed(2)%>%
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class=" CourseActionBox col-xs-12 col-sm-4 col-md-3 horizontal-box align-items-vertical-center align-items-right p-t-1 ">
+                                                                                            <div
+                                                                                                class="vertical-box align-items-absolute-center">
+                                                                                                <a href="/admin/students/<%=course.id%>/progress?courseType=ibm"
+                                                                                                    class="_7qon5ka btn
+                                                                                                                                                                            btn-primary"><span
+                                                                                                        class="_1lutnh9y">Preview
+                                                                                                    </span></a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <div class="navigation_menu" id="navigation_menu">
+                                                            <ul class="navigation_tabs d-flex justify-content-around" id="navigation_tabs">
+                                                                <%course.units.forEach(unit => {
+                                                                                                                                if(unit.completedAt) {%>
+                                                                <li class="tab_inactive">
+                                                                    <div class="row">
+                                                                        <a class="col-12" href="#">UNIT
+                                                                            <%=unit.unitNumber%></a>
+                                                                        <span class="text-muted col-12">
+                                                                            <%= formatDateMoment(unit.completedAt)%>
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <%} else {%>
+                                                                <li class="tab_disabled">
+                                                                    <a href="#">UNIT <%=unit.unitNumber%></a>
+                                                                </li>
+                                                                <%}
+                                                                                                                                })%>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                </div>
+
+                                                <%})}%>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab-eg-2" role="tabpanel">
+                                            <div class="row">
+                                                <% if(academicCourses.length === 0) {%>
+                                                <div class="container-fluid">
+                                                    <article>
+                                                        <div class="d-flex flex-row justify-content-center">
+                                                            <img style="width: 250px;"
+                                                                src="../../assets/images/undraw_empty.svg" alt="">
+                                                        </div>
+                                                        <br>
+                                                        <div class="text-center">
+                                                            <h4 class="text-muted">Don't have access to any
+                                                                course...!</h4>
+                                                            <h4 class="text-muted">Please assign<a
+                                                                    style="text-decoration: none;" href="#"><b
+                                                                        class="text-primary">&nbsp;Course</b></a> to
+                                                                this
+                                                                student.
+                                                            </h4>
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                                <%} else{%>
+                                                <%academicCourses.forEach(course => {%>
+                                                <div class="main-card mb-3 col-12">
+                                                    <div class="card-body">
+                                                        <div class="lms-S12nCourseCards">
+                                                            <div>
+                                                                <div class=""
+                                                                    style="min-height: 112px; margin-bottom: 0px;">
+                                                                    <div class="_f9somja">
+                                                                        <div class="_1aedxnp p-a-1 m-b-0"
+                                                                            data-courselenium="CourseCard~c4C7Kpm0EemfgRICI_I3ug">
+                                                                            <div class="_wtr3fd lms-CourseEnrolledCard"
+                                                                                data-courselenium="CourseEnrolledCard~c4C7Kpm0EemfgRICI_I3ug">
+                                                                                <div class="horizontal-box">
+                                                                                    <div role="button">
+                                                                                        <div class="_1q7na7ad m-r-1"
+                                                                                            role="presentation"><img
+                                                                                                src="/uploads/courseImages/<%=course.imageSource%>"
+                                                                                                srcset="/uploads/courseImages/<%=course.imageSource%>"
+                                                                                                class="course-logo"
+                                                                                                alt=""
+                                                                                                style="max-width: 100px; max-height: 100px;">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="lms-CourseEnrolledRunningPublicSessionCard row flex-1">
+                                                                                        <div
+                                                                                            class="col-xs-12 col-sm-8 col-md-9">
+                                                                                            <div role="button">
+                                                                                                <div>
+                                                                                                    <h5
+                                                                                                        class="m-b-1 m-r-1 font-md">
+                                                                                                        <%=course.name%>
+                                                                                                    </h5>
+                                                                                                </div>
+                                                                                                <div>
+
+                                                                                                    <span>
+                                                                                                        Course Expires
+                                                                                                        on
+                                                                                                        <%=formatDateMoment(course.expiresAt)%>
+                                                                                                    </span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div
+                                                                                                class="CourseProgressInfo mt-3">
+                                                                                                <span
+                                                                                                    class="label-text">progress</span>
+
+                                                                                                <%
+                                                                                                                                                                                                            const totalUnitsCount = course.units.length
+                                                                                                                                                                                                            const incompleteCount = course.units.filter(u => u.completedAt == null).length
+                                                                                                                                                                                                        %>
+
+                                                                                                <div class="_10b1w5r"
+                                                                                                    style="height: 5px; border-radius: 4px;">
+                                                                                                    <div
+                                                                                                        class="mb-3 mt-2 progress">
+                                                                                                        <div class="progress-bar"
+                                                                                                            role="progressbar"
+                                                                                                            aria-valuenow="<%=(totalUnitsCount-incompleteCount)*100/totalUnitsCount%>"
+                                                                                                            aria-valuemin="0"
+                                                                                                            aria-valuemax="100"
+                                                                                                            style="width: <%=(totalUnitsCount-incompleteCount)*100/totalUnitsCount%>%;">
+                                                                                                            <%=((totalUnitsCount-incompleteCount)*100/totalUnitsCount).toFixed(2)%>%
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class=" CourseActionBox col-xs-12 col-sm-4 col-md-3 horizontal-box align-items-vertical-center align-items-right p-t-1 ">
+                                                                                            <div
+                                                                                                class="vertical-box align-items-absolute-center">
+                                                                                                <a href="/admin/students/<%=course.id%>/progress?courseType=academic"
+                                                                                                    class="_7qon5ka btn
+                                                                                                                                                                                                                    btn-primary"><span
+                                                                                                        class="_1lutnh9y">Preview
+                                                                                                    </span></a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <div class="navigation_menu" id="navigation_menu">
+                                                            <ul class="navigation_tabs d-flex justify-content-around" id="navigation_tabs">
+                                                                <%course.units.forEach(unit => {
+                                                                                                                                                                        if(unit.completedAt) {%>
+                                                                <li class="tab_inactive">
+                                                                    <div class="row">
+                                                                        <a class="col-12" href="#">UNIT
+                                                                            <%=unit.unitNumber%></a>
+                                                                        <span class="text-muted col-12">
+                                                                            <%= formatDateMoment(unit.completedAt)%>
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <%} else {%>
+                                                                <li class="tab_disabled">
+                                                                    <a href="#">UNIT <%=unit.unitNumber%></a>
+                                                                </li>
+                                                                <%}
+                                                                                                                                                                        })%>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                </div>
+
+                                                <%})}%>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab-eg-3" role="tabpanel">
+                                            <div class="row">
+                                                <% if(previousCourses.length === 0) {%>
+                                                <div class="container-fluid">
+                                                    <article>
+                                                        <div class="d-flex flex-row justify-content-center">
+                                                            <img style="width: 250px;"
+                                                                src="../../assets/images/undraw_empty.svg" alt="">
+                                                        </div>
+                                                        <br>
+                                                        <div class="text-center">
+                                                            <h4 class="text-muted">Don't have completed any course...!
+                                                            </h4>
+
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                                <%} else{%>
+                                                <%previousCourses.forEach(course => {%>
+                                                <div class="main-card mb-3 col-12">
+                                                    <div class="card-body">
+                                                        <div class="lms-S12nCourseCards">
+                                                            <div>
+                                                                <div class=""
+                                                                    style="min-height: 112px; margin-bottom: 0px;">
+                                                                    <div class="_f9somja">
+                                                                        <div class="_1aedxnp p-a-1 m-b-0"
+                                                                            data-courselenium="CourseCard~c4C7Kpm0EemfgRICI_I3ug">
+                                                                            <div class="_wtr3fd lms-CourseEnrolledCard"
+                                                                                data-courselenium="CourseEnrolledCard~c4C7Kpm0EemfgRICI_I3ug">
+                                                                                <div class="horizontal-box">
+                                                                                    <div role="button">
+                                                                                        <div class="_1q7na7ad m-r-1"
+                                                                                            role="presentation"><img
+                                                                                                src="/uploads/courseImages/<%=course.imageSource%>"
+                                                                                                srcset="/uploads/courseImages/<%=course.imageSource%>"
+                                                                                                class="course-logo"
+                                                                                                alt=""
+                                                                                                style="max-width: 100px; max-height: 100px;">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="lms-CourseEnrolledRunningPublicSessionCard row flex-1">
+                                                                                        <div
+                                                                                            class="col-xs-12 col-sm-8 col-md-9">
+                                                                                            <div role="button">
+                                                                                                <div>
+                                                                                                    <h5
+                                                                                                        class="m-b-1 m-r-1 font-md">
+                                                                                                        <%=course.name%>
+                                                                                                    </h5>
+                                                                                                </div>
+                                                                                                <div>
+
+                                                                                                    <span>
+                                                                                                        Course Expires
+                                                                                                        on
+                                                                                                        <%=formatDateMoment(course.expiresAt)%>
+                                                                                                    </span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div
+                                                                                                class="CourseProgressInfo mt-3">
+                                                                                                <span
+                                                                                                    class="label-text">progress</span>
+
+                                                                                                <%
+                                                                                                                                                                                                                                                                                             const totalUnitsCount = course.units.length
+                                                                                                                                                                                                                                                                                                 const incompleteCount = course.units.filter(u                                                                                                                      => u.completedAt == null).length
+                                                                                                                                                                                                        %>
+
+                                                                                                <div class="_10b1w5r"
+                                                                                                    style="height: 5px; border-radius: 4px;">
+                                                                                                    <div
+                                                                                                        class="mb-3 mt-2 progress">
+                                                                                                        <div class="progress-bar"
+                                                                                                            role="progressbar"
+                                                                                                            aria-valuenow="<%=(totalUnitsCount-incompleteCount)*100/totalUnitsCount%>"
+                                                                                                            aria-valuemin="0"
+                                                                                                            aria-valuemax="100"
+                                                                                                            style="width: <%=(totalUnitsCount-incompleteCount)*100/totalUnitsCount%>%;">
+                                                                                                            <%=((totalUnitsCount-incompleteCount)*100/totalUnitsCount).toFixed(2)%>%
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class=" CourseActionBox col-xs-12 col-sm-4 col-md-3 horizontal-box align-items-vertical-center align-items-right p-t-1 ">
+                                                                                            <div
+                                                                                                class="vertical-box align-items-absolute-center">
+                                                                                                <a href="/admin/students/<%=course.id%>/progress?courseType=ibm"
+                                                                                                    class="_7qon5ka btn btn-primary"><span
+                                                                                                        class="_1lutnh9y">Preview
+                                                                                                    </span></a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <div class="navigation_menu" id="navigation_menu">
+                                                            <ul class="navigation_tabs d-flex justify-content-around" id="navigation_tabs">
+                                                                <%course.units.forEach(unit => {
+                                                                                                     if(unit.completedAt) {%>
+                                                                <li class="tab_inactive">
+                                                                    <div class="row">
+                                                                        <a class="col-12" href="#">UNIT
+                                                                            <%=unit.unitNumber%></a>
+                                                                        <span class="text-muted col-12">
+                                                                            <%= formatDateMoment(unit.completedAt)%>
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <%} else {%>
+                                                                <li class="tab_disabled">
+                                                                    <a href="#">UNIT <%=unit.unitNumber%></a>
+                                                                </li>
+                                                                <%}
+                                                                                                                                                                                                                    })%>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                </div>
+
+                                                <%})}%>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab-eg-4" role="tabpanel">
+                                            <div class="row">
+                                                <% if(previousAcademicCourses.length === 0) {%>
+                                                <div class="container-fluid">
+                                                    <article>
+                                                        <div class="d-flex flex-row justify-content-center">
+                                                            <img style="width: 250px;"
+                                                                src="../../assets/images/undraw_empty.svg" alt="">
+                                                        </div>
+                                                        <br>
+                                                        <div class="text-center">
+                                                            <h4 class="text-muted">Don't have completed any course...!
+                                                            </h4>
+
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                                <%} else{%>
+                                                <%previousAcademicCourses.forEach(course => {%>
+                                                <div class="main-card mb-3 col-12">
+                                                    <div class="card-body">
+                                                        <div class="lms-S12nCourseCards">
+                                                            <div>
+                                                                <div class=""
+                                                                    style="min-height: 112px; margin-bottom: 0px;">
+                                                                    <div class="_f9somja">
+                                                                        <div class="_1aedxnp p-a-1 m-b-0"
+                                                                            data-courselenium="CourseCard~c4C7Kpm0EemfgRICI_I3ug">
+                                                                            <div class="_wtr3fd lms-CourseEnrolledCard"
+                                                                                data-courselenium="CourseEnrolledCard~c4C7Kpm0EemfgRICI_I3ug">
+                                                                                <div class="horizontal-box">
+                                                                                    <div role="button">
+                                                                                        <div class="_1q7na7ad m-r-1"
+                                                                                            role="presentation"><img
+                                                                                                src="/uploads/courseImages/<%=course.imageSource%>"
+                                                                                                srcset="/uploads/courseImages/<%=course.imageSource%>"
+                                                                                                class="course-logo"
+                                                                                                alt=""
+                                                                                                style="max-width: 100px; max-height: 100px;">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="lms-CourseEnrolledRunningPublicSessionCard row flex-1">
+                                                                                        <div
+                                                                                            class="col-xs-12 col-sm-8 col-md-9">
+                                                                                            <div role="button">
+                                                                                                <div>
+                                                                                                    <h5
+                                                                                                        class="m-b-1 m-r-1 font-md">
+                                                                                                        <%=course.name%>
+                                                                                                    </h5>
+                                                                                                </div>
+                                                                                                <div>
+
+                                                                                                    <span>
+                                                                                                        Course Expires
+                                                                                                        on
+                                                                                                        <%=formatDateMoment(course.expiresAt)%>
+                                                                                                    </span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div
+                                                                                                class="CourseProgressInfo mt-3">
+                                                                                                <span
+                                                                                                    class="label-text">progress</span>
+
+                                                                                                <%
+                                                                                                                                                                                                                                                                                                                                     const totalUnitsCount = course.units.length
+                                                                                                                                                                                                                                                                                                                                         const incompleteCount = course.units.filter(u                                                                                                                      => u.completedAt == null).length
+                                                                                                                                                                                                                                                %>
+
+                                                                                                <div class="_10b1w5r"
+                                                                                                    style="height: 5px; border-radius: 4px;">
+                                                                                                    <div
+                                                                                                        class="mb-3 mt-2 progress">
+                                                                                                        <div class="progress-bar"
+                                                                                                            role="progressbar"
+                                                                                                            aria-valuenow="<%=(totalUnitsCount-incompleteCount)*100/totalUnitsCount%>"
+                                                                                                            aria-valuemin="0"
+                                                                                                            aria-valuemax="100"
+                                                                                                            style="width: <%=(totalUnitsCount-incompleteCount)*100/totalUnitsCount%>%;">
+                                                                                                            <%=((totalUnitsCount-incompleteCount)*100/totalUnitsCount).toFixed(2)%>%
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class=" CourseActionBox col-xs-12 col-sm-4 col-md-3 horizontal-box align-items-vertical-center align-items-right p-t-1 ">
+                                                                                            <div
+                                                                                                class="vertical-box align-items-absolute-center">
+                                                                                                <a href="/admin/students/<%=course.id%>/progress?courseType=academic"
+                                                                                                    class="_7qon5ka btn btn-primary"><span
+                                                                                                        class="_1lutnh9y">Preview
+                                                                                                    </span></a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <div class="navigation_menu" id="navigation_menu">
+                                                            <ul class="navigation_tabs d-flex justify-content-around" id="navigation_tabs">
+                                                                <%course.units.forEach(unit => {
+                                                                                                                                             if(unit.completedAt) {%>
+                                                                <li class="tab_inactive">
+                                                                    <div class="row">
+                                                                        <a class="col-12" href="#">UNIT
+                                                                            <%=unit.unitNumber%></a>
+                                                                        <span class="text-muted col-12">
+                                                                            <%= formatDateMoment(unit.completedAt)%>
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <%} else {%>
+                                                                <li class="tab_disabled">
+                                                                    <a href="#">UNIT <%=unit.unitNumber%></a>
+                                                                </li>
+                                                                <%}
+                                                                                                                                                                                                                                                            })%>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                </div>
+
+                                                <%})}%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/iziToast.min.js"></script>
+    <script src="/js/flashMessage.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js"
+        integrity="sha512-1zzZ0ynR2KXnFskJ1C2s+7TIEewmkB2y+5o/+ahF7mwNj9n3PnzARpqalvtjSbUETwx6yuxP5AJXZCpnjEJkQw=="
+        crossorigin="anonymous"></script>
+
+    <script>
+
+
+        $('#updateStudentForm').submit(e => {
+            e.preventDefault()
+            const { firstName, lastName, email, contactNumber, specialization, enrollmentYear, semester, gender, alternateEmail, githubUrl, linkedinUrl } = e.currentTarget.elements
+
+            fetch(`/admin/user/${$('#studentId').text()}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    firstName: firstName.value,
+                    lastName: lastName.value,
+                    email: email.value,
+                    contactNumber: contactNumber.value,
+                    specialization: specialization.value,
+                    enrollmentYear: enrollmentYear.value,
+                    semester: semester.value,
+                    gender: gender.value,
+                    alternateEmail: alternateEmail.value,
+                    githubUrl: githubUrl.value,
+                    linkedinUrl: linkedinUrl.value
+                })
+            })
+                .then(res => res.json())
+                .then(json => {
+                    if (json.status == 200)
+                        iziToast.success({
+                            message: json.message
+                        })
+                    else
+                        iziToast.error({
+                            message: json.message
+                        })
+                })
+        })
+
+        $('#changeActive').click(() => {
+            fetch(`/admin/user/${$('#studentId').text()}`, {
+                method: 'DELETE'
+            })
+                .then(res => res.json())
+                .then(json => {
+                    if (json.status === 200) {
+                        iziToast.info({
+                            message: json.message
+                        })
+                        $('#isActive').text(json.active ? 'Active' : 'Inactive')
+                        document.querySelector('#changeActive').classList.remove('btn-success')
+                        document.querySelector('#changeActive').classList.remove('btn-danger')
+                        document.querySelector('#changeActive').classList.add(json.active ? 'btn-success' : 'btn-danger')
+                    } else {
+                        iziToast.error({
+                            message: json.message
+                        })
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        })
+    </script>
+</body>
+
+</html>
