@@ -1,0 +1,22 @@
+.navbar-header{
+	background:#fff !important;
+	border-bottom:1px solid #f6f6f6
+}
+
+.main-header{
+	box-shadow:none;
+}
+
+a{
+	pointer-events: none;
+    cursor: default;
+}
+
+.card{min-height: 420px;max-height: 420px;overflow: auto;}
+
+
+@media (min-width:768px){
+::-webkit-scrollbar{width:.4em;height:.4em;}
+::-webkit-scrollbar-thumb{background:#dddddd;border-radius:20px;}
+::-webkit-scrollbar-track{background:#f4f4f4;border-radius:20px;}
+}
