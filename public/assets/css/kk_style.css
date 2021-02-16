@@ -20,3 +20,7 @@ a{
 ::-webkit-scrollbar-thumb{background:#dddddd;border-radius:20px;}
 ::-webkit-scrollbar-track{background:#f4f4f4;border-radius:20px;}
 }
+
+.sidebar-content li.nav-item:last-child a{
+	pointer-events: initial !important;
+}
