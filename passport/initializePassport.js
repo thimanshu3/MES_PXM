@@ -13,9 +13,8 @@ const redisGet = promisify(Redis.get).bind(Redis)
 
 const RoleNames = {
     0: 'Admin',
-    1: 'SPoC',
-    2: 'Faculty',
-    3: 'Student'
+    1: 'Product Manager',
+    2: 'Power User',
 }
 
 const getUserMessage = (name, role) => {
@@ -25,13 +24,10 @@ const getUserMessage = (name, role) => {
             message = 'Admin'
             break
         case 1:
-            message = 'SPoC'
+            message = 'Product Manager'
             break
         case 2:
-            message = 'Faculty'
-            break
-        case 3:
-            message = 'Student'
+            message = 'Power User'
             break
         default:
             message = ''

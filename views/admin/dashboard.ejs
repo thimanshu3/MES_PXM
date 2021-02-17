@@ -2,256 +2,214 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Infeenity Dashboard</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
 
-    <link rel="stylesheet" href="/css/iziToast.min.css">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/spinner.css">
-    <link rel="manifest" href="/css/manifest.json">
+    <!-- Fonts and icons -->
+    <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+        WebFont.load({
+            google: { "families": ["Lato:300,400,700,900"] },
+            custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['../assets/css/fonts.min.css'] },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
 
-    <link rel="shortcut icon" href="//www.ibm.com/favicon.ico" type="image/vnd.microsoft.icon">
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/atlantis.min.css">
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="/assets/css/demo.css">
+    <link rel="stylesheet" href="/assets/css/kk_style.css">
 </head>
-<style>
-    .widget-chart {
-        text-align: center;
-        padding: 1rem;
-        position: relative;
-    }
-
-    .widget-chart .widget-chart-content {
-        position: relative;
-        z-index: 5;
-    }
-
-    .widget-chart .widget-numbers {
-        font-weight: bold;
-        font-size: 2.5rem;
-        display: block;
-        line-height: 1;
-        margin: 1rem auto;
-    }
-
-    .widget-chart .widget-subheading {
-        margin: -0.5rem 0 0;
-        display: block;
-        opacity: .6;
-    }
-
-    .widget-chart .widget-subheading:first-child {
-        margin-top: 0;
-    }
-
-    .widget-chart .widget-chart-flex {
-        display: flex;
-        align-items: center;
-        align-content: center;
-        margin-bottom: 1rem;
-    }
-
-    .widget-chart .widget-chart-flex:last-child {
-        margin-bottom: 0;
-    }
-
-    .widget-chart.text-left {
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .widget-chart.text-left .widget-numbers {
-        margin-left: 0;
-    }
-
-    .widget-chart.text-left .widget-chart-content {
-        display: flex;
-        flex-direction: column;
-        align-content: center;
-        flex: 1;
-        position: relative;
-    }
-
-    .widget-chart2 .widget-chart-flex {
-        display: flex;
-        align-items: baseline;
-        align-content: center;
-        margin-bottom: 0;
-    }
-
-    .widget-chart2 .widget-chart-flex .widget-numbers {
-        font-weight: normal;
-    }
-
-    .widget-chart2 .widget-chat-wrapper-outer {
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        max-width: 100%;
-    }
-
-
-    @media (max-width: 767.98px) {
-        body .card.mb-3 {
-            margin-bottom: 15px !important;
-        }
-    }
-
-    .card.mb-3 {
-        margin-bottom: 30px !important;
-    }
-</style>
 
 <body>
-
-    <%-include('../partials/config')%>
-    <!-- 
-    <%=User.email%>
-
-    <form action="/user/logout?_method=DELETE" method="POST">
-        <button type="submit">Sign Out</button>
-    </form> -->
-    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-        <!-- header/ navbar area -->
+    <div class="wrapper">
+       
+        <!-- header -->
         <%-include('../partials/header.ejs')%>
-        <!-- header/navbar area end -->
+        <!-- header end -->
 
-        <div class="app-main">
-            <!-- side bar area -->
-            <%-include('../partials/sidebar.ejs')%>
-            <!-- sidebar area end -->
-            <div class="app-main__outer">
-                <div class="app-main__inner">
-                    <div class="app-page-title">
-                        <div class="page-title-wrapper">
-                            <div class="page-title-heading">
-                                <div class="page-title-icon">
-                                    <i class="fas fa-home icon-gradient bg-mean-fruit">
-                                    </i>
-                                </div>
-                                <div>Welcome to IBM ICE Learning Management System
-                                    <div class="page-title-subheading">
-                                        <div class="d-flex justify-content-center ">
-                                            This is a learning management system which will help you get a headstart at
-                                            latest technologies, and keep track of your
-                                            progress while you learn and grow.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Sidebar -->
+        <%-include('../partials/sidebar.ejs')%>
+        <!-- End Sidebar -->
 
+        <div class="main-panel">
+            <div class="content">
+
+                <div class="page-inner ">
                     <div class="row">
-                        <div class="col-md-6 col-lg-3">
-                            <div
-                                class="card-shadow-primary mb-3 widget-chart widget-chart2 card d-flex justify-content-center">
-                                <div class="widget-chat-wrapper-outer">
-                                    <div class="widget-chart-content">
-                                        <h6 class="widget-subheading text-uppercase">Students</h6>
-                                        <div class="widget-chart-flex">
-                                            <div class="widget-numbers mb-0 w-100">
-                                                <div class="widget-chart-flex">
-                                                    <div class="fsize-4">
-                                                        <small class="opacity-5"><i
-                                                                class="icon-gradient bg-ripe-malin fas fa-users"></i></small>
-                                                        <%=students%>
-                                                    </div>
-                                                </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">Top Products</div>
+                                </div>
+                                <div class="card-body pb-0">
+                                    <div class="d-flex">
+                                        <div class="avatar">
+                                            <img src="/assets/img/logoproduct.svg" alt="..."
+                                                class="avatar-img rounded-circle">
+                                        </div>
+                                        <div class="flex-1 pt-1 ml-2">
+                                            <h6 class="fw-bold mb-1">CSS</h6>
+                                            <small class="text-muted">Cascading Style Sheets</small>
+                                        </div>
+                                        <div class="d-flex ml-auto align-items-center">
+                                            <h3 class="text-info fw-bold">+$17</h3>
+                                        </div>
+                                    </div>
+                                    <div class="separator-dashed"></div>
+                                    <div class="d-flex">
+                                        <div class="avatar">
+                                            <img src="/assets/img/logoproduct.svg" alt="..."
+                                                class="avatar-img rounded-circle">
+                                        </div>
+                                        <div class="flex-1 pt-1 ml-2">
+                                            <h6 class="fw-bold mb-1">J.CO Donuts</h6>
+                                            <small class="text-muted">The Best Donuts</small>
+                                        </div>
+                                        <div class="d-flex ml-auto align-items-center">
+                                            <h3 class="text-info fw-bold">+$300</h3>
+                                        </div>
+                                    </div>
+                                    <div class="separator-dashed"></div>
+                                    <div class="d-flex">
+                                        <div class="avatar">
+                                            <img src="/assets/img/logoproduct3.svg" alt="..."
+                                                class="avatar-img rounded-circle">
+                                        </div>
+                                        <div class="flex-1 pt-1 ml-2">
+                                            <h6 class="fw-bold mb-1">Ready Pro</h6>
+                                            <small class="text-muted">Bootstrap 4 Admin Dashboard</small>
+                                        </div>
+                                        <div class="d-flex ml-auto align-items-center">
+                                            <h3 class="text-info fw-bold">+$350</h3>
+                                        </div>
+                                    </div>
+                                    <div class="separator-dashed"></div>
+                                    <div class="pull-in">
+                                        <canvas id="topProductsChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-title fw-mediumbold">Suggested People</div>
+                                    <div class="card-list">
+                                        <div class="item-list">
+                                            <div class="avatar">
+                                                <img src="/assets/img/jm_denis.jpg" alt="..."
+                                                    class="avatar-img rounded-circle">
                                             </div>
-                                            <a href="/admin/students">
-                                                view
-                                            </a>
+                                            <div class="info-user ml-3">
+                                                <div class="username">Jimmy Denis</div>
+                                                <div class="status">Graphic Designer</div>
+                                            </div>
+                                            <button class="btn btn-icon btn-primary btn-round btn-xs">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="item-list">
+                                            <div class="avatar">
+                                                <img src="/assets/img/chadengle.jpg" alt="..."
+                                                    class="avatar-img rounded-circle">
+                                            </div>
+                                            <div class="info-user ml-3">
+                                                <div class="username">Chad</div>
+                                                <div class="status">CEO Zeleaf</div>
+                                            </div>
+                                            <button class="btn btn-icon btn-primary btn-round btn-xs">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="item-list">
+                                            <div class="avatar">
+                                                <img src="/assets/img/talha.jpg" alt="..."
+                                                    class="avatar-img rounded-circle">
+                                            </div>
+                                            <div class="info-user ml-3">
+                                                <div class="username">Talha</div>
+                                                <div class="status">Front End Designer</div>
+                                            </div>
+                                            <button class="btn btn-icon btn-primary btn-round btn-xs">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="item-list">
+                                            <div class="avatar">
+                                                <img src="/assets/img/mlane.jpg" alt="..."
+                                                    class="avatar-img rounded-circle">
+                                            </div>
+                                            <div class="info-user ml-3">
+                                                <div class="username">John Doe</div>
+                                                <div class="status">Back End Developer</div>
+                                            </div>
+                                            <button class="btn btn-icon btn-primary btn-round btn-xs">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="item-list">
+                                            <div class="avatar">
+                                                <img src="/assets/img/talha.jpg" alt="..."
+                                                    class="avatar-img rounded-circle">
+                                            </div>
+                                            <div class="info-user ml-3">
+                                                <div class="username">Talha</div>
+                                                <div class="status">Front End Designer</div>
+                                            </div>
+                                            <button class="btn btn-icon btn-primary btn-round btn-xs">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="item-list">
+                                            <div class="avatar">
+                                                <img src="/assets/img/jm_denis.jpg" alt="..."
+                                                    class="avatar-img rounded-circle">
+                                            </div>
+                                            <div class="info-user ml-3">
+                                                <div class="username">Jimmy Denis</div>
+                                                <div class="status">Graphic Designer</div>
+                                            </div>
+                                            <button class="btn btn-icon btn-primary btn-round btn-xs">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div
-                                class="card-shadow-primary mb-3 widget-chart widget-chart2 card d-flex justify-content-center">
-                                <div class="widget-chat-wrapper-outer">
-                                    <div class="widget-chart-content">
-                                        <h6 class="widget-subheading text-uppercase">Faculties</h6>
-                                        <div class="widget-chart-flex">
-                                            <div class="widget-numbers mb-0 w-100">
-                                                <div class="widget-chart-flex">
-                                                    <div class="fsize-4 text-danger">
-                                                        <small class="opacity-5 text-muted"><i
-                                                                class="fas fa-address-card icon-gradient bg-ripe-malin"></i></small>
-                                                        <%=faculties%>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <a href="/admin/faculties">
-                                                view
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div
-                                class="card-shadow-primary mb-3 widget-chart widget-chart2 d-flex justify-content-center card">
-                                <div class="widget-chat-wrapper-outer">
-                                    <div class="widget-chart-content">
-                                        <h6 class="widget-subheading text-uppercase">Colleges</h6>
-                                        <div class="widget-chart-flex">
-                                            <div class="widget-numbers mb-0 w-100">
-                                                <div class="widget-chart-flex">
-                                                    <div class="fsize-4">
-                                                        <small class=" font-icon-lg opacity-5">
-                                                            <i class="fa fa-database icon-gradient bg-ripe-malin">
-                                                            </i>
-                                                        </small>
-                                                        <%=colleges%>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <a href="/admin/colleges">
-                                                view
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div
-                                class="card-shadow-primary mb-3 widget-chart widget-chart2 d-flex justify-content-center card">
-                                <div class="widget-chat-wrapper-outer">
-                                    <div class="widget-chart-content">
-                                        <h6 class="widget-subheading text-uppercase">Specializations</h6>
-                                        <div class="widget-chart-flex ">
-                                            <div class="widget-numbers mb-0 w-100">
-                                                <div class="widget-chart-flex ">
-                                                    <div class="fsize-4 ">
-                                                        <small class="opacity-5"><i
-                                                                class=" fas fa-bezier-curve icon-gradient bg-ripe-malin"></i></small>
-                                                        <%=specializations%>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <a href="/admin/specializations">
-                                                view
-                                            </a>
-                                        </div>
-                                    </div>
+                        <div class="col-md-4">
+                            <div class="card ">
+                                <div class="card-body">
+                                    <h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Active user right now</h4>
+                                    <h1 class="mb-4 fw-bold">17</h1>
+                                    <h4 class="mt-3 b-b1 pb-2 mb-5 fw-bold">Page view per minutes</h4>
+                                    <div id="activeUsersChart"></div>
+                                    <h4 class="mt-5 pb-3 mb-0 fw-bold">Top active pages</h4>
+                                    <ul class="list-unstyled">
+                                        <li class="d-flex justify-content-between pb-1 pt-1">
+                                            <small>/product/readypro/index.html</small> <span>7</span></li>
+                                        <li class="d-flex justify-content-between pb-1 pt-1">
+                                            <small>/product/atlantis/demo.html</small> <span>10</span></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
                 </div>
-            <%-include('../partials/footerpage.ejs')%>
             </div>
+            <%-include('../partials/footer.ejs')%>
         </div>
+
     </div>
-    <script src="/js/main.js"></script>
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/iziToast.min.js"></script>
-    <script src="/js/flashMessage.js"></script>
-    <script src="/js/index.js"></script>
+  
 </body>
 
 </html>
