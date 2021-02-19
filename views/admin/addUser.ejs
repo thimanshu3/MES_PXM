@@ -6,30 +6,30 @@
     <title>Infeenity Dashboard</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
+<!-- CSS Files -->
+<link rel="stylesheet" href="/assets/css/bootstrap.css">
+<link rel="stylesheet" href="/assets/css/atlantis.min.css">
 
-    <!-- Fonts and icons -->
-    <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
-    <script>
-        WebFont.load({
-            google: { "families": ["Lato:300,400,700,900"] },
-            custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['../assets/css/fonts.min.css'] },
-            active: function () {
-                sessionStorage.fonts = true;
-            }
-        });
-    </script>
-
-    <!-- CSS Files -->
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/atlantis.min.css">
-
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link rel="stylesheet" href="/assets/css/demo.css">
-    <link rel="stylesheet" href="/assets/css/kk_style.css">
+<!-- CSS Just for demo purpose, don't include it in your project -->
+<link rel="stylesheet" href="/assets/css/demo.css">
+<link rel="stylesheet" href="/assets/css/kk_style.css">
+<link rel="stylesheet" href="/assets/css/iziToast.min.css">
+<!-- Fonts and icons -->
+<script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+<script>
+    WebFont.load({
+        google: { "families": ["Lato:300,400,700,900"] },
+        custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css'] },
+        active: function () {
+            sessionStorage.fonts = true;
+        }
+    });
+</script>
 </head>
 
 <body>
     <div class="wrapper">
+    <%-include('../partials/config')%>
 
         <!-- header -->
         <%-include('../partials/header.ejs')%>
@@ -38,34 +38,166 @@
             <!-- Sidebar -->
             <%-include('../partials/sidebar.ejs')%>
                 <!-- End Sidebar -->
-
                 <div class="main-panel">
                     <div class="content">
-
-                        <div class="page-inner ">
-                            <form action="/admin/addUser" method="POST">
-                                <input type="text" name="firstName">
-                                <input type="text" name="lastName">
-                                <input type="email" name="email">
-                                <input type="number" name="contactNumber">
-                                <select name="gender" id="gender">
-                                    <option value="male">male</option>
-                                    <option value="female">female</option>
-                                </select>
-                                <select name="role" id="role">
-                                    <option value="0">admin</option>
-                                    <option value="1">Product Manager</option>
-                                    <option value="2">Power User</option>
-                                </select>
-                                <button type="submit">add</button>
-                            </form>
+                        <div class="page-inner">
+                            <div class="page-header">
+                
+                                <ul class="breadcrumbs">
+                                    <li class="nav-home">
+                                        <a href="#">
+                                            <i class="flaticon-home"></i>
+                                        </a>
+                                    </li>
+                                    <li class="separator">
+                                        <i class="flaticon-right-arrow"></i>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#">Users</a>
+                                    </li>
+                                    <li class="separator">
+                                        <i class="flaticon-right-arrow"></i>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#">Add New User</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    
+                                    <form action="/admin/addUser" method="POST">
+                                    <div class="card kk_full_form">
+                                        <div class="card-header d-flex justify-content-between">
+                                            <div class="card-title">Add User</div>
+                                                <a href="" class="btn btn-secondary mt-0" data-toggle="modal" data-target="#myModal">Import
+                                                    User</a>
+                                            
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+            
+                                                <div class="col-md-12">
+                
+                                                    <div class="form-group">
+                                                        <label>First Name</label>
+                                                        <input type="text" class="form-control" name="firstName" id="firstName"
+                                                            placeholder="Enter First Name">
+                                                    </div>
+                
+                                                    <div class="form-group">
+                                                        <label>Last Name</label>
+                                                        <input type="text" class="form-control" name="lastName" id="lastName"
+                                                            placeholder="Enter Last Name">
+                                                    </div>
+                
+                                                    <div class="form-group">
+                                                        <label>Email Address</label>
+                                                        <input type="email" class="form-control" name="email" id="email"
+                                                            placeholder="Enter Email">
+                                                    </div>
+                
+                                                    <div class="form-group">
+                                                        <label class="form-label">Your Role</label>
+                                                        <br>
+                                                        <div class="selectgroup selectgroup-pills">
+                                                            <label class="selectgroup-item">
+                                                                <input type="radio" name="role" value="0"
+                                                                    class="selectgroup-input">
+                                                                <span class="selectgroup-button">Admin</span>
+                                                            </label>
+                                                            <label class="selectgroup-item">
+                                                                <input type="radio" name="role" value="1"
+                                                                    class="selectgroup-input">
+                                                                <span class="selectgroup-button">Product Manager</span>
+                                                            </label>
+                                                            <label class="selectgroup-item">
+                                                                <input type="radio" name="role" value="2"
+                                                                    class="selectgroup-input">
+                                                                <span class="selectgroup-button">Power user</span>
+                                                            </label>
+    
+                                                        </div>
+                                                    </div>
+                
+                                                    <div class="form-group">
+                                                        <label class="form-label">Gender</label>
+                                                        <br>
+                                                        <div class="selectgroup selectgroup-pills">
+                                                            <label class="selectgroup-item">
+                                                                <input type="radio" name="gender" value="female"
+                                                                    class="selectgroup-input">
+                                                                <span class="selectgroup-button">Female</span>
+                                                            </label>
+                                                            <label class="selectgroup-item">
+                                                                <input type="radio" name="gender" value="male" class="selectgroup-input">
+                                                                <span class="selectgroup-button">Male</span>
+                                                            </label>
+                
+                                                        </div>
+                                                    </div>
+                
+                                                    <div class="form-group">
+                                                        <label>Phone Number</label>
+                                                        <input type="text" class="form-control" name="contactNumber" id="contactNumber"
+                                                            placeholder="Enter Phone Number">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-success">Submit</button>
+                                        </div>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <%-include('../partials/footer.ejs')%>
+                   <%-include('../partials/footer.ejs')%>
+                    <div class="modal kk_modal_popup_form" id="myModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Import User</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <form action="/admin/addUser/import" method="POST" enctype="multipart/form-data">
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <p class="text-danger">Supported extensions .XLSX</p>
+                                    <button type="button" class="btn btn-primary mb-5">Download Template</button>
+                
+                                    <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+                                </div>
+                
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Import</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                
                 </div>
 
     </div>
+<!--   Core JS Files   -->
 
+<!-- jQuery library -->
+<script src="/assets/js/core/jquery.3.2.1.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="/assets/js/core/bootstrap.js"></script>
+<!-- Popper JS -->
+<script src="/assets/js/core/popper.min.js"></script>
+<!-- Atlantis JS -->
+<script src="/assets/js/atlantis.min.js"></script>
+<script src="/assets/js/iziToast.js"></script>
+<script src="/assets/js/flashMessage.js"></script>
 </body>
 
 </html>

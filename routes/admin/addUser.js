@@ -41,7 +41,6 @@ router.post('/', (req, res) => {
         .then(async validatedObj => {
             const {
                 firstName,
-
                 lastName,
                 email,
                 contactNumber,
@@ -58,7 +57,7 @@ router.post('/', (req, res) => {
                 email,
                 contactNumber,
                 gender,
-                role,
+                role: parseInt(role),
                 password: userPasswordHashed
             }
 
@@ -67,12 +66,12 @@ router.post('/', (req, res) => {
                 const user = await User.create({
                     ...userObj
                 })
-
+                console.log(user)
                 if (process.env.NODE_ENV === 'production')
                     sendMail(email, 'Your Credentials for DME@PXM', '', genNewUserWelcomeTemplate(email, userPassword))
 
                 req.flash('success', 'Users Added Successfully!')
-                res.redirect(`/admin/user/${user.id}`)
+                res.redirect(`/admin/users/${user.id}`)
 
             } catch (err) {
                 console.error('\x1b[31m%s\x1b[0m', err)
@@ -84,6 +83,7 @@ router.post('/', (req, res) => {
             }
         })
         .catch(err => {
+            console.log(err.toString())
             req.flash('error', err.toString() || 'Validation Error!')
             res.redirect('/admin/addUser')
         })

@@ -10,5 +10,7 @@ router.use('/addUser', require('./addUser'))
 
 router.use('/attributeset', require('./AttributeSet'))
 
+router.use('/users', require('./users'))
+
 
 module.exports = router

@@ -6,7 +6,7 @@ const { sendMail, random, genNewUserWelcomeTemplate } = require('../../util')
 
 const router = express.Router()
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', async (req, res) => {    
     const user = await User.findOne({
         where: {
             id: req.params.id
@@ -16,10 +16,7 @@ router.patch('/:id', async (req, res) => {
     if (!user)
         return res.status(404).json({ message: 'User Not Found!' })
 
-    if (!user.college)
-        return res.status(404).json({ message: 'User Not Found!' })
-
-    const { email, contactNumber, firstName, lastName, gender, alternateEmail, githubUrl, linkedinUrl, enrollmentYear, semester, specialization } = req.body
+    const { email, contactNumber, firstName, lastName, gender, role } = req.body
 
     if (!email)
         return res.status(400).json({ message: 'email is required!' })
@@ -36,7 +33,7 @@ router.patch('/:id', async (req, res) => {
         const newPassword = process.env.NODE_ENV === 'production' ? random(8).toUpperCase() : 'password'
         const newPasswordHashed = await bcrypt.hash(newPassword, 10)
         if (process.env.NODE_ENV === 'production')
-            sendMail(email, 'Your New Credentials for IBM LMS', '', genNewUserWelcomeTemplate(email, newPassword))
+            sendMail(email, 'Your New Credentials for DME@PXM', '', genNewUserWelcomeTemplate(email, newPassword))
         user.password = newPasswordHashed
     }
 
@@ -45,19 +42,8 @@ router.patch('/:id', async (req, res) => {
     user.firstName = firstName
     user.lastName = lastName
     user.gender = gender
-
-    if (alternateEmail)
-        user.alternateEmail = alternateEmail
-    if (githubUrl)
-        user.githubUrl = githubUrl
-    if (linkedinUrl)
-        user.linkedinUrl = linkedinUrl
-    if (enrollmentYear && user.role == 3)
-        user.enrollmentYear = enrollmentYear
-    if (semester && user.role == 3)
-        user.semester = semester
-    if (specialization && (user.role == 2 || user.role == 3))
-        user.specialization = specialization
+    if (user.role == 0)
+        user.role = role
 
     try {
         await user.save()

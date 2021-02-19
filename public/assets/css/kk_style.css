@@ -68,7 +68,7 @@
 
 
 .rad30{
-	border-radius:30px
+	border-radius:30px !important;
 }
 
 .v-center {
@@ -89,7 +89,6 @@
 
 
 .kk_full_form {
-	    width: 75%;
     margin: auto;
 }
 
