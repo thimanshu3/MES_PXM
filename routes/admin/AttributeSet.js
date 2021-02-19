@@ -6,7 +6,8 @@ const { User, AttributeSet } = require('../../models')
 
 const router = express.Router()
 
-router.post('/create', async (req, res) => {
+router.post('/add', async (req, res) => {
+    console.log(req)
     const { name } = req.body
     if (!name) {
         req.flash('error', 'name is required!')

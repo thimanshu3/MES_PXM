@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
     res.render('admin/distributor', { User: req.user, Distributors })
 })
 
-router.post('/', async (req, res) => {
+router.post('/add', async (req, res) => {
     const { name } = req.body
     if (!name) {
         req.flash('error', 'name is required!')
