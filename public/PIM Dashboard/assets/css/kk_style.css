@@ -1,0 +1,111 @@
+.navbar-header{
+	background:#fff !important;
+	border-bottom:1px solid #f6f6f6
+}
+
+.main-header{
+	box-shadow:none;
+}
+
+
+@media (min-width:768px){
+::-webkit-scrollbar{width:.4em;height:.4em;}
+::-webkit-scrollbar-thumb{background:#dddddd;border-radius:20px;}
+::-webkit-scrollbar-track{background:#f4f4f4;border-radius:20px;}
+}
+
+
+
+.sidebar_minimize_hover .icon-options-vertical:before {
+    content: "\e602";
+}
+
+/* login page */
+.login-logo {
+	width:50%;
+	background-color:#FF5242;
+	padding:90px;
+}
+.login-form {
+	padding:90px;
+	background-color:#fff;
+	width: 50%;
+}
+.login-form-bl {
+	width:100%;
+	max-width:450px;
+	margin:0 auto;
+}
+.login-area {
+	height:100vh;
+}
+.form-group .btn-secondary {
+	padding:20px 70px;
+}
+.login-form-bl .form-group .form-control {
+	background: #EFF4F7;
+	box-shadow:inherit;
+	padding: 16px 25px;
+	border:none;
+	border-radius:30px
+}
+.login-btns a {
+	display:inline-block;
+	border-left:5px solid #fff;
+	padding-left:34px;
+	padding-top:5px;
+	padding-bottom:5px;
+	font-size:30px;
+	color:#fff;
+}
+.login-btns a:hover {
+	color:#5a6268;
+}
+.login-logo .logo {
+	position:relative;
+	top:-5vh;
+}
+
+
+.rad30{
+	border-radius:30px
+}
+
+.v-center {
+    display: -webkit-box!important;
+    display: -ms-flexbox!important;
+    display: flex!important;
+    -webkit-box-align: center!important;
+    -ms-flex-align: center!important;
+    align-items: center!important;
+}
+
+@media (min-width: 993px){
+.login-btns {
+    position: absolute;
+    bottom: 15vh;
+}
+}
+
+
+.kk_full_form {
+	    width: 75%;
+    margin: auto;
+}
+
+.kk_full_form  .form-group {
+    margin-bottom: 0;
+    width: 49%;
+    padding: 10px 60px;
+    display: inline-block;
+}
+
+.kk_form_outer_button{
+display:flex;
+justify-content: flex-end;	
+}
+
+
+.kk_modal_popup_form{
+	
+}
