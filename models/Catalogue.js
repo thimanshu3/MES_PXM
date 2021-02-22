@@ -2,7 +2,7 @@ const { DataTypes, Sequelize } = require('sequelize')
 
 const { MySql } = require('../db')
 
-const vendor = MySql.define('vendor', {
+const Catlogue = MySql.define('Catlogue', {
     id: {
         type: DataTypes.UUID,
         unique: true,
@@ -14,6 +14,10 @@ const vendor = MySql.define('vendor', {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false
+    },
+    CatalogueHierarchy: {
+        type: DataTypes.STRING,
+        default: 'Unassigned'
     },
     active: {
         type: DataTypes.BOOLEAN,
@@ -27,9 +31,10 @@ const vendor = MySql.define('vendor', {
     updatedBy: {
         type: DataTypes.STRING
     }
+
 })
 
-module.exports = vendor
+module.exports = Catlogue
 
 // Role
 //     .sync({ force: process.env.NODE_ENV === 'production' ? false : true })

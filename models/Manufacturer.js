@@ -14,6 +14,18 @@ const manufacturer = MySql.define('manufacturer', {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false
+    },
+    active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        allowNull: false
+    },
+    createdBy: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    updatedBy: {
+        type: DataTypes.STRING
     }
 })
 

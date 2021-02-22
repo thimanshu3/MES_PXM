@@ -15,6 +15,18 @@ const AttributeSet = MySql.define('AttributeSet', {
         unique: true,
         allowNull: false
     },
+    active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        allowNull: false
+    },
+    createdBy: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    updatedBy: {
+        type: DataTypes.STRING
+    }
 
 })
 

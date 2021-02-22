@@ -14,6 +14,18 @@ const distributor = MySql.define('distributor', {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false
+    },
+    status: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        allowNull: false
+    },
+    createdBy: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    updatedBy: {
+        type: DataTypes.STRING
     }
 })
 

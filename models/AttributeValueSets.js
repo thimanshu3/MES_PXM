@@ -14,9 +14,21 @@ const AttributeValueSet = MySql.define('AttributeValueSet', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    parentAttributeId:{
-       type: DataTypes.STRING,
-       allowNull: false,
+    parentAttributeId: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        allowNull: false
+    },
+    createdBy: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    updatedBy: {
+        type: DataTypes.STRING
     }
 })
 

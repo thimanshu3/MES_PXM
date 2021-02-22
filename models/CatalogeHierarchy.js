@@ -14,6 +14,18 @@ const CatalogueHierarchy = MySql.define('CatalogueHierarchy', {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false
+    },
+    createdBy: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    updatedBy: {
+        type: DataTypes.STRING
+    },
+    active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        allowNull: false
     }
 })
 

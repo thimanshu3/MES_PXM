@@ -2,7 +2,7 @@ const { DataTypes, Sequelize } = require('sequelize')
 
 const { MySql } = require('../db')
 
-const vendor = MySql.define('vendor', {
+const fieldsAssignedToGroup = MySql.define('fieldsAssignedToGroup', {
     id: {
         type: DataTypes.UUID,
         unique: true,
@@ -10,26 +10,21 @@ const vendor = MySql.define('vendor', {
         primaryKey: true,
         allowNull: false
     },
-    name: {
-        type: DataTypes.STRING,
-        unique: true,
-        allowNull: false
-    },
-    active: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
-        allowNull: false
-    },
-    createdBy: {
+    groupId: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    updatedBy: {
-        type: DataTypes.STRING
+    fieldId: {
+        tpye: DataTypes.STRING,
+        allowNull: false
+    },
+    AssignedBy: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 })
 
-module.exports = vendor
+module.exports = fieldsAssignedToGroup
 
 // Role
 //     .sync({ force: process.env.NODE_ENV === 'production' ? false : true })

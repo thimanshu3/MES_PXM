@@ -9,7 +9,7 @@
         "lint": "eslint .",
         "init": "node init.js",
         "flushDB": "node flushDB.js",
-        "seedData": "node seedData.js", 
+        "seedData": "node seedData.js",
         "exportDB": "node exportDB.js",
         "importDB": "node importDB.js"
     },

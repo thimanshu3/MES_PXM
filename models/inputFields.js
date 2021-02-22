@@ -2,7 +2,7 @@ const { DataTypes, Sequelize } = require('sequelize')
 
 const { MySql } = require('../db')
 
-const vendor = MySql.define('vendor', {
+const inputFields = MySql.define('inputFields', {
     id: {
         type: DataTypes.UUID,
         unique: true,
@@ -10,14 +10,9 @@ const vendor = MySql.define('vendor', {
         primaryKey: true,
         allowNull: false
     },
-    name: {
+    label: {
         type: DataTypes.STRING,
         unique: true,
-        allowNull: false
-    },
-    active: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
         allowNull: false
     },
     createdBy: {
@@ -26,10 +21,23 @@ const vendor = MySql.define('vendor', {
     },
     updatedBy: {
         type: DataTypes.STRING
+    },
+    description: {
+        type: DataTypes.STRING(5000),
+    },
+    typeOfField: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        allowNull: false
     }
+
 })
 
-module.exports = vendor
+module.exports = inputFields
 
 // Role
 //     .sync({ force: process.env.NODE_ENV === 'production' ? false : true })
