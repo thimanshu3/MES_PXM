@@ -2,7 +2,7 @@ const { DataTypes, Sequelize } = require('sequelize')
 
 const { MySql } = require('../db')
 
-const manufacturer = MySql.define('manufacturer', {
+const listRecordValues = MySql.define('listRecordValues', {
     id: {
         type: DataTypes.UUID,
         unique: true,
@@ -10,26 +10,24 @@ const manufacturer = MySql.define('manufacturer', {
         primaryKey: true,
         allowNull: false
     },
-    name: {
+    label: {
         type: DataTypes.STRING,
-        unique: true,
         allowNull: false
     },
-    active: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
-        allowNull: false
+    parentListId:{
+        type:DataTypes.STRING,
+        allowNull:false
     },
     createdBy: {
-        type: DataTypes.STRING,
-        allowNull: false
+    type: DataTypes.STRING,
+    allowNull: false
     },
     updatedBy: {
-        type: DataTypes.STRING
+    type: DataTypes.STRING
     }
 })
 
-module.exports = manufacturer
+module.exports = listRecordValues
 
 // Role
 //     .sync({ force: process.env.NODE_ENV === 'production' ? false : true })

@@ -15,7 +15,7 @@ const fieldsAssignedToGroup = MySql.define('fieldsAssignedToGroup', {
         allowNull: false
     },
     fieldId: {
-        tpye: DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
     AssignedBy: {

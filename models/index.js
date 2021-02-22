@@ -12,5 +12,13 @@ module.exports = {
     Distributor: require('./Distributor'),
     Manufacturer: require('./Manufacturer'),
     ProductType: require('./ProductType'),
-    Vendor : require('./Vendor')
+    Vendor: require('./Vendor'),
+    Catalogue: require('./Catalogue'),
+    fieldGroups: require('./fieldGroups'),
+    fieldsAssignedToGroup: require('./fieldsAssignedToGroup'),
+    inputFields: require('./inputFields'),
+    inputTypes: require('./inputTypes'),
+    listRecord: require('./ListRecord'),
+    listRecordValues: require('./ListRecordValues')
+
 }

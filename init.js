@@ -8,12 +8,19 @@ const {
     UserRole,
     Vendor,
     ProductType,
-    AttrubuteSet,
+    AttributeSet,
     ActivityLog,
     AttributeValueSets,
     CatalogueHierarchy,
     Distributor,
     Manufacturer,
+    Catalogue,
+    fieldGroups,
+    fieldsAssignedToGroup,
+    inputFields,
+    inputTypes,
+    listRecord,
+    listRecordValues,
 } = require('./models')
 
 const ENVIRONMENT_VARIABLES = [
@@ -41,36 +48,157 @@ const checkEnvironment = () => {
 
 checkEnvironment()
 
-
+// Product Sellers
 Manufacturer
     .sync()
     .then(() => console.log('\x1b[32m%s\x1b[0m', 'Manufacturer Model Sync Complete'))
-
-ProductType
-    .sync()
-    .then(() => console.log('\x1b[32m%s\x1b[0m', 'ProductType Model Sync Complete'))
 
 Vendor
     .sync()
     .then(() => console.log('\x1b[32m%s\x1b[0m', 'vendor Model Sync Complete'))
 
+Distributor
+    .sync()
+    .then(() => console.log('\x1b[32m%s\x1b[0m', 'Distributor Model Sync Complete'))
+
+// Product related Models
+ProductType
+    .sync()
+    .then(() => console.log('\x1b[32m%s\x1b[0m', 'ProductType Model Sync Complete'))
+
 AttributeValueSets
     .sync()
     .then(() => console.log('\x1b[32m%s\x1b[0m', 'AttributesValueSets Model Sync Complete'))
 
-AttrubuteSet
+AttributeSet
     .sync()
     .then(() => console.log('\x1b[32m%s\x1b[0m', 'AttributesSet Model Sync Complete'))
+
+fieldGroups
+    .sync()
+    .then(() => console.log('\x1b[32m%s\x1b[0m', 'fieldGroups Model Sync Complete'))
+
+fieldsAssignedToGroup
+    .sync()
+    .then(() => console.log('\x1b[32m%s\x1b[0m', 'fieldsAssignedToGroup Model Sync Complete'))
+
+listRecord
+    .sync()
+    .then(() => console.log('\x1b[32m%s\x1b[0m', 'listRecord Model Sync Complete'))
+
+listRecordValues
+    .sync()
+    .then(() => console.log('\x1b[32m%s\x1b[0m', 'listRecordValues Model Sync Complete'))
+
+inputFields
+    .sync()
+    .then(() => console.log('\x1b[32m%s\x1b[0m', 'inputfields Model Sync Complete'))
+
+inputTypes
+    .sync()
+    .then(() =>
+        inputTypes.bulkCreate([{
+            name: 'check box'
+        },
+        {
+            name: 'Currency'
+        },
+        {
+            name: 'date'
+        },
+        {
+            name: 'datetime'
+        },
+        {
+            name: 'datetime-local'
+        },
+        {
+            name: 'color'
+        },
+        {
+            name: 'email'
+        },
+        {
+            name: 'file'
+        },
+        {
+            name: 'hidden'
+        },
+        {
+            name: 'image'
+        },
+        {
+            name: 'number'
+        },
+        {
+            name: 'month'
+        },
+        {
+            name: 'password'
+        },
+        {
+            name: 'radio'
+        },
+        {
+            name: 'range'
+        },
+        {
+            name: 'reset'
+        },
+        {
+            name: 'submit'
+        },
+        {
+            name: 'search'
+        },
+        {
+            name: 'tel'
+        },
+        {
+            name: 'text'
+        },
+        {
+            name: 'time'
+        },
+        {
+            name: 'url'
+        },
+        {
+            name: 'week'
+        },
+        {
+            name: 'list/record'
+        },
+        {
+            name: 'inline html'
+        },
+        {
+            name: 'multiple select'
+        }
+        ]))
+    .then(() => console.log('\x1b[32m%s\x1b[0m', 'inputTypes Model Sync Complete!'))
+    .catch(err => {
+        if (err.name === 'SequelizeUniqueConstraintError') {
+            console.log('Already Exists!')
+            console.log('\x1b[32m%s\x1b[0m', 'UserRole Model Sync Complete!')
+        }
+        else {
+            console.error(err)
+            process.exit(1)
+        }
+    })
+
 
 CatalogueHierarchy
     .sync()
     .then(() => console.log('\x1b[32m%s\x1b[0m', 'CatalogueHierarchy Model Sync Complete'))
 
-
-Distributor
+Catalogue
     .sync()
-    .then(() => console.log('\x1b[32m%s\x1b[0m', 'Distributor Model Sync Complete'))
+    .then(() => console.log('\x1b[32m%s\x1b[0m', 'Catalogue Model Sync Complete'))
 
+
+//User Related Models
 ForgotPassword
     .sync()
     .then(() => console.log('\x1b[32m%s\x1b[0m', 'ForgotPassword Model Sync Complete'))
