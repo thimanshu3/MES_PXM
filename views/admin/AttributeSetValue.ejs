@@ -60,7 +60,7 @@
                                         </li>
                                         <li class="nav-item">
                                             <a href="#">
-                                                <%=parentName %>
+                                                <%=foundAttribute.name %>
                                             </a>
                                         </li>
                                         <li class="separator">
@@ -85,7 +85,7 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <form action="/admin/attributesetValue/add" method="POST">
+                                            <form action="/admin/attributeset/<%=foundAttribute.id %>/add" method="POST">
                                                 <div class="card-body">
                                                     <div class="row">
 
@@ -118,7 +118,7 @@
                                     <div class="card kk_full_form kk_attribute_set_card">
                                         <div class="card-header">
                                             <div class="d-flex align-items-center">
-                                                <h4 class="card-title">Attribute Values of <b class="text-primary"> <%= parentName %> </b></h4>
+                                                <h4 class="card-title">Attribute Values of <b class="text-primary"> <%= foundAttribute.name %> </b></h4>
                                 
                                             </div>
                                         </div>

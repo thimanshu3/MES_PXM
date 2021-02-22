@@ -2,13 +2,13 @@ const express = require('express')
 const { Op } = require('sequelize')
 
 const { MySql } = require('../../db')
-const {AttributeSet,AttributeValueSets} = require('../../models')
+const { AttributeSet, AttributeValueSets } = require('../../models')
 const router = express.Router()
 
 
 router.get('/', async (req, res) => {
     const data = await AttributeSet.findAll()
-    res.render('admin/AttributeSet', { User: req.user , attr: data })
+    res.render('admin/AttributeSet', { User: req.user, attr: data })
 })
 
 router.get('/:id', async (req, res) => {
@@ -19,16 +19,17 @@ router.get('/:id', async (req, res) => {
             }
         })
 
-        if (!foundAttribute)
+        if (!foundAttribute){
             req.flash('error', 'Attribute Not Found!')
-        res.redirect('/admin/AttributeSetValue')
-
+            res.redirect('/admin/AttributeSet')
+            return
+        }
         const attributeValues = await AttributeValueSets.findAll({
             where: {
                 parentAttributeId: foundAttribute.id
             },
         })
-        res.render('admin/AttributeSetValue', { User: req.user, attributeValues , parentName: foundAttribute.name })
+        res.render('admin/AttributeSetValue', { User: req.user, attributeValues, foundAttribute })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         res.status(500).json({ status: 500, message: 'Something Went Wrong!', error: err.toString() })
@@ -59,33 +60,44 @@ router.post('/add', async (req, res) => {
 
 router.post('/:id/add', async (req, res) => {
     const { name } = req.body
-    const parentId = req.params.id
-     
+    const parentAttribute = await AttributeSet.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+
     if (!name) {
         req.flash('error', 'name is required!')
         res.redirect('/admin/AttributeSetValue')
         return
     }
+    if (!parentAttribute) {
+        req.flash('error', 'parent id is required')
+        res.redirect('/admin/AttributeSetValue')
+        return
+    }
+
     try {
-        const attribute = await AttributeSet.create({ name })
+        const attribute = await AttributeValueSets.create({ name, parentAttributeId: parentAttribute.id })
         req.flash('success', `${attribute.name} Added Successfully!`)
-        res.redirect('/admin/AttributeSet')
+        res.redirect(`/admin/AttributeSet/${parentAttribute.id}`)
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         if (err.name === 'SequelizeUniqueConstraintError')
             req.flash('error', `${err.errors[0].message} '${err.errors[0].value}' already exists!`)
         else
             req.flash('error', err.toString() || 'Something Went Wrong!')
-        res.redirect('/admin/AttributeSet')
+        res.redirect('/admin/AttributeSetValue')
     }
 })
 
-router.delete('/remove/:id', async (req,res)=>{
+router.delete('/remove/:id', async (req, res) => {
     try {
         const attribute = await AttributeSet.destroy({
             where: {
                 id: req.params.id
-            } })
+            }
+        })
         req.flash('success', `Deleted Successfully`)
         res.json({ status: 200, message: 'Deleted Successfully' })
         res.redirect('/admin/AttributeSet')
