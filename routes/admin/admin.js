@@ -10,7 +10,18 @@ router.use('/addUser', require('./addUser'))
 
 router.use('/attributeset', require('./AttributeSet'))
 
+router.use('/attributesetValue', require('./AttributeSetValue'))
+
 router.use('/users', require('./users'))
+
+router.use('/user', require('./user'))
+
+router.use('/Distributor', require('./Distributor'))
+
+router.use('/Manufacturer', require('./Manufacturer'))
+
+router.use('/loginreport', require('./loginReport'))
+
 
 
 module.exports = router

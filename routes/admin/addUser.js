@@ -32,7 +32,8 @@ const excelUpload = multer({
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-    res.render('admin/addUser', { User: req.user})
+    const users = await User.findAll()
+    res.render('admin/addUser', { User: req.user , users})
 })
 
 router.post('/', (req, res) => {

@@ -39,10 +39,11 @@
             <%-include('../partials/sidebar.ejs')%>
                 <!-- End Sidebar -->
                 <div class="main-panel">
+                  
                     <div class="content">
                         <div class="page-inner">
                             <div class="page-header">
-                
+                    
                                 <ul class="breadcrumbs">
                                     <li class="nav-home">
                                         <a href="#">
@@ -65,45 +66,53 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    
-                                    <form action="/admin/addUser" method="POST">
                                     <div class="card kk_full_form">
-                                        <div class="card-header d-flex justify-content-between">
-                                            <div class="card-title">Add User</div>
-                                                <a href="" class="btn btn-secondary mt-0" data-toggle="modal" data-target="#myModal">Import
-                                                    User</a>
-                                            
+                                        <div class="card-header">
+                                            <div class="d-flex align-items-center">
+                                                <h4 class="card-title">Add User</h4>
+                                                <button class="btn btn-primary btn-round ml-auto" data-toggle="modal"
+                                                    data-target="#myModal">
+                                                    <i class="fa fa-plus"></i>
+                                                    Import User
+                                                </button>
+                                            </div>
                                         </div>
+                                         <form action="/admin/addUser" method="POST">
+
                                         <div class="card-body">
                                             <div class="row">
-            
+                    
                                                 <div class="col-md-12">
-                
+                    
                                                     <div class="form-group">
                                                         <label>First Name</label>
                                                         <input type="text" class="form-control" name="firstName" id="firstName"
-                                                            placeholder="Enter First Name">
+                                                            placeholder="Enter First Name" required>
                                                     </div>
-                
+                    
                                                     <div class="form-group">
                                                         <label>Last Name</label>
-                                                        <input type="text" class="form-control" name="lastName" id="lastName"
-                                                            placeholder="Enter Last Name">
+                                                        <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Enter Last Name" required>
                                                     </div>
-                
+                    
                                                     <div class="form-group">
                                                         <label>Email Address</label>
-                                                        <input type="email" class="form-control" name="email" id="email"
-                                                            placeholder="Enter Email">
+                                                        <input onkeyup="search(this.value)" type="email" class="form-control" name="email" id="emailAddress"
+                                                            placeholder="Enter Email" required>
                                                     </div>
-                
+                    
                                                     <div class="form-group">
-                                                        <label class="form-label">Your Role</label>
+                                                        <label>Phone Number</label>
+                                                        <input type="text" class="form-control" name="contactNumber" id="phoneNumber"
+                                                            placeholder="Enter Phone Number" required>
+                                                    </div>
+                    
+                                                    <div class="form-group">
+                                                        <label class="form-label">User Role</label>
                                                         <br>
                                                         <div class="selectgroup selectgroup-pills">
                                                             <label class="selectgroup-item">
-                                                                <input type="radio" name="role" value="0"
-                                                                    class="selectgroup-input">
+                                                                <input type="radio" name="role" value="0" class="selectgroup-input">
                                                                 <span class="selectgroup-button">Admin</span>
                                                             </label>
                                                             <label class="selectgroup-item">
@@ -116,47 +125,42 @@
                                                                     class="selectgroup-input">
                                                                 <span class="selectgroup-button">Power user</span>
                                                             </label>
-    
+                    
+                    
                                                         </div>
                                                     </div>
-                
+                    
                                                     <div class="form-group">
                                                         <label class="form-label">Gender</label>
                                                         <br>
                                                         <div class="selectgroup selectgroup-pills">
                                                             <label class="selectgroup-item">
-                                                                <input type="radio" name="gender" value="female"
-                                                                    class="selectgroup-input">
+                                                                <input type="radio" name="gender" value="female" class="selectgroup-input">
                                                                 <span class="selectgroup-button">Female</span>
                                                             </label>
                                                             <label class="selectgroup-item">
                                                                 <input type="radio" name="gender" value="male" class="selectgroup-input">
                                                                 <span class="selectgroup-button">Male</span>
                                                             </label>
-                
+                    
                                                         </div>
-                                                    </div>
-                
-                                                    <div class="form-group">
-                                                        <label>Phone Number</label>
-                                                        <input type="text" class="form-control" name="contactNumber" id="contactNumber"
-                                                            placeholder="Enter Phone Number">
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="card-footer d-flex justify-content-end">
+                                                <button type="submit" class="btn  mr-3">Submit</button>
+                                            </div>
                                         </div>
-                                        <div class="card-footer d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-success">Submit</button>
-                                        </div>
+                                        </form>
+
                                     </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   <%-include('../partials/footer.ejs')%>
-                    <div class="modal kk_modal_popup_form" id="myModal">
-                        <div class="modal-dialog">
+                    <%-include('../partials/footer.ejs')%>
+                    <div class="modal fade kk_modal_popup_form" id="myModal" style="display: none;" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                        <div class="modal-dialog ">
                             <div class="modal-content">
                 
                                 <!-- Modal Header -->
@@ -198,6 +202,24 @@
 <script src="/assets/js/atlantis.min.js"></script>
 <script src="/assets/js/iziToast.js"></script>
 <script src="/assets/js/flashMessage.js"></script>
+<script>
+    const search = (email) =>{
+        const c = JSON.parse('<%- JSON.stringify(users) %>')
+        c.forEach(a => {
+            if (a.email.toLowerCase() === email.toLowerCase()) {
+                iziToast.warning({
+                    title: "Caution",
+                    close: false,
+                    timeout: 3000,
+                    message: `This Email Already Exists`,
+                    position: 'center',
+                    overlay: true,
+                })
+                $(`#emailAddress`).val('')
+            }
+        });
+    }
+</script>
 </body>
 
 </html>
