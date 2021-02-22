@@ -6,7 +6,7 @@ module.exports = {
     LoginReport: require('./LoginReportModel'),
     ForgotPassword: require('./ForgotPasswordModel'),
     ActivityLog: require('./ActivityLogModel'),
-    AttrubuteSet: require('./AttributeSet'),
+    AttributeSet: require('./AttributeSet'),
     AttributeValueSets: require('./AttributeValueSets'),
     CatalogueHierarchy: require('./CatalogeHierarchy'),
     Distributor: require('./Distributor'),

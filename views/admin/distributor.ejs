@@ -42,7 +42,7 @@
                         <div class="content">
                             <div class="page-inner">
                                 <div class="page-header">
-                        
+
                                     <ul class="breadcrumbs">
                                         <li class="nav-home">
                                             <a href="#">
@@ -53,130 +53,100 @@
                                             <i class="flaticon-right-arrow"></i>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#">Attribute</a>
+                                            <a href="#">Product</a>
                                         </li>
                                         <li class="separator">
                                             <i class="flaticon-right-arrow"></i>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#">Add New Attribute</a>
+                                            <a href="#">Add New Distributors</a>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-5">
-                        
+
                                         <div class="card kk_full_form kk_user_form">
                                             <div class="card-header">
                                                 <div class="d-flex align-items-center">
-                                                    <h4 class="card-title">Add Attribute</h4>
-                                                    <button class="btn btn-primary btn-round ml-auto" data-toggle="modal"
-                                                        data-target="#myModal">
+                                                    <h4 class="card-title">Add Distributors</h4>
+                                                    <button class="btn btn-primary btn-round ml-auto"
+                                                        data-toggle="modal" data-target="#myModal">
                                                         <i class="fa fa-plus"></i>
-                                                        Import Attribute
+                                                        Import Distributors
                                                     </button>
                                                 </div>
                                             </div>
-                                            <form action="/admin/attributeset/add" method="POST">
-                                            <div class="card-body">
-                                                <div class="row">
-                        
-                                                    <div class="col-md-12">
-                        
-                                                        <div class="form-group">
-                                                            <label>Name</label>
-                                                            <input type="text" class="form-control" name="name" id="name" placeholder="Enter Attribute Name">
+                                            <form action="/admin/Distributor/add" method="POST">
+                                                <div class="card-body">
+                                                    <div class="row">
+
+                                                        <div class="col-md-12">
+
+                                                            <div class="form-group">
+                                                                <label>Name</label>
+                                                                <input type="text" class="form-control" name="name"
+                                                                    id="name" placeholder="Enter Attribute Name">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="card-action">
-                                                <button type="submit" class="btn mr-3">Submit</button>
-                                            </div>
+                                                <div class="card-action">
+                                                    <button type="submit" class="btn mr-3">Submit</button>
+                                                </div>
                                             </form>
                                         </div>
-                        
+
                                     </div>
-                        
+
                                     <div class="col-md-1">
                                     </div>
-                        
-                        
+
+
                                     <div class="col-md-5">
-                        
+
                                         <div class="card kk_full_form card-pricing  kk_attribute_set_card">
                                             <div class="card-header">
                                                 <div class="d-flex align-items-center">
-                                                    <h4 class="card-title">Attribute Set</h4>
-                        
+                                                    <h4 class="card-title">Distributors List</h4>
+
                                                 </div>
                                             </div>
                                             <div class="card-body">
-                                                <!-- <ul class="specification-list">
+                                                <ul class="specification-list">
                                                     <% attr.forEach(a=>{ %>
                                                         <li>
-                                                            <span class="name-specification"><%=a.name%> </span>
+                                                            <span class="name-specification">
+                                                                <%=a.name%>
+                                                            </span>
 
                                                             <div class="form-button-action">
-                                                                <button onclick="editthis('<%=a.id%>','<%=a.name %>')" type="button" title="" class="btn btn-link btn-primary btn-lg" data-toggle="modal"
-                                                                    data-target="#edit-attribute">
+                                                                <button onclick="editthis('<%=a.id%>')" type="button"
+                                                                    title="" class="btn btn-link btn-primary btn-lg"
+                                                                    data-toggle="modal" data-target="#edit-attribute">
                                                                     <i class="fa fa-edit"></i>
                                                                 </button>
 
-                                                                <button onclick="deleteThis('<%=a.id%>')" type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger"
+                                                                <button onclick="deleteThis('<%=a.id%>')" type="button"
+                                                                    data-toggle="tooltip" title=""
+                                                                    class="btn btn-link btn-danger"
                                                                     data-original-title="Remove">
                                                                     <i class="fa fa-times"></i>
                                                                 </button>
                                                             </div>
 
                                                         </li>
-                                                   <% }) %> 
-                                                    
-                                                   
-                        
-                                                </ul> -->
-                                        <ul class="todo-list-wrapper list-group list-group-flush">
-                                        
-                                          <% attr.forEach((a,index)=>{ %>
+                                                        <% }) %>
 
-                                            <li class="list-group-item">
-                                                <div class="todo-indicator bg-warning"></div>
-                                                <div class="widget-content p-0" style="width: 100% !important;">
-                                                    <div class="widget-content-wrapper">
-                                                        <div class="widget-content-left mr-2">
-                                                            <div class="widget-subheading"><b><%= ++index%></b>.</div>
-                                                        </div>
-                                                        <div class="widget-content-left">
-                                                            <div class="widget">
-                                                                <a href="/admin/attributeset/<%= a.id %> " class="ml-2 text-dark">
-                                                                <strong> <%=a.name%> </strong>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="widget-content-right widget-content-actions">
-                                                            <button data-toggle="modal"
-                                                                    data-target="#edit-attribute"  onclick="editthis('<%=a.id%>','<%=a.name %>')" class="border-0 btn-transition btn btn-outline-primary">
-                                                                <i class="fa fa-cogs"></i>
-                                                            </button>
-                                                            <button data-original-title="Remove" data-toggle="tooltip" onclick="deleteThis('<%=a.id%>')" class="border-0 btn-transition btn btn-outline-danger">
-                                                                <i class="fa fa-trash-alt"></i>
-                                                            </button>
-                                                        </div>
-                                        
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        
-                                                                                            <% }) %>
 
-                                        
-                                        </ul>
+
+                                                </ul>
                                             </div>
-                        
+
                                         </div>
-                        
+
                                     </div>
-                        
+
                                     <div class="col-md-1">
                                     </div>
                                 </div>
@@ -189,7 +159,7 @@
 
                                         <!-- Modal Header -->
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Import Attribute set</h4>
+                                            <h4 class="modal-title">Import Distributors</h4>
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
                                         <form action="/admin/addUser/import" method="POST"
@@ -214,31 +184,32 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal kk_modal_popup_form fade" id="edit-attribute" style="display: none;" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                            <div class="modal kk_modal_popup_form" id="edit-attribute">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                            
+
                                         <!-- Modal Header -->
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Edit Attribute</h4>
+                                            <h4 class="modal-title">Edit Distributors Name</h4>
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
-                            
+
                                         <!-- Modal body -->
                                         <div class="modal-body">
                                             <div class="form-group">
                                                 <label>Name</label>
-                                                <input type="text" class="form-control" id="newname" placeholder="Enter First Name">
+                                                <input type="text" class="form-control" id="name"
+                                                    placeholder="Enter First Name">
                                             </div>
-                            
+
                                         </div>
-                            
+
                                         <!-- Modal footer -->
                                         <div class="modal-footer">
-                                            <button type="button" id="saveChanges" class="btn btn-primary">Save</button>
-                            
+                                            <button type="button" class="btn btn-primary">Save</button>
+
                                         </div>
-                            
+
                                     </div>
                                 </div>
                             </div>
@@ -259,13 +230,11 @@
     <script src="/assets/js/iziToast.js"></script>
     <script src="/assets/js/flashMessage.js"></script>
     <script>
-        var attrId;
-        const editthis  = (id,name) =>{
-            attrId = id;
-            $('#newname').val(name);
+        const editthis = (id) => {
+            console.log(id)
         }
 
-        const deleteThis = (id) =>{
+        const deleteThis = (id) => {
             iziToast.question({
                 overlay: true,
                 toastOnce: true,
@@ -275,20 +244,20 @@
                 position: 'center',
                 buttons: [
                     ['<button><b>YES</b></button>', function (instance, toast) {
-                        fetch(`/admin/attributeset/remove/${id}`, {
+                        fetch(`/admin/Distributor/remove/${id}`, {
                             method: 'DELETE',
                         })
                             .then(res => res.json())
                             .then(json => {
-                               if(json.status == 200){
-                                location.reload(true);
-                               }
-                               else{
-                                   iziToast.error({
-                                       message: json.message || 'Something Went Wrong!'
-                                   })
-                               }
-                               
+                                if (json.status == 200) {
+                                    location.reload(true);
+                                }
+                                else {
+                                    iziToast.error({
+                                        message: json.message || 'Something Went Wrong!'
+                                    })
+                                }
+
                             })
                         instance.hide({ transitionOut: 'fadeOut' }, toast)
                     }, true],
@@ -299,32 +268,7 @@
             });
         }
 
-        $('#saveChanges').on('click', function(){
-             fetch(`/admin/attributeset/${attrId}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    name: $('#newname').val()
-                })
-            })
-                .then(res => res.json())
-                .then(json => {
-                    if (json.status === 200) {
-                        iziToast.info({
-                            message: json.message
-                        })
-                    } else {
-                        iziToast.error({
-                            message: json.message
-                        })
-                    }
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        })
+
 
     </script>
 </body>
