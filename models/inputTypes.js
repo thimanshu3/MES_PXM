@@ -16,8 +16,7 @@ const inputTypes = MySql.define('inputTypes', {
     },
     active: {
         type: DataTypes.BOOLEAN,
-        defaultValue: true,
-        allowNull: false
+        defaultValue: true
     },
     createdBy: {
         type: DataTypes.STRING,

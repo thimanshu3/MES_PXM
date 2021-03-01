@@ -7,8 +7,7 @@ const AttributeSet = MySql.define('AttributeSet', {
         type: DataTypes.UUID,
         unique: true,
         defaultValue: Sequelize.UUIDV4,
-        primaryKey: true,
-        allowNull: false
+        primaryKey: true
     },
     name: {
         type: DataTypes.STRING,
