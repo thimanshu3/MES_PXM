@@ -28,7 +28,6 @@ const formConfig = MySql.define('formConfig', {
     },
     partTitle: {
         type: DataTypes.STRING(500),
-        allowNull: false,
         defaultValue:"Unnamed"
     },
     formOrder:{
