@@ -53,13 +53,3 @@ const formConfig = MySql.define('formConfig', {
 })
 
 module.exports = formConfig
-
-// Role
-//     .sync({ force: process.env.NODE_ENV === 'production' ? false : true })
-//     .then(() => {
-//         Role.bulkCreate([{
-//             id: 0,
-//             name: 'admin'
-//         },
-//        ])
-//     })
