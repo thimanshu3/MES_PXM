@@ -21,6 +21,9 @@ const {
     inputTypes,
     listRecord,
     listRecordValues,
+    form,
+    formParts,
+    formConfig,
 } = require('./models')
 
 const ENVIRONMENT_VARIABLES = [
@@ -197,6 +200,35 @@ Catalogue
     .sync()
     .then(() => console.log('\x1b[32m%s\x1b[0m', 'Catalogue Model Sync Complete'))
 
+// Custom Form Models
+
+form
+    .sync()
+    .then(() => console.log('\x1b[32m%s\x1b[0m', 'Form Model Sync Complete'))
+
+formParts
+    .sync()
+    .then(() => formParts.bulkCreate([
+        {
+            "name":"Section"
+        },
+        {
+            "name":"Tab"
+        },
+        {
+            "name":"Sub-Section",
+            "isSubComponent":true
+        },
+        {
+            "name":"Sub-Tab",
+            "isSubComponent":true
+        }
+    ]))
+    .then(() => console.log('\x1b[32m%s\x1b[0m', 'FormParts Model Sync Complete'))
+
+formConfig
+    .sync()
+    .then(() => console.log('\x1b[32m%s\x1b[0m', 'Form Config Model Sync Complete'))
 
 //User Related Models
 ForgotPassword

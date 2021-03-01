@@ -1,3 +1,4 @@
+// The model contains item/record (product) fields like name, price, sku, description, etc.
 const { DataTypes, Sequelize } = require('sequelize')
 
 const { MySql } = require('../db')
@@ -24,7 +25,7 @@ const inputFields = MySql.define('inputFields', {
     description: {
         type: DataTypes.STRING(5000),
     },
-    typeOfField: {// Eg. text, int, telephone, email, checkbox, radio, etc
+    typeOfField: {// Eg. text, int, telephone, email, checkbox, radio, etc.
         type: DataTypes.STRING,
         allowNull: false,
     },

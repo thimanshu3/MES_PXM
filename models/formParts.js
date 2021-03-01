@@ -1,5 +1,5 @@
 // This model is for basic components a form can have like a section, sub-section, tab, etc.
-// These parts can be added as individual entities in a form
+// These parts can be added as individual entities in a form.
 const { DataTypes, Sequelize } = require('sequelize')
 
 const { MySql } = require('../db')
@@ -20,17 +20,17 @@ const formParts = MySql.define('formParts', {
         type: DataTypes.STRING(500),
         allowNull: true
     },
-    componentType: {
-        type: DataTypes.STRING(500),
-        allowNull: false
-    },
+    // componentType: {
+    //     type: DataTypes.STRING(500),
+    //     allowNull: false
+    // },
     isSubComponent:{
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
     createdBy: {
         type: DataTypes.STRING,
-        allowNull: false
+        defaultValue: "System Init"
     },
     updatedBy: {
         type: DataTypes.STRING

@@ -1,3 +1,4 @@
+// The model contains type of fields like text, int, telephone, email, checkbox, radio, etc.
 const { DataTypes, Sequelize } = require('sequelize')
 
 const { MySql } = require('../db')

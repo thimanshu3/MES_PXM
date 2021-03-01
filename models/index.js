@@ -19,6 +19,10 @@ module.exports = {
     inputFields: require('./inputFields'),
     inputTypes: require('./inputTypes'),
     listRecord: require('./ListRecord'),
-    listRecordValues: require('./ListRecordValues')
+    listRecordValues: require('./ListRecordValues'),
+    form: require('./form'),
+    formParts: require('./formParts'),
+    formConfig: require('./formConfig')
+
 
 }
