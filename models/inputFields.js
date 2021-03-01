@@ -24,7 +24,7 @@ const inputFields = MySql.define('inputFields', {
     description: {
         type: DataTypes.STRING(5000),
     },
-    typeOfField: {
+    typeOfField: {// Eg. text, int, telephone, email, checkbox, radio, etc
         type: DataTypes.STRING,
         allowNull: false,
     },
