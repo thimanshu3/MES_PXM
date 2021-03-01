@@ -31,7 +31,7 @@ const ENVIRONMENT_VARIABLES = [
     'NODEMAILER_PASSWORD',
     'GOOGLE_0AUTH_CLIENT_ID',
     'GOOGLE_0AUTH_CLIENT_SECRET',
-    'PUPPETEER_URL'
+    //'PUPPETEER_URL'
 ]
 
 const checkEnvironment = () => {
@@ -98,82 +98,82 @@ inputTypes
     .sync()
     .then(() =>
         inputTypes.bulkCreate([{
-            name: 'check box'
+            inputType: 'check box'
         },
         {
-            name: 'Currency'
+            inputType: 'Currency'
         },
         {
-            name: 'date'
+            inputType: 'date'
         },
         {
-            name: 'datetime'
+            inputType: 'datetime'
         },
         {
-            name: 'datetime-local'
+            inputType: 'datetime-local'
         },
         {
-            name: 'color'
+            inputType: 'color'
         },
         {
-            name: 'email'
+            inputType: 'email'
         },
         {
-            name: 'file'
+            inputType: 'file'
         },
         {
-            name: 'hidden'
+            inputType: 'hidden'
         },
         {
-            name: 'image'
+            inputType: 'image'
         },
         {
-            name: 'number'
+            inputType: 'number'
         },
         {
-            name: 'month'
+            inputType: 'month'
         },
         {
-            name: 'password'
+            inputType: 'password'
         },
         {
-            name: 'radio'
+            inputType: 'radio'
         },
         {
-            name: 'range'
+            inputType: 'range'
         },
         {
-            name: 'reset'
+            inputType: 'reset'
         },
         {
-            name: 'submit'
+            inputType: 'submit'
         },
         {
-            name: 'search'
+            inputType: 'search'
         },
         {
-            name: 'tel'
+            inputType: 'tel'
         },
         {
-            name: 'text'
+            inputType: 'text'
         },
         {
-            name: 'time'
+            inputType: 'time'
         },
         {
-            name: 'url'
+            inputType: 'url'
         },
         {
-            name: 'week'
+            inputType: 'week'
         },
         {
-            name: 'list/record'
+            inputType: 'list/record'
         },
         {
-            name: 'inline html'
+            inputType: 'inline html'
         },
         {
-            name: 'multiple select'
+            inputType: 'multiple select'
         }
         ]))
     .then(() => console.log('\x1b[32m%s\x1b[0m', 'inputTypes Model Sync Complete!'))

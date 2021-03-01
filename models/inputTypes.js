@@ -20,6 +20,7 @@ const inputTypes = MySql.define('inputTypes', {
     },
     createdBy: {
         type: DataTypes.STRING,
+        defaultValue: "System Init"
     },
     updatedBy: {
         type: DataTypes.STRING

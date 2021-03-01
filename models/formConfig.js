@@ -38,6 +38,10 @@ const formConfig = MySql.define('formConfig', {
         type: DataTypes.BOOLEAN,
         defaultValue:false
     },
+    fields:{
+        type:DataTypes.TEXT,
+        allowNull:false
+    },
     createdBy: {
         type: DataTypes.STRING,
         allowNull: false

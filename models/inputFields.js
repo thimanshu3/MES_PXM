@@ -16,7 +16,7 @@ const inputFields = MySql.define('inputFields', {
     },
     createdBy: {
         type: DataTypes.STRING,
-        allowNull: false
+        defaultValue:"System Init"
     },
     updatedBy: {
         type: DataTypes.STRING
