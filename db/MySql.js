@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize')
 
-const sequelize = new Sequelize(process.env.MYSQLDB_URL, {
+const sequelize = new Sequelize(process.env.MYSQLDB_URI, {
     timezone: '+05:30',
     logQueryParameters: true,
     logging: str => {

@@ -6,22 +6,21 @@ const inputTypes = MySql.define('inputTypes', {
     id: {
         type: DataTypes.UUID,
         unique: true,
-        primaryKey: true,
-        allowNull: false
+        defaultValue: Sequelize.UUIDV4,
+        primaryKey: true
     },
     inputType: { //Example whether it is a text input or list, etc
         type: DataTypes.STRING,
         unique: true,
         allowNull: false
     },
-    status: {
+    active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
         allowNull: false
     },
     createdBy: {
         type: DataTypes.STRING,
-        allowNull: false
     },
     updatedBy: {
         type: DataTypes.STRING

@@ -18,26 +18,14 @@ const AttributeSet = MySql.define('AttributeSet', {
     active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
-        allowNull: false
     },
     createdBy: {
         type: DataTypes.STRING,
-        allowNull: false
     },
     updatedBy: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
     }
 
 })
 
 module.exports = AttributeSet
-
-// Role
-//     .sync({ force: process.env.NODE_ENV === 'production' ? false : true })
-//     .then(() => {
-//         Role.bulkCreate([{
-//             id: 0,
-//             name: 'admin'
-//         },
-//        ])
-//     })

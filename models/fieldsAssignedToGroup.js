@@ -8,7 +8,6 @@ const fieldsAssignedToGroup = MySql.define('fieldsAssignedToGroup', {
         unique: true,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        allowNull: false
     },
     groupId: {
         type: DataTypes.STRING,

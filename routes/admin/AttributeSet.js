@@ -2,12 +2,13 @@ const express = require('express')
 const { Op } = require('sequelize')
 
 const { MySql } = require('../../db')
-const { AttributeSet, AttributeValueSets } = require('../../models')
+const { AttributeSet, AttributeValueSets, ActivityLog } = require('../../models')
 const router = express.Router()
 
 
 router.get('/', async (req, res) => {
     const data = await AttributeSet.findAll()
+  
     res.render('admin/AttributeSet', { User: req.user, attr: data })
 })
 
@@ -29,6 +30,13 @@ router.get('/:id', async (req, res) => {
                 parentAttributeId: foundAttribute.id
             },
         })
+        await ActivityLog.create({
+            id: req.params.id,
+            name: 'Attribute Set',
+            type: 'View',
+            user: req.user.id,
+            timestamp: new Date()
+        })
         res.render('admin/AttributeSetValue', { User: req.user, attributeValues, foundAttribute })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
@@ -46,6 +54,13 @@ router.post('/add', async (req, res) => {
     }
     try {
         const attribute = await AttributeSet.create({ name })
+        await ActivityLog.create({
+            id: attribute.id,
+            name: 'Attribute Set',
+            type: 'Add',
+            user: req.user.id,
+            timestamp: new Date()
+        })
         req.flash('success', `${attribute.name} Added Successfully!`)
         res.redirect('/admin/AttributeSet')
     } catch (err) {

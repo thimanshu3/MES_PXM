@@ -8,17 +8,15 @@ const distributor = MySql.define('distributor', {
         unique: true,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        allowNull: false
     },
     name: {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false
     },
-    status: {
+    active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
-        allowNull: false
     },
     createdBy: {
         type: DataTypes.STRING,

@@ -7,7 +7,7 @@ const fs = require('fs')
 const readXlsxFile = require('read-excel-file/node')
 
 const { addUserSchema } = require('../../validation')
-const { User } = require('../../models')
+const { User, ActivityLog } = require('../../models')
 const { random, sendMail, checkArrayUnique, genNewUserWelcomeTemplate } = require('../../util')
 const { MySql } = require('../../db')
 
@@ -67,7 +67,13 @@ router.post('/', (req, res) => {
                 const user = await User.create({
                     ...userObj
                 })
-                console.log(user)
+                await ActivityLog.create({
+                    id: user.id,
+                    name: 'User Module',
+                    type: 'Add',
+                    user: req.user.id,
+                    timestamp: new Date()
+                })
                 if (process.env.NODE_ENV === 'production')
                     sendMail(email, 'Your Credentials for DME@PXM', '', genNewUserWelcomeTemplate(email, userPassword))
 

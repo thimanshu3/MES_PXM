@@ -46,47 +46,6 @@ const addLoginDetails = async userId => {
     }
 }
 
-const transformUser = async user => {
-    const { id, email, role, profileImageSource, firstName, lastName, college } = user
-    const transformedUser = {
-        id,
-        email,
-        role,
-        roleName: RoleNames[role],
-        profileImageSource,
-        firstName,
-        lastName
-    }
-    if (college)
-        transformedUser.college = college
-    if (college && transformedUser.role === 2) {
-        transformedUser.isHOD = false
-        let hod = await redisGet(`hod-${id}-${college}`)
-        if (hod) {
-            hod = JSON.parse(hod)
-            transformedUser.isHOD = hod.isHOD
-            transformedUser.hodSpecializationId = hod.specializationId
-        }
-        else {
-            const hod = await FacultyHODAssignment.findOne({
-                where: {
-                    userId: id,
-                    collegeId: college
-                }
-            })
-            if (hod) {
-                Redis.setex(`hod-${id}-${college}`, 90, JSON.stringify({ isHOD: true, specializationId: hod.specializationId }))
-                transformedUser.isHOD = true
-                transformedUser.hodSpecializationId = hod.specializationId
-            } else {
-                Redis.setex(`hod-${id}-${college}`, 90, JSON.stringify({ isHOD: false }))
-                transformedUser.isHOD = false
-            }
-        }
-    }
-    if (transformedUser.isHOD) transformedUser.roleName = 'HOD'
-    return transformedUser
-}
 
 module.exports = passport => {
     const authenticateLocalUser = async (email, password, done) => {
@@ -117,7 +76,7 @@ module.exports = passport => {
                 addLoginDetails(foundUser.id)
                 return done(
                     null,
-                    await transformUser(foundUser),
+                    foundUser,
                     {
                         message: getUserMessage(foundUser.firstName, foundUser.role)
                     })
@@ -150,7 +109,7 @@ module.exports = passport => {
                 return done(null, false, { message: 'Your Account is Deactivated!' })
 
             addLoginDetails(foundUser.id)
-            return done(null, await transformUser(foundUser), { message: getUserMessage(foundUser.firstName, foundUser.role) })
+            return done(null, foundUser, { message: getUserMessage(foundUser.firstName, foundUser.role) })
         } catch (err) {
             console.error('\x1b[31m%s\x1b[0m', err)
             return done(null, false, { message: 'Something Went Wrong!' })
@@ -182,7 +141,7 @@ module.exports = passport => {
                 Redis.setex(`auth-user-${foundUser.id}`, 90, JSON.stringify(foundUser))
             }
 
-            done(null, await transformUser(foundUser))
+            done(null, await foundUser)
         } catch (err) {
             console.error('\x1b[31m%s\x1b[0m', err)
             done(null, false, { message: err.toString() || 'Something Went Wrong!' })
