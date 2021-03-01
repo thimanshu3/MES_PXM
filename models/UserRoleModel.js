@@ -11,42 +11,8 @@ const Role = MySql.define('userRole', {
     },
     name: {
         type: DataTypes.STRING,
-        unique: true,
         allowNull: false
     },
-    status: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
-        allowNull: false
-    },
-    createdBy: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    updatedBy: {
-        type: DataTypes.STRING
-    }
 })
 
 module.exports = Role
-
-// Role
-//     .sync({ force: process.env.NODE_ENV === 'production' ? false : true })
-//     .then(() => {
-//         Role.bulkCreate([{
-//             id: 0,
-//             name: 'admin'
-//         },
-//         {
-//             id: 1,
-//             name: 'spoc'
-//         },
-//         {
-//             id: 2,
-//             name: 'faculty'
-//         },
-//         {
-//             id: 3,
-//             name: 'student'
-//         }])
-//     })

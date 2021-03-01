@@ -8,7 +8,6 @@ const AttributeValueSet = MySql.define('AttributeValueSet', {
         unique: true,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        allowNull: false
     },
     name: {
         type: DataTypes.STRING,
@@ -21,11 +20,9 @@ const AttributeValueSet = MySql.define('AttributeValueSet', {
     active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
-        allowNull: false
     },
     createdBy: {
         type: DataTypes.STRING,
-        allowNull: false
     },
     updatedBy: {
         type: DataTypes.STRING

@@ -8,7 +8,6 @@ const listRecord = MySql.define('listRecord', {
         unique: true,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        allowNull: false
     },
     name: {
         type: DataTypes.STRING,
@@ -16,17 +15,16 @@ const listRecord = MySql.define('listRecord', {
         allowNull: false
     },
     active: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true,
-    allowNull: false
-},
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+    },
     createdBy: {
-    type: DataTypes.STRING,
-    allowNull: false
-},
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     updatedBy: {
-    type: DataTypes.STRING
-}
+        type: DataTypes.STRING
+    }
 })
 
 module.exports = listRecord

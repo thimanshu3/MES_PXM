@@ -265,66 +265,33 @@
             $('#newname').val(name);
         }
 
-        const deleteThis = (id) =>{
-            iziToast.question({
-                overlay: true,
-                toastOnce: true,
-                id: 'question',
-                title: 'Hey',
-                message: 'Are you sure?',
-                position: 'center',
-                buttons: [
-                    ['<button><b>YES</b></button>', function (instance, toast) {
-                        fetch(`/admin/attributeset/remove/${id}`, {
-                            method: 'DELETE',
-                        })
-                            .then(res => res.json())
-                            .then(json => {
-                               if(json.status == 200){
-                                location.reload(true);
-                               }
-                               else{
-                                   iziToast.error({
-                                       message: json.message || 'Something Went Wrong!'
-                                   })
-                               }
-                               
-                            })
-                        instance.hide({ transitionOut: 'fadeOut' }, toast)
-                    }, true],
-                    ['<button>NO</button>', function (instance, toast) {
-                        instance.hide({ transitionOut: 'fadeOut' }, toast);
-                    }]
-                ]
-            });
-        }
-
-        $('#saveChanges').on('click', function(){
-             fetch(`/admin/attributeset/${attrId}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    name: $('#newname').val()
-                })
-            })
-                .then(res => res.json())
-                .then(json => {
-                    if (json.status === 200) {
-                        iziToast.info({
-                            message: json.message
-                        })
-                    } else {
-                        iziToast.error({
-                            message: json.message
-                        })
-                    }
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        })
+     
+        // $('#saveChanges').on('click', function(){
+        //      fetch(`/admin/attributeset/${attrId}`, {
+        //         method: 'PATCH',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({
+        //             name: $('#newname').val()
+        //         })
+        //     })
+        //         .then(res => res.json())
+        //         .then(json => {
+        //             if (json.status === 200) {
+        //                 iziToast.info({
+        //                     message: json.message
+        //                 })
+        //             } else {
+        //                 iziToast.error({
+        //                     message: json.message
+        //                 })
+        //             }
+        //         })
+        //         .catch(err => {
+        //             console.log(err)
+        //         })
+        // })
 
     </script>
 </body>

@@ -8,7 +8,6 @@ const CatalogueHierarchy = MySql.define('CatalogueHierarchy', {
         unique: true,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        allowNull: false
     },
     name: {
         type: DataTypes.STRING,
@@ -25,7 +24,6 @@ const CatalogueHierarchy = MySql.define('CatalogueHierarchy', {
     active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
-        allowNull: false
     }
 })
 

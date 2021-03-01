@@ -8,7 +8,6 @@ const inputFields = MySql.define('inputFields', {
         unique: true,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        allowNull: false
     },
     label: {
         type: DataTypes.STRING,
@@ -32,7 +31,6 @@ const inputFields = MySql.define('inputFields', {
     active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
-        allowNull: false
     }
 
 })

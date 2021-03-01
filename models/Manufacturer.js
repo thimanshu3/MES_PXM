@@ -8,7 +8,6 @@ const manufacturer = MySql.define('manufacturer', {
         unique: true,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        allowNull: false
     },
     name: {
         type: DataTypes.STRING,
@@ -18,7 +17,6 @@ const manufacturer = MySql.define('manufacturer', {
     active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
-        allowNull: false
     },
     createdBy: {
         type: DataTypes.STRING,

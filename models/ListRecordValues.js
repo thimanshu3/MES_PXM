@@ -8,22 +8,21 @@ const listRecordValues = MySql.define('listRecordValues', {
         unique: true,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        allowNull: false
     },
     label: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    parentListId:{
-        type:DataTypes.STRING,
-        allowNull:false
+    parentListId: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
     createdBy: {
-    type: DataTypes.STRING,
-    allowNull: false
+        type: DataTypes.STRING,
+        allowNull: false
     },
     updatedBy: {
-    type: DataTypes.STRING
+        type: DataTypes.STRING
     }
 })
 

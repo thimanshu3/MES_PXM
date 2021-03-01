@@ -8,7 +8,6 @@ const Catlogue = MySql.define('Catlogue', {
         unique: true,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        allowNull: false
     },
     name: {
         type: DataTypes.STRING,
@@ -22,7 +21,6 @@ const Catlogue = MySql.define('Catlogue', {
     active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
-        allowNull: false
     },
     createdBy: {
         type: DataTypes.STRING,
