@@ -6,11 +6,11 @@ const multer = require('multer')
 const path = require('path')
 const fs = require('fs')
 const readXlsxFile = require('read-excel-file/node')
-const {random} = require('../../util')
+const { random } = require('../../util')
 
 const { MySql } = require('../../db')
 const { inputFields, inputTypes, ActivityLog } = require('../../models')
-const {addInputFieldSchema} = require('../../validation')
+const { addInputFieldSchema } = require('../../validation')
 const router = express.Router()
 
 const uploadStorage = multer.diskStorage({
@@ -35,12 +35,12 @@ router.get('/', async (req, res) => {
     const inputType = await inputTypes.findAll()
     const inputField = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description ,users.firstName as firstName, users.lastName as lastName, inputTypes.inputType from inputFields INNER JOIN users  ON users.id = inputFields.createdBy INNER join inputTypes on inputTypes.id = inputFields.typeOfField;')
     console.log(inputField)
-    res.render('admin/inputField', { User: req.user, inputField , inputType })
+    res.render('admin/inputField', { User: req.user, inputField, inputType })
 })
 
 
 router.post('/add', async (req, res) => {
-    const { label , description , type } = req.body
+    const { label, description, type } = req.body
     if (!label) {
         req.flash('error', 'name is required!')
         res.redirect('/admin/inputField')
@@ -57,7 +57,7 @@ router.post('/add', async (req, res) => {
         return
     }
     try {
-        const inputField = await inputFields.create({ label , typeOfField: type , description , createdBy: req.user.id })
+        const inputField = await inputFields.create({ label, typeOfField: type, description, createdBy: req.user.id })
         await ActivityLog.create({
             id: inputField.id,
             name: 'input Field',
@@ -114,17 +114,24 @@ router.post('/import', excelUpload.single('file'), async (req, res) => {
             try {
                 transaction = await MySql.transaction()
                 console.log(data)
-                data.forEach(a=>{
-                    const found = await inputTypes.findOne({
-                        where: {
-                            inputType: a.typeOfField
+                data.forEach(a => {
+                    try {
+                        const found = await inputTypes.findOne({
+                            where: {
+                                inputType: a.typeOfField
+                            }
+                        })
+                        if (found) {
+                            a.typeOfField = found.id
+                        }
                     }
-                    })
-                    if(found){
-                        a.typeOfField = found.id
+                    catch (err) {
+                        console.log(err)
+                        req.flash('error', err.toString() || 'Validation Error!')
+                        res.redirect('/admin/inputfield')
                     }
                 })
-               
+
 
                 await inputFields.bulkCreate(data, { transaction })
                 await transaction.commit()
@@ -141,7 +148,7 @@ router.post('/import', excelUpload.single('file'), async (req, res) => {
                 res.redirect(`/admin/inputfield`)
             }
         })
-        
+
         .catch(err => {
             console.log(err)
             req.flash('error', err.toString() || 'Validation Error!')
