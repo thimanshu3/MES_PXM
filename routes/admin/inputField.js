@@ -114,10 +114,22 @@ router.post('/import', excelUpload.single('file'), async (req, res) => {
             try {
                 transaction = await MySql.transaction()
                 console.log(data)
-                // await inputFields.bulkCreate(data, { transaction })
-                // await transaction.commit()
-                // req.flash('success', 'Item Fields Import Completed!')
-                // res.redirect(`/admin/itemfield`)
+                data.forEach(a=>{
+                    const found = await inputTypes.findOne({
+                        where: {
+                            inputType: a.typeOfField
+                    }
+                    })
+                    if(found){
+                        a.typeOfField = found.id
+                    }
+                })
+               
+
+                await inputFields.bulkCreate(data, { transaction })
+                await transaction.commit()
+                req.flash('success', 'Item Fields Import Completed!')
+                res.redirect(`/admin/itemfield`)
             } catch (err) {
                 console.log(err)
                 if (transaction)
