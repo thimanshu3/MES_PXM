@@ -215,3 +215,15 @@ border-bottom: 1px solid #ebecec!important;
 .list-group-flush:last-child .list-group-item:last-child{margin-bottom:0;border-bottom:0;}
 .widget-content{padding:1rem;flex-direction:row;align-items:center;}
 
+
+.kk_group_item_number .btn{
+	    background: transparent !important;
+    padding: 0px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #379392;
+}
+
