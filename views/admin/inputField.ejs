@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Infeenity Dashboard</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/atlantis.min.css">
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="/assets/css/demo.css">
+    <link rel="stylesheet" href="/assets/css/kk_style.css">
+    <link rel="stylesheet" href="/assets/css/iziToast.min.css">
+    <!-- Fonts and icons -->
+    <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+        WebFont.load({
+            google: { "families": ["Lato:300,400,700,900"] },
+            custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css'] },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <%-include('../partials/config')%>
+
+            <!-- header -->
+            <%-include('../partials/header.ejs')%>
+                <!-- header end -->
+
+                <!-- Sidebar -->
+                <%-include('../partials/sidebar.ejs')%>
+                    <!-- End Sidebar -->
+
+                    <div class="main-panel">
+                        <div class="content">
+                            <div class="page-inner">
+                                <div class="page-header">
+
+                                    <ul class="breadcrumbs">
+                                        <li class="nav-home">
+                                            <a href="#">
+                                                <i class="flaticon-home"></i>
+                                            </a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">System</a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">User Managment</a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">Users</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="container-fluid ">
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+
+                                            <div class="card kk_full_form">
+                                                <div class="card-header">
+                                                    <div class="d-flex align-items-center">
+                                                        <h4 class="card-title">All Item Fields</h4>
+                                                        <a data-toggle="modal" data-target="#addRowModal"
+                                                            class="btn btn-primary btn-round ml-auto">
+                                                            <i class="fa fa-plus"></i>
+                                                            Add Item Field
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="table-responsive">
+                                                        <div id="add-row_wrapper"
+                                                            class="dataTables_wrapper container-fluid dt-bootstrap4">
+
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <table id="add-row"
+                                                                        class="display table table-striped table-hover dataTable"
+                                                                        role="grid" aria-describedby="add-row_info">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th rowspan="1" colspan="1">Label</th>
+                                                                                <th rowspan="1" colspan="1">Type</th>
+                                                                                <th rowspan="1" colspan="1">Created By
+                                                                                </th>
+                                                                                <th rowspan="1" colspan="1">Status
+                                                                                </th>
+                                                                                <th rowspan="1" colspan="1">Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <% inputField[0].forEach(_a=>{ %>
+                                                                                <tr>
+
+                                                                                    <td data-toggle="tooltip"
+                                                                                        data-placement="left"
+                                                                                        title="<%= _a.description %> ">
+                                                                                        <%= _a.label %>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <%= _a.inputType %>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <%= _a.firstName + ' ' +
+                                                                                            _a.lastName %>
+                                                                                    </td>
+                                                                                    <td><span
+                                                                                            id="activeBadge-<%= _a.id%>"
+                                                                                            class="badge badge-<%= _a.active ? 'success' : 'danger' %>">
+                                                                                            <%= _a.active ? 'ACTIVE'
+                                                                                                : 'INACTIVE' %>
+                                                                                        </span></td>
+                                                                                    <td>
+                                                                                        <div class="form-button-action">
+                                                                                            <button type="button"
+                                                                                                data-toggle="tooltip"
+                                                                                                title=""
+                                                                                                class="btn btn-link btn-primary btn-lg"
+                                                                                                data-original-title="Edit Task">
+                                                                                                <i
+                                                                                                    class="fa fa-edit"></i>
+                                                                                            </button>
+                                                                                            <button type="button"
+                                                                                                data-toggle="tooltip"
+                                                                                                title=""
+                                                                                                class="btn btn-link btn-danger"
+                                                                                                data-original-title="Remove">
+                                                                                                <i
+                                                                                                    class="fa fa-trash"></i>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <% }) %>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%-include('../partials/footer.ejs')%>
+
+                    </div>
+
+    </div>
+    <!--   Core JS Files   -->
+    <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header no-bd">
+                    <h5 class="modal-title">
+                        <span class="fw-mediumbold">
+                            New</span>
+                        <span class="fw-light">
+                            Row
+                        </span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/admin/inputField/add" method="POST">
+                        <div class="row">
+                            <div class="col-md-6 pr-0">
+                                <div class="form-group form-floating-label">
+                                    <input id="inputFloatingLabel" type="text" name="label"
+                                        class="form-control input-border-bottom" required>
+                                    <label for="inputFloatingLabel" class="placeholder">Label</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-floating-label">
+                                    <select name="type" class="form-control input-border-bottom"
+                                        id="selectFloatingLabel" required>
+                                        <option value="">&nbsp;</option>
+                                        <% inputType.forEach(_b=>{ %>
+                                            <option value="<%=_b.id%>">
+                                                <%=_b.inputType%>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                    <label for="selectFloatingLabel" class="placeholder">Input Type</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 mt-3">
+                                <div class="form-group form-floating-label">
+                                    <input name="description" id="desc" type="textarea"
+                                        class="form-control input-border-bottom" required="">
+                                    <label for="desc" class="placeholder">Description</label>
+                                </div>
+                            </div>
+
+                           <div class="col-12">
+                                <p class="text-danger d-flex justify-content-center">Or add by import</p>
+                                <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#myModal">
+                                    <i class="fa fa-plus"></i>
+                                Import Item Fields
+                                </button>
+                                
+                           </div>
+                        </div>
+                        <div class="modal-footer no-bd">
+                            <button type="submit" id="addRowButton" class="btn btn-primary">Add</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade kk_modal_popup_form " id="myModal" 
+        data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Import User</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <form action="/admin/inputField/import" method="POST" enctype="multipart/form-data">
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <p class="text-danger">Supported extensions .XLSX</p>
+                        <button type="button" class="btn btn-primary mb-5">Download Template</button>
+                        <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Import</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery library -->
+    <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="/assets/js/core/bootstrap.js"></script>
+
+    <!-- Atlantis JS -->
+    <script src="/assets/js/atlantis.min.js"></script>
+    <script src="/assets/js/iziToast.js"></script>
+    <script src="/assets/js/flashMessage.js"></script>
+    <!-- Datatables -->
+    <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+    <!-- Popper JS -->
+    <script src="/assets/js/core/popper.min.js"></script>
+    <script>
+        $('#add-row').DataTable({
+        });
+        $(document).on('show.bs.modal', '.modal', function () {
+                var zIndex = 1040 + (10 * $('.modal:visible').length);
+                $(this).css('z-index', zIndex);
+                setTimeout(function () {
+                    $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+                }, 0);
+            });
+    </script>
+</body>
+
+</html>
