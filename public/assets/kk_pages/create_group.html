@@ -285,7 +285,7 @@
 					<ul class="nav nav-primary">
 					
 						<li class="nav-item">
-							<a  href="#index.html">
+							<a  href="index.html">
 								<i class="fas fa-layer-group"></i>
 								<p>Dashboard</p>
 								
@@ -475,169 +475,253 @@
 			</div>
 		</div>
 		<!-- End Sidebar -->
-
-		<div class="main-panel">
+	<div class="main-panel">
 			<div class="content">
-			
-				<div class="page-inner ">
+				<div class="page-inner">
+					<div class="page-header">
+						
+						<ul class="breadcrumbs">
+							<li class="nav-home">
+								<a href="#">
+									<i class="flaticon-home"></i>
+								</a>
+							</li>
+							<li class="separator">
+								<i class="flaticon-right-arrow"></i>
+							</li>
+							<li class="nav-item">
+								<a href="#">Users</a>
+							</li>
+							<li class="separator">
+								<i class="flaticon-right-arrow"></i>
+							</li>
+							<li class="nav-item">
+								<a href="#">Add New User</a>
+							</li>
+						</ul>
+					</div>
 					<div class="row">
-						<div class="col-md-4">
-							<div class="card">
+						<div class="col-md-12">
+						
+								<div class="card">
 								<div class="card-header">
-									<div class="card-title">Top Products</div>
-								</div>
-								<div class="card-body pb-0">
-									<div class="d-flex">
-										<div class="avatar">
-											<img src="../assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
-										</div>
-										<div class="flex-1 pt-1 ml-2">
-											<h6 class="fw-bold mb-1">CSS</h6>
-											<small class="text-muted">Cascading Style Sheets</small>
-										</div>
-										<div class="d-flex ml-auto align-items-center">
-											<h3 class="text-info fw-bold">+$17</h3>
-										</div>
-									</div>
-									<div class="separator-dashed"></div>
-									<div class="d-flex">
-										<div class="avatar">
-											<img src="../assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
-										</div>
-										<div class="flex-1 pt-1 ml-2">
-											<h6 class="fw-bold mb-1">J.CO Donuts</h6>
-											<small class="text-muted">The Best Donuts</small>
-										</div>
-										<div class="d-flex ml-auto align-items-center">
-											<h3 class="text-info fw-bold">+$300</h3>
-										</div>
-									</div>
-									<div class="separator-dashed"></div>
-									<div class="d-flex">
-										<div class="avatar">
-											<img src="../assets/img/logoproduct3.svg" alt="..." class="avatar-img rounded-circle">
-										</div>
-										<div class="flex-1 pt-1 ml-2">
-											<h6 class="fw-bold mb-1">Ready Pro</h6>
-											<small class="text-muted">Bootstrap 4 Admin Dashboard</small>
-										</div>
-										<div class="d-flex ml-auto align-items-center">
-											<h3 class="text-info fw-bold">+$350</h3>
-										</div>
-									</div>
-									<div class="separator-dashed"></div>
-									<div class="pull-in">
-										<canvas id="topProductsChart"></canvas>
+									<div class="d-flex align-items-center">
+										<h4 class="card-title">All Groups</h4>
+										
+										<button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#kk_create_group">
+											<i class="fa fa-plus"></i>
+											Create New Group
+										</button>
 									</div>
 								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="card">
 								<div class="card-body">
-									<div class="card-title fw-mediumbold">Suggested People</div>
-									<div class="card-list">
-										<div class="item-list">
-											<div class="avatar">
-												<img src="../assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
+									<!-- Modal -->
+									<div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header no-bd">
+													<h5 class="modal-title">
+														<span class="fw-mediumbold">
+														New</span> 
+														<span class="fw-light">
+															Row
+														</span>
+													</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<p class="small">Create a new row using this form, make sure you fill them all</p>
+													<form>
+														<div class="row">
+															<div class="col-sm-12">
+																<div class="form-group form-group-default">
+																	<label>Name</label>
+																	<input id="addName" type="text" class="form-control" placeholder="fill name">
+																</div>
+															</div>
+															<div class="col-md-6 pr-0">
+																<div class="form-group form-group-default">
+																	<label>Position</label>
+																	<input id="addPosition" type="text" class="form-control" placeholder="fill position">
+																</div>
+															</div>
+															<div class="col-md-6">
+																<div class="form-group form-group-default">
+																	<label>Office</label>
+																	<input id="addOffice" type="text" class="form-control" placeholder="fill office">
+																</div>
+															</div>
+														</div>
+													</form>
+												</div>
+												<div class="modal-footer no-bd">
+													<button type="button" id="addRowButton" class="btn btn-primary">Add</button>
+													<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+												</div>
 											</div>
-											<div class="info-user ml-3">
-												<div class="username">Jimmy Denis</div>
-												<div class="status">Graphic Designer</div>
-											</div>
-											<button class="btn btn-icon btn-primary btn-round btn-xs">
-												<i class="fa fa-plus"></i>
-											</button>
 										</div>
-										<div class="item-list">
-											<div class="avatar">
-												<img src="../assets/img/chadengle.jpg" alt="..." class="avatar-img rounded-circle">
-											</div>
-											<div class="info-user ml-3">
-												<div class="username">Chad</div>
-												<div class="status">CEO Zeleaf</div>
-											</div>
-											<button class="btn btn-icon btn-primary btn-round btn-xs">
-												<i class="fa fa-plus"></i>
-											</button>
-										</div>
-										<div class="item-list">
-											<div class="avatar">
-												<img src="../assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
-											</div>
-											<div class="info-user ml-3">
-												<div class="username">Talha</div>
-												<div class="status">Front End Designer</div>
-											</div>
-											<button class="btn btn-icon btn-primary btn-round btn-xs">
-												<i class="fa fa-plus"></i>
-											</button>
-										</div>
-										<div class="item-list">
-											<div class="avatar">
-												<img src="../assets/img/mlane.jpg" alt="..." class="avatar-img rounded-circle">
-											</div>
-											<div class="info-user ml-3">
-												<div class="username">John Doe</div>
-												<div class="status">Back End Developer</div>
-											</div>
-											<button class="btn btn-icon btn-primary btn-round btn-xs">
-												<i class="fa fa-plus"></i>
-											</button>
-										</div>
-										<div class="item-list">
-											<div class="avatar">
-												<img src="../assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
-											</div>
-											<div class="info-user ml-3">
-												<div class="username">Talha</div>
-												<div class="status">Front End Designer</div>
-											</div>
-											<button class="btn btn-icon btn-primary btn-round btn-xs">
-												<i class="fa fa-plus"></i>
-											</button>
-										</div>
-										<div class="item-list">
-											<div class="avatar">
-												<img src="../assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
-											</div>
-											<div class="info-user ml-3">
-												<div class="username">Jimmy Denis</div>
-												<div class="status">Graphic Designer</div>
-											</div>
-											<button class="btn btn-icon btn-primary btn-round btn-xs">
-												<i class="fa fa-plus"></i>
-											</button>
-										</div>
+									</div>
+
+									<div class="table-responsive">
+										<table id="add-row" class="display table table-striped table-hover" >
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Position</th>
+													<th>Office</th>
+													<th style="width: 10%">Action</th>
+												</tr>
+											</thead>
+											<tfoot>
+												<tr>
+													<th>Name</th>
+													<th>Position</th>
+													<th>Office</th>
+													<th>Action</th>
+												</tr>
+											</tfoot>
+											<tbody>
+												<tr>
+													<td>Tiger Nixon</td>
+													<td>System Architect</td>
+													<td>Edinburgh</td>
+													<td>
+														<div class="form-button-action">
+													      <div class="kk_group_item_number">
+														     <button class="btn btn-primary btn-round " data-toggle="modal" data-target="#kk_group_items">15</button>
+														  </div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>Garrett Winters</td>
+													<td>Accountant</td>
+													<td>Tokyo</td>
+													<td>
+														<div class="form-button-action">
+													      <div class="kk_group_item_number">
+														     <button class="btn btn-primary btn-round " data-toggle="modal" data-target="#kk_group_items">15</button>
+														  </div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>Ashton Cox</td>
+													<td>Junior Technical Author</td>
+													<td>San Francisco</td>
+													<td>
+														<div class="form-button-action">
+													      <div class="kk_group_item_number">
+														     <button class="btn btn-primary btn-round " data-toggle="modal" data-target="#kk_group_items">15</button>
+														  </div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>Cedric Kelly</td>
+													<td>Senior Javascript Developer</td>
+													<td>Edinburgh</td>
+													<td>
+														<div class="form-button-action">
+													      <div class="kk_group_item_number">
+														     <button class="btn btn-primary btn-round " data-toggle="modal" data-target="#kk_group_items">15</button>
+														  </div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>Airi Satou</td>
+													<td>Accountant</td>
+													<td>Tokyo</td>
+													<td>
+														<div class="form-button-action">
+													      <div class="kk_group_item_number">
+														     <button class="btn btn-primary btn-round " data-toggle="modal" data-target="#kk_group_items">15</button>
+														  </div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>Brielle Williamson</td>
+													<td>Integration Specialist</td>
+													<td>New York</td>
+													<td>
+														<div class="form-button-action">
+													      <div class="kk_group_item_number">
+														     <button class="btn btn-primary btn-round " data-toggle="modal" data-target="#kk_group_items">15</button>
+														  </div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>Herrod Chandler</td>
+													<td>Sales Assistant</td>
+													<td>San Francisco</td>
+													<td>
+														<div class="form-button-action">
+													      <div class="kk_group_item_number">
+														     <button class="btn btn-primary btn-round " data-toggle="modal" data-target="#kk_group_items">15</button>
+														  </div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>Rhona Davidson</td>
+													<td>Integration Specialist</td>
+													<td>Tokyo</td>
+													<td>
+														<div class="form-button-action">
+													      <div class="kk_group_item_number">
+														     <button class="btn btn-primary btn-round " data-toggle="modal" data-target="#kk_group_items">15</button>
+														  </div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>Colleen Hurst</td>
+													<td>Javascript Developer</td>
+													<td>San Francisco</td>
+													<td>
+														<div class="form-button-action">
+													      <div class="kk_group_item_number">
+														     <button class="btn btn-primary btn-round " data-toggle="modal" data-target="#kk_group_items">15</button>
+														  </div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>Sonya Frost</td>
+													<td>Software Engineer</td>
+													<td>Edinburgh</td>
+													<td>
+														<div class="form-button-action">
+													      <div class="kk_group_item_number">
+														     <button class="btn btn-primary btn-round " data-toggle="modal" data-target="#kk_group_items">15</button>
+														  </div>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="card ">
-								<div class="card-body">
-									<h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Active user right now</h4>
-									<h1 class="mb-4 fw-bold">17</h1>
-									<h4 class="mt-3 b-b1 pb-2 mb-5 fw-bold">Page view per minutes</h4>
-									<div id="activeUsersChart"></div>
-									<h4 class="mt-5 pb-3 mb-0 fw-bold">Top active pages</h4>
-									<ul class="list-unstyled">
-										<li class="d-flex justify-content-between pb-1 pt-1"><small>/product/readypro/index.html</small> <span>7</span></li>
-										<li class="d-flex justify-content-between pb-1 pt-1"><small>/product/atlantis/demo.html</small> <span>10</span></li>
-									</ul>
-								</div>
-							</div>
+						
+						
+					
 						</div>
 					</div>
-</div>
+				</div>
 			</div>
 			<footer class="footer">
 				<div class="container-fluid">
 					<nav class="pull-left">
 						<ul class="nav">
 							<li class="nav-item">
-								<a class="nav-link" href="www.medicaleshop.in">
-									DME
+								<a class="nav-link" href="https://www.themekita.com">
+									ThemeKita
 								</a>
 							</li>
 							<li class="nav-item">
@@ -653,13 +737,203 @@
 						</ul>
 					</nav>
 					<div class="copyright ml-auto">
-						2021, made with <i class="fa fa-heart heart text-danger"></i> by <a href="#">Team IT @ DME</a>
+						2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a>
 					</div>				
 				</div>
 			</footer>
-		</div>
-		
-		<!-- Custom template | don't include it in your project! -->
+
+
+<div class="modal kk_modal_popup_form" id="kk_create_group" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Create New Group</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+	
+		<div class="form-group">
+												<div class="input-icon">
+												<input type="text" class="form-control" placeholder="Enter the Group Name">
+													<span class="input-icon-addon">
+														<i class="fa fa-user"></i>
+													</span>
+													
+												</div>
+											</div>
+											
+			<div class="form-group">
+												<label class="form-label">Select Group Items</label>
+												<div class="selectgroup selectgroup-pills">
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="HTML" class="selectgroup-input" >
+														<span class="selectgroup-button">HTML</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="CSS" class="selectgroup-input">
+														<span class="selectgroup-button">CSS</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="PHP" class="selectgroup-input">
+														<span class="selectgroup-button">PHP</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="JavaScript" class="selectgroup-input">
+														<span class="selectgroup-button">JavaScript</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
+														<span class="selectgroup-button">Ruby</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
+														<span class="selectgroup-button">Ruby</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="C++" class="selectgroup-input">
+														<span class="selectgroup-button">C++</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="HTML" class="selectgroup-input" >
+														<span class="selectgroup-button">HTML</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="CSS" class="selectgroup-input">
+														<span class="selectgroup-button">CSS</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="PHP" class="selectgroup-input">
+														<span class="selectgroup-button">PHP</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="JavaScript" class="selectgroup-input">
+														<span class="selectgroup-button">JavaScript</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
+														<span class="selectgroup-button">Ruby</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
+														<span class="selectgroup-button">Ruby</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="C++" class="selectgroup-input">
+														<span class="selectgroup-button">C++</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="HTML" class="selectgroup-input" >
+														<span class="selectgroup-button">HTML</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="CSS" class="selectgroup-input">
+														<span class="selectgroup-button">CSS</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="PHP" class="selectgroup-input">
+														<span class="selectgroup-button">PHP</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="JavaScript" class="selectgroup-input">
+														<span class="selectgroup-button">JavaScript</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
+														<span class="selectgroup-button">Ruby</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
+														<span class="selectgroup-button">Ruby</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="C++" class="selectgroup-input">
+														<span class="selectgroup-button">C++</span>
+													</label>
+												</div>
+											</div>
+											
+											
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+			<button type="button" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        </div>
+        
+      </div>
+    </div>
+  </div> 
+  
+  
+<div class="modal kk_modal_popup_form" id="kk_group_items" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Size Group's Items</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+	
+											
+			<div class="form-group">
+											
+												<div class="selectgroup selectgroup-pills">
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="HTML" class="selectgroup-input" checked >
+														<span class="selectgroup-button">HTML</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="CSS" class="selectgroup-input" checked>
+														<span class="selectgroup-button">CSS</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="PHP" class="selectgroup-input" checked>
+														<span class="selectgroup-button">PHP</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="JavaScript" class="selectgroup-input" checked>
+														<span class="selectgroup-button">JavaScript</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="Ruby" class="selectgroup-input" checked>
+														<span class="selectgroup-button">Ruby</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="Ruby" class="selectgroup-input" checked>
+														<span class="selectgroup-button">Ruby</span>
+													</label>
+													<label class="selectgroup-item">
+														<input type="checkbox" name="value" value="C++" class="selectgroup-input" checked>
+														<span class="selectgroup-button">C++</span>
+													</label>
+												
+												</div>
+											</div>
+											
+											
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+			<button type="button" class="btn btn-primary">Save</button>
+         
+        </div>
+        
+      </div>
+    </div>
+  </div> 
+  
+  
+	</div>
 		
 		<!-- End Custom template -->
 	</div>
@@ -797,6 +1071,55 @@
 			lineWidth: '2',
 			lineColor: '#ffa534',
 			fillColor: 'rgba(255, 165, 52, .14)'
+		});
+	</script>
+	
+		<script >
+		$(document).ready(function() {
+			$('#basic-datatables').DataTable({
+			});
+
+			$('#multi-filter-select').DataTable( {
+				"pageLength": 5,
+				initComplete: function () {
+					this.api().columns().every( function () {
+						var column = this;
+						var select = $('<select class="form-control"><option value=""></option></select>')
+						.appendTo( $(column.footer()).empty() )
+						.on( 'change', function () {
+							var val = $.fn.dataTable.util.escapeRegex(
+								$(this).val()
+								);
+
+							column
+							.search( val ? '^'+val+'$' : '', true, false )
+							.draw();
+						} );
+
+						column.data().unique().sort().each( function ( d, j ) {
+							select.append( '<option value="'+d+'">'+d+'</option>' )
+						} );
+					} );
+				}
+			});
+
+			// Add Row
+			$('#add-row').DataTable({
+				"pageLength": 5,
+			});
+
+			var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
+
+			$('#addRowButton').click(function() {
+				$('#add-row').dataTable().fnAddData([
+					$("#addName").val(),
+					$("#addPosition").val(),
+					$("#addOffice").val(),
+					action
+					]);
+				$('#addRowModal').modal('hide');
+
+			});
 		});
 	</script>
 </body>
