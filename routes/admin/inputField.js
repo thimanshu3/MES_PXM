@@ -85,7 +85,6 @@ router.post('/import', excelUpload.single('file'), async (req, res) => {
     }
 
     const excelData = await readXlsxFile(`uploads/${req.file.filename}`)
-    console.log(excelData)
     fs.unlink(`uploads/${req.file.filename}`, err => err ? console.error('\x1b[31m%s\x1b[0m', err) : undefined)
     excelData.shift()
 
@@ -98,11 +97,23 @@ router.post('/import', excelUpload.single('file'), async (req, res) => {
     Promise
         .all(excelData.map(async (row, index) => {
             try {
+                const found = await inputTypes.findOne({
+                    where: {
+                        inputType: row[1]
+                    }
+                })
+                if (found) {
+                    row[1] = found.id
+                }
+                else{
+                    throw new Error(`wrong input type given at Sr. No. ${++index}`)
+                }
                 return {
                     ...(await addInputFieldSchema.validateAsync({
                         label: row[0],
                         typeOfField: row[1],
                         description: row[2],
+                        createdBy: req.user.id
                     }))
                 }
             } catch (err) {
@@ -111,32 +122,13 @@ router.post('/import', excelUpload.single('file'), async (req, res) => {
         }))
         .then(async data => {
             let transaction
+
             try {
                 transaction = await MySql.transaction()
-                console.log(data)
-                data.forEach(a => {
-                    try {
-                        const found = await inputTypes.findOne({
-                            where: {
-                                inputType: a.typeOfField
-                            }
-                        })
-                        if (found) {
-                            a.typeOfField = found.id
-                        }
-                    }
-                    catch (err) {
-                        console.log(err)
-                        req.flash('error', err.toString() || 'Validation Error!')
-                        res.redirect('/admin/inputfield')
-                    }
-                })
-
-
                 await inputFields.bulkCreate(data, { transaction })
                 await transaction.commit()
                 req.flash('success', 'Item Fields Import Completed!')
-                res.redirect(`/admin/itemfield`)
+                res.redirect(`/admin/inputfield`)
             } catch (err) {
                 console.log(err)
                 if (transaction)

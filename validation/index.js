@@ -12,7 +12,8 @@ const addUserSchema = Joi.object({
 const addInputFieldSchema = Joi.object({
     label: Joi.string().min(1).required(),
     typeOfField: Joi.string().min(1).required(),
-    description: Joi.string().min(0).allow('').allow(null)
+    description: Joi.string().min(0).allow('').allow(null),
+    createdBy: Joi.string().min(0).allow('').allow(null)
 
 })
 
