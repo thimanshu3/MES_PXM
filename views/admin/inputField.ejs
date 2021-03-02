@@ -288,6 +288,11 @@
     <script src="/assets/js/core/popper.min.js"></script>
     <script>
         $('#add-row').DataTable({
+            pageLength: 50,
+            info: false,
+            scrollCollapse: true,
+            scrollY: '60vh',
+            fixedHeader: true,
         });
         $(document).on('show.bs.modal', '.modal', function () {
                 var zIndex = 1040 + (10 * $('.modal:visible').length);
