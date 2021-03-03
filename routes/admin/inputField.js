@@ -153,7 +153,7 @@ router.post('/import', excelUpload.single('file'), async (req, res) => {
         })
 })
 
-router.get('/inputgroup', async (req, res) => {
+router.get('/group', async (req, res) => {
     try{
         const inputField = await inputFields.findAll()
     res.render('admin/inputGroup', { User: req.user , inputField })
