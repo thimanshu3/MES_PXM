@@ -11,6 +11,7 @@ const { random } = require('../../util')
 const { MySql } = require('../../db')
 const { inputFields, inputTypes, ActivityLog } = require('../../models')
 const { addInputFieldSchema } = require('../../validation')
+const { Router } = require('express')
 const router = express.Router()
 
 const uploadStorage = multer.diskStorage({
@@ -172,7 +173,25 @@ router.delete('/:id', async (req, res) => {
     res.json({ status: 200, message: `Field ${foundField.active ? 'Activated' : 'Deactivated'} Successfully!`, active: foundField.active })
 })
 
-
+router.delete('/remove/:id',async (req,res) => {
+    const foundField = await inputFields.findOne({
+        where:{
+            id: req.params.id
+        }
+    })
+    if(!foundField)
+        return res.status(404).json({message: 'Field Not Found!'})
+    try{
+        foundField.destroy();
+        res.json({ status: 200, message: `Field Deleted!`})
+        //res.r('/admin/inputField')
+    } 
+    catch(err){
+        console.error('\x1b[31m%s\x1b[0m', err)
+        req.flash('error', 'Something Went Wrong!')
+        res.redirect('/')
+    }
+})
 
 router.get('/inputgroup', async (req, res) => {
     try{
