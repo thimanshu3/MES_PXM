@@ -17,7 +17,7 @@ router.post('/add', async (req, res) => {
         return
     }
     try {
-        const manufacturer = await Manufacturer.create({ name })
+        const manufacturer = await Manufacturer.create({ name, createdBy: req.user.id})
         req.flash('success', `${manufacturer.name} Added Successfully!`)
         res.redirect('/admin/Manufacturer')
     } catch (err) {
@@ -33,11 +33,23 @@ router.post('/add', async (req, res) => {
 
 router.delete('/remove/:id', async (req, res) => {
     try {
-        const manufacturer = await Manufacturer.destroy({
+        const manufacturer = await Manufacturer.findOne({
             where: {
                 id: req.params.id
             }
         })
+        if (!manufacturer)
+            return res.status(404).json({ message: 'Distributor Not Found!' })
+        try {
+            manufacturer.destroy();
+            res.json({ status: 200, message: `Deleted Successfully!` })
+            //res.r('/admin/inputField')
+        }
+        catch (err) {
+            console.error('\x1b[31m%s\x1b[0m', err)
+            req.flash('error', 'Something Went Wrong!')
+            res.redirect('/')
+        }
         req.flash('success', `Deleted Successfully`)
         res.json({ status: 200, message: 'Deleted Successfully' })
         res.redirect('/admin/Manufacturer')

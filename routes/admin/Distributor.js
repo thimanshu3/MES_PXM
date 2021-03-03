@@ -17,7 +17,7 @@ router.post('/add', async (req, res) => {
         return
     }
     try {
-        const distributor = await Distributor.create({ name })
+        const distributor = await Distributor.create({ name , createdBy: req.user.id })
         req.flash('success', `${distributor.name} Added Successfully!`)
         res.redirect('/admin/Distributor')
     } catch (err) {
@@ -33,11 +33,23 @@ router.post('/add', async (req, res) => {
 
 router.delete('/remove/:id', async (req, res) => {
     try {
-        const distributor = await Distributor.destroy({
+        const distributor = await Distributor.findOne({
             where: {
                 id: req.params.id
             }
         })
+        if(!distributor)
+            return res.status(404).json({ message: 'Distributor Not Found!' })
+        try {
+            distributor.destroy();
+            res.json({ status: 200, message: `Deleted Successfully!` })
+            //res.r('/admin/inputField')
+        } 
+        catch (err) {
+            console.error('\x1b[31m%s\x1b[0m', err)
+            req.flash('error', 'Something Went Wrong!')
+            res.redirect('/')
+        }
         req.flash('success', `Deleted Successfully`)
         res.json({ status: 200, message: 'Deleted Successfully' })
         res.redirect('/admin/Distributor')

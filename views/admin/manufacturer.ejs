@@ -45,7 +45,7 @@
 
                                     <ul class="breadcrumbs">
                                         <li class="nav-home">
-                                            <a href="#">
+                                            <a href="/admin/dashboard">
                                                 <i class="flaticon-home"></i>
                                             </a>
                                         </li>
@@ -86,7 +86,7 @@
                                                             <div class="form-group">
                                                                 <label>Name</label>
                                                                 <input type="text" class="form-control" name="name"
-                                                                    id="name" placeholder="Enter Attribute Name">
+                                                                    id="name" placeholder="Enter Manufacturer Name">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -218,7 +218,7 @@
 
     </div>
     <!--   Core JS Files   -->
-
+    <script src="/assets/js/clientScript.js"></script>
     <!-- jQuery library -->
     <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
     <!-- Latest compiled JavaScript -->
@@ -241,37 +241,7 @@
         }
 
         const deleteThis = (id) => {
-            iziToast.question({
-                overlay: true,
-                toastOnce: true,
-                id: 'question',
-                title: 'Hey',
-                message: 'Are you sure?',
-                position: 'center',
-                buttons: [
-                    ['<button><b>YES</b></button>', function (instance, toast) {
-                        fetch(`/admin/Manufacturer/remove/${id}`, {
-                            method: 'DELETE',
-                        })
-                            .then(res => res.json())
-                            .then(json => {
-                                if (json.status == 200) {
-                                    location.reload(true);
-                                }
-                                else {
-                                    iziToast.error({
-                                        message: json.message || 'Something Went Wrong!'
-                                    })
-                                }
-
-                            })
-                        instance.hide({ transitionOut: 'fadeOut' }, toast)
-                    }, true],
-                    ['<button>NO</button>', function (instance, toast) {
-                        instance.hide({ transitionOut: 'fadeOut' }, toast);
-                    }]
-                ]
-            });
+            markStatusOrDelete(`/admin/manufacturer/remove/${id}`, 'DELETE')        
         }
 
 

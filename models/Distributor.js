@@ -20,7 +20,7 @@ const distributor = MySql.define('distributor', {
     },
     createdBy: {
         type: DataTypes.STRING,
-        allowNull: false
+        defaultValue: "System Init"
     },
     updatedBy: {
         type: DataTypes.STRING
