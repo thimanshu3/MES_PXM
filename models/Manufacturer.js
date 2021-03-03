@@ -20,7 +20,7 @@ const manufacturer = MySql.define('manufacturer', {
     },
     createdBy: {
         type: DataTypes.STRING,
-        allowNull: false
+        defaultValue:"System Init"
     },
     updatedBy: {
         type: DataTypes.STRING
