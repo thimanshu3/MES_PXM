@@ -9,7 +9,7 @@ const readXlsxFile = require('read-excel-file/node')
 const { random } = require('../../util')
 
 const { MySql } = require('../../db')
-const { inputFields, inputTypes, ActivityLog } = require('../../models')
+const { inputFields, inputTypes, ActivityLog, fieldGroups } = require('../../models')
 const { addInputFieldSchema } = require('../../validation')
 const router = express.Router()
 
@@ -176,8 +176,8 @@ router.delete('/:id', async (req, res) => {
 
 router.get('/inputgroup', async (req, res) => {
     try{
-        const inputField = await inputFields.findAll()
-    res.render('admin/inputGroup', { User: req.user , inputField })
+        const fieldGroup = await fieldGroups.findAll()
+        res.render('admin/inputGroup', { User: req.user, fieldGroup })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         req.flash('error', 'Something Went Wrong!')
@@ -185,4 +185,37 @@ router.get('/inputgroup', async (req, res) => {
     }
 })
 
+
+router.post('/inputgroup/add', async (req, res) => {
+    const { name, description } = req.body
+    if (!name) {
+        req.flash('error', 'name is required!')
+        res.redirect('/admin/inputfield/inputgroup')
+        return
+    }
+    if (!description) {
+        req.flash('error', 'description is required!')
+        res.redirect('/admin/inputfield/inputgroup')
+        return
+    }
+    try {
+        const fieldGroup = await fieldGroups.create({ name, createdBy:req.user.id, description, createdBy: req.user.id })
+        await ActivityLog.create({
+            id: fieldGroup.id,
+            name: 'input Group',
+            type: 'Add',
+            user: req.user.id,
+            timestamp: new Date()
+        })
+        req.flash('success', `${fieldGroup.name} Added Successfully!`)
+        res.redirect('/admin/inputfield/inputgroup')
+    } catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        if (err.name === 'SequelizeUniqueConstraintError')
+            req.flash('error', `${err.errors[0].message} '${err.errors[0].value}' already exists!`)
+        else
+            req.flash('error', err.toString() || 'Something Went Wrong!')
+        res.redirect('/admin/inputfield/inputgroup')
+    }
+})
 module.exports = router

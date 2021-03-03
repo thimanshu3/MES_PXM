@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="/assets/css/demo.css">
         <link rel="stylesheet" href="/assets/css/kk_style.css">
         <link rel="stylesheet" href="/assets/css/iziToast.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css">
         <!-- Fonts and icons -->
         <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
         <script>
@@ -43,7 +44,7 @@
                             <div class="content">
                                 <div class="page-inner">
                                     <div class="page-header">
-
+                        
                                         <ul class="breadcrumbs">
                                             <li class="nav-home">
                                                 <a href="#">
@@ -65,15 +66,15 @@
                                         </ul>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12">
-
+                                        <div class="col-md-6">
+                        
                                             <div class="card">
                                                 <div class="card-header">
                                                     <div class="d-flex align-items-center">
                                                         <h4 class="card-title">All Groups</h4>
-
-                                                        <button class="btn btn-primary btn-round ml-auto"
-                                                            data-toggle="modal" data-target="#kk_create_group">
+                        
+                                                        <button class="btn btn-primary btn-round ml-auto" data-toggle="modal"
+                                                            data-target="#kk_create_group">
                                                             <i class="fa fa-plus"></i>
                                                             Create New Group
                                                         </button>
@@ -81,9 +82,8 @@
                                                 </div>
                                                 <div class="card-body">
                                                     <!-- Modal -->
-                                                    <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog modal-lg" role="document">
+                                                    <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header no-bd">
                                                                     <h5 class="modal-title">
@@ -93,40 +93,33 @@
                                                                             Row
                                                                         </span>
                                                                     </h5>
-                                                                    <button type="button" class="close"
-                                                                        data-dismiss="modal" aria-label="Close">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <p class="small">Create a new row using this form,
-                                                                        make sure you fill them all</p>
+                                                                    <p class="small">Create a new row using this form, make sure you fill them
+                                                                        all</p>
                                                                     <form>
                                                                         <div class="row">
                                                                             <div class="col-sm-12">
-                                                                                <div
-                                                                                    class="form-group form-group-default">
+                                                                                <div class="form-group form-group-default">
                                                                                     <label>Name</label>
-                                                                                    <input id="addName" type="text"
-                                                                                        class="form-control"
+                                                                                    <input id="addName" type="text" class="form-control"
                                                                                         placeholder="fill name">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-6 pr-0">
-                                                                                <div
-                                                                                    class="form-group form-group-default">
+                                                                                <div class="form-group form-group-default">
                                                                                     <label>Position</label>
-                                                                                    <input id="addPosition" type="text"
-                                                                                        class="form-control"
+                                                                                    <input id="addPosition" type="text" class="form-control"
                                                                                         placeholder="fill position">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-6">
-                                                                                <div
-                                                                                    class="form-group form-group-default">
+                                                                                <div class="form-group form-group-default">
                                                                                     <label>Office</label>
-                                                                                    <input id="addOffice" type="text"
-                                                                                        class="form-control"
+                                                                                    <input id="addOffice" type="text" class="form-control"
                                                                                         placeholder="fill office">
                                                                                 </div>
                                                                             </div>
@@ -134,326 +127,289 @@
                                                                     </form>
                                                                 </div>
                                                                 <div class="modal-footer no-bd">
-                                                                    <button type="button" id="addRowButton"
-                                                                        class="btn btn-primary">Add</button>
+                                                                    <button type="button" id="addRowButton" class="btn btn-primary">Add</button>
                                                                     <button type="button" class="btn btn-danger"
                                                                         data-dismiss="modal">Close</button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-
+                        
                                                     <div class="table-responsive">
-                                                        <table id="add-row"
-                                                            class="display table table-striped table-hover">
+                                                        <table id="add-row" class="display table table-striped table-hover">
                                                             <thead>
-                                                                <tr>
-                                                                    <th>Group Name</th>
-                                                                    <th>Created By</th>
-                                                                    <th>Status</th>
-                                                                    <th style="width: 10%">Action</th>
-                                                                </tr>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Created By</th>
+                                                                <th>Status</th>
+                                                                <th>Action</th>
+                                                            </tr>
                                                             </thead>
-                                                            <tfoot>
-                                                                <tr>
-                                                                    <th>Name</th>
-                                                                    <th>Position</th>
-                                                                    <th>Office</th>
-                                                                    <th>Action</th>
-                                                                </tr>
-                                                            </tfoot>
+                                                           
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>Tiger Nixon</td>
-                                                                    <td>System Architect</td>
-                                                                    <td>Edinburgh</td>
-                                                                    <td>
-                                                                        <div class="form-button-action">
-                                                                            <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-primary btn-round "
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
+                                                                <%fieldGroup.forEach(_a=>{ %>
+                                                                    <tr>
+                                                                        <td><%= _a.name  %> </td>
+                                                                        <td>System Architect</td>
+                                                                        <td><span id="activeBadge-<%= _a.id%>" class="badge badge-<%= _a.active ? 'success' : 'danger' %>">
+                                                                                <%= _a.active ? 'ACTIVE' : 'INACTIVE' %>
+                                                                            </span></td>
+                                                                        <td>
+                                                                            <div class="form-button-action">
+                                                                                <div class="kk_group_item_number">
+                                                                                    <button class="btn btn-primary btn-round " data-toggle="modal" data-target="#kk_group_items">15</button>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Garrett Winters</td>
-                                                                    <td>Accountant</td>
-                                                                    <td>Tokyo</td>
-                                                                    <td>
-                                                                        <div class="form-button-action">
-                                                                            <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-primary btn-round "
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Ashton Cox</td>
-                                                                    <td>Junior Technical Author</td>
-                                                                    <td>San Francisco</td>
-                                                                    <td>
-                                                                        <div class="form-button-action">
-                                                                            <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-primary btn-round "
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Cedric Kelly</td>
-                                                                    <td>Senior Javascript Developer</td>
-                                                                    <td>Edinburgh</td>
-                                                                    <td>
-                                                                        <div class="form-button-action">
-                                                                            <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-primary btn-round "
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Airi Satou</td>
-                                                                    <td>Accountant</td>
-                                                                    <td>Tokyo</td>
-                                                                    <td>
-                                                                        <div class="form-button-action">
-                                                                            <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-primary btn-round "
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Brielle Williamson</td>
-                                                                    <td>Integration Specialist</td>
-                                                                    <td>New York</td>
-                                                                    <td>
-                                                                        <div class="form-button-action">
-                                                                            <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-primary btn-round "
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Herrod Chandler</td>
-                                                                    <td>Sales Assistant</td>
-                                                                    <td>San Francisco</td>
-                                                                    <td>
-                                                                        <div class="form-button-action">
-                                                                            <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-primary btn-round "
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Rhona Davidson</td>
-                                                                    <td>Integration Specialist</td>
-                                                                    <td>Tokyo</td>
-                                                                    <td>
-                                                                        <div class="form-button-action">
-                                                                            <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-primary btn-round "
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Colleen Hurst</td>
-                                                                    <td>Javascript Developer</td>
-                                                                    <td>San Francisco</td>
-                                                                    <td>
-                                                                        <div class="form-button-action">
-                                                                            <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-primary btn-round "
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Sonya Frost</td>
-                                                                    <td>Software Engineer</td>
-                                                                    <td>Edinburgh</td>
-                                                                    <td>
-                                                                        <div class="form-button-action">
-                                                                            <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-primary btn-round "
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
+                                                                        </td>
+                                                                    </tr>
+                                                                <% }) %>
+                                                                
+                                                                
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
                                             </div>
-
-
-
+                        
+                        
+                        
+                                        </div>
+                        
+                        
+                                        <div class="col-md-6">
+                        
+                                            <div class="card kk_field_items">
+                                                <div class="card-header">
+                                                    <div class="d-flex align-items-center">
+                                                        <h4 class="card-title">Field Items</h4>
+                        
+                        
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="selectgroup selectgroup-pills">
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="HTML" class="selectgroup-input">
+                                                            <span class="selectgroup-button">HTML</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="CSS" class="selectgroup-input">
+                                                            <span class="selectgroup-button">CSS</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="PHP" class="selectgroup-input">
+                                                            <span class="selectgroup-button">PHP</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="JavaScript" class="selectgroup-input">
+                                                            <span class="selectgroup-button">JavaScript</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
+                                                            <span class="selectgroup-button">Ruby</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
+                                                            <span class="selectgroup-button">Ruby</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="C++" class="selectgroup-input">
+                                                            <span class="selectgroup-button">C++</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="HTML" class="selectgroup-input">
+                                                            <span class="selectgroup-button">HTML</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="CSS" class="selectgroup-input">
+                                                            <span class="selectgroup-button">CSS</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="PHP" class="selectgroup-input">
+                                                            <span class="selectgroup-button">PHP</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="JavaScript" class="selectgroup-input">
+                                                            <span class="selectgroup-button">JavaScript</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
+                                                            <span class="selectgroup-button">Ruby</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
+                                                            <span class="selectgroup-button">Ruby</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="C++" class="selectgroup-input">
+                                                            <span class="selectgroup-button">C++</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="HTML" class="selectgroup-input">
+                                                            <span class="selectgroup-button">HTML</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="CSS" class="selectgroup-input">
+                                                            <span class="selectgroup-button">CSS</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="PHP" class="selectgroup-input">
+                                                            <span class="selectgroup-button">PHP</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="JavaScript" class="selectgroup-input">
+                                                            <span class="selectgroup-button">JavaScript</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
+                                                            <span class="selectgroup-button">Ruby</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
+                                                            <span class="selectgroup-button">Ruby</span>
+                                                        </label>
+                                                        <label class="selectgroup-item">
+                                                            <input type="checkbox" name="value" value="C++" class="selectgroup-input">
+                                                            <span class="selectgroup-button">C++</span>
+                                                        </label>
+                                                    </div>
+                        
+                        
+                                                </div>
+                                            </div>
+                        
+                        
+                        
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                          
-
-
-                            <div class="modal kk_modal_popup_form" id="kk_create_group" style="display: none;"
-                                aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
+                            <footer class="footer">
+                                <div class="container-fluid">
+                                    <nav class="pull-left">
+                                        <ul class="nav">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="https://www.themekita.com">
+                                                    ThemeKita
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#">
+                                                    Help
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#">
+                                                    Licenses
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                    <div class="copyright ml-auto">
+                                        2018, made with <i class="fa fa-heart heart text-danger"></i> by <a
+                                            href="https://www.themekita.com">ThemeKita</a>
+                                    </div>
+                                </div>
+                            </footer>
+                        
+                        
+                            <div class="modal kk_modal_popup_form" id="kk_create_group" style="display: none;" aria-hidden="true">
+                                <div class="modal-dialog">
                                     <div class="modal-content">
-
+                        
                                         <!-- Modal Header -->
                                         <div class="modal-header">
                                             <h4 class="modal-title">Create New Group</h4>
                                             <button type="button" class="close" data-dismiss="modal">×</button>
                                         </div>
-
+                        
                                         <!-- Modal body -->
-                                        <div class="modal-body">
-
-                                            <div class="form-group">
-                                                <div class="input-icon">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Enter the Group Name">
-                                                    <span class="input-icon-addon">
-                                                        <i class="fa fa-user"></i>
-                                                    </span>
-
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="form-label">Select Group Items</label>
-                                                <div class="selectgroup selectgroup-pills">
-                                                    <%inputField.forEach(_i =>{ %>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="C++" class="selectgroup-input">
-                                                            <span class="selectgroup-button"><%= _i.label %> </span>
-                                                        </label>
-                                                   <% }) %> 
-                                                    
-                                                </div>
-                                            </div>
-
-
+                                    <div class="modal-body">
+                                    <form action="/admin/inputfield/inputgroup/add" method="POST">
+                                        <div class="form-group">
+                                            <label for="email2">Enter Group Name</label>
+                                            <input type="text" class="form-control" name="name" id="email2" placeholder="Name">
                                         </div>
-
+                                        <div class="form-group">
+                                            <label for="comment">Enter Group Description</label>
+                                            <textarea class="form-control" id="comment" name="description" rows="5"> </textarea>
+                                        </div>
                                         <!-- Modal footer -->
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary">Save</button>
-                                            <button type="button" class="btn btn-danger"
-                                                data-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                         </div>
-
+                                         </form>
                                     </div>
                                 </div>
                             </div>
-
-
-                            <div class="modal kk_modal_popup_form" id="kk_group_items" style="display: none;"
-                                aria-hidden="true">
+                        
+                        
+                            <div class="modal kk_modal_popup_form" id="kk_group_items" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-
+                        
                                         <!-- Modal Header -->
                                         <div class="modal-header">
                                             <h4 class="modal-title">Size Group's Items</h4>
                                             <button type="button" class="close" data-dismiss="modal">×</button>
                                         </div>
-
+                        
                                         <!-- Modal body -->
                                         <div class="modal-body">
-
-
+                        
+                        
                                             <div class="form-group">
-
+                        
                                                 <div class="selectgroup selectgroup-pills">
                                                     <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="HTML"
-                                                            class="selectgroup-input" checked>
+                                                        <input type="checkbox" name="value" value="HTML" class="selectgroup-input" checked>
                                                         <span class="selectgroup-button">HTML</span>
                                                     </label>
                                                     <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="CSS"
-                                                            class="selectgroup-input" checked>
+                                                        <input type="checkbox" name="value" value="CSS" class="selectgroup-input" checked>
                                                         <span class="selectgroup-button">CSS</span>
                                                     </label>
                                                     <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="PHP"
-                                                            class="selectgroup-input" checked>
+                                                        <input type="checkbox" name="value" value="PHP" class="selectgroup-input" checked>
                                                         <span class="selectgroup-button">PHP</span>
                                                     </label>
                                                     <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="JavaScript"
-                                                            class="selectgroup-input" checked>
+                                                        <input type="checkbox" name="value" value="JavaScript" class="selectgroup-input"
+                                                            checked>
                                                         <span class="selectgroup-button">JavaScript</span>
                                                     </label>
                                                     <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="Ruby"
-                                                            class="selectgroup-input" checked>
+                                                        <input type="checkbox" name="value" value="Ruby" class="selectgroup-input" checked>
                                                         <span class="selectgroup-button">Ruby</span>
                                                     </label>
                                                     <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="Ruby"
-                                                            class="selectgroup-input" checked>
+                                                        <input type="checkbox" name="value" value="Ruby" class="selectgroup-input" checked>
                                                         <span class="selectgroup-button">Ruby</span>
                                                     </label>
                                                     <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="C++"
-                                                            class="selectgroup-input" checked>
+                                                        <input type="checkbox" name="value" value="C++" class="selectgroup-input" checked>
                                                         <span class="selectgroup-button">C++</span>
                                                     </label>
-
+                        
                                                 </div>
                                             </div>
-
-
+                        
+                        
                                         </div>
-
+                        
                                         <!-- Modal footer -->
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-primary">Save</button>
-
+                        
                                         </div>
-
+                        
                                     </div>
                                 </div>
                             </div>
-
-
+                        
+                        
                         </div>
-
 
         </div>
         <!--   Core JS Files   -->
@@ -472,21 +428,21 @@
         <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
         <!-- Popper JS -->
         <script src="/assets/js/core/popper.min.js"></script>
+        <!-- jQuery UI -->
+        <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+        <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+        
+        <!-- jQuery Scrollbar -->
+        <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+        <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
         <script>
             $('#add-row').DataTable({
-                pageLength: 50,
-                info: false,
-                scrollCollapse: true,
-                scrollY: '60vh',
-                fixedHeader: true,
+                select: {
+                    style: 'single'
+                },
+                
             });
-            $(document).on('show.bs.modal', '.modal', function () {
-                var zIndex = 1040 + (10 * $('.modal:visible').length);
-                $(this).css('z-index', zIndex);
-                setTimeout(function () {
-                    $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
-                }, 0);
-            });
+           
         </script>
     </body>
 
