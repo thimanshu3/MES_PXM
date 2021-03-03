@@ -293,6 +293,7 @@
     <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
     <!-- Popper JS -->
     <script src="/assets/js/core/popper.min.js"></script>
+    <script src="/assets/js/clientScript.js"></script>
     <script>
         $('#add-row').DataTable({
             pageLength: 50,
@@ -308,102 +309,14 @@
                     $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
                 }, 0);
             });
+        
+
         function changeFieldStatus(id) {
-            iziToast.question({
-                overlay: true,
-                toastOnce: true,
-                id: 'question',
-                title: 'Hey',
-                message: 'Are you sure?',
-                position: 'center',
-                buttons: [
-                    ['<button><b>YES</b></button>', function (instance, toast) {
-                        call(id)
-                        instance.hide({ transitionOut: 'fadeOut' }, toast)
-                    }, true],
-                    ['<button>NO</button>', function (instance, toast) {
-                        instance.hide({ transitionOut: 'fadeOut' }, toast);
-                    }]
-                ]
-            });
+            markStatusOrDelete(`/admin/inputfield/${id}`, 'DELETE', 'status',`{"id":"${id}"}`)
         }
         function removeField(id) {
-                iziToast.question({
-                    overlay: true,
-                    toastOnce: true,
-                    id: 'question',
-                    title: 'Hey',
-                    message: 'Are you sure? once deleted it cannot be recovered!!',
-                    position: 'center',
-                    buttons: [
-                        ['<button><b>YES</b></button>', function (instance, toast) {
-                            call2(id)
-                            instance.hide({ transitionOut: 'fadeOut' }, toast)
-                        }, true],
-                        ['<button>NO</button>', function (instance, toast) {
-                            instance.hide({ transitionOut: 'fadeOut' }, toast);
-                        }]
-                    ]
-                });
-            }
-        const call = (id) => {
-                fetch(`/admin/inputfield/${id}`, {
-                    method: 'DELETE'
-                })
-                    .then(res => res.json())
-                    .then(json => {
-                        if (json.status === 200) {
-                            iziToast.info({
-                                message: json.message
-                            })
-                            $(`#activeBadge-${id}`).text(json.active ? 'ACTIVE' : 'INACTIVE')
-                            document.querySelector(`#activeBadge-${id}`).classList.remove('badge-success')
-                            document.querySelector(`#activeBadge-${id}`).classList.remove('badge-danger')
-                            document.querySelector(`#activeBadge-${id}`).classList.add(json.active ? 'badge-success' : 'badge-danger')
-                            $(`#changeFieldStatus-${id}`).empty()
-                            $(`#changeFieldStatus-${id}`).append(`
-                            <i class="fas ${json.active ? 'fa-toggle-on' : 'fa-toggle-off'}"></i>
-                        `)
-                        } else {
-                            iziToast.error({
-                                message: json.message
-                            })
-                        }
-                    })
-                    .catch(err => {
-                        console.log(err)
-                    })
-            }
-
-            const call2 = (id) => {
-                    fetch(`/admin/inputfield/remove/${id}`, {
-                        method: 'DELETE'
-                    })
-                        .then(res => res.json())
-                        .then(json => {
-                            if (json.status === 200) {
-                                // iziToast.info({
-                                //     message: json.message
-                                // })
-                                //$(`#activeBadge-${id}`).text(json.active ? 'ACTIVE' : 'INACTIVE')
-                        //         document.querySelector(`#activeBadge-${id}`).classList.remove('badge-success')
-                        //         document.querySelector(`#activeBadge-${id}`).classList.remove('badge-danger')
-                        //         document.querySelector(`#activeBadge-${id}`).classList.add(json.active ? 'badge-success' : 'badge-danger')
-                        //         $(`#changeFieldStatus-${id}`).empty()
-                        //         $(`#changeFieldStatus-${id}`).append(`
-                        //     <i class="fas ${json.active ? 'fa-toggle-on' : 'fa-toggle-off'}"></i>
-                        // `)
-                                location.reload()
-                            } else {
-                                iziToast.error({
-                                    message: json.message
-                                })
-                            }
-                        })
-                        .catch(err => {
-                            console.log(err)
-                        })
-                }
+                markStatusOrDelete(`/admin/inputfield/remove/${id}`, 'DELETE')
+        }
     </script>
 </body>
 
