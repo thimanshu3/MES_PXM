@@ -22,6 +22,8 @@ router.use('/Manufacturer', require('./Manufacturer'))
 
 router.use('/loginreport', require('./loginReport'))
 
+router.use('/inputfield', require('./inputField'))
+
 
 
 
