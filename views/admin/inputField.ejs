@@ -151,7 +151,7 @@
                                                                                                 class="btn btn-link btn-danger"
                                                                                                 data-original-title="Remove">
                                                                                                 <i
-                                                                                                    class="fas fa-toggle-on"></i>
+                                                                                                    class="fas <%= _a.active ? 'fa-toggle-on': 'fa-toggle-off' %>"></i>
                                                                                             </button>
                                                                                         </div>
                                                                                     </td>
@@ -339,7 +339,7 @@
                             document.querySelector(`#activeBadge-${id}`).classList.add(json.active ? 'badge-success' : 'badge-danger')
                             $(`#changeFieldStatus-${id}`).empty()
                             $(`#changeFieldStatus-${id}`).append(`
-                            <i class="fas ${json.active ? 'fa-toggle-off' : 'fa-toggle-on'}"></i>
+                            <i class="fas ${json.active ? 'fa-toggle-on' : 'fa-toggle-off'}"></i>
                         `)
                         } else {
                             iziToast.error({

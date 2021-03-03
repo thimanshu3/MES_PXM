@@ -58,7 +58,7 @@ app.use(passport.session())
 app.use('/', require('./routes/routes'))
 app.use('*', (req, res) => res.status(404).sendFile(NotFoundPage))
 
-app.listen(port,"127.0.0.2", console.log(
+app.listen(port, console.log(
     '\x1b[36m%s\x1b[0m',
     `${process.env.NODE_ENV === 'production' ? 'Production' : 'Development'} Server started on port ${port}...`)
 )
