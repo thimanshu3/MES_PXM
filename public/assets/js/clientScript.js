@@ -23,8 +23,7 @@ const markStatusOrDelete = (uri,method,type) =>{
                                     document.querySelector(`#activeBadge-${id}`).classList.remove('badge-danger')
                                     document.querySelector(`#activeBadge-${id}`).classList.add(json.active ? 'badge-success' : 'badge-danger')
                                     $(`#changeActiveUser-${id}`).empty()
-                                    $(`#changeActiveUser-${id}`).append(`<i class="fas ${json.active ? 'fa-trash' : 'fa-undo'}"></i>
-`)
+                                    $(`#changeActiveUser-${id}`).append(`<i class="fas ${json.active ? 'fa-trash' : 'fa-undo'}"></i>`)
                                 }else{
                                     location.reload(true);
                                 }

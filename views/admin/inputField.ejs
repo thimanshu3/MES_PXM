@@ -142,13 +142,16 @@
                                                                                                 <i
                                                                                                     class="fa fa-edit"></i>
                                                                                             </button>
-                                                                                            <button type="button"
+                                                                                            <button
+                                                                                                id="changeFieldStatus-<%=_a.id%>"
+                                                                                                onclick="changeFieldStatus('<%=_a.id%>')"
+                                                                                                type="button"
                                                                                                 data-toggle="tooltip"
-                                                                                                title=""
+                                                                                                title="Toggle to Change Status"
                                                                                                 class="btn btn-link btn-danger"
                                                                                                 data-original-title="Remove">
                                                                                                 <i
-                                                                                                    class="fa fa-trash"></i>
+                                                                                                    class="fas fa-toggle-on"></i>
                                                                                             </button>
                                                                                         </div>
                                                                                     </td>
@@ -301,6 +304,53 @@
                     $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
                 }, 0);
             });
+        function changeFieldStatus(id) {
+            iziToast.question({
+                overlay: true,
+                toastOnce: true,
+                id: 'question',
+                title: 'Hey',
+                message: 'Are you sure?',
+                position: 'center',
+                buttons: [
+                    ['<button><b>YES</b></button>', function (instance, toast) {
+                        call(id)
+                        instance.hide({ transitionOut: 'fadeOut' }, toast)
+                    }, true],
+                    ['<button>NO</button>', function (instance, toast) {
+                        instance.hide({ transitionOut: 'fadeOut' }, toast);
+                    }]
+                ]
+            });
+        }
+        const call = (id) => {
+                fetch(`/admin/inputfield/${id}`, {
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(json => {
+                        if (json.status === 200) {
+                            iziToast.info({
+                                message: json.message
+                            })
+                            $(`#activeBadge-${id}`).text(json.active ? 'ACTIVE' : 'INACTIVE')
+                            document.querySelector(`#activeBadge-${id}`).classList.remove('badge-success')
+                            document.querySelector(`#activeBadge-${id}`).classList.remove('badge-danger')
+                            document.querySelector(`#activeBadge-${id}`).classList.add(json.active ? 'badge-success' : 'badge-danger')
+                            $(`#changeFieldStatus-${id}`).empty()
+                            $(`#changeFieldStatus-${id}`).append(`
+                            <i class="fas ${json.active ? 'fa-toggle-off' : 'fa-toggle-on'}"></i>
+                        `)
+                        } else {
+                            iziToast.error({
+                                message: json.message
+                            })
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
     </script>
 </body>
 
