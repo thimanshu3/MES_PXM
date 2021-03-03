@@ -153,6 +153,27 @@ router.post('/import', excelUpload.single('file'), async (req, res) => {
         })
 })
 
+router.delete('/:id', async (req, res) => {
+    const foundField = await inputFields.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+
+    if (!foundField)
+        return res.status(404).json({ message: 'Field Not Found!' })
+
+    // if (foundField.role === 0)
+    //     return res.status(400).json({ message: 'Cannot Deactive Admin' })
+
+    foundField.active = !foundField.active
+    await foundField.save()
+
+    res.json({ status: 200, message: `Field ${foundField.active ? 'Activated' : 'Deactivated'} Successfully!`, active: foundField.active })
+})
+
+
+
 router.get('/inputgroup', async (req, res) => {
     try{
         const inputField = await inputFields.findAll()
