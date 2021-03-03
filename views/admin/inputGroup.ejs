@@ -1,449 +1,506 @@
 <!DOCTYPE html>
-    <html lang="en">
+<html lang="en">
 
-    <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Infeenity Dashboard</title>
-        <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-        <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Infeenity Dashboard</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
 
-        <!-- CSS Files -->
-        <link rel="stylesheet" href="/assets/css/bootstrap.css">
-        <link rel="stylesheet" href="/assets/css/atlantis.min.css">
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/atlantis.min.css">
 
-        <!-- CSS Just for demo purpose, don't include it in your project -->
-        <link rel="stylesheet" href="/assets/css/demo.css">
-        <link rel="stylesheet" href="/assets/css/kk_style.css">
-        <link rel="stylesheet" href="/assets/css/iziToast.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css">
-        <!-- Fonts and icons -->
-        <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
-        <script>
-            WebFont.load({
-                google: { "families": ["Lato:300,400,700,900"] },
-                custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css'] },
-                active: function () {
-                    sessionStorage.fonts = true;
-                }
-            });
-        </script>
-    </head>
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="/assets/css/demo.css">
+    <link rel="stylesheet" href="/assets/css/kk_style.css">
+    <link rel="stylesheet" href="/assets/css/iziToast.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css">
+    <!-- Fonts and icons -->
+    <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+        WebFont.load({
+            google: { "families": ["Lato:300,400,700,900"] },
+            custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css'] },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+</head>
 
-    <body>
-        <div class="wrapper">
-            <%-include('../partials/config')%>
+<body>
+    <div class="wrapper">
+        <%-include('../partials/config')%>
 
-                <!-- header -->
-                <%-include('../partials/header.ejs')%>
-                    <!-- header end -->
+            <!-- header -->
+            <%-include('../partials/header.ejs')%>
+                <!-- header end -->
 
-                    <!-- Sidebar -->
-                    <%-include('../partials/sidebar.ejs')%>
-                        <!-- End Sidebar -->
-                        <div class="main-panel">
-                            <div class="content">
-                                <div class="page-inner">
-                                    <div class="page-header">
-                        
-                                        <ul class="breadcrumbs">
-                                            <li class="nav-home">
-                                                <a href="#">
-                                                    <i class="flaticon-home"></i>
-                                                </a>
-                                            </li>
-                                            <li class="separator">
-                                                <i class="flaticon-right-arrow"></i>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="#">Users</a>
-                                            </li>
-                                            <li class="separator">
-                                                <i class="flaticon-right-arrow"></i>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="#">Add New User</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                        
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    <div class="d-flex align-items-center">
-                                                        <h4 class="card-title">All Groups</h4>
-                        
-                                                        <button class="btn btn-primary btn-round ml-auto" data-toggle="modal"
-                                                            data-target="#kk_create_group">
-                                                            <i class="fa fa-plus"></i>
-                                                            Create New Group
-                                                        </button>
-                                                    </div>
+                <!-- Sidebar -->
+                <%-include('../partials/sidebar.ejs')%>
+                    <!-- End Sidebar -->
+                    <div class="main-panel">
+                        <div class="content">
+                            <div class="page-inner">
+                                <div class="page-header">
+
+                                    <ul class="breadcrumbs">
+                                        <li class="nav-home">
+                                            <a href="#">
+                                                <i class="flaticon-home"></i>
+                                            </a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">Users</a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">Add New User</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <div class="d-flex align-items-center">
+                                                    <h4 class="card-title">All Groups</h4>
+
+                                                    <button class="btn btn-primary btn-round ml-auto"
+                                                        data-toggle="modal" data-target="#kk_create_group">
+                                                        <i class="fa fa-plus"></i>
+                                                        Create New Group
+                                                    </button>
                                                 </div>
-                                                <div class="card-body">
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header no-bd">
-                                                                    <h5 class="modal-title">
-                                                                        <span class="fw-mediumbold">
-                                                                            New</span>
-                                                                        <span class="fw-light">
-                                                                            Row
-                                                                        </span>
-                                                                    </h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <p class="small">Create a new row using this form, make sure you fill them
-                                                                        all</p>
-                                                                    <form>
-                                                                        <div class="row">
-                                                                            <div class="col-sm-12">
-                                                                                <div class="form-group form-group-default">
-                                                                                    <label>Name</label>
-                                                                                    <input id="addName" type="text" class="form-control"
-                                                                                        placeholder="fill name">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-6 pr-0">
-                                                                                <div class="form-group form-group-default">
-                                                                                    <label>Position</label>
-                                                                                    <input id="addPosition" type="text" class="form-control"
-                                                                                        placeholder="fill position">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <div class="form-group form-group-default">
-                                                                                    <label>Office</label>
-                                                                                    <input id="addOffice" type="text" class="form-control"
-                                                                                        placeholder="fill office">
-                                                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header no-bd">
+                                                                <h5 class="modal-title">
+                                                                    <span class="fw-mediumbold">
+                                                                        New</span>
+                                                                    <span class="fw-light">
+                                                                        Row
+                                                                    </span>
+                                                                </h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p class="small">Create a new row using this form, make
+                                                                    sure you fill them
+                                                                    all</p>
+                                                                <form>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <div class="form-group form-group-default">
+                                                                                <label>Name</label>
+                                                                                <input id="addName" type="text"
+                                                                                    class="form-control"
+                                                                                    placeholder="fill name">
                                                                             </div>
                                                                         </div>
-                                                                    </form>
-                                                                </div>
-                                                                <div class="modal-footer no-bd">
-                                                                    <button type="button" id="addRowButton" class="btn btn-primary">Add</button>
-                                                                    <button type="button" class="btn btn-danger"
-                                                                        data-dismiss="modal">Close</button>
-                                                                </div>
+                                                                        <div class="col-md-6 pr-0">
+                                                                            <div class="form-group form-group-default">
+                                                                                <label>Position</label>
+                                                                                <input id="addPosition" type="text"
+                                                                                    class="form-control"
+                                                                                    placeholder="fill position">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group form-group-default">
+                                                                                <label>Office</label>
+                                                                                <input id="addOffice" type="text"
+                                                                                    class="form-control"
+                                                                                    placeholder="fill office">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer no-bd">
+                                                                <button type="button" id="addRowButton"
+                                                                    class="btn btn-primary">Add</button>
+                                                                <button type="button" class="btn btn-danger"
+                                                                    data-dismiss="modal">Close</button>
                                                             </div>
                                                         </div>
                                                     </div>
-                        
-                                                    <div class="table-responsive">
-                                                        <table id="add-row" class="display table table-striped table-hover">
-                                                            <thead>
+                                                </div>
+
+                                                <div class="table-responsive">
+                                                    <table id="add-row" class="display table table-striped table-hover">
+                                                        <thead>
                                                             <tr>
                                                                 <th>Name</th>
                                                                 <th>Created By</th>
                                                                 <th>Status</th>
                                                                 <th>Action</th>
                                                             </tr>
-                                                            </thead>
-                                                           
-                                                            <tbody>
-                                                                <%fieldGroup.forEach(_a=>{ %>
-                                                                    <tr>
-                                                                        <td><%= _a.name  %> </td>
-                                                                        <td>System Architect</td>
-                                                                        <td><span id="activeBadge-<%= _a.id%>" class="badge badge-<%= _a.active ? 'success' : 'danger' %>">
-                                                                                <%= _a.active ? 'ACTIVE' : 'INACTIVE' %>
-                                                                            </span></td>
-                                                                        <td>
-                                                                            <div class="form-button-action">
-                                                                                <div class="kk_group_item_number">
-                                                                                    <button class="btn btn-primary btn-round " data-toggle="modal" data-target="#kk_group_items">15</button>
-                                                                                </div>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            <%fieldGroup.forEach(_a=>{ %>
+                                                                <tr>
+                                                                    <td>
+                                                                        <%= _a.name %>
+                                                                    </td>
+                                                                    <td>System Architect</td>
+                                                                    <td><span id="activeBadge-<%= _a.id%>"
+                                                                            class="badge badge-<%= _a.active ? 'success' : 'danger' %>">
+                                                                            <%= _a.active ? 'ACTIVE' : 'INACTIVE' %>
+                                                                        </span></td>
+                                                                    <td>
+                                                                        <div class="form-button-action">
+                                                                            <div class="kk_group_item_number">
+                                                                                <button
+                                                                                    class="btn btn-primary btn-round "
+                                                                                    data-toggle="modal"
+                                                                                    data-target="#kk_group_items">15</button>
                                                                             </div>
-                                                                        </td>
-                                                                    </tr>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
                                                                 <% }) %>
-                                                                
-                                                                
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+
+
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
-                        
-                        
-                        
                                         </div>
-                        
-                        
-                                        <div class="col-md-6">
-                        
-                                            <div class="card kk_field_items">
-                                                <div class="card-header">
-                                                    <div class="d-flex align-items-center">
-                                                        <h4 class="card-title">Field Items</h4>
-                        
-                        
-                                                    </div>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="selectgroup selectgroup-pills">
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="HTML" class="selectgroup-input">
-                                                            <span class="selectgroup-button">HTML</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="CSS" class="selectgroup-input">
-                                                            <span class="selectgroup-button">CSS</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="PHP" class="selectgroup-input">
-                                                            <span class="selectgroup-button">PHP</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="JavaScript" class="selectgroup-input">
-                                                            <span class="selectgroup-button">JavaScript</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
-                                                            <span class="selectgroup-button">Ruby</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
-                                                            <span class="selectgroup-button">Ruby</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="C++" class="selectgroup-input">
-                                                            <span class="selectgroup-button">C++</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="HTML" class="selectgroup-input">
-                                                            <span class="selectgroup-button">HTML</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="CSS" class="selectgroup-input">
-                                                            <span class="selectgroup-button">CSS</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="PHP" class="selectgroup-input">
-                                                            <span class="selectgroup-button">PHP</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="JavaScript" class="selectgroup-input">
-                                                            <span class="selectgroup-button">JavaScript</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
-                                                            <span class="selectgroup-button">Ruby</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
-                                                            <span class="selectgroup-button">Ruby</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="C++" class="selectgroup-input">
-                                                            <span class="selectgroup-button">C++</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="HTML" class="selectgroup-input">
-                                                            <span class="selectgroup-button">HTML</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="CSS" class="selectgroup-input">
-                                                            <span class="selectgroup-button">CSS</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="PHP" class="selectgroup-input">
-                                                            <span class="selectgroup-button">PHP</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="JavaScript" class="selectgroup-input">
-                                                            <span class="selectgroup-button">JavaScript</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
-                                                            <span class="selectgroup-button">Ruby</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="Ruby" class="selectgroup-input">
-                                                            <span class="selectgroup-button">Ruby</span>
-                                                        </label>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="C++" class="selectgroup-input">
-                                                            <span class="selectgroup-button">C++</span>
-                                                        </label>
-                                                    </div>
-                        
-                        
+
+
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <div class="card kk_field_items">
+                                            <div class="card-header">
+                                                <div class="d-flex align-items-center">
+                                                    <h4 class="card-title">Field Items</h4>
+
+
                                                 </div>
                                             </div>
-                        
-                        
-                        
+                                            <div class="card-body">
+                                                <div class="selectgroup selectgroup-pills">
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="HTML"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">HTML</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="CSS"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">CSS</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="PHP"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">PHP</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="JavaScript"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">JavaScript</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="Ruby"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">Ruby</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="Ruby"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">Ruby</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="C++"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">C++</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="HTML"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">HTML</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="CSS"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">CSS</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="PHP"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">PHP</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="JavaScript"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">JavaScript</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="Ruby"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">Ruby</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="Ruby"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">Ruby</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="C++"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">C++</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="HTML"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">HTML</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="CSS"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">CSS</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="PHP"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">PHP</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="JavaScript"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">JavaScript</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="Ruby"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">Ruby</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="Ruby"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">Ruby</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="checkbox" name="value" value="C++"
+                                                            class="selectgroup-input">
+                                                        <span class="selectgroup-button">C++</span>
+                                                    </label>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="card-footer">
+                                                <button class="d-flex justify-content-end btn btn-primary"
+                                                    id="assigntogroup">
+                                                    Add to Group
+                                                </button>
+                                            </div>
                                         </div>
+
+
+
                                     </div>
                                 </div>
                             </div>
-                            <footer class="footer">
-                                <div class="container-fluid">
-                                    <nav class="pull-left">
-                                        <ul class="nav">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="https://www.themekita.com">
-                                                    ThemeKita
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">
-                                                    Help
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">
-                                                    Licenses
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                    <div class="copyright ml-auto">
-                                        2018, made with <i class="fa fa-heart heart text-danger"></i> by <a
-                                            href="https://www.themekita.com">ThemeKita</a>
-                                    </div>
+                        </div>
+                        <footer class="footer">
+                            <div class="container-fluid">
+                                <nav class="pull-left">
+                                    <ul class="nav">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="https://www.themekita.com">
+                                                ThemeKita
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">
+                                                Help
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">
+                                                Licenses
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <div class="copyright ml-auto">
+                                    2018, made with <i class="fa fa-heart heart text-danger"></i> by <a
+                                        href="https://www.themekita.com">ThemeKita</a>
                                 </div>
-                            </footer>
-                        
-                        
-                            <div class="modal kk_modal_popup_form" id="kk_create_group" style="display: none;" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                        
-                                        <!-- Modal Header -->
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Create New Group</h4>
-                                            <button type="button" class="close" data-dismiss="modal">×</button>
-                                        </div>
-                        
-                                        <!-- Modal body -->
+                            </div>
+                        </footer>
+
+
+                        <div class="modal kk_modal_popup_form" id="kk_create_group" style="display: none;"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Create New Group</h4>
+                                        <button type="button" class="close" data-dismiss="modal">×</button>
+                                    </div>
+
+                                    <!-- Modal body -->
                                     <div class="modal-body">
-                                    <form action="/admin/inputfield/inputgroup/add" method="POST">
-                                        <div class="form-group">
-                                            <label for="email2">Enter Group Name</label>
-                                            <input type="text" class="form-control" name="name" id="email2" placeholder="Name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="comment">Enter Group Description</label>
-                                            <textarea class="form-control" id="comment" name="description" rows="5"> </textarea>
-                                        </div>
-                                        <!-- Modal footer -->
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary">Save</button>
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                                        </div>
-                                         </form>
+                                        <form action="/admin/inputfield/inputgroup/add" method="POST">
+                                            <div class="form-group">
+                                                <label for="email2">Enter Group Name</label>
+                                                <input type="text" class="form-control" name="name" id="email2"
+                                                    placeholder="Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comment">Enter Group Description</label>
+                                                <textarea class="form-control" id="comment" name="description"
+                                                    rows="5"> </textarea>
+                                            </div>
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Save</button>
+                                                <button type="button" class="btn btn-danger"
+                                                    data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                        
-                        
-                            <div class="modal kk_modal_popup_form" id="kk_group_items" style="display: none;" aria-hidden="true">
+
+
+                            <div class="modal kk_modal_popup_form" id="kk_group_items" style="display: none;"
+                                aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                        
+
                                         <!-- Modal Header -->
                                         <div class="modal-header">
                                             <h4 class="modal-title">Size Group's Items</h4>
                                             <button type="button" class="close" data-dismiss="modal">×</button>
                                         </div>
-                        
+
                                         <!-- Modal body -->
                                         <div class="modal-body">
-                        
-                        
+
+
                                             <div class="form-group">
-                        
+
                                                 <div class="selectgroup selectgroup-pills">
                                                     <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="HTML" class="selectgroup-input" checked>
+                                                        <input type="checkbox" name="value" value="HTML"
+                                                            class="selectgroup-input" checked>
                                                         <span class="selectgroup-button">HTML</span>
                                                     </label>
                                                     <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="CSS" class="selectgroup-input" checked>
+                                                        <input type="checkbox" name="value" value="CSS"
+                                                            class="selectgroup-input" checked>
                                                         <span class="selectgroup-button">CSS</span>
                                                     </label>
                                                     <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="PHP" class="selectgroup-input" checked>
+                                                        <input type="checkbox" name="value" value="PHP"
+                                                            class="selectgroup-input" checked>
                                                         <span class="selectgroup-button">PHP</span>
                                                     </label>
                                                     <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="JavaScript" class="selectgroup-input"
-                                                            checked>
+                                                        <input type="checkbox" name="value" value="JavaScript"
+                                                            class="selectgroup-input" checked>
                                                         <span class="selectgroup-button">JavaScript</span>
                                                     </label>
                                                     <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="Ruby" class="selectgroup-input" checked>
+                                                        <input type="checkbox" name="value" value="Ruby"
+                                                            class="selectgroup-input" checked>
                                                         <span class="selectgroup-button">Ruby</span>
                                                     </label>
                                                     <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="Ruby" class="selectgroup-input" checked>
+                                                        <input type="checkbox" name="value" value="Ruby"
+                                                            class="selectgroup-input" checked>
                                                         <span class="selectgroup-button">Ruby</span>
                                                     </label>
                                                     <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="C++" class="selectgroup-input" checked>
+                                                        <input type="checkbox" name="value" value="C++"
+                                                            class="selectgroup-input" checked>
                                                         <span class="selectgroup-button">C++</span>
                                                     </label>
-                        
+
                                                 </div>
                                             </div>
-                        
-                        
+
+
                                         </div>
-                        
+
                                         <!-- Modal footer -->
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-primary">Save</button>
-                        
+
                                         </div>
-                        
+
                                     </div>
                                 </div>
                             </div>
-                        
-                        
+
+
                         </div>
 
-        </div>
-        <!--   Core JS Files   -->
+                    </div>
+                    <!--   Core JS Files   -->
 
 
-        <!-- jQuery library -->
-        <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
-        <!-- Latest compiled JavaScript -->
-        <script src="/assets/js/core/bootstrap.js"></script>
+                    <!-- jQuery library -->
+                    <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
+                    <!-- Latest compiled JavaScript -->
+                    <script src="/assets/js/core/bootstrap.js"></script>
 
-        <!-- Atlantis JS -->
-        <script src="/assets/js/atlantis.min.js"></script>
-        <script src="/assets/js/iziToast.js"></script>
-        <script src="/assets/js/flashMessage.js"></script>
-        <!-- Datatables -->
-        <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
-        <!-- Popper JS -->
-        <script src="/assets/js/core/popper.min.js"></script>
-        <!-- jQuery UI -->
-        <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-        <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-        
-        <!-- jQuery Scrollbar -->
-        <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-        <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
-        <script>
-            $('#add-row').DataTable({
-                select: {
-                    style: 'single'
-                },
-                
-            });
-           
-        </script>
-    </body>
+                    <!-- Atlantis JS -->
+                    <script src="/assets/js/atlantis.min.js"></script>
+                    <script src="/assets/js/iziToast.js"></script>
+                    <script src="/assets/js/flashMessage.js"></script>
+                    <!-- Datatables -->
+                    <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+                    <!-- Popper JS -->
+                    <script src="/assets/js/core/popper.min.js"></script>
+                    <!-- jQuery UI -->
+                    <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+                    <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
 
-    </html>
+                    <!-- jQuery Scrollbar -->
+                    <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+                    <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+                    <script>
+                        var table = $('#add-row').DataTable({
+                            select: {
+                                style: 'single'
+                            },
+
+                        });
+                        $('#assigntogroup').click(function () {
+                            var ids = $.map(table.rows('.selected').data(), function (item) {
+                                return item[0]
+                            });
+                            console.log(ids)
+                            console.log(table.rows('.selected').data().length + ' row(s) selected');
+                        });
+                    </script>
+</body>
+
+</html>
