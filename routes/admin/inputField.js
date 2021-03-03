@@ -275,7 +275,7 @@ router.post('/inputgroup', async (req, res) => {
 
     try {
 
-        const date = new Date()
+        //const date = new Date()
 
         if (checked.length === 0)
             return res.status(400).json({ status: 400, message: 'Field items are required' })
@@ -284,7 +284,8 @@ router.post('/inputgroup', async (req, res) => {
             await fieldsAssignedToGroup.bulkCreate(checked.map(s => ({
                 groupId,
                 fieldId: s,
-                createdAt: date
+                AssignedBy: req.user.id,
+
             })))
 
 
