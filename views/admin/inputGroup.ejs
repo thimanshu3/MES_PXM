@@ -155,7 +155,7 @@
 
                                                         <tbody>
                                                             <%fieldGroup.forEach(_a=>{ %>
-                                                                <tr id="<%= _a.id %>" >
+                                                                <tr id="<%= _a.id %>">
                                                                     <td>
                                                                         <%= _a.name %>
                                                                     </td>
@@ -201,111 +201,11 @@
                                             </div>
                                             <div class="card-body">
                                                 <div class="selectgroup selectgroup-pills">
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="HTML"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">HTML</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="CSS"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">CSS</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="PHP"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">PHP</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="JavaScript"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">JavaScript</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="Ruby"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">Ruby</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="Ruby"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">Ruby</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="C++"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">C++</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="HTML"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">HTML</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="CSS"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">CSS</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="PHP"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">PHP</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="JavaScript"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">JavaScript</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="Ruby"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">Ruby</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="Ruby"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">Ruby</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="C++"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">C++</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="HTML"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">HTML</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="CSS"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">CSS</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="PHP"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">PHP</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="JavaScript"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">JavaScript</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="Ruby"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">Ruby</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="Ruby"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">Ruby</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="C++"
-                                                            class="selectgroup-input">
-                                                        <span class="selectgroup-button">C++</span>
-                                                    </label>
+                                                    <div class="scroll-area-lg">
+                                                        <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
+                                                            
+                                                        </div>
+                                                    </div>
                                                 </div>
 
 
@@ -487,19 +387,102 @@
                     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
                     <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
                     <script>
+                        var ids
                         var table = $('#add-row').DataTable({
                             select: {
                                 style: 'single'
                             },
 
                         });
-                        $('#assigntogroup').click(function () {
-                            var ids = $.map(table.rows('.selected').ids(), function (item) {
+                        table.off("select").on("select", function (e, dt, type, indexes) {
+                            ids = $.map(table.rows('.selected').ids(), function (item) {
                                 return item
                             });
-                            console.log(ids)
-                            console.log(table.rows('.selected').data().length + ' row(s) selected');
+                           ids = ids.toString()
+                            showItemFields(ids)
                         });
+
+
+                        $('#assigntogroup').click(function () {
+                            let checked = []
+                           $.each($("input[name='field']:checked"), function () {
+                                 checked.push(
+                                     $(this).val(),
+                                 )
+                            });
+                            if(checked.length !== 0){
+                                fetch('/admin/inputfield/inputgroup', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        checked, groupId: ids
+                                    })
+                                })
+                                    .then(function (res) {
+                                        return res.json()
+                                    })
+                                    .then(function (json) {
+                                        showItemFields(ids)
+                                        if (json.status == 200)
+                                            iziToast.success({
+                                                message: json.message
+                                            })
+                                        else if (json.status == 400)
+                                            iziToast.error({
+                                                title: json.message,
+                                                message: json.error
+                                            })
+                                        else
+                                            iziToast.error({
+                                                message: json.message
+                                            })
+                                    })
+                                    .catch(err => console.log(err))
+                            }
+                            else{
+                                iziToast.warning({
+                                    message: 'Please select Input to add in this group'
+                                })
+                            }
+                        });
+
+                        const showItemFields = (id) =>{
+                            $('#fieldListArea').empty()
+                             fetch(`/admin/inputfield/inputgroup/${id}`)
+                                .then(function (res) {
+                                    return res.json()
+                                })
+                                .then(function (json) {
+                                    if (json.status == 404)
+                                        iziToast.error({
+                                            message: json.message
+                                        })
+                                    else if (json.status == 500)
+                                        iziToast.error({
+                                            title: json.message,
+                                            message: json.error
+                                        })
+                                    else if (json.status == 200) {
+                                        let itemFields = ''
+            
+                                        json.data.itemFields.forEach(b => {
+                                            let checked = b.isAssigned ? 'checked' : '';
+                                            itemFields += ` <label class="selectgroup-item">
+                                                                <input type="checkbox" name="field" id="f-${b.id}" value="${b.id}"class="selectgroup-input fclass" ${checked}>
+                                                                <span class="selectgroup-button">${b.name}</span>
+                                                            </label>`
+                                        })
+                                        $('#fieldListArea').append(itemFields)
+                                    }
+                                    else
+                                        iziToast.error({
+                                            message: 'Something Went Wrong!'
+                                        })
+                                })
+                                .catch(err => console.log(err))
+                        }
                     </script>
 </body>
 

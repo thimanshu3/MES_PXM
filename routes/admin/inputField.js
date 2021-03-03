@@ -9,7 +9,7 @@ const readXlsxFile = require('read-excel-file/node')
 const { random } = require('../../util')
 
 const { MySql } = require('../../db')
-const { inputFields, inputTypes, ActivityLog, fieldGroups } = require('../../models')
+const { inputFields, inputTypes, ActivityLog, fieldGroups, fieldsAssignedToGroup } = require('../../models')
 const { addInputFieldSchema } = require('../../validation')
 const { Router } = require('express')
 const router = express.Router()
@@ -196,6 +196,7 @@ router.delete('/remove/:id',async (req,res) => {
 router.get('/inputgroup', async (req, res) => {
     try{
         const fieldGroup = await fieldGroups.findAll()
+        console.log(fieldGroup)
         res.render('admin/inputGroup', { User: req.user, fieldGroup })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
@@ -237,4 +238,61 @@ router.post('/inputgroup/add', async (req, res) => {
         res.redirect('/admin/inputfield/inputgroup')
     }
 })
+
+router.get('/inputgroup/:id', async (req, res) => {
+    try {
+        
+        const [itemFields, assignedItemFields] = await async.parallel([
+            async () => await inputFields.findAll(),
+            async () => await fieldsAssignedToGroup.findAll({
+                where: {
+                    groupId: req.params.id,
+                }
+            })
+        ])
+        const s = []
+        itemFields.forEach(itemField => {
+            s.push({
+                id: itemField.id,
+                name: itemField.label,
+                isAssigned: assignedItemFields.find(s => s.fieldId === itemField.id) ? true : false
+            })
+        })
+        console.log(s)
+        res.json({ status: 200, data: { itemFields: s} })
+    } catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        res.status(500).json({ status: 500, message: 'Something Went Wrong!' })
+    }
+})
+
+router.post('/inputgroup', async (req, res) => {
+    const { checked , groupId } = req.body
+    if (!groupId)
+        return res.status(400).json({ status: 400, message: 'Group Id is required!' })
+    if (!(Array.isArray(checked)))
+        return res.status(400).json({ status: 400, message: 'item fields Must be an Array!' })
+
+    try {
+
+        const date = new Date()
+
+        if (checked.length === 0)
+            return res.status(400).json({ status: 400, message: 'Field items are required' })
+
+        if (checked.length)
+            await fieldsAssignedToGroup.bulkCreate(checked.map(s => ({
+                groupId,
+                fieldId: s,
+                createdAt: date
+            })))
+
+
+        res.json({ status: 200, message: 'Grouped Successfully!' })
+    } catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        res.status(500).json({ status: 500, message: 'Something Went Wrong!' })
+    }
+})
+
 module.exports = router

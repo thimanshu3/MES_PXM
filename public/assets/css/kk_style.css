@@ -233,3 +233,20 @@ border-bottom: 1px solid #ebecec!important;
 .kk_field_items .selectgroup-pills .selectgroup-item{
 		margin:15px;
 }
+
+
+.ps{overflow:hidden!important;overflow-anchor:none;touch-action:auto;}
+.ps__rail-x{display:none!important;opacity:0;transition:background-color .2s linear, opacity .2s linear;height:15px;bottom:0;position:absolute;z-index:7;}
+.ps__rail-y{display:none;opacity:0;transition:background-color .2s linear, opacity .2s linear;width:15px;right:0;position:absolute;border-radius:50px;z-index:7;}
+.ps--active-y>.ps__rail-y{display:block;background-color:transparent;}
+.ps:hover>.ps__rail-x,.ps:hover>.ps__rail-y{opacity:0.6;}
+.ps__rail-x:hover,.ps__rail-y:hover,.ps__rail-x:focus,.ps__rail-y:focus{background-color:rgba(0,0,0,0.1);opacity:0.9;}
+.ps__thumb-x{background-color:rgba(0,0,0,0.1);border-radius:6px;transition:background-color .2s linear, height .2s ease-in-out;height:6px;bottom:2px;position:absolute;}
+.ps__thumb-y{background-color:rgba(0,0,0,0.1);border-radius:6px;transition:background-color .2s linear, width .2s ease-in-out;width:6px;right:2px;position:absolute;}
+.ps__rail-x:hover>.ps__thumb-x,.ps__rail-x:focus>.ps__thumb-x{background-color:rgba(0,0,0,0.12);height:11px;}
+.ps__rail-y:hover>.ps__thumb-y,.ps__rail-y:focus>.ps__thumb-y{background-color:rgba(0,0,0,0.12);width:11px;}
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none){
+.ps{overflow:auto!important;}
+}
+.scrollbar-container{position:relative;}
+.scroll-area-lg{height:400px;overflow-x:hidden;}
