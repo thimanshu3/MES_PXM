@@ -46,6 +46,7 @@ router.get('/:id', async (req, res) => {
 
 
 router.post('/add', async (req, res) => {
+    console.log(req.body);
     const { name } = req.body
     if (!name) {
         req.flash('error', 'name is required!')
