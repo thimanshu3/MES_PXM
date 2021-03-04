@@ -36,6 +36,7 @@ router.get('/', async (req, res) => {
     try{
     const inputType = await inputTypes.findAll()
     const inputField = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description ,users.firstName as firstName, users.lastName as lastName, inputTypes.inputType from inputFields INNER JOIN users  ON users.id = inputFields.createdBy INNER join inputTypes on inputTypes.id = inputFields.typeOfField;')
+    console.log(req.user)
     res.render('admin/inputField', { User: req.user, inputField, inputType })
 } catch (err) {
     console.error('\x1b[31m%s\x1b[0m', err)
