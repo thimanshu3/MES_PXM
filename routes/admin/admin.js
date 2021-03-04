@@ -26,6 +26,9 @@ router.use('/inputfield', require('./inputField'))
 
 router.use('/listrecord', require('./listRecord'))
 
+router.use('/customform', require('./customForm'))
+
+
 
 
 

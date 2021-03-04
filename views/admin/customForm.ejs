@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Infeenity Dashboard</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/atlantis.min.css">
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="/assets/css/demo.css">
+    <link rel="stylesheet" href="/assets/css/kk_style.css">
+    <link rel="stylesheet" href="/assets/css/iziToast.min.css">
+
+    <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+        WebFont.load({
+            google: { "families": ["Lato:300,400,700,900"] },
+            custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css'] },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <%-include('../partials/config')%>
+
+            <!-- header -->
+            <%-include('../partials/header.ejs')%>
+                <!-- header end -->
+
+                <!-- Sidebar -->
+                <%-include('../partials/sidebar.ejs')%>
+                    <!-- End Sidebar -->
+
+                    <div class="main-panel">
+                        <div class="content">
+                            <div class="page-inner">
+                                <div class="page-header">
+                        
+                                    <ul class="breadcrumbs">
+                                        <li class="nav-home">
+                                            <a href="/admin/dashboard">
+                                                <i class="flaticon-home"></i>
+                                            </a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">Product Data</a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">All Custom Forms</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="container-fluid">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <div class="d-flex align-items-center">
+                                                    <h4 class="card-title">All Custom Forms</h4>
+                        
+                                                    <button class="btn btn-primary btn-round ml-auto" data-toggle="modal"
+                                                        data-target="#kk_create_group">
+                                                        <i class="fa fa-plus"></i>
+                                                        Create New Form
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                              
+                        
+                                                <div class="table-responsive">
+                                                    <table id="add-row" class="display table table-striped table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Created By</th>
+                                                                <th>Created At</th>
+                                                                <th>Status</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                        
+                                                        <tbody>
+                                                            <%customForm.forEach(_a=>{ %>
+                                                                <tr id="<%= _a.id %>">
+                                                                    <td>
+                                                                        <%= _a.name %>
+                                                                    </td>
+                                                                    <td>System Architect</td>
+                                                                    <td><%= formatDateMoment(_a.createdAt)  %> </td>
+                                                                    <td><span id="activeBadge-<%= _a.id%>"
+                                                                            class="badge badge-<%= _a.active ? 'success' : 'danger' %>">
+                                                                            <%= _a.active ? 'ACTIVE' : 'INACTIVE' %>
+                                                                        </span></td>
+                                                                    <td>
+                                                                        <div class="form-button-action">
+                                                                            <button id="changeFieldStatus-<%=_a.id%>" onclick="changeFieldStatus('<%=_a.id%>')" type="button" data-toggle="tooltip"
+                                                                                title="Toggle to Change Status" class="btn btn-link btn-default" data-original-title="Remove">
+                                                                                <i class="fas <%= _a.active ? 'fa-toggle-on': 'fa-toggle-off' %>"></i>
+                                                                            </button>
+                                                                            <button id="removefield-<%=_a.id%>" onclick="removeField('<%=_a.id%>')" type="button" data-toggle="tooltip" title=""
+                                                                                class="btn btn-link btn-danger" data-original-title="Remove">
+                                                                                <i class="fas fa-trash"></i>
+                                                                            </button>
+                                                                            <a style="text-decoration: none;" href="/admin/customform/<%=_a.id %>" type="button" data-toggle="tooltip" title="" class="btn btn-link"
+                                                                                data-original-title="Edit Task">
+                                                                                View Form
+                                                                                <i class="flaticon-right-arrow"></i>
+                                                                        </a>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <% }) %>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                        
+                                </div>
+                            </div>
+                        </div>
+                        <%-include('../partials/footer.ejs')%>
+                    </div>
+
+    </div>
+            <div class="modal kk_modal_popup_form" id="kk_create_group" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+            
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Create New Form</h4>
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                        </div>
+            
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <form action="/admin/customform" method="POST">
+                                <div class="form-group">
+                                    <label for="email2">Enter Form Name</label>
+                                    <input type="text" class="form-control" name="name" id="email2" placeholder="Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="comment">Enter Form Description</label>
+                                    <textarea class="form-control" id="comment" name="description" rows="5"> </textarea>
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            
+            
+            </div>
+
+    <!--   Core JS Files   -->
+
+    <!-- jQuery library -->
+    <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="/assets/js/core/bootstrap.js"></script>
+    <!-- Popper JS -->
+    <script src="/assets/js/core/popper.min.js"></script>
+    <!-- Atlantis JS -->
+    <script src="/assets/js/atlantis.min.js"></script>
+    <script src="/assets/js/iziToast.js"></script>
+    <script src="/assets/js/flashMessage.js"></script>
+    <!-- jQuery UI -->
+    <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+    <script>
+        var table = $('#add-row').DataTable({
+                select: {
+                    style: 'single'
+                },
+            });
+    </script>
+</body>
+
+</html>
