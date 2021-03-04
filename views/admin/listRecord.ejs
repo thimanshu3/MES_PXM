@@ -287,10 +287,8 @@
         }
 
         $("form").submit(() => {
-           //e.preventDefault()
-           let data = '{"items": "'+$("#list-values").val().split(',')+'"}'
+           let data = $("#list-values").val().split(',')
            $('#setVal').val(data)
-           
         })
 
         // $('#saveChanges').on('click', function(){
