@@ -24,6 +24,9 @@ router.use('/loginreport', require('./loginReport'))
 
 router.use('/inputfield', require('./inputField'))
 
+router.use('/listrecord', require('./listRecord'))
+
+
 
 
 

@@ -47,7 +47,7 @@
 
                                     <ul class="breadcrumbs">
                                         <li class="nav-home">
-                                            <a href="#">
+                                            <a href="/admin/dashboard">
                                                 <i class="flaticon-home"></i>
                                             </a>
                                         </li>
@@ -55,20 +55,15 @@
                                             <i class="flaticon-right-arrow"></i>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#">System</a>
+                                            <a href="#">Product Data</a>
                                         </li>
                                         <li class="separator">
                                             <i class="flaticon-right-arrow"></i>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#">User Managment</a>
+                                            <a href="#">Fields</a>
                                         </li>
-                                        <li class="separator">
-                                            <i class="flaticon-right-arrow"></i>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#">Users</a>
-                                        </li>
+
 
                                     </ul>
                                 </div>
@@ -142,13 +137,20 @@
                                                                                                 <i
                                                                                                     class="fa fa-edit"></i>
                                                                                             </button>
-                                                                                            <button type="button"
+                                                                                            <button
+                                                                                                id="changeFieldStatus-<%=_a.id%>"
+                                                                                                onclick="changeFieldStatus('<%=_a.id%>')"
+                                                                                                type="button"
                                                                                                 data-toggle="tooltip"
-                                                                                                title=""
-                                                                                                class="btn btn-link btn-danger"
+                                                                                                title="Toggle to Change Status"
+                                                                                                class="btn btn-link btn-default"
                                                                                                 data-original-title="Remove">
                                                                                                 <i
-                                                                                                    class="fa fa-trash"></i>
+                                                                                                    class="fas <%= _a.active ? 'fa-toggle-on': 'fa-toggle-off' %>"></i>
+                                                                                            </button>
+                                                                                            <button id="removefield-<%=_a.id%>" onclick="removeField('<%=_a.id%>')" type="button" data-toggle="tooltip"
+                                                                                                title="" class="btn btn-link btn-danger" data-original-title="Remove">
+                                                                                                <i class="fas fa-trash"></i>
                                                                                             </button>
                                                                                         </div>
                                                                                     </td>
@@ -286,6 +288,13 @@
     <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
     <!-- Popper JS -->
     <script src="/assets/js/core/popper.min.js"></script>
+    <script src="/assets/js/clientScript.js"></script>
+    <!-- jQuery UI -->
+    <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+    
+    <!-- jQuery Scrollbar -->
+    <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
     <script>
         $('#add-row').DataTable({
             pageLength: 50,
@@ -301,6 +310,14 @@
                     $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
                 }, 0);
             });
+        
+
+        function changeFieldStatus(id) {
+            markStatusOrDelete(`/admin/inputfield/${id}`, 'DELETE', 'status',`{"id":"${id}"}`)
+        }
+        function removeField(id) {
+                markStatusOrDelete(`/admin/inputfield/remove/${id}`, 'DELETE')
+        }
     </script>
 </body>
 

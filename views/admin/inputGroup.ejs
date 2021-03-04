@@ -1,172 +1,169 @@
 <!DOCTYPE html>
-    <html lang="en">
+<html lang="en">
 
-    <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Infeenity Dashboard</title>
-        <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-        <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Infeenity Dashboard</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
 
-        <!-- CSS Files -->
-        <link rel="stylesheet" href="/assets/css/bootstrap.css">
-        <link rel="stylesheet" href="/assets/css/atlantis.min.css">
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/atlantis.min.css">
 
-        <!-- CSS Just for demo purpose, don't include it in your project -->
-        <link rel="stylesheet" href="/assets/css/demo.css">
-        <link rel="stylesheet" href="/assets/css/kk_style.css">
-        <link rel="stylesheet" href="/assets/css/iziToast.min.css">
-        <!-- Fonts and icons -->
-        <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
-        <script>
-            WebFont.load({
-                google: { "families": ["Lato:300,400,700,900"] },
-                custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css'] },
-                active: function () {
-                    sessionStorage.fonts = true;
-                }
-            });
-        </script>
-    </head>
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="/assets/css/demo.css">
+    <link rel="stylesheet" href="/assets/css/kk_style.css">
+    <link rel="stylesheet" href="/assets/css/iziToast.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css">
+    <!-- Fonts and icons -->
+    <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+        WebFont.load({
+            google: { "families": ["Lato:300,400,700,900"] },
+            custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css'] },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+</head>
 
-    <body>
-        <div class="wrapper">
-            <%-include('../partials/config')%>
+<body>
+    <div class="wrapper">
+        <%-include('../partials/config')%>
 
-                <!-- header -->
-                <%-include('../partials/header.ejs')%>
-                    <!-- header end -->
+            <!-- header -->
+            <%-include('../partials/header.ejs')%>
+                <!-- header end -->
 
-                    <!-- Sidebar -->
-                    <%-include('../partials/sidebar.ejs')%>
-                        <!-- End Sidebar -->
-                        <div class="main-panel">
-                            <div class="content">
-                                <div class="page-inner">
-                                    <div class="page-header">
+                <!-- Sidebar -->
+                <%-include('../partials/sidebar.ejs')%>
+                    <!-- End Sidebar -->
+                    <div class="main-panel">
+                        <div class="content">
+                            <div class="page-inner">
+                                <div class="page-header">
 
-                                        <ul class="breadcrumbs">
-                                            <li class="nav-home">
-                                                <a href="#">
-                                                    <i class="flaticon-home"></i>
-                                                </a>
-                                            </li>
-                                            <li class="separator">
-                                                <i class="flaticon-right-arrow"></i>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="#">Users</a>
-                                            </li>
-                                            <li class="separator">
-                                                <i class="flaticon-right-arrow"></i>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="#">Add New User</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
+                                    <ul class="breadcrumbs">
+                                        <li class="nav-home">
+                                            <a href="/admin/dashboard">
+                                                <i class="flaticon-home"></i>
+                                            </a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">Product Data</a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">Field Group</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
 
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    <div class="d-flex align-items-center">
-                                                        <h4 class="card-title">All Groups</h4>
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <div class="d-flex align-items-center">
+                                                    <h4 class="card-title">All Groups</h4>
 
-                                                        <button class="btn btn-primary btn-round ml-auto"
-                                                            data-toggle="modal" data-target="#kk_create_group">
-                                                            <i class="fa fa-plus"></i>
-                                                            Create New Group
-                                                        </button>
-                                                    </div>
+                                                    <button class="btn btn-primary btn-round ml-auto"
+                                                        data-toggle="modal" data-target="#kk_create_group">
+                                                        <i class="fa fa-plus"></i>
+                                                        Create New Group
+                                                    </button>
                                                 </div>
-                                                <div class="card-body">
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog modal-lg" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header no-bd">
-                                                                    <h5 class="modal-title">
-                                                                        <span class="fw-mediumbold">
-                                                                            New</span>
-                                                                        <span class="fw-light">
-                                                                            Row
-                                                                        </span>
-                                                                    </h5>
-                                                                    <button type="button" class="close"
-                                                                        data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <p class="small">Create a new row using this form,
-                                                                        make sure you fill them all</p>
-                                                                    <form>
-                                                                        <div class="row">
-                                                                            <div class="col-sm-12">
-                                                                                <div
-                                                                                    class="form-group form-group-default">
-                                                                                    <label>Name</label>
-                                                                                    <input id="addName" type="text"
-                                                                                        class="form-control"
-                                                                                        placeholder="fill name">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-6 pr-0">
-                                                                                <div
-                                                                                    class="form-group form-group-default">
-                                                                                    <label>Position</label>
-                                                                                    <input id="addPosition" type="text"
-                                                                                        class="form-control"
-                                                                                        placeholder="fill position">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <div
-                                                                                    class="form-group form-group-default">
-                                                                                    <label>Office</label>
-                                                                                    <input id="addOffice" type="text"
-                                                                                        class="form-control"
-                                                                                        placeholder="fill office">
-                                                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header no-bd">
+                                                                <h5 class="modal-title">
+                                                                    <span class="fw-mediumbold">
+                                                                        New</span>
+                                                                    <span class="fw-light">
+                                                                        Row
+                                                                    </span>
+                                                                </h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p class="small">Create a new row using this form, make
+                                                                    sure you fill them
+                                                                    all</p>
+                                                                <form>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <div class="form-group form-group-default">
+                                                                                <label>Name</label>
+                                                                                <input id="addName" type="text"
+                                                                                    class="form-control"
+                                                                                    placeholder="fill name">
                                                                             </div>
                                                                         </div>
-                                                                    </form>
-                                                                </div>
-                                                                <div class="modal-footer no-bd">
-                                                                    <button type="button" id="addRowButton"
-                                                                        class="btn btn-primary">Add</button>
-                                                                    <button type="button" class="btn btn-danger"
-                                                                        data-dismiss="modal">Close</button>
-                                                                </div>
+                                                                        <div class="col-md-6 pr-0">
+                                                                            <div class="form-group form-group-default">
+                                                                                <label>Position</label>
+                                                                                <input id="addPosition" type="text"
+                                                                                    class="form-control"
+                                                                                    placeholder="fill position">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group form-group-default">
+                                                                                <label>Office</label>
+                                                                                <input id="addOffice" type="text"
+                                                                                    class="form-control"
+                                                                                    placeholder="fill office">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer no-bd">
+                                                                <button type="button" id="addRowButton"
+                                                                    class="btn btn-primary">Add</button>
+                                                                <button type="button" class="btn btn-danger"
+                                                                    data-dismiss="modal">Close</button>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
 
-                                                    <div class="table-responsive">
-                                                        <table id="add-row"
-                                                            class="display table table-striped table-hover">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Name</th>
-                                                                    <th>Position</th>
-                                                                    <th>Office</th>
-                                                                    <th style="width: 10%">Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tfoot>
-                                                                <tr>
-                                                                    <th>Name</th>
-                                                                    <th>Position</th>
-                                                                    <th>Office</th>
-                                                                    <th>Action</th>
-                                                                </tr>
-                                                            </tfoot>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>Tiger Nixon</td>
+                                                <div class="table-responsive">
+                                                    <table id="add-row" class="display table table-striped table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Created By</th>
+                                                                <th>Status</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            <%fieldGroup.forEach(_a=>{ %>
+                                                                <tr id="<%= _a.id %>">
+                                                                    <td>
+                                                                        <%= _a.name %>
+                                                                    </td>
                                                                     <td>System Architect</td>
-                                                                    <td>Edinburgh</td>
+                                                                    <td><span id="activeBadge-<%= _a.id%>"
+                                                                            class="badge badge-<%= _a.active ? 'success' : 'danger' %>">
+                                                                            <%= _a.active ? 'ACTIVE' : 'INACTIVE' %>
+                                                                        </span></td>
                                                                     <td>
                                                                         <div class="form-button-action">
                                                                             <div class="kk_group_item_number">
@@ -178,230 +175,115 @@
                                                                         </div>
                                                                     </td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <td>Garrett Winters</td>
-                                                                    <td>Accountant</td>
-                                                                    <td>Tokyo</td>
-                                                                    <td>
-                                                                        <div class="form-button-action">
-                                                                            <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-primary btn-round "
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Ashton Cox</td>
-                                                                    <td>Junior Technical Author</td>
-                                                                    <td>San Francisco</td>
-                                                                    <td>
-                                                                        <div class="form-button-action">
-                                                                            <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-primary btn-round "
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Cedric Kelly</td>
-                                                                    <td>Senior Javascript Developer</td>
-                                                                    <td>Edinburgh</td>
-                                                                    <td>
-                                                                        <div class="form-button-action">
-                                                                            <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-primary btn-round "
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Airi Satou</td>
-                                                                    <td>Accountant</td>
-                                                                    <td>Tokyo</td>
-                                                                    <td>
-                                                                        <div class="form-button-action">
-                                                                            <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-primary btn-round "
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Brielle Williamson</td>
-                                                                    <td>Integration Specialist</td>
-                                                                    <td>New York</td>
-                                                                    <td>
-                                                                        <div class="form-button-action">
-                                                                            <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-primary btn-round "
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Herrod Chandler</td>
-                                                                    <td>Sales Assistant</td>
-                                                                    <td>San Francisco</td>
-                                                                    <td>
-                                                                        <div class="form-button-action">
-                                                                            <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-primary btn-round "
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Rhona Davidson</td>
-                                                                    <td>Integration Specialist</td>
-                                                                    <td>Tokyo</td>
-                                                                    <td>
-                                                                        <div class="form-button-action">
-                                                                            <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-primary btn-round "
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Colleen Hurst</td>
-                                                                    <td>Javascript Developer</td>
-                                                                    <td>San Francisco</td>
-                                                                    <td>
-                                                                        <div class="form-button-action">
-                                                                            <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-primary btn-round "
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Sonya Frost</td>
-                                                                    <td>Software Engineer</td>
-                                                                    <td>Edinburgh</td>
-                                                                    <td>
-                                                                        <div class="form-button-action">
-                                                                            <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-primary btn-round "
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                                                <% }) %>
+
+
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
-
-
-
                                         </div>
+
+
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <div class="card kk_field_items">
+                                            <div class="card-header">
+                                                <div class="d-flex align-items-center">
+                                                    <h4 class="card-title">Field Items</h4>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="selectgroup selectgroup-pills">
+                                                    <div class="scroll-area-lg">
+                                                        <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="card-footer">
+                                                <button class="d-flex justify-content-end btn btn-primary"
+                                                    id="assigntogroup">
+                                                    Add to Group
+                                                </button>
+                                            </div>
+                                        </div>
+
+
+
                                     </div>
                                 </div>
                             </div>
-                            <footer class="footer">
-                                <div class="container-fluid">
-                                    <nav class="pull-left">
-                                        <ul class="nav">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="https://www.themekita.com">
-                                                    ThemeKita
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">
-                                                    Help
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">
-                                                    Licenses
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                    <div class="copyright ml-auto">
-                                        2018, made with <i class="fa fa-heart heart text-danger"></i> by <a
-                                            href="https://www.themekita.com">ThemeKita</a>
-                                    </div>
+                        </div>
+                        <footer class="footer">
+                            <div class="container-fluid">
+                                <nav class="pull-left">
+                                    <ul class="nav">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="https://www.themekita.com">
+                                                ThemeKita
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">
+                                                Help
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">
+                                                Licenses
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <div class="copyright ml-auto">
+                                    2018, made with <i class="fa fa-heart heart text-danger"></i> by <a
+                                        href="https://www.themekita.com">ThemeKita</a>
                                 </div>
-                            </footer>
+                            </div>
+                        </footer>
 
 
-                            <div class="modal kk_modal_popup_form" id="kk_create_group" style="display: none;"
-                                aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
+                        <div class="modal kk_modal_popup_form" id="kk_create_group" style="display: none;"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
 
-                                        <!-- Modal Header -->
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Create New Group</h4>
-                                            <button type="button" class="close" data-dismiss="modal">×</button>
-                                        </div>
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Create New Group</h4>
+                                        <button type="button" class="close" data-dismiss="modal">×</button>
+                                    </div>
 
-                                        <!-- Modal body -->
-                                        <div class="modal-body">
-
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <form action="/admin/inputfield/inputgroup/add" method="POST">
                                             <div class="form-group">
-                                                <div class="input-icon">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Enter the Group Name">
-                                                    <span class="input-icon-addon">
-                                                        <i class="fa fa-user"></i>
-                                                    </span>
-
-                                                </div>
+                                                <label for="email2">Enter Group Name</label>
+                                                <input type="text" class="form-control" name="name" id="email2"
+                                                    placeholder="Name">
                                             </div>
-
                                             <div class="form-group">
-                                                <label class="form-label">Select Group Items</label>
-                                                <div class="selectgroup selectgroup-pills">
-                                                    <%inputField.forEach(_i =>{ %>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="value" value="C++" class="selectgroup-input">
-                                                            <span class="selectgroup-button"><%= _i.label %> </span>
-                                                        </label>
-                                                   <% }) %> 
-                                                    
-                                                </div>
+                                                <label for="comment">Enter Group Description</label>
+                                                <textarea class="form-control" id="comment" name="description"
+                                                    rows="5"> </textarea>
                                             </div>
-
-
-                                        </div>
-
-                                        <!-- Modal footer -->
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary">Save</button>
-                                            <button type="button" class="btn btn-danger"
-                                                data-dismiss="modal">Cancel</button>
-                                        </div>
-
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Save</button>
+                                                <button type="button" class="btn btn-danger"
+                                                    data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -480,40 +362,128 @@
 
                         </div>
 
+                    </div>
+                    <!--   Core JS Files   -->
 
-        </div>
-        <!--   Core JS Files   -->
+
+                    <!-- jQuery library -->
+                    <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
+                    <!-- Latest compiled JavaScript -->
+                    <script src="/assets/js/core/bootstrap.js"></script>
+
+                    <!-- Atlantis JS -->
+                    <script src="/assets/js/atlantis.min.js"></script>
+                    <script src="/assets/js/iziToast.js"></script>
+                    <script src="/assets/js/flashMessage.js"></script>
+                    <!-- Datatables -->
+                    <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+                    <!-- Popper JS -->
+                    <script src="/assets/js/core/popper.min.js"></script>
+                    <!-- jQuery UI -->
+                    <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+                    <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
+                    <!-- jQuery Scrollbar -->
+                    <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+                    <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+                    <script>
+                        var ids
+                        var table = $('#add-row').DataTable({
+                            select: {
+                                style: 'single'
+                            },
+
+                        });
+                        table.off("select").on("select", function (e, dt, type, indexes) {
+                            ids = $.map(table.rows('.selected').ids(), function (item) {
+                                return item
+                            });
+                           ids = ids.toString()
+                            showItemFields(ids)
+                        });
 
 
-        <!-- jQuery library -->
-        <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
-        <!-- Latest compiled JavaScript -->
-        <script src="/assets/js/core/bootstrap.js"></script>
+                        $('#assigntogroup').click(function () {
+                            let checked = []
+                           $.each($("input[name='field']:checked"), function () {
+                                 checked.push(
+                                     $(this).val(),
+                                 )
+                            });
+                            if(checked.length !== 0){
+                                fetch('/admin/inputfield/inputgroup', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        checked, groupId: ids
+                                    })
+                                })
+                                    .then(function (res) {
+                                        return res.json()
+                                    })
+                                    .then(function (json) {
+                                        showItemFields(ids)
+                                        if (json.status == 200)
+                                            iziToast.success({
+                                                message: json.message
+                                            })
+                                        else if (json.status == 400)
+                                            iziToast.error({
+                                                title: json.message,
+                                                message: json.error
+                                            })
+                                        else
+                                            iziToast.error({
+                                                message: json.message
+                                            })
+                                    })
+                                    .catch(err => console.log(err))
+                            }
+                            else{
+                                iziToast.warning({
+                                    message: 'Please select Input to add in this group'
+                                })
+                            }
+                        });
 
-        <!-- Atlantis JS -->
-        <script src="/assets/js/atlantis.min.js"></script>
-        <script src="/assets/js/iziToast.js"></script>
-        <script src="/assets/js/flashMessage.js"></script>
-        <!-- Datatables -->
-        <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
-        <!-- Popper JS -->
-        <script src="/assets/js/core/popper.min.js"></script>
-        <script>
-            $('#add-row').DataTable({
-                pageLength: 50,
-                info: false,
-                scrollCollapse: true,
-                scrollY: '60vh',
-                fixedHeader: true,
-            });
-            $(document).on('show.bs.modal', '.modal', function () {
-                var zIndex = 1040 + (10 * $('.modal:visible').length);
-                $(this).css('z-index', zIndex);
-                setTimeout(function () {
-                    $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
-                }, 0);
-            });
-        </script>
-    </body>
+                        const showItemFields = (id) =>{
+                            $('#fieldListArea').empty()
+                             fetch(`/admin/inputfield/inputgroup/${id}`)
+                                .then(function (res) {
+                                    return res.json()
+                                })
+                                .then(function (json) {
+                                    if (json.status == 404)
+                                        iziToast.error({
+                                            message: json.message
+                                        })
+                                    else if (json.status == 500)
+                                        iziToast.error({
+                                            title: json.message,
+                                            message: json.error
+                                        })
+                                    else if (json.status == 200) {
+                                        let itemFields = ''
+            
+                                        json.data.itemFields.forEach(b => {
+                                            let checked = b.isAssigned ? 'checked' : '';
+                                            itemFields += ` <label class="selectgroup-item">
+                                                                <input type="checkbox" name="field" id="f-${b.id}" value="${b.id}"class="selectgroup-input fclass" ${checked}>
+                                                                <span class="selectgroup-button">${b.name}</span>
+                                                            </label>`
+                                        })
+                                        $('#fieldListArea').append(itemFields)
+                                    }
+                                    else
+                                        iziToast.error({
+                                            message: 'Something Went Wrong!'
+                                        })
+                                })
+                                .catch(err => console.log(err))
+                        }
+                    </script>
+</body>
 
-    </html>
+</html>

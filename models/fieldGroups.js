@@ -22,7 +22,7 @@ const fieldGroups = MySql.define('fieldGroups', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    updatedBy: {
+    updatedBy: { 
         type: DataTypes.STRING
     },
     active: {

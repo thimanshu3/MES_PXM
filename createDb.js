@@ -10,7 +10,7 @@ var con = mysql.createConnection({
 con.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");
-    con.query("truncate table inputFields", function (err, result) {
+    con.query("SELECT * FROM fieldsAssignedToGroups", function (err, result) {
         if (err) throw err;
         console.log(result);
     });
