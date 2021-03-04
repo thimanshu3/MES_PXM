@@ -25,6 +25,43 @@
             }
         });
     </script>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css"
+        integrity="sha512-xmGTNt20S0t62wHLmQec2DauG9T+owP9e6VU8GigI0anN7OXLip9i7IwEhelasml2osdxX71XcYm6BQunTQeQg=="
+        crossorigin="anonymous" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"
+        integrity="sha512-VvWznBcyBJK71YKEKDMpZ0pCVxjNuKwApp4zLF3ul+CiflQi6aIJR+aZCP/qWsoFBA28avL5T5HA+RE+zrGQYg=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput-angular.min.js"
+        integrity="sha512-KT0oYlhnDf0XQfjuCS/QIw4sjTHdkefv8rOJY5HHdNEZ6AmOh1DW/ZdSqpipe+2AEXym5D0khNu95Mtmw9VNKg=="
+        crossorigin="anonymous"></script>
+    <style type="text/css">
+        .bootstrap-tagsinput {
+            width: 100%;
+        }
+
+        .label-info {
+            background-color: #5394ca !important
+        }
+
+        .label {
+            display: inline-block;
+            padding: .25em .4em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out,
+                border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        }
+    </style>
+
+
 </head>
 
 <body>
@@ -84,9 +121,15 @@
                                                         <div class="col-md-12">
 
                                                             <div class="form-group">
-                                                                <label>Name</label>
+                                                                <label>List Record</label>
                                                                 <input type="text" class="form-control" name="name"
                                                                     id="name" placeholder="Enter List record Name">
+                                                                 
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>List Record Value</label>
+                                                                <input type="text" data-role="tagsinput" name="tags" class="form-control">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -221,6 +264,9 @@
                                                 <label>Name</label>
                                                 <input type="text" class="form-control" id="newname"
                                                     placeholder="Enter First Name">
+
+                                                <input type="text" data-role="tagsinput" name="tags"
+                                                    class="form-control">
                                             </div>
 
                                         </div>
@@ -253,7 +299,7 @@
     <!-- jQuery UI -->
     <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-    
+
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
     <script>
