@@ -450,6 +450,7 @@
 
                         const showItemFields = (id) =>{
                             $('#fieldListArea').empty()
+                            $("#fieldListArea").prepend('<div id="preloader">Loading...</div>');
                              fetch(`/admin/inputfield/inputgroup/${id}`)
                                 .then(function (res) {
                                     return res.json()
@@ -474,6 +475,7 @@
                                                                 <span class="selectgroup-button">${b.name}</span>
                                                             </label>`
                                         })
+                                        $("#preloader").remove();
                                         $('#fieldListArea').append(itemFields)
                                     }
                                     else
