@@ -1,8 +1,8 @@
-let count = 0   
-const addComponent = (type, where) =>{
+let count = 0
+const addComponent = (type, where) => {
+    count = count + 1
     if (type == 1) {
-        console.log(type)
-        ++count
+
         $(`#${where}`).append(`
             <div class="m-3" id="cmp-${count}">
                 <div class="card">
@@ -26,7 +26,7 @@ const addComponent = (type, where) =>{
         `)
     }
     if (type == 2) {
-        
+
     }
     if (type == 3) {
         $(`#${where}`).append(`
@@ -48,7 +48,7 @@ const addComponent = (type, where) =>{
         `)
     }
     if (type == 4) {
-      
+
         $(`#${where}`).append(`
             <div class="m-3" id="cmp-${count}">
                 <div class="card">
@@ -75,20 +75,23 @@ const addComponent = (type, where) =>{
             </div>
         `)
     }
+
+    console.log(count);
+
 }
 
-const addTab = () =>{
-        var nextTab = $('#tabs li').size() + 1;
+const addTab = () => {
+    var nextTab = $('#tabs li').size() + 1;
 
-        // create the tab
-        $(`<li class="nav-item submenu">
+    // create the tab
+    $(`<li class="nav-item submenu">
             <a class="nav-link" id="pills-home-tab-nobd" data-toggle="pill" href="#tab-${nextTab}" role="tab" aria-controls="pills-home-nobd" aria-selected="false">Tab-${nextTab}</a>
             </li>`).appendTo('#tabs');
 
-        // create the tab content
-        $(`<div class="tab-pane fade" id="tab-${nextTab}" role="tabpanel" aria-labelledby="pills-home-tab-nobd"></div>`).appendTo('.tab-content');
+    // create the tab content
+    $(`<div class="tab-pane fade" id="tab-${nextTab}" role="tabpanel" aria-labelledby="pills-home-tab-nobd"></div>`).appendTo('.tab-content');
 
-        // make the new tab active
-        $('#tabs a:last').tab('show');
+    // make the new tab active
+    $('#tabs a:last').tab('show');
 }
 
