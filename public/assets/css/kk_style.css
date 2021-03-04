@@ -256,6 +256,7 @@ border-bottom: 1px solid #ebecec!important;
 .btn-primary{
 	background:#5394ca !important;
 	border:1px solid #5394ca !important;	
+	color:#fff !important
 }
 
 .btn-primary:hover{
