@@ -219,7 +219,7 @@ router.post('/inputgroup/add', async (req, res) => {
         return
     }
     try {
-        const fieldGroup = await fieldGroups.create({ name, createdBy:req.user.id, description, createdBy: req.user.id })
+        const fieldGroup = await fieldGroups.create({ name, createdBy:req.user.id, description})
         await ActivityLog.create({
             id: fieldGroup.id,
             name: 'input Group',

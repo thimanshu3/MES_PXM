@@ -20,10 +20,10 @@ const formParts = MySql.define('formParts', {
         type: DataTypes.STRING(500),
         allowNull: true
     },
-    // componentType: {
-    //     type: DataTypes.STRING(500),
-    //     allowNull: false
-    // },
+    componentType: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
     isSubComponent:{
         type: DataTypes.BOOLEAN,
         defaultValue: false

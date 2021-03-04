@@ -235,6 +235,43 @@ border-bottom: 1px solid #ebecec!important;
 }
 
 
+.dataTable thead{
+	background-color:#e4ca99
+	
+}
+
+.table td, .table th{
+	height:48px;
+	border-bottom: 1px solid #e4ca99 !important;
+}
+
+ .dataTable th{
+	color:#fff;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgb(0 0 0 / 0%);
+}
+
+.btn-primary{
+	background:#5394ca !important;
+	border:1px solid #5394ca !important;	
+}
+
+.btn-primary:hover{
+	background:transparent !important;
+	border: 1px solid #5394ca !important;	
+	color:#5394ca !important
+}
+
+
+.logo-header[data-background-color=blue] {
+    background:#4d7393!important;
+}
+
+body{
+	    background: #eaf2f4 !important;
+}
 .ps{overflow:hidden!important;overflow-anchor:none;touch-action:auto;}
 .ps__rail-x{display:none!important;opacity:0;transition:background-color .2s linear, opacity .2s linear;height:15px;bottom:0;position:absolute;z-index:7;}
 .ps__rail-y{display:none;opacity:0;transition:background-color .2s linear, opacity .2s linear;width:15px;right:0;position:absolute;border-radius:50px;z-index:7;}
