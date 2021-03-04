@@ -46,17 +46,34 @@ router.get('/:id', async (req, res) => {
 
 
 router.post('/add', async (req, res) => {
-    console.log(req.body);
-    const { name } = req.body
-    if (!name) {
+    console.log(req.body.name);
+    console.log(JSON.parse(req.body.tagValues).items.split(','));
+    const  name  = req.body.name
+    const { values } = JSON.parse(req.body.tagValues).items.split(',')
+    if (name == '') {
         req.flash('error', 'name is required!')
         res.redirect('/admin/listRecord')
         return
     }
+    console.log(req.body.name);
+    console.log(name);
+    if(!Array.isArray(values) && values.length){
+    
+        req.flash('error', 'values are required!')
+        res.redirect('/admin/listRecord')
+        return
+        }
+    
     try {
-        const attribute = await listRecord.create({ name , createdBy: req.user.id })
+        console.log({name});
+        const listRecord = await listRecord.create({ name , createdBy: req.user.id }).then( async () => {
+            const listRecordValue = await listRecordValues.bulkCreate(values.map(s => ({
+                parentListId: listRecord.id,
+                label: s,        
+                createdBy: req.user.id,
+            })))
         await ActivityLog.create({
-            id: attribute.id,
+            id: listRecord.id,
             name: 'List record',
             type: 'Add',
             user: req.user.id,
@@ -64,6 +81,8 @@ router.post('/add', async (req, res) => {
         })
         req.flash('success', `${attribute.name} Added Successfully!`)
         res.redirect('/admin/listRecord')
+        })
+        
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         if (err.name === 'SequelizeUniqueConstraintError')

@@ -106,7 +106,7 @@
                                                             <div class="form-group kk_data-tag">
                                                                 <label>List Record Value</label>
                                                                 <input id="list-values" type="text" data-role="tagsinput" name="tags" class="form-control">
-                                                                <input type="hidden" id="setVal">
+                                                                <input type="hidden" id="setVal" name="tagValues">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -286,10 +286,11 @@
             $('#newname').val(name);
         }
 
-        $("form").on("submit", (e) => {
-            e.preventDefault()
-           let data = {items: $('#list-values').val().split(',')}
-           $('#setVal').val(data)    
+        $("form").submit(() => {
+           //e.preventDefault()
+           let data = '{"items": "'+$("#list-values").val().split(',')+'"}'
+           $('#setVal').val(data)
+           
         })
 
         // $('#saveChanges').on('click', function(){
