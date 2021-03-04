@@ -289,4 +289,35 @@ body{
 .scroll-area-lg{height:400px;overflow-x:hidden;}
 
 
-.
+.bootstrap-tagsinput{
+font-size: 14px !important;
+    border-color: #ebedf2 !important;
+    padding: .6rem 1rem !important;
+    height: inherit!important;
+    width: 90% !important;
+    box-shadow: none !important
+	;	
+}
+
+
+        .kk_data-tag .label-info {
+            background-color: #5394ca !important
+        }
+
+        .kk_data-tag .label {
+               display: inline-block;
+    padding: 6px 8px;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out,
+                border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        }
+
+
+
+
