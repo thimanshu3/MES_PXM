@@ -233,3 +233,42 @@ border-bottom: 1px solid #ebecec!important;
 .kk_field_items .selectgroup-pills .selectgroup-item{
 		margin:15px;
 }
+
+
+.dataTable thead{
+	background-color:#e4ca99
+	
+}
+
+.table td, .table th{
+	height:48px;
+	border-bottom: 1px solid #e4ca99 !important;
+}
+
+ .dataTable th{
+	color:#fff;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgb(0 0 0 / 0%);
+}
+
+.btn-primary{
+	background:#5394ca !important;
+	border:1px solid #5394ca !important;	
+}
+
+.btn-primary:hover{
+	background:transparent !important;
+	border: 1px solid #5394ca !important;	
+	color:#5394ca !important
+}
+
+
+.logo-header[data-background-color=blue] {
+    background:#4d7393!important;
+}
+
+body{
+	    background: #eaf2f4 !important;
+}
