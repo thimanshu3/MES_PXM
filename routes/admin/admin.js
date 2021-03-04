@@ -28,8 +28,8 @@ router.use('/listrecord', require('./listRecord'))
 
 router.use('/customform', require('./customForm'))
 
-router.get('/inputRawdata', (req,res)=>{
-    res.render('/admin/inputrawData',{User: req.user.id})
+router.get('/importRawdata', (req,res)=>{
+    res.render('admin/importRawData',{User: req.user.id})
 } )
 
 
