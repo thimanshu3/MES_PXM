@@ -68,11 +68,13 @@
                                 <div class="container-fluid">
                                     <div class="d-flex justify-content-center border" >
                                         <%formPart.forEach(element => { %>
-                                            <button data-id="" class="btn btn-link btn-shadow" id="cpmnt">Add <%= element.name%></button>
+                                            <% if( element.componentType < 3){ %> 
+                                            <button class="btn btn-link btn-shadow" onclick="addComponent('<%= element.componentType %>' , 'builder')">Add <%= element.name%></button>
+                                            <% } %> 
                                        <% })  %> 
                                     </div>
                                 </div>
-                                <div id="builder" class="container-fluid">
+                                <div id="builder" class="container-fluid border mt-5">
                                     
                                 </div>
                             </div>
