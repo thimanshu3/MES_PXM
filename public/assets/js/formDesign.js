@@ -1,3 +1,4 @@
+
 let order = 0;
 
 var orderObject = {};
@@ -94,6 +95,9 @@ const addComponent = (type, where) => {
 
         orderObject[str] = count;
 
+        str = 'ctabc-' + str + '-' + count;
+        orderObject[str] = 0;
+
         $(`#${where}`).append(`
             <div class="m-3" id="${str}-tab-${count}">
                 <div class="card">
@@ -114,6 +118,10 @@ const addComponent = (type, where) => {
                             <div class="tab-pane fade" id="pills-home-nobd" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
                                 <p>Default Tab</p>
                             </div>
+                            <div class="tab-pane fade" id="pills-home-nobd1" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
+                                <p>Default Tab</p>
+                            </div>
+                              
                         </div>
                     </div>
                 </div>
@@ -128,8 +136,15 @@ const addComponent = (type, where) => {
 const addTab = (val) => {
 
     // var nextTab = $('#tabs li').size() + 1;
-
-    $(`#${val}`).append('<li class="nav-item submenu"> < a class= "nav-link" id = "pills-home-tab-nobd" data - toggle="pill" href = "#pills-home-nobd" role = "tab" aria-controls="pills-home-nobd" aria - selected="false" > Home </a > </li >');
+    val = val.split('-');
+    val[0] += 'c';
+    console.log(val);
+    val = val[0] + '-' + val[1] + '-' + val[2] + '-' + val[3] + '-' + val[4] + '-' + val[5];//prroblem may be accure
+    // str.replaceAll(',', '-');
+    let count = orderObject[val]++;
+    orderObject[val] = count;
+    let id = val + '-' + orderObject[val];
+    $(`#${val}`).append(`<li class="nav-item submenu"> <a class="nav-link" id="pills-home-tab-nobd" data-toggle="pill" href="#${id}" role = "tab" aria-controls="pills-home-nobd" aria-selected="false"> Home </a > </li >`);
 
     // // create the tab
     // $(`<li class="nav-item submenu">
@@ -143,3 +158,52 @@ const addTab = (val) => {
     // $('#tabs a:last').tab('show');
 }
 
+var AllData = [];
+
+$('#saveButton').on('click', () => {
+    let allSec = document.getElementById('builder');
+    for (let i = 0; i < allSec.childElementCount; i++) {
+
+        let child = allSec.children[i];
+        let id = child.getAttribute("id");
+
+        id = id.split("-");
+
+
+
+        let obj = {
+            "type": "",
+            "order": "",
+            "name": "sec-tab",
+            "child": []
+        };
+        obj.type = id[0];
+        obj.order = id[1];
+
+        var f = child.getElementsByClassName("card-body")[0].getElementsByClassName("m-3")[0];
+        if (obj.type != "tab") {
+            for (let j = 0; j < f.childElementCount; j++) {
+
+                let id = f.children[j].getAttribute("id");
+                id = id.split("-");
+
+                let chilObj = {
+                    "type": "",
+                    "order": "",
+                    "name": "",
+
+                }
+                chilObj.type = id[2];
+                chilObj.order = id[3];
+
+                obj.child.push(chilObj);
+
+
+            }
+        }
+
+        AllData.push(obj);
+
+    }
+    console.log(AllData);
+})
