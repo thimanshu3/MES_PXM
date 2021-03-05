@@ -11,11 +11,12 @@ const addComponent = (type, where) => {
         $(`#${where}`).append(`
             <div class="m-3" id="sec-${order}">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="form-group">
-                            <label for="email2">Enter Section Name</label>
-                            <input type="text" class="form-control" name="name" id="email2" placeholder="Name">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="form-group w-75">
+                            <label for="email2">Enter Section ${order} Name</label>
+                            <input type="text" class="form-control" id="sec-${order}-inp" placeholder="Name">
                         </div>
+                        <button class="btn btn-link"><i style="color:red" class="fas fa-trash"></i></button>
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-center border">
@@ -38,10 +39,14 @@ const addComponent = (type, where) => {
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="form-group">
-                            <label for="email2">Enter Tab Name</label>
-                            <input type="text" class="form-control" name="name" id="email2" placeholder="Name">
+                            <label for="email2">Enter Tab ${order} Name</label>
+                            <input type="text" class="form-control" name="name" id="tab-${order}-inp" placeholder="Name">
                         </div>
-                        <button class="btn btn-link" onclick="addTab()">Add New Tab</button>
+                        <div
+                        class="d-flex justify-content-between">
+                            <button class="btn btn-link" onclick="addTab()">Add New Tab</button>
+                            <button class="btn btn-link"><i style="color:red" class="fas fa-trash"></i></button>
+                        </div>
                     </div>
                     <div class="card-body">
                         <ul  class="nav nav-pills nav-secondary nav-pills-no-bd" id="ctab-${order}" role="tablist">
@@ -63,7 +68,6 @@ const addComponent = (type, where) => {
 
     }
     if (type == 3) {
-        console.log(where);
         var str = where.split("-");
         str = str[1] + '-' + str[2];
         let count = ++orderObject[str];
@@ -73,11 +77,12 @@ const addComponent = (type, where) => {
         $(`#${where}`).append(`
             <div class="m-3" id="${str}-sec-${count}">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="form-group">
-                            <label for="email2">Enter Section Name</label>
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="form-group w-50">
+                            <label for="email2">Enter Section  Name</label>
                             <input type="text" class="form-control" name="name" id="email2" placeholder="Name">
                         </div>
+
                     </div>
                     <div class="card-body">
                         <div class="m-3" id="sec-${str}-${count}">
@@ -102,26 +107,22 @@ const addComponent = (type, where) => {
             <div class="m-3" id="${str}-tab-${count}">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <div class="form-group">
+                        <div class="form-group w-50">
                             <label for="email2">Enter Tab Name</label>
                             <input type="text" class="form-control" name="name" id="email2" placeholder="Name">
                         </div>
                         <button class="btn btn-link" onclick="addTab('ctab-${str}-${count}')">Add New Tab</button>
                     </div>
                     <div class="card-body">
-                        <ul  class="nav nav-pills nav-secondary nav-pills-no-bd" id="ctab-${str}-${count}" role="tablist">
+                        <ul  class="nav nav-pills nav-secondary nav-pills-no-bd" id="ctab-${str}-${count}-ttb" role="tablist">
                             <li class="nav-item submenu">
                                 <a class="nav-link" id="pills-home-tab-nobd" data-toggle="pill" href="#pills-home-nobd" role="tab" aria-controls="pills-home-nobd" aria-selected="false">Home</a>
                             </li>
                         </ul>
-                        <div id="ctabc-${str}-${count}" class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
+                        <div id="ctabc-${str}-${count}-ctb" class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
                             <div class="tab-pane fade" id="pills-home-nobd" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
                                 <p>Default Tab</p>
                             </div>
-                            <div class="tab-pane fade" id="pills-home-nobd1" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
-                                <p>Default Tab</p>
-                            </div>
-                              
                         </div>
                     </div>
                 </div>
@@ -134,7 +135,7 @@ const addComponent = (type, where) => {
 }
 
 const addTab = (val) => {
-
+console.log(val)
     // var nextTab = $('#tabs li').size() + 1;
     val = val.split('-');
     val[0] += 'c';
@@ -160,50 +161,44 @@ const addTab = (val) => {
 
 var AllData = [];
 
-$('#saveButton').on('click', () => {
-    let allSec = document.getElementById('builder');
-    for (let i = 0; i < allSec.childElementCount; i++) {
+//fire event on save button click
+document.getElementById("saveButton").addEventListener("click", function () {
+    let main = document.getElementById('builder');
+    let allSec = Array.from(main.children);
+    
+    allSec.forEach(parent=>{
+        let id = parent.getAttribute("id");
+        let obj = {child:[]};
 
-        let child = allSec.children[i];
-        let id = child.getAttribute("id");
+        id = id.split('-') 
 
-        id = id.split("-");
-
-
-
-        let obj = {
-            "type": "",
-            "order": "",
-            "name": "sec-tab",
-            "child": []
-        };
         obj.type = id[0];
         obj.order = id[1];
 
-        var f = child.getElementsByClassName("card-body")[0].getElementsByClassName("m-3")[0];
-        if (obj.type != "tab") {
-            for (let j = 0; j < f.childElementCount; j++) {
+        var child = parent.getElementsByClassName("card-body")[0].getElementsByClassName("m-3")[0];
 
-                let id = f.children[j].getAttribute("id");
+        if (obj.type != "tab") {
+            let allChild = Array.from(child.children);
+
+            allChild.forEach(b=>{
+                let id = b.getAttribute('id')
+                let childObj = {}
+                
                 id = id.split("-");
 
-                let chilObj = {
-                    "type": "",
-                    "order": "",
-                    "name": "",
-
+                if (id.includes('tab')) {
+                    childObj.type = id[4];
+                } else {
+                    childObj.type = id[2];
                 }
-                chilObj.type = id[2];
-                chilObj.order = id[3];
+                childObj.order = id[3];
 
-                obj.child.push(chilObj);
+                obj.child.push(childObj);
 
+            })
 
-            }
         }
-
         AllData.push(obj);
-
-    }
+    })
     console.log(AllData);
 })
