@@ -300,4 +300,43 @@ router.post('/inputgroup', async (req, res) => {
     }
 })
 
+router.delete('/inputgroup/:id', async (req, res) => {
+    const foundGroup = await fieldGroups.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+
+    if (!foundGroup)
+        return res.status(404).json({ message: 'Group Not Found!' })
+
+    // if (foundGroup.role === 0)
+    //     return res.status(400).json({ message: 'Cannot Deactive Admin' })
+
+    foundGroup.active = !foundGroup.active
+    await foundGroup.save()
+
+    res.json({ status: 200, message: `Group ${foundGroup.active ? 'Activated' : 'Deactivated'} Successfully!`, active: foundGroup.active })
+})
+
+router.delete('/inputgroup/remove/:id', async (req, res) => {
+    const foundField = await inputFields.findOne({
+        where:{
+            id: req.params.id 
+        }
+    })
+    if(!foundField)
+        return res.status(404).json({message: 'Field Not Found!'})
+    try{
+        //foundField.destroy();
+        res.json({ status: 200, message: `d ELETE QUERY NEED TO BE WRITTEN`})
+        //res.r('/admin/inputField')
+    } 
+    catch(err){
+        console.error('\x1b[31m%s\x1b[0m', err)
+        req.flash('error', 'Something Went Wrong!')
+        res.redirect('/')
+    }
+})
+
 module.exports = router

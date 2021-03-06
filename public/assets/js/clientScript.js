@@ -27,6 +27,7 @@ const markStatusOrDelete = (uri,method,type,data) =>{
                             document.querySelector(`#activeBadge-${data.id}`).classList.remove('badge-success')
                             document.querySelector(`#activeBadge-${data.id}`).classList.remove('badge-danger')
                             document.querySelector(`#activeBadge-${data.id}`).classList.add(json.active ? 'badge-success' : 'badge-danger')
+                            document.querySelector(`#activeBadge-${data.id}`).style.backgroundColor = (json.active ? '#088e0c' : "#d20e18")
                             $(`#changeFieldStatus-${data.id}`).empty()
                             $(`#changeFieldStatus-${data.id}`).append(`
                             <i class="fas ${json.active ? 'fa-toggle-on' : 'fa-toggle-off'}"></i>
