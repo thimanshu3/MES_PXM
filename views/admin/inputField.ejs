@@ -218,6 +218,20 @@
                                     <label for="selectFloatingLabel" class="placeholder">Input Type</label>
                                 </div>
                             </div>
+                            <div class="col-sm-6" id="listDiv" style="display:none">
+                                <div class="form-group form-floating-label">
+                                    <select name="type" class="form-control input-border-bottom" id="listOptions" required>
+                                        <option id="listValues" value="">&nbsp;</option>
+                                        <% listRecordResult.forEach( _b => { %>
+                                            <option value="<%= _b.id %>">
+                                                <%= _b.name %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                    <label for="selectFloatingLabel" class="placeholder">Input Type</label>
+                                </div>
+                            </div>
+                            
                             <div class="col-sm-12 mt-3">
                                 <div class="form-group form-floating-label">
                                     <input name="description" id="desc" type="textarea"
@@ -310,7 +324,15 @@
                     $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
                 }, 0);
             });
-        
+
+        $(document).ready(function () {
+                $("#selectFloatingLabel").on( 'change', () => {
+                    if ($('option:selected', '#selectFloatingLabel').text().replace(/\s+/g, ' ').trim() === 'list/record') {
+
+                        $('#listDiv').show()
+                    }
+                });
+            });
 
         function changeFieldStatus(id) {
             markStatusOrDelete(`/admin/inputfield/${id}`, 'DELETE', 'status',`{"id":"${id}"}`)
@@ -318,6 +340,7 @@
         function removeField(id) {
                 markStatusOrDelete(`/admin/inputfield/remove/${id}`, 'DELETE')
         }
+
     </script>
 </body>
 
