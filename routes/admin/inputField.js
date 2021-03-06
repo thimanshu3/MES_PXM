@@ -66,15 +66,16 @@ router.post('/add', async (req, res) => {
         res.redirect('/admin/inputField')
         return
     }
+    console.log(req.body.)
     try {
-        const inputField = await inputFields.create({ label, typeOfField: type, description, createdBy: req.user.id })
-        await ActivityLog.create({
-            id: inputField.id,
-            name: 'input Field',
-            type: 'Add',
-            user: req.user.id,
-            timestamp: new Date()
-        })
+        // const inputField = await inputFields.create({ label, typeOfField: type, description, createdBy: req.user.id })
+        // await ActivityLog.create({
+        //     id: inputField.id,
+        //     name: 'input Field',
+        //     type: 'Add',
+        //     user: req.user.id,
+        //     timestamp: new Date()
+        // })
         req.flash('success', `${inputField.label} Added Successfully!`)
         res.redirect('/admin/inputField')
     } catch (err) {

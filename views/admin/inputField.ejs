@@ -86,13 +86,12 @@
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="table-responsive">
-                                                        <div id="add-row_wrapper"
-                                                            class="dataTables_wrapper container-fluid dt-bootstrap4">
+    
 
                                                             <div class="row">
                                                                 <div class="col-sm-12">
                                                                     <table id="add-row"
-                                                                        class="display table table-striped table-hover dataTable"
+                                                                        class=" table table-striped table-hover"
                                                                         role="grid" aria-describedby="add-row_info">
                                                                         <thead>
                                                                             <tr>
@@ -122,11 +121,13 @@
                                                                                             _a.lastName %>
                                                                                     </td>
                                                                                     <td><span
-                                                                                            id="activeBadge-<%= _a.id%>" style="background-color: #088e0c;"
+                                                                                            id="activeBadge-<%= _a.id%>"
+                                                                                            style="background-color: <%= _a.active ? '#088e0c' : '#d20e18' %>"
                                                                                             class="badge badge-<%= _a.active ? 'success' : 'danger' %>">
                                                                                             <%= _a.active ? 'ACTIVE'
                                                                                                 : 'INACTIVE' %>
-                                                                                        </span></td>
+                                                                                        </span>
+                                                                                    </td>
                                                                                     <td>
                                                                                         <div class="form-button-action">
                                                                                             <button type="button"
@@ -148,9 +149,16 @@
                                                                                                 <i
                                                                                                     class="fas <%= _a.active ? 'fa-toggle-on': 'fa-toggle-off' %>"></i>
                                                                                             </button>
-                                                                                            <button id="removefield-<%=_a.id%>" onclick="removeField('<%=_a.id%>')" type="button" data-toggle="tooltip"
-                                                                                                title="" class="btn btn-link btn-danger" data-original-title="Remove">
-                                                                                                <i class="fas fa-trash"></i>
+                                                                                            <button
+                                                                                                id="removefield-<%=_a.id%>"
+                                                                                                onclick="removeField('<%=_a.id%>')"
+                                                                                                type="button"
+                                                                                                data-toggle="tooltip"
+                                                                                                title=""
+                                                                                                class="btn btn-link btn-danger"
+                                                                                                data-original-title="Remove">
+                                                                                                <i
+                                                                                                    class="fas fa-trash"></i>
                                                                                             </button>
                                                                                         </div>
                                                                                     </td>
@@ -161,7 +169,6 @@
                                                                 </div>
                                                             </div>
 
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -179,7 +186,8 @@
 
     </div>
     <!--   Core JS Files   -->
-    <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false"
+        data-backdrop="static">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header no-bd">
@@ -218,20 +226,21 @@
                                     <label for="selectFloatingLabel" class="placeholder">Input Type</label>
                                 </div>
                             </div>
-                            <div class="col-sm-6" id="listDiv" style="display:none">
+                            <div class="col-sm-6 mt-4" id="listDiv" style="display:none">
                                 <div class="form-group form-floating-label">
-                                    <select name="type" class="form-control input-border-bottom" id="listOptions" required>
+                                    <select name="listrecord" class="form-control input-border-bottom" id="listOptions"
+                                        required>
                                         <option id="listValues" value="">&nbsp;</option>
-                                        <% listRecordResult.forEach( _b => { %>
+                                        <% listRecordResult.forEach( _b=> { %>
                                             <option value="<%= _b.id %>">
                                                 <%= _b.name %>
                                             </option>
                                             <% }) %>
                                     </select>
-                                    <label for="selectFloatingLabel" class="placeholder">Input Type</label>
+                                    <label for="selectFloatingLabel" class="placeholder">Select Associated List Record</label>
                                 </div>
                             </div>
-                            
+
                             <div class="col-sm-12 mt-3">
                                 <div class="form-group form-floating-label">
                                     <input name="description" id="desc" type="textarea"
@@ -240,14 +249,15 @@
                                 </div>
                             </div>
 
-                           <div class="col-12">
+                            <div class="col-12">
                                 <p class="text-danger d-flex justify-content-center">Or add by import</p>
-                                <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#myModal">
+                                <button class="btn btn-primary btn-round ml-auto" data-toggle="modal"
+                                    data-target="#myModal">
                                     <i class="fa fa-plus"></i>
-                                Import Item Fields
+                                    Import Item Fields
                                 </button>
-                                
-                           </div>
+
+                            </div>
                         </div>
                         <div class="modal-footer no-bd">
                             <button type="submit" id="addRowButton" class="btn btn-primary">Add</button>
@@ -261,11 +271,10 @@
         </div>
     </div>
 
-    <div class="modal fade kk_modal_popup_form " id="myModal" 
-        data-keyboard="false" data-backdrop="static">
+    <div class="modal fade kk_modal_popup_form " id="myModal" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog ">
             <div class="modal-content">
-    
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Import User</h4>
@@ -278,7 +287,7 @@
                         <button type="button" class="btn btn-primary mb-5">Download Template</button>
                         <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
                     </div>
-    
+
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Import</button>
@@ -306,7 +315,7 @@
     <!-- jQuery UI -->
     <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-    
+
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
     <script>
@@ -315,30 +324,28 @@
             info: false,
             scrollCollapse: true,
             scrollY: '60vh',
-            fixedHeader: true,
         });
         $(document).on('show.bs.modal', '.modal', function () {
-                var zIndex = 1040 + (10 * $('.modal:visible').length);
-                $(this).css('z-index', zIndex);
-                setTimeout(function () {
-                    $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
-                }, 0);
-            });
+            var zIndex = 1040 + (10 * $('.modal:visible').length);
+            $(this).css('z-index', zIndex);
+            setTimeout(function () {
+                $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+            }, 0);
+        });
 
         $(document).ready(function () {
-                $("#selectFloatingLabel").on( 'change', () => {
-                    if ($('option:selected', '#selectFloatingLabel').text().replace(/\s+/g, ' ').trim() === 'list/record') {
-
-                        $('#listDiv').show()
-                    }
-                });
+            $("#selectFloatingLabel").on('change', () => {
+                if ($('option:selected', '#selectFloatingLabel').text().replace(/\s+/g, ' ').trim() === 'list/record') {
+                    $('#listDiv').show()
+                }
             });
+        });
 
         function changeFieldStatus(id) {
-            markStatusOrDelete(`/admin/inputfield/${id}`, 'DELETE', 'status',`{"id":"${id}"}`)
+            markStatusOrDelete(`/admin/inputfield/${id}`, 'DELETE', 'status', `{"id":"${id}"}`)
         }
         function removeField(id) {
-                markStatusOrDelete(`/admin/inputfield/remove/${id}`, 'DELETE')
+            markStatusOrDelete(`/admin/inputfield/remove/${id}`, 'DELETE')
         }
 
     </script>
