@@ -69,107 +69,59 @@
                                 </div>
 
                                 <div class="container-fluid ">
-                                    <div class="row">
-                                        <div class="col-md-12">
-
-
-                                            <div class="card kk_full_form">
-                                                <div class="card-header">
-                                                    <div class="d-flex align-items-center">
-                                                        <h4 class="card-title">All Item Fields</h4>
-                                                        <a data-toggle="modal" data-target="#addRowModal"
-                                                            class="btn btn-primary btn-round ml-auto">
-                                                            <i class="fa fa-plus"></i>
-                                                            Add Item Field
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="table-responsive">
-                                                        <div id="add-row_wrapper"
-                                                            class="dataTables_wrapper container-fluid dt-bootstrap4">
-
-                                                            <div class="row">
-                                                                <div class="col-sm-12">
-                                                                    <table id="add-row"
-                                                                        class="display table table-striped table-hover dataTable"
-                                                                        role="grid" aria-describedby="add-row_info">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th rowspan="1" colspan="1">Label</th>
-                                                                                <th rowspan="1" colspan="1">Type</th>
-                                                                                <th rowspan="1" colspan="1">Created By
-                                                                                </th>
-                                                                                <th rowspan="1" colspan="1">Status
-                                                                                </th>
-                                                                                <th rowspan="1" colspan="1">Action</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <% inputField[0].forEach(_a=>{ %>
-                                                                                <tr>
-
-                                                                                    <td data-toggle="tooltip"
-                                                                                        data-placement="left"
-                                                                                        title="<%= _a.description %> ">
-                                                                                        <%= _a.label %>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <%= _a.inputType %>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <%= _a.firstName + ' ' +
-                                                                                            _a.lastName %>
-                                                                                    </td>
-                                                                                    <td><span
-                                                                                            id="activeBadge-<%= _a.id%>"
-                                                                                            class="badge badge-<%= _a.active ? 'success' : 'danger' %>">
-                                                                                            <%= _a.active ? 'ACTIVE'
-                                                                                                : 'INACTIVE' %>
-                                                                                        </span></td>
-                                                                                    <td>
-                                                                                        <div class="form-button-action">
-                                                                                            <button type="button"
-                                                                                                data-toggle="tooltip"
-                                                                                                title=""
-                                                                                                class="btn btn-link btn-primary btn-lg"
-                                                                                                data-original-title="Edit Task">
-                                                                                                <i
-                                                                                                    class="fa fa-edit"></i>
-                                                                                            </button>
-                                                                                            <button
-                                                                                                id="changeFieldStatus-<%=_a.id%>"
-                                                                                                onclick="changeFieldStatus('<%=_a.id%>')"
-                                                                                                type="button"
-                                                                                                data-toggle="tooltip"
-                                                                                                title="Toggle to Change Status"
-                                                                                                class="btn btn-link btn-default"
-                                                                                                data-original-title="Remove">
-                                                                                                <i
-                                                                                                    class="fas <%= _a.active ? 'fa-toggle-on': 'fa-toggle-off' %>"></i>
-                                                                                            </button>
-                                                                                            <button id="removefield-<%=_a.id%>" onclick="removeField('<%=_a.id%>')" type="button" data-toggle="tooltip"
-                                                                                                title="" class="btn btn-link btn-danger" data-original-title="Remove">
-                                                                                                <i class="fas fa-trash"></i>
-                                                                                            </button>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <% }) %>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card kk_full_form">
+                                            <div class="card-header">
+                                                <div class="d-flex align-items-center">
+                                                    <h4 class="card-title">Import Raw Data</h4>
+                                                 
                                                 </div>
                                             </div>
-
-
-
+                                            <form action="/admin/addUser" method="POST">
+                                
+                                                <div class="card-body">
+                                                    <div class="row">
+                                
+                                                        <div class="col-md-12">
+                                
+                                                            <div class="form-group">
+                                                                <label>First Name</label>
+                                                                <input type="text" class="form-control" name="firstName" id="firstName"
+                                                                    placeholder="Enter First Name" required>
+                                                            </div>
+                                
+                                                            <div class="form-group">
+                                                                <label>Last Name</label>
+                                                                <input type="text" class="form-control" name="lastName" id="lastName"
+                                                                    placeholder="Enter Last Name" required>
+                                                            </div>
+                                
+                                                            <div class="form-group">
+                                                                <label>Email Address</label>
+                                                                <input onkeyup="search(this.value)" type="email" class="form-control" name="email"
+                                                                    id="emailAddress" placeholder="Enter Email" required>
+                                                            </div>
+                                
+                                                            <div class="form-group">
+                                                                <label>Phone Number</label>
+                                                                <input type="text" class="form-control" name="contactNumber" id="phoneNumber"
+                                                                    placeholder="Enter Phone Number" required>
+                                                            </div>
+                                
+                                                            <input type="file" name="file" class="form-control-file m-3" id="exampleFormControlFile1">
+                                                        
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer d-flex justify-content-end">
+                                                        <button type="submit" class="btn  mr-3">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                
                                         </div>
                                     </div>
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -179,101 +131,7 @@
 
     </div>
     <!--   Core JS Files   -->
-    <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header no-bd">
-                    <h5 class="modal-title">
-                        <span class="fw-mediumbold">
-                            New</span>
-                        <span class="fw-light">
-                            Row
-                        </span>
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="/admin/inputField/add" method="POST">
-                        <div class="row">
-                            <div class="col-md-6 pr-0">
-                                <div class="form-group form-floating-label">
-                                    <input id="inputFloatingLabel" type="text" name="label"
-                                        class="form-control input-border-bottom" required>
-                                    <label for="inputFloatingLabel" class="placeholder">Label</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group form-floating-label">
-                                    <select name="type" class="form-control input-border-bottom"
-                                        id="selectFloatingLabel" required>
-                                        <option value="">&nbsp;</option>
-                                        <% inputType.forEach(_b=>{ %>
-                                            <option value="<%=_b.id%>">
-                                                <%=_b.inputType%>
-                                            </option>
-                                            <% }) %>
-                                    </select>
-                                    <label for="selectFloatingLabel" class="placeholder">Input Type</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 mt-3">
-                                <div class="form-group form-floating-label">
-                                    <input name="description" id="desc" type="textarea"
-                                        class="form-control input-border-bottom" required="">
-                                    <label for="desc" class="placeholder">Description</label>
-                                </div>
-                            </div>
-
-                           <div class="col-12">
-                                <p class="text-danger d-flex justify-content-center">Or add by import</p>
-                                <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#myModal">
-                                    <i class="fa fa-plus"></i>
-                                Import Item Fields
-                                </button>
-                                
-                           </div>
-                        </div>
-                        <div class="modal-footer no-bd">
-                            <button type="submit" id="addRowButton" class="btn btn-primary">Add</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        </div>
-                    </form>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade kk_modal_popup_form " id="myModal" 
-        data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog ">
-            <div class="modal-content">
-    
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Import User</h4>
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                </div>
-                <form action="/admin/inputField/import" method="POST" enctype="multipart/form-data">
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                        <p class="text-danger">Supported extensions .XLSX</p>
-                        <button type="button" class="btn btn-primary mb-5">Download Template</button>
-                        <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
-                    </div>
-    
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Import</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+   
 
     <!-- jQuery library -->
     <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
