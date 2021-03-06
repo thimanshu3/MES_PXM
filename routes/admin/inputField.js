@@ -9,7 +9,7 @@ const readXlsxFile = require('read-excel-file/node')
 const { random } = require('../../util')
 
 const { MySql } = require('../../db')
-const { inputFields, inputTypes, ActivityLog, fieldGroups, fieldsAssignedToGroup } = require('../../models')
+const { inputFields, inputTypes, ActivityLog, fieldGroups, fieldsAssignedToGroup, listRecord } = require('../../models')
 const { addInputFieldSchema } = require('../../validation')
 const { Router } = require('express')
 const router = express.Router()
@@ -35,9 +35,12 @@ const excelUpload = multer({
 router.get('/', async (req, res) => {
     try{
     const inputType = await inputTypes.findAll()
+    const listRecordResult = await listRecord.findAll({
+        where: {active:true}
+    })
     const inputField = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description ,users.firstName as firstName, users.lastName as lastName, inputTypes.inputType from inputFields INNER JOIN users  ON users.id = inputFields.createdBy INNER join inputTypes on inputTypes.id = inputFields.typeOfField;')
     console.log(req.user)
-    res.render('admin/inputField', { User: req.user, inputField, inputType })
+    res.render('admin/inputField', { User: req.user, inputField, inputType, listRecordResult })
 } catch (err) {
     console.error('\x1b[31m%s\x1b[0m', err)
     req.flash('error', 'Something Went Wrong!')
