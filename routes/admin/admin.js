@@ -29,7 +29,10 @@ router.use('/listrecord', require('./listRecord'))
 router.use('/customform', require('./customForm'))
 
 router.use('/importrawdata',require('./importRawData'))
-
+router.use('/kktest',async (req, res) => {
+        
+        res.render('admin/kktest', { User: req.user })
+    })
 
 
 

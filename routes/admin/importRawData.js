@@ -8,7 +8,7 @@ const router = express.Router()
 
 router.get('/', async (req, res) => {
         
-        res.render('admin/dashboard', { User: req.user })
+        res.render('admin/importrawdata', { User: req.user })
     }
 )
 
