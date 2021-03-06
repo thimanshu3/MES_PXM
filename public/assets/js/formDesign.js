@@ -195,7 +195,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
                         let id = b.getAttribute('id');
                         id = id.split('-');
                         childObj.type = "tab";
-                        childObj.order = id[2];
+                        childObj.order = id[4];
                         obj.child.push(childObj)
                     })
 
