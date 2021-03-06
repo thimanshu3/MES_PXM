@@ -1,6 +1,7 @@
 
 
 let order = 0;
+var extName;
 
 var orderObject = {};
 
@@ -65,7 +66,6 @@ const addComponent = (type, where) => {
             </div>
         `)
 
-        console.log(`path -> ctab-${order}`);
 
 
     }
@@ -105,7 +105,6 @@ const addComponent = (type, where) => {
 
         orderObject[`ctabc-${str}-${count}-list`] = 1;
 
-        console.log(`first ->  ctabc-${str}-${count}-ctb`);
 
         $(`#${where}`).append(`
             <div class="m-3" id="${str}-tab-${count}">
@@ -134,27 +133,18 @@ const addComponent = (type, where) => {
         `)
     }
 
-    console.log(orderObject);
 
 }
 
 const addTab = (val) => {
+    if(extName != '' || extName != undefined){
+        let path = val;
+        path += '-list';
+        orderObject[path] = orderObject[path] + 1;
 
-    let path = val;
-    path += '-list';
-
-
-    console.log(`val -> ${val}`);
-    console.log(path);
-
-
-    console.log(orderObject[path], 'hi');
-    orderObject[path] = orderObject[path] + 1;
-
-    $(`#${path}`).append(`<li class="nav-item submenu" id="${val}-${orderObject[path]}-item"> <a class="nav-link"  data-toggle="pill" href="#${val}-${orderObject[path]}-content_item" role = "tab" aria-controls="pills-home-nobd" aria-selected="false"> Home </a > </li >`);
-    $(`#${val}`).append(` <div class="tab-pane fade" id='${val}-${orderObject[path]}-content_item' role="tabpanel" aria-labelledby="pills-home-tab-nobd">
-                                <p>Default Tab ${val}-${orderObject[path]}</p>
-                            </div>`);
+        $(`#${path}`).append(`<li class="nav-item submenu" id="${val}-${orderObject[path]}-item"> <a class="nav-link"  data-toggle="pill" href="#${val}-${orderObject[path]}-content_item" role= "tab" aria-controls="pills-home-nobd" aria-selected="false"> ${extName} </a > </li >`);
+        $(`#${val}`).append(` <div class="tab-pane fade" id='${val}-${orderObject[path]}-content_item' role="tabpanel" aria-labelledby="pills-home-tab-nobd"><p>Default Tab ${val}-${orderObject[path]}</p></div>`);
+    }
 }
 
 var AllData = [];
@@ -162,55 +152,52 @@ var AllData = [];
 //fire event on save button click
 document.getElementById("saveButton").addEventListener("click", function () {
     let main = document.getElementById('builder');
-    let allSec = Array.from(main.children);
+    let allComponent = Array.from(main.children);
 
-    allSec.forEach(parent => {
-        
-        let id = parent.getAttribute("id");
-        let name = parent.querySelectorAll("input")[0].value
-        let obj = { child: [] };
+    allComponent.forEach(component => {
+
+        let id = component.getAttribute("id");
+        let name = component.querySelectorAll("input")[0].value
+        let obj = { components: [] };
         id = id.split('-')
         obj.type = id[0];
         obj.order = id[1];
         obj.name = name
 
         if (obj.type != "tab") {
-            var child = parent.getElementsByClassName("card-body")[0].getElementsByClassName("m-3")[0];
+            var child = component.getElementsByClassName("card-body")[0].getElementsByClassName("m-3")[0];
             let allChild = Array.from(child.children);
 
             allChild.forEach(b => {
                 let id = b.getAttribute('id')
                 let name = b.querySelectorAll("input")[0].value
-                let childObj = {}
-
+                let childObj = { tabs: [] }
                 id = id.split("-");
-                childObj.name = name
+
+                childObj.order = id[3];
+                childObj.type = id[2];
+                childObj.name = name;
 
                 if (id.includes('tab')) {
-                    childObj.type = id[2];
                     let child = b.getElementsByTagName('ul')[0].getElementsByTagName("li");
-                    let allChild = Array.from(child)
-                    allChild.forEach(b => {
-                        let childObj = {};
+                    let allTabs = Array.from(child)
+                    allTabs.forEach(b => {
+                        let tab = {}
                         let id = b.getAttribute('id');
                         id = id.split('-');
-                        childObj.type = "tab";
-                        childObj.order = id[4];
-                        obj.child.push(childObj)
+                        tab.type = "tablist";
+                        tab.order = id[4];
+                        childObj.tabs.push(tab)
                     })
-
-                } else {
-                    childObj.type = id[2];
                 }
-                childObj.order = id[3];
 
-                obj.child.push(childObj);
+                obj.components.push(childObj);
 
             })
 
         }
         else {
-            let child = parent.getElementsByClassName("card-body")[0].getElementsByTagName('ul')[0].getElementsByTagName("li");
+            let child = component.getElementsByClassName("card-body")[0].getElementsByTagName('ul')[0].getElementsByTagName("li");
             let allChild = Array.from(child)
             allChild.forEach(b => {
                 let childObj = {};
@@ -218,16 +205,74 @@ document.getElementById("saveButton").addEventListener("click", function () {
                 id = id.split('-');
                 childObj.type = "tab";
                 childObj.order = id[2];
-                obj.child.push(childObj)
+                obj.components.push(childObj)
             })
         }
         AllData.push(obj);
     })
-    console.log(AllData);
+   
+            fetch('/admin/customform/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    AllData
+                })
+            })
+                .then(function (res) {
+                    return res.json()
+                })
+                .then(function (json) {
+                    if (json.status == 200)
+                        iziToast.success({
+                            message: json.message
+                        })
+                    else if (json.status == 400)
+                        iziToast.error({
+                            title: json.message,
+                            message: json.error
+                        })
+                    else
+                        iziToast.error({
+                            message: json.message
+                        })
+                })
+                .catch(err => console.log(err))
+    
 })
 
 
-const deleteComponent = (id) =>{
+const deleteComponent = (id) => {
     $(`#${id}`).remove()
     order = order - 2;
-} 
+}
+
+
+const getName = () => {
+    iziToast.info({
+        timeout: 20000,
+        overlay: true,
+        displayMode: 'once',
+        id: 'inputs',
+        zindex: 999,
+        title: 'Enter Tab name',
+        position: 'center',
+        drag: false,
+        inputs: [
+            ['<input type="textl">', 'change', function (instance, toast, input, e) {
+                extName = input.value;
+            }]
+        ],
+        buttons: [
+            ['<button><b>Save</b></button>', function (instance, toast) {
+
+                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                
+
+            }, true]],
+
+    });
+
+
+}
