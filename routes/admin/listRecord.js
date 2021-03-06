@@ -19,7 +19,7 @@ router.get('/:id', async (req, res) => {
             }
         })
 
-        if (!foundList){
+        if (!foundList) {
             req.flash('error', 'List record Not Found!')
             res.redirect('/admin/listRecord')
             return
@@ -46,23 +46,38 @@ router.get('/:id', async (req, res) => {
 
 
 router.post('/add', async (req, res) => {
-    const { name } = req.body
+    const { name, tagValues } = req.body
+    const values = tagValues.split(',')
     if (!name) {
         req.flash('error', 'name is required!')
         res.redirect('/admin/listRecord')
         return
     }
+
+    if (!Array.isArray(values) && values.length) {
+        req.flash('error', 'values are required!')
+        res.redirect('/admin/listRecord')
+        return
+    }
+
     try {
-        const attribute = await listRecord.create({ name , createdBy: req.user.id })
+        const ListRecord = await listRecord.create({ name, createdBy: req.user.id })
+        await listRecordValues.bulkCreate(values.map(s => ({
+            parentListId: ListRecord.id,
+            label: s,
+            createdBy: req.user.id,
+        })))
+        
         await ActivityLog.create({
-            id: attribute.id,
+            id: ListRecord.id,
             name: 'List record',
             type: 'Add',
             user: req.user.id,
             timestamp: new Date()
         })
-        req.flash('success', `${attribute.name} Added Successfully!`)
+        req.flash('success', `${ListRecord.name} Added Successfully!`)
         res.redirect('/admin/listRecord')
+
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         if (err.name === 'SequelizeUniqueConstraintError')
@@ -93,7 +108,7 @@ router.post('/:id/add', async (req, res) => {
     }
 
     try {
-        const listrecord = await listRecordValues.create({ label, parentListId: parentListRecord.id , createdBy: req.user.id })
+        const listrecord = await listRecordValues.create({ label, parentListId: parentListRecord.id, createdBy: req.user.id })
         req.flash('success', `${listrecord.name} Added Successfully!`)
         res.redirect(`/admin/listrecord/${parentListRecord.id}`)
     } catch (err) {

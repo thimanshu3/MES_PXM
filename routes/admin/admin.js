@@ -28,9 +28,7 @@ router.use('/listrecord', require('./listRecord'))
 
 router.use('/customform', require('./customForm'))
 
-router.get('/importRawData', (req, res) => {
-    res.render('admin/importRawData', { User: req.user })
-})
+router.use('/importrawdata',require('./importRawData'))
 
 
 
