@@ -22,7 +22,7 @@ const addComponent = (type, where) => {
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-center border">
-                            <button class="btn btn-link btn-shadow" onclick="addComponent('3', 'cmp-sec-${order}')">Add Sub-Section</button>
+                            <button class="btn btn-link btn-shadow shadow" onclick="addComponent('3', 'cmp-sec-${order}')">Add Sub-Section</button>
                             <button class="btn btn-link btn-shadow" onclick="addComponent('4' , 'cmp-sec-${order}')">Add Sub-Tab</button>
                         </div>
                         <div class="m-3" id="cmp-sec-${order}">
@@ -40,13 +40,13 @@ const addComponent = (type, where) => {
             <div class="m-3" id="tab-${order}">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <div class="form-group">
+                        <div class="form-group w-50">
                             <label for="email2">Enter Tab ${order} Name</label>
                             <input type="text" class="form-control" name="name" id="tab-${order}-inp" placeholder="Name">
                         </div>
                         <div
                         class="d-flex justify-content-between">
-                            <button class="btn btn-link" onclick="addTab('ctabc-${order}')">Add New Tab</button>
+                            <button class="btn btn-link" onclick="getName('ctabc-${order}')">Add New Tab</button>
                             <button onclick="deleteComponent('tab-${order}')" class="btn btn-link"><i style="color:red" class="fas fa-trash"></i></button>
                         </div>
                     </div>
@@ -114,7 +114,7 @@ const addComponent = (type, where) => {
                             <label for="email2">Enter Tab Name</label>
                             <input type="text" class="form-control" name="name" id="${str}-tab-${count}-inp" placeholder="Name">
                         </div>
-                        <button class="btn btn-link" onclick="addTab('ctabc-${str}-${count}')">Add New Tab</button>
+                        <button class="btn btn-link" onclick="getName('ctabc-${str}-${count}')">Add New Tab</button>
                     </div>
                     <div class="card-body">
                         <ul  class="nav nav-pills nav-secondary nav-pills-no-bd" id="ctabc-${str}-${count}-list" role="tablist">
@@ -130,9 +130,11 @@ const addComponent = (type, where) => {
                     </div>
                 </div>
             </div>
-        `)
+        `).animate({
+            left: '100%'  // for instance
+        }, 2000);
     }
-
+    scrollDown()
 
 }
 
@@ -144,6 +146,7 @@ const addTab = (val) => {
 
         $(`#${path}`).append(`<li class="nav-item submenu" id="${val}-${orderObject[path]}-item"> <a class="nav-link"  data-toggle="pill" href="#${val}-${orderObject[path]}-content_item" role= "tab" aria-controls="pills-home-nobd" aria-selected="false"> ${extName} </a > </li >`);
         $(`#${val}`).append(` <div class="tab-pane fade" id='${val}-${orderObject[path]}-content_item' role="tabpanel" aria-labelledby="pills-home-tab-nobd"><p>Default Tab ${val}-${orderObject[path]}</p></div>`);
+        extName =''
     }
 }
 
@@ -187,6 +190,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
                         id = id.split('-');
                         tab.type = "tablist";
                         tab.order = id[4];
+                        tab.name = b.innerText || b.nodeValue
                         childObj.tabs.push(tab)
                     })
                 }
@@ -205,19 +209,21 @@ document.getElementById("saveButton").addEventListener("click", function () {
                 id = id.split('-');
                 childObj.type = "tab";
                 childObj.order = id[2];
+                childObj.name = b.innerText || b.nodeValue
                 obj.components.push(childObj)
             })
         }
         AllData.push(obj);
     })
    
-            fetch('/admin/customform/', {
+            fetch('/admin/customform/layout', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    AllData
+                    AllData,
+                    formId
                 })
             })
                 .then(function (res) {
@@ -245,11 +251,11 @@ document.getElementById("saveButton").addEventListener("click", function () {
 
 const deleteComponent = (id) => {
     $(`#${id}`).remove()
-    order = order - 2;
+    order = order - 1;
 }
 
 
-const getName = () => {
+const getName = (id) => {
     iziToast.info({
         timeout: 20000,
         overlay: true,
@@ -268,7 +274,9 @@ const getName = () => {
             ['<button><b>Save</b></button>', function (instance, toast) {
 
                 instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-                
+                if(extName != ''){
+                    addTab(id)
+                }
 
             }, true]],
 
@@ -276,3 +284,10 @@ const getName = () => {
 
 
 }
+
+function scrollDown() {
+    $('html, body').animate({
+        scrollTop: $(document).height()
+    }, 'slow');
+}
+

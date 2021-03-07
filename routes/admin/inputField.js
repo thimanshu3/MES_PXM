@@ -49,44 +49,44 @@ router.get('/', async (req, res) => {
 })
 
 
-router.post('/add', async (req, res) => {
-    const { label, description, type } = req.body
-    if (!label) {
-        req.flash('error', 'name is required!')
-        res.redirect('/admin/inputField')
-        return
-    }
-    if (!description) {
-        req.flash('error', 'description is required!')
-        res.redirect('/admin/inputField')
-        return
-    }
-    if (!type) {
-        req.flash('error', 'type is required!')
-        res.redirect('/admin/inputField')
-        return
-    }
-    console.log(req.body.)
-    try {
-        // const inputField = await inputFields.create({ label, typeOfField: type, description, createdBy: req.user.id })
-        // await ActivityLog.create({
-        //     id: inputField.id,
-        //     name: 'input Field',
-        //     type: 'Add',
-        //     user: req.user.id,
-        //     timestamp: new Date()
-        // })
-        req.flash('success', `${inputField.label} Added Successfully!`)
-        res.redirect('/admin/inputField')
-    } catch (err) {
-        console.error('\x1b[31m%s\x1b[0m', err)
-        if (err.name === 'SequelizeUniqueConstraintError')
-            req.flash('error', `${err.errors[0].message} '${err.errors[0].value}' already exists!`)
-        else
-            req.flash('error', err.toString() || 'Something Went Wrong!')
-        res.redirect('/admin/inputField')
-    }
-})
+// router.post('/add', async (req, res) => {
+//     const { label, description, type } = req.body
+//     if (!label) {
+//         req.flash('error', 'name is required!')
+//         res.redirect('/admin/inputField')
+//         return
+//     }
+//     if (!description) {
+//         req.flash('error', 'description is required!')
+//         res.redirect('/admin/inputField')
+//         return
+//     }
+//     if (!type) {
+//         req.flash('error', 'type is required!')
+//         res.redirect('/admin/inputField')
+//         return
+//     }
+//     console.log(req.body)
+//     try {
+//         // const inputField = await inputFields.create({ label, typeOfField: type, description, createdBy: req.user.id })
+//         // await ActivityLog.create({
+//         //     id: inputField.id,
+//         //     name: 'input Field',
+//         //     type: 'Add',
+//         //     user: req.user.id,
+//         //     timestamp: new Date()
+//         // })
+//         req.flash('success', `${inputField.label} Added Successfully!`)
+//         res.redirect('/admin/inputField')
+//     } catch (err) {
+//         console.error('\x1b[31m%s\x1b[0m', err)
+//         if (err.name === 'SequelizeUniqueConstraintError')
+//             req.flash('error', `${err.errors[0].message} '${err.errors[0].value}' already exists!`)
+//         else
+//             req.flash('error', err.toString() || 'Something Went Wrong!')
+//         res.redirect('/admin/inputField')
+//     }
+// })
 
 router.post('/import', excelUpload.single('file'), async (req, res) => {
     if (req.fileValidationError) {

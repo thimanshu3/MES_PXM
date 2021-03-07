@@ -52,6 +52,31 @@ router.post('/', async (req, res) => {
     }
 })
 
+
+router.post('/layout', async (req, res) => {
+    console.log(req.body.AllData)
+    // try {
+    //     const customForm = await form.create({ name, createdBy: req.user.id, description, createdBy: req.user.id })
+    //     await ActivityLog.create({
+    //         id: customForm.id,
+    //         name: 'Form',
+    //         type: 'Add',
+    //         user: req.user.id,
+    //         timestamp: new Date()
+    //     })
+    //     req.flash('success', `${customForm.name} Added Successfully!`)
+    //     res.redirect('/admin/customform')
+    // } catch (err) {
+    //     console.error('\x1b[31m%s\x1b[0m', err)
+    //     if (err.name === 'SequelizeUniqueConstraintError')
+    //         req.flash('error', `${err.errors[0].message} '${err.errors[0].value}' already exists!`)
+    //     else
+    //         req.flash('error', err.toString() || 'Something Went Wrong!')
+    //     res.redirect('/admin/customform')
+    // }
+})
+
+
 router.get('/:id', async (req, res) => {
     try {
         const formPart = await formParts.findAll()
@@ -60,7 +85,6 @@ router.get('/:id', async (req, res) => {
                 id:req.params.id
             }
         })
-        console.log(formPart)
         res.render('admin/customFormDesign', { User: req.user, customForm, formatDateMoment,formPart })
 
     } catch (err) {
