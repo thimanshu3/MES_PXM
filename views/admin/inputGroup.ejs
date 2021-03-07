@@ -188,33 +188,7 @@
                                 </div>
                             </div>
                         </div>
-                        <footer class="footer">
-                            <div class="container-fluid">
-                                <nav class="pull-left">
-                                    <ul class="nav">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="https://www.themekita.com">
-                                                ThemeKita
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">
-                                                Help
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">
-                                                Licenses
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                                <div class="copyright ml-auto">
-                                    2018, made with <i class="fa fa-heart heart text-danger"></i> by <a
-                                        href="https://www.themekita.com">ThemeKita</a>
-                                </div>
-                            </div>
-                        </footer>
+                       
 
 
                         <div class="modal kk_modal_popup_form" id="kk_create_group" style="display: none;"
@@ -251,78 +225,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-                            <div class="modal kk_modal_popup_form" id="kk_group_items" style="display: none;"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-
-                                        <!-- Modal Header -->
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Size Group's Items</h4>
-                                            <button type="button" class="close" data-dismiss="modal">×</button>
-                                        </div>
-
-                                        <!-- Modal body -->
-                                        <div class="modal-body">
-
-
-                                            <div class="form-group">
-
-                                                <div class="selectgroup selectgroup-pills">
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="HTML"
-                                                            class="selectgroup-input" checked>
-                                                        <span class="selectgroup-button">HTML</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="CSS"
-                                                            class="selectgroup-input" checked>
-                                                        <span class="selectgroup-button">CSS</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="PHP"
-                                                            class="selectgroup-input" checked>
-                                                        <span class="selectgroup-button">PHP</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="JavaScript"
-                                                            class="selectgroup-input" checked>
-                                                        <span class="selectgroup-button">JavaScript</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="Ruby"
-                                                            class="selectgroup-input" checked>
-                                                        <span class="selectgroup-button">Ruby</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="Ruby"
-                                                            class="selectgroup-input" checked>
-                                                        <span class="selectgroup-button">Ruby</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="value" value="C++"
-                                                            class="selectgroup-input" checked>
-                                                        <span class="selectgroup-button">C++</span>
-                                                    </label>
-
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-
-                                        <!-- Modal footer -->
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary">Save</button>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
 
                         </div>
 
@@ -422,7 +324,8 @@
 
                         const showItemFields = (id) =>{
                             $('#fieldListArea').empty()
-                            $("#fieldListArea").prepend('<div id="preloader">Loading...</div>');
+                            $("#fieldListArea").prepend(`<div id="preloader"><div id="loader"></div>
+                                        </div>`);
                              fetch(`/admin/inputfield/inputgroup/${id}`)
                                 .then(function (res) {
                                     return res.json()

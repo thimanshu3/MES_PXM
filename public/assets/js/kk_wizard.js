@@ -600,11 +600,12 @@ const previewTheData = () => {
 
 
 const GetTable = () => {
-  console.log('called')
   var table = $('#dytable').DataTable({
     scrollX:true,
     scrollY:'60vh'
   });
+  $('#preloader').hide()
+  $('#tableField').append(`<div class="f1-buttons mt-5"><button type="button" class="btn btn-previous" > Previous</button ><button type="submit" class="btn ml-3 btn-submit">Submit</button></div >`)
 }
 
 var executedH = false;
@@ -618,7 +619,7 @@ const createHeader = (fields) => {
         if (field == '__EMPTY') {
           throw new Error("Something went badly wrong!");
         } else {
-          $('#headers').append(`<th scope="col">${field}</th>`)
+          $('#headers').append(`<th scope="col">${field.toUpperCase()}</th>`)
         }
       })
     }
@@ -637,7 +638,7 @@ const addDataTobody = (content) => {
         for (var key in row) {
           if (row.hasOwnProperty(key) && key != '__EMPTY') {
             let td = document.createElement('td');
-            td.innerHTML = row[key] != null ? row[key] : '-'
+            td.innerHTML = row[key] != null ? row[key] : 'N-A'
             tr.appendChild(td);
           }
         }

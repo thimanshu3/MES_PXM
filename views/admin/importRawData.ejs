@@ -68,10 +68,11 @@
                 </div>
 
                 <div class="container-fluid">
+                  
                   <div class="row">
                     <div class="col-md-12">
                       <div class="card kk_full_form">
-                        <div class="card-body">
+                        <div class="">
                           <div class="row">
                             <div
                               class="col-sm-12 col-sm-offset-1 col-md-12 col-md-offset-2 col-lg-12 col-lg-offset-3 form-box mx-auto">
@@ -103,12 +104,12 @@
                                     <label class="form-label">File Type</label>
                                     <div class="selectgroup selectgroup-pills d-block">
                                       <label class="selectgroup-item">
-                                        <input type="select" name="value" value="HTML" class="selectgroup-input"
+                                        <input type="radio" name="value" value="HTML" class="selectgroup-input"
                                           checked="" />
                                         <span class="selectgroup-button">HTML</span>
                                       </label>
                                       <label class="selectgroup-item">
-                                        <input type="select" name="value" value="CSS" class="selectgroup-input" />
+                                        <input type="radio" name="value" value="CSS" class="selectgroup-input" />
                                         <span class="selectgroup-button">CSS</span>
                                       </label>
                                     </div>
@@ -132,8 +133,10 @@
                                   </div>
                                 </fieldset>
 
-                                <fieldset>
-                                  
+                                <fieldset id="tableField">
+                                  <div id="preloader">
+                                    <div id="loader"></div>
+                                  </div>
                                   <div class="table-responsive">
                                     <h4>PREVIEW RAW DATA</h4>
                                     <div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
@@ -153,10 +156,7 @@
 
                                     </div>
                                   </div>
-                                  <!-- <div class="f1-buttons">
-                                    <button type="button" class="btn btn-previous">Previous</button>
-                                    <button type="submit" class="btn btn-submit">Submit</button>
-                                  </div> -->
+                                  <!--  -->
                                 </fieldset>
                               </form>
                             </div>
