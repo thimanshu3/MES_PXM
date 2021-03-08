@@ -115,6 +115,13 @@
                                                                                     </td>
                                                                                     <td>
                                                                                         <%= _a.inputType %>
+                                                                                        <%if ( _a.inputType == 'list/record') { %>
+                                                                                        <button type="button" data-toggle="tooltip" title="" onclick="fetchListValues('<%= _a.lr %>')" class="btn btn-link btn-sm"
+                                                                                            data-original-title="View List/Record Values">
+                                                                                            <i class="fa fa-eye"></i>
+                                                                                        </button>
+                                                                                            <% } %>
+                                                                        
                                                                                     </td>
                                                                                     <td>
                                                                                         <%= _a.firstName + ' ' +
@@ -130,6 +137,7 @@
                                                                                     </td>
                                                                                     <td>
                                                                                         <div class="form-button-action">
+                                                                                            
                                                                                             <button type="button"
                                                                                                 data-toggle="tooltip"
                                                                                                 title=""
@@ -228,8 +236,7 @@
                             </div>
                             <div class="col-sm-6 mt-4" id="listDiv" style="display:none">
                                 <div class="form-group form-floating-label">
-                                    <select name="listrecord" class="form-control input-border-bottom" id="listOptions"
-                                        required>
+                                    <select name="listrecord" class="form-control input-border-bottom" id="listOptions">
                                         <option id="listValues" value="">&nbsp;</option>
                                         <% listRecordResult.forEach( _b=> { %>
                                             <option value="<%= _b.id %>">
@@ -343,6 +350,12 @@
             $("#selectFloatingLabel").on('change', () => {
                 if ($('option:selected', '#selectFloatingLabel').text().replace(/\s+/g, ' ').trim() === 'list/record') {
                     $('#listDiv').show()
+                    $('#listOptions').prop('required',true)
+                }
+                else
+                {
+                    $('#listDiv').hide()
+                    $('#listOptions').prop('required', false)
                 }
             });
         });
@@ -352,6 +365,15 @@
         }
         function removeField(id) {
             markStatusOrDelete(`/admin/inputfield/remove/${id}`, 'DELETE')
+        }
+
+        function fetchListValues(id) {
+            fetch(`/admin/inputfield/lrValue/${id}`)
+            .then(res => res.json())
+            .then(json=>{
+                console.log(json);
+            })
+            .catch(err => console.log(err))
         }
 
     </script>

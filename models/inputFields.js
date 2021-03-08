@@ -29,6 +29,10 @@ const inputFields = MySql.define('inputFields', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    associatedList:{
+        type: DataTypes.STRING,
+        defaultValue: '-'
+    },
     active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
