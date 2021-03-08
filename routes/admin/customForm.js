@@ -2,7 +2,7 @@ const express = require('express')
 const { Op } = require('sequelize')
 
 const { MySql } = require('../../db')
-const { ActivityLog, FormDesign, formParts, form, FormDesign } = require('../../models')
+const { ActivityLog, FormDesign, formParts, form } = require('../../models')
 const { formatDateMoment } = require('../../util')
 const router = express.Router()
 
