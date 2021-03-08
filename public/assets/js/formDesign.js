@@ -10,6 +10,7 @@ const addComponent = (type, where) => {
     if (type == 1) {
         order = order + 1;
         orderObject['sec-' + order.toString()] = 0;
+        orderObject[`cmp-sec-${order}`] = 0;
         $(`#${where}`).append(`
             <div  class="m-3" id="sec-${order}">
                 <div class="card">
@@ -35,6 +36,7 @@ const addComponent = (type, where) => {
     }
     if (type == 2) {
         order += 1;
+        orderObject[`tab-${order}`] = 1;
         orderObject[`ctabc-${order}-list`] = 1;
         $(`#${where}`).append(`
             <div class="m-3" id="tab-${order}">
@@ -70,24 +72,35 @@ const addComponent = (type, where) => {
 
     }
     if (type == 3) {
-        var str = where.split("-");
-        str = str[1] + '-' + str[2];
-        let count = ++orderObject[str];
 
-        orderObject[str] = count;
+        let str = where.split('-');
+        let str1 = str[1] + '-' + str[2];
+
+        let count = ++orderObject[where];
+
+
+
+
+        orderObject[where] = count;
 
         $(`#${where}`).append(`
-            <div  class="m-3" id="${str}-sec-${count}">
+            <div  class="m-3" id="${str1}-sec-${count}">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="form-group w-50">
                             <label for="email2">Enter Section  Name</label>
-                            <input type="text" class="form-control" name="name" id="${str}-sec-${count}-inp" placeholder="Name">
+                            <input type="text" class="form-control" name="name" id="${str1}-sec-${count}-inp" placeholder="Name">
+                        </div>
+                    
+                     <div
+                        class="d-flex justify-content-between">
+                           
+                            <button onclick="deleteComponent('${str1}-sec-${count}')" class="btn btn-link"><i style="color:red" class="fas fa-trash"></i></button>
                         </div>
 
                     </div>
                     <div class="card-body">
-                        <div class="m-3" id="sec-${str}-${count}">
+                        <div class="m-3" id="sec-${str1}-${count}">
 
                         </div>
                     </div>
@@ -96,34 +109,37 @@ const addComponent = (type, where) => {
         `)
     }
     if (type == 4) {
-        var str = where.split("-");
-        str = str[1] + '-' + str[2];
 
-
-        orderObject[str] = orderObject[str] + 1;
-        let count = orderObject[str];
-
-        orderObject[`ctabc-${str}-${count}-list`] = 1;
-
-
+        let str = where.split('-');
+        let str1 = str[1] + '-' + str[2];
+        orderObject[where] = ++orderObject[where];
+        orderObject[`ctabc-${str1}-${orderObject[where]}-list`] = 1;
+        console.log(orderObject[where]);
+        // console.log(`-> ctabc-${str1}-${orderObject[where]}`);
         $(`#${where}`).append(`
-            <div class="m-3" id="${str}-tab-${count}">
+            <div class="m-3" id="${str1}-tab-${orderObject[where]}">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="form-group w-50">
                             <label for="email2">Enter Tab Name</label>
-                            <input type="text" class="form-control" name="name" id="${str}-tab-${count}-inp" placeholder="Name">
+                            <input type="text" class="form-control" name="name" id="${str1}-tab-${orderObject[where]}-inp" placeholder="Name">
                         </div>
-                        <button class="btn btn-link" onclick="getName('ctabc-${str}-${count}')">Add New Tab</button>
+                        <button class="btn btn-link" onclick="getName('ctabc-${str1}-${orderObject[where]}')">Add New Tab</button>
+                        <div
+                        class="d-flex justify-content-between">
+
+                            <button onclick="deleteComponent('${str1}-tab-${orderObject[where]}')" class="btn btn-link"><i style="color:red" class="fas fa-trash"></i></button>
+                        </div>
+
                     </div>
                     <div class="card-body">
-                        <ul  class="nav nav-pills nav-secondary nav-pills-no-bd" id="ctabc-${str}-${count}-list" role="tablist">
-                            <li class="nav-item submenu" id="ctabc-${str}-${count}-1-item">
-                                <a class="nav-link"  data-toggle="pill" href="#ctabc-${str}-${count}-1-content_item" role="tab" aria-controls="pills-home-nobd" aria-selected="false">Home</a>
+                        <ul  class="nav nav-pills nav-secondary nav-pills-no-bd" id="ctabc-${str1}-${orderObject[where]}-list" role="tablist">
+                            <li class="nav-item submenu" id="ctabc-${str1}-${orderObject[where]}-1-item">
+                                <a class="nav-link"  data-toggle="pill" href="#ctabc-${str1}-${orderObject[where]}-1-content_item" role="tab" aria-controls="pills-home-nobd" aria-selected="false">Home</a>
                             </li>
                         </ul>
-                        <div id="ctabc-${str}-${count}" class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
-                            <div class="tab-pane fade" id="ctabc-${str}-${count}-1-content_item" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
+                        <div id="ctabc-${str1}-${orderObject[where]}" class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
+                            <div class="tab-pane fade" id="ctabc-${str1}-${orderObject[where]}-1-content_item" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
                                 <p>Default Tab</p>
                             </div>
                         </div>
@@ -139,14 +155,16 @@ const addComponent = (type, where) => {
 }
 
 const addTab = (val) => {
-    if(extName != '' || extName != undefined){
+    if (extName != '' || extName != undefined) {
         let path = val;
         path += '-list';
-        orderObject[path] = orderObject[path] + 1;
+        console.log(orderObject[path]);
+        orderObject[path] = ++orderObject[path];
+
 
         $(`#${path}`).append(`<li class="nav-item submenu" id="${val}-${orderObject[path]}-item"> <a class="nav-link"  data-toggle="pill" href="#${val}-${orderObject[path]}-content_item" role= "tab" aria-controls="pills-home-nobd" aria-selected="false"> ${extName} </a > </li >`);
         $(`#${val}`).append(` <div class="tab-pane fade" id='${val}-${orderObject[path]}-content_item' role="tabpanel" aria-labelledby="pills-home-tab-nobd"><p>Default Tab ${val}-${orderObject[path]}</p></div>`);
-        extName =''
+        extName = ''
     }
 }
 
@@ -154,6 +172,7 @@ var AllData = [];
 
 //fire event on save button click
 document.getElementById("saveButton").addEventListener("click", function () {
+    AllData = [];
     let main = document.getElementById('builder');
     let allComponent = Array.from(main.children);
 
@@ -215,43 +234,45 @@ document.getElementById("saveButton").addEventListener("click", function () {
         }
         AllData.push(obj);
     })
-   
-            fetch('/admin/customform/layout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    AllData,
-                    formId
+
+    fetch('/admin/customform/layout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            AllData,
+            formId
+        })
+    })
+        .then(function (res) {
+            return res.json()
+        })
+        .then(function (json) {
+            if (json.status == 200)
+                iziToast.success({
+                    message: json.message
                 })
-            })
-                .then(function (res) {
-                    return res.json()
+            else if (json.status == 400)
+                iziToast.error({
+                    title: json.message,
+                    message: json.error
                 })
-                .then(function (json) {
-                    if (json.status == 200)
-                        iziToast.success({
-                            message: json.message
-                        })
-                    else if (json.status == 400)
-                        iziToast.error({
-                            title: json.message,
-                            message: json.error
-                        })
-                    else
-                        iziToast.error({
-                            message: json.message
-                        })
+            else
+                iziToast.error({
+                    message: json.message
                 })
-                .catch(err => console.log(err))
-    
+        })
+        .catch(err => console.log(err))
+
 })
 
 
 const deleteComponent = (id) => {
     $(`#${id}`).remove()
-    order = order - 1;
+
+    delete orderObject[id];
+
 }
 
 
@@ -274,7 +295,7 @@ const getName = (id) => {
             ['<button><b>Save</b></button>', function (instance, toast) {
 
                 instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-                if(extName != ''){
+                if (extName != '') {
                     addTab(id)
                 }
 
