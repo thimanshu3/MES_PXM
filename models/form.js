@@ -18,6 +18,11 @@ const form = MySql.define('form', {
         type: DataTypes.STRING(500),
         allowNull: true
     },
+    content: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        defaultValue: ''
+    },
     createdBy: {
         type: DataTypes.STRING,
         allowNull: false
@@ -34,12 +39,8 @@ const form = MySql.define('form', {
 
 module.exports = form
 
-// Role
+// form
 //     .sync({ force: process.env.NODE_ENV === 'production' ? false : true })
 //     .then(() => {
-//         Role.bulkCreate([{
-//             id: 0,
-//             name: 'admin'
-//         },
-//        ])
+//         console.log('ho gaya');
 //     })

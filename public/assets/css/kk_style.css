@@ -325,17 +325,17 @@
 }
 
 .dataTable thead {
-  background-color: #e4ca99;
+  background-color: transparent;
 }
 
 .table td,
 .table th {
   height: 48px;
-  border-bottom: 1px solid #e4ca99 !important;
+  border-bottom: 1px solid #ccd1d8 !important;
 }
 
 .dataTable th {
-  color: #fff;
+  color: #4d7393;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
@@ -673,4 +673,72 @@ label[for="et_pb_contact_brand_file_request_0"] {
 }
 .file_names {
   text-align: center;
+}
+
+.dataTable tfoot{
+  display: none;
+}
+
+.card{
+  height: 82vH;
+}
+table.dataTable {
+ border-collapse: collapse!important;
+}
+
+
+.table-hover tbody tr:hover {
+     background-color: rgba(0,0,0,.03);
+}
+
+.table-hover tbody tr:nth-of-type(odd):hover {
+     background-color: rgba(0,0,0,.03);
+}
+
+.dataTable .form-button-action .btn{
+  padding: 0px 8px !important;
+  background: transparent  !important;
+  border: 0px !important;
+}
+
+.dataTable .form-button-action .btn i {
+    color: #5394ca9c;
+    transition: transform .2s;
+}
+
+.dataTable .form-button-action .btn i:hover{
+      transform: scale(1.3);
+}
+
+
+
+body {
+    background: #eaf2f4 !important;
+}
+
+
+
+.custom-counter {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.custom-counter li {
+  counter-increment: step-counter;
+  margin-bottom: 14px;
+  font-size:18px;
+  margin-left:10px
+}
+
+.custom-counter li::before {
+  content: counter(step-counter);
+  margin-right: 5px;
+  font-size: 80%;
+  background-color: #e4ca99;
+  color: white;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 3px;
+      margin-right: 18px;
 }
