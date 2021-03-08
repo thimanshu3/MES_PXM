@@ -10,66 +10,66 @@
     <!-- CSS Files -->
     <link rel="stylesheet" href="/assets/css/bootstrap.css">
     <link rel="stylesheet" href="/assets/css/atlantis.css">
-     <link rel="stylesheet" href="/assets/css/iziToast.min.css">
+    <link rel="stylesheet" href="/assets/css/iziToast.min.css">
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link  href="/assets/css/demo.css">
+    <link href="/assets/css/demo.css">
     <link rel="stylesheet" href="/assets/css/kk_style.css">
 </head>
 
 <body>
-        <%-include('../partials/config')%>
+    <%-include('../partials/config')%>
 
-    <div class="login-area d-md-flex">
-        <div class="login-logo v-center" style="background:#379392">
-            <a href="" class="logo"><img src="/assets/img/kk_pim_logo_large.png" class="img-responsive" /></a>
-            <div class="login-btns">
-                <a href="">
-                    Login
-                </a>
+        <div class="login-area d-md-flex">
+            <div class="login-logo v-center" style="background:#5394ca">
+                <a href="" class="logo"><img src="/assets/img/kk_pim_logo_large.png" class="img-responsive" /></a>
+                <div class="login-btns">
+                    <a href="">
+                        Login
+                    </a>
+                </div>
+            </div>
+            <div class="login-form v-center">
+                <div class="login-form-bl">
+                    <form action="/user/login" method="POST">
+                        <div class="form-group">
+                            <label class="bold">EMAIL ADDRESS</label><span class="required" style="color:red;">*</span>
+                            <input type="text" name="email" class="form-control" placeholder="" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="bold">PASSWORD</label><span class="required" style="color:red;">*</span>
+                            <input type="password" class="form-control" name="password" placeholder="" required />
+                        </div>
+                        <div class="text-right"><a
+                                href="//Desktop-kartik/pim/Final/PIM Dashboard/kk_dashboard/Forgot_password.html"
+                                class="bold">Forget Password ?</a></div>
+
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-secondary btn-lg rad30"
+                                style="background:#5394ca !important;border-color:#5394ca" value="LOGIN" />
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-        <div class="login-form v-center">
-            <div class="login-form-bl">
-                <form action="/user/login" method="POST">
-                    <div class="form-group">
-                        <label class="bold">EMAIL ADDRESS</label><span class="required" style="color:red;">*</span>
-                        <input type="text" name="email"  class="form-control" placeholder="" required/>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="bold">PASSWORD</label><span class="required" style="color:red;">*</span>
-                        <input type="password" class="form-control" name="password" placeholder="" required/>
-                    </div>
-                    <div class="text-right"><a
-                            href="//Desktop-kartik/pim/Final/PIM Dashboard/kk_dashboard/Forgot_password.html"
-                            class="bold">Forget Password ?</a></div>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-secondary btn-lg rad30"
-                            style="background:#379392 !important;border-color:#379392" value="LOGIN" />
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="/assets/js/iziToast.js"></script>
+        <script src="/assets/js/flashMessage.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<script src="/assets/js/iziToast.js"></script>
-<script src="/assets/js/flashMessage.js"></script>
-    
 </body>
 
 </html>

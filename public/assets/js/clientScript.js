@@ -33,7 +33,8 @@ const markStatusOrDelete = (uri,method,type,data) =>{
                             <i class="fas ${json.active ? 'fa-toggle-on' : 'fa-toggle-off'}"></i>
                         `)
                                 }else{
-                                    location.reload();
+                                    
+                                    //location.reload();
                                 }
                             } else {
                                 iziToast.error({

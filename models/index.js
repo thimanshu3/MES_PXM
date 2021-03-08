@@ -5,7 +5,6 @@ module.exports = {
     User: require('./UserModel'),
     LoginReport: require('./LoginReportModel'),
     ForgotPassword: require('./ForgotPasswordModel'),
-    ActivityLog: require('./ActivityLogModel'),
     AttributeSet: require('./AttributeSet'),
     AttributeValueSets: require('./AttributeValueSets'),
     CatalogueHierarchy: require('./CatalogeHierarchy'),
@@ -22,7 +21,9 @@ module.exports = {
     listRecordValues: require('./ListRecordValues'),
     form: require('./form'),
     formParts: require('./formParts'),
-    formConfig: require('./formConfig')
-
+    formConfig: require('./formConfig'),
+    //mongo Models
+    ActivityLog: require('./ActivityLogModel'),
+    FormDesign:require('./FormDataModel')
 
 }
