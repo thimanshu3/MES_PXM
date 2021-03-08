@@ -7,6 +7,7 @@ const path = require('path')
 const fs = require('fs')
 const readXlsxFile = require('read-excel-file/node')
 const { random } = require('../../util')
+const { formatDateMoment } = require('../../util')
 
 const { MySql } = require('../../db')
 const { inputFields, inputTypes, ActivityLog, fieldGroups, fieldsAssignedToGroup, listRecord , listRecordValues} = require('../../models')
@@ -241,9 +242,9 @@ router.delete('/remove/:id', async (req, res) => {
 
 router.get('/inputgroup', async (req, res) => {
     try {
-        const fieldGroup = await fieldGroups.findAll()
-        console.log(fieldGroup)
-        res.render('admin/inputGroup', { User: req.user, fieldGroup })
+        const [fieldGroupq] = await MySql.query("select fg.id as id, fg.name as name, fg.active as active, u.firstName as fname, u.lastName as lname, fg.createdBy as createdBy, fg.createdAt as createdAt, count(fatg.groupId) as count from fieldGroups fg INNER JOIN users u ON u.id = fg.createdBy left JOIN fieldsAssignedToGroups fatg on fatg.groupId = fg.id group by fg.id")
+        console.log([fieldGroupq])
+        res.render('admin/inputGroup', { User: req.user, fieldGroup: fieldGroupq, formatDateMoment })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         req.flash('error', 'Something Went Wrong!')
@@ -387,16 +388,16 @@ router.delete('/inputgroup/:id', async (req, res) => {
 })
 
 router.delete('/inputgroup/remove/:id', async (req, res) => {
-    const foundField = await inputFields.findOne({
+    const foundGroup = await fieldGroups.findOne({
         where: {
             id: req.params.id
         }
     })
-    if (!foundField)
-        return res.status(404).json({ message: 'Field Not Found!' })
+    if (!foundGroup)
+        return res.status(404).json({ message: 'Group Not Found!' })
     try {
-        //foundField.destroy();
-        res.json({ status: 200, message: `d ELETE QUERY NEED TO BE WRITTEN` })
+        //foundGroup.destroy();
+        res.json({ status: 200, message: `DELETE QUERY NEED TO BE WRITTEN` })
         //res.r('/admin/inputField')
     }
     catch (err) {

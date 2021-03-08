@@ -92,6 +92,7 @@
                                                                 <th>Status</th>
                                                                 <th>Field Count</th>
                                                                 <th>Action</th>
+                                                                <th>Created At</th>
                                                             </tr>
                                                         </thead>
 
@@ -101,7 +102,7 @@
                                                                     <td>
                                                                         <%= _a.name %>
                                                                     </td>
-                                                                    <td>System Architect</td>
+                                                                    <td><%= _a.fname %> <%= _a.lname %></td>
                                                                     <td>
                                                                         <!-- <span id="activeBadge-<%= _a.id%>"
                                                                             class="badge badge-<%= _a.active ? 'success' : 'danger' %>">
@@ -115,9 +116,9 @@
                                                                         <div class="form-button-action">
                                                                             <div class="kk_group_item_number">
                                                                                 <button
-                                                                                    class="btn btn-primary btn-round "
+                                                                                    class="btn btn-link btn-round "
                                                                                     data-toggle="modal"
-                                                                                    data-target="#kk_group_items">15</button>
+                                                                                    data-target="#kk_group_items"><%= _a.count %></button>
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -138,6 +139,7 @@
                                                                             </button>
                                                                         </div>
                                                                     </td>
+                                                                    <td><%= _a.createdAt %></td>
                                                                 </tr>
                                                                 <% }) %>
 

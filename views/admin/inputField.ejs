@@ -278,39 +278,37 @@
         </div>
     </div>
 
-    <div class="modal fade kk_modal_popup_form " id="myModal" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog ">
-            <div class="modal-content">
+<!-- modal to show list record values -->
+<div class="modal kk_modal_popup_form" id="kk_list_modal" style="display: none;" data-keyboard="false"
+    data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Import User</h4>
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                </div>
-                <form action="/admin/inputField/import" method="POST" enctype="multipart/form-data">
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                        <p class="text-danger">Supported extensions .XLSX</p>
-                        <button type="button" class="btn btn-primary mb-5">Download Template</button>
-                        <div class="form-group">
-                            <label class="form-label">Upload File</label>
-                            <br>
-                            <label for="et_pb_contact_brand_file_request_0" class="et_pb_contact_form_label"></label>
-                            <input type="file" id="et_pb_contact_brand_file_request_0" class="file-upload">
-                        
-                        </div>
-                    </div>
-
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Import</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
-                </form>
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">List/Record Values </h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
             </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="scroll-area-sm">
+                    <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
+                        <ol id="lrValues" class="custom-counter">
+                          
+                        </ol>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Import</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div> -->
         </div>
     </div>
-
+</div>
     <!-- jQuery library -->
     <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
     <!-- Latest compiled JavaScript -->
@@ -371,7 +369,21 @@
             fetch(`/admin/inputfield/lrValue/${id}`)
             .then(res => res.json())
             .then(json=>{
-                console.log(json);
+                if(json.listRecordv){
+                    $('#lrValues').empty()
+                    let data = ''
+                    if(json.listRecordv.length){
+                        json.listRecordv.forEach(a => {
+                            data += `<li>${a.label}</li>`
+                        })
+                        console.log(data);
+                    }
+                    else{
+                        data = '<center><h2>No Values in List!!</h2></center>'
+                    }
+                    $('#lrValues').append(data)
+                    $('#kk_list_modal').modal('show');
+                }
             })
             .catch(err => console.log(err))
         }
