@@ -161,7 +161,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
 
         let id = component.getAttribute("id");
         let name = component.querySelectorAll("input")[0].value
-        let obj = { components: [] };
+        let obj = { subComponents: [] };
         id = id.split('-')
         obj.type = id[0];
         obj.order = id[1];
@@ -174,7 +174,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
             allChild.forEach(b => {
                 let id = b.getAttribute('id')
                 let name = b.querySelectorAll("input")[0].value
-                let childObj = { tabs: [] }
+                let childObj = { tabComponents: [] }
                 id = id.split("-");
 
                 childObj.order = id[3];
@@ -191,11 +191,11 @@ document.getElementById("saveButton").addEventListener("click", function () {
                         tab.type = "tablist";
                         tab.order = id[4];
                         tab.name = b.innerText || b.nodeValue
-                        childObj.tabs.push(tab)
+                        childObj.tabComponents.push(tab)
                     })
                 }
 
-                obj.components.push(childObj);
+                obj.subComponents.push(childObj);
 
             })
 
@@ -210,19 +210,18 @@ document.getElementById("saveButton").addEventListener("click", function () {
                 childObj.type = "tab";
                 childObj.order = id[2];
                 childObj.name = b.innerText || b.nodeValue
-                obj.components.push(childObj)
+                obj.subComponents.push(childObj)
             })
         }
         AllData.push(obj);
     })
-   
             fetch('/admin/customform/layout', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    AllData,
+                   content: AllData,
                     formId
                 })
             })
