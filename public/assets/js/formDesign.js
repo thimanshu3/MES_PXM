@@ -242,6 +242,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
             content: AllData,
             formId
         })
+    })
         .then(function (res) {
             return res.json()
         })

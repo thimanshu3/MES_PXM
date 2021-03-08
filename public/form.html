@@ -1,0 +1,994 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>JSON 2 HTML</title>
+    <meta charset="utf-8">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        :root {
+            -moz-tab-size: 4;
+            tab-size: 4;
+        }
+
+        html {
+            line-height: 1.15;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        body {
+            font-family: -apple-system, 'Segoe UI', system-ui, Noto, 'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+        }
+
+        hr {
+            height: 0;
+            color: inherit;
+        }
+
+        abbr[title] {
+            text-decoration: underline dotted;
+        }
+
+        b,
+        strong {
+            font-weight: bolder;
+        }
+
+        code,
+        kbd,
+        samp,
+        pre {
+            font-family: ui-monospace, SFMono-Regular, 'SF Mono', 'Ubuntu Mono', Consolas, 'DejaVu Sans Mono', 'Liberation Mono', Menlo, monospace;
+            font-size: 1em;
+        }
+
+        small {
+            font-size: 80%;
+        }
+
+        sub,
+        sup {
+            font-size: 75%;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline;
+        }
+
+        sub {
+            bottom: -0.25em;
+        }
+
+        sup {
+            top: -0.5em;
+        }
+
+        table {
+            text-indent: 0;
+            border-color: inherit;
+        }
+
+        button,
+        input,
+        optgroup,
+        select,
+        textarea {
+            font-family: inherit;
+            font-size: 100%;
+            line-height: 1.15;
+            margin: 0;
+        }
+
+        button,
+        select {
+            text-transform: none;
+        }
+
+        button,
+        [type='button'],
+        [type='reset'],
+        [type='submit'] {
+            -webkit-appearance: button;
+        }
+
+        ::-moz-focus-inner {
+            border-style: none;
+            padding: 0;
+        }
+
+        :-moz-focusring {
+            outline: 1px dotted ButtonText;
+        }
+
+        :-moz-ui-invalid {
+            box-shadow: none;
+        }
+
+        legend {
+            padding: 0;
+        }
+
+        progress {
+            vertical-align: baseline;
+        }
+
+        ::-webkit-inner-spin-button,
+        ::-webkit-outer-spin-button {
+            height: auto;
+        }
+
+        [type='search'] {
+            -webkit-appearance: textfield;
+            outline-offset: -2px;
+        }
+
+        ::-webkit-search-decoration {
+            -webkit-appearance: none;
+        }
+
+        ::-webkit-file-upload-button {
+            -webkit-appearance: button;
+            font: inherit;
+        }
+
+        summary {
+            display: list-item;
+        }
+    </style>
+    <style>
+        body {
+            display: inline-block;
+            min-width: 100%;
+            padding-bottom: 114px;
+            font-size: 16px;
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        body,
+        button,
+        input,
+        optgroup,
+        select,
+        textarea {
+            line-height: 1.4;
+        }
+
+        p {
+            margin: 0 0 22px;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background-color: #808080;
+        }
+
+        textarea {
+            width: 100%;
+            margin-bottom: 5px;
+            padding: 1px;
+            border: 1px solid purple;
+        }
+
+        input[type="button"],
+        input[type="submit"] {
+            font-size: large;
+        }
+
+        table {
+            border: 1px solid #333;
+            border-collapse: collapse;
+        }
+
+        table th,
+        table td {
+            padding: 4px 6px;
+            border: 1px solid #333;
+            vertical-align: top;
+        }
+
+        table th {
+            font-weight: 500;
+        }
+
+        #header {
+            height: 107px;
+            padding-top: 17px;
+            background: url("images/top1.png") repeat-x;
+            text-align: center;
+        }
+
+        form {
+            max-width: calc(100vw - 17px);
+            padding: 0 16px;
+        }
+
+        form p {
+            font-size: 18px;
+        }
+
+        #output {
+            padding: 16px;
+        }
+
+        #footer {
+            background-color: #ffffaa;
+            padding: 5px 16px;
+        }
+
+        h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        h3 code {
+            font-size: 16px;
+            font-weight: normal;
+        }
+
+        div.object,
+        div.array {
+            display: inline-block;
+            padding: 16px;
+            min-width: 132px;
+        }
+
+        div.object {
+            background-color: #eeeeee;
+        }
+
+        div.object>table {
+            background-color: #ffffff;
+        }
+
+        div.array {
+            background-color: #eeeeff;
+        }
+
+        div.array>table {
+            background-color: #ffffee;
+        }
+
+        td.object,
+        td.array {
+            padding: 8px;
+        }
+
+        .string {
+            color: #000000;
+            word-break: break-word;
+            white-space: pre-wrap;
+        }
+
+        .number {
+            color: #0000ff;
+        }
+
+        .boolean {
+            color: #ff8000;
+        }
+
+        .void {
+            color: #0000ff;
+        }
+
+        .widget {
+            float: right;
+            line-height: 25px;
+        }
+
+        .widget:before {
+            content: "▲";
+        }
+
+        div.minimised>.widget:before {
+            content: "▼";
+        }
+
+        div.minimised>table {
+            display: none;
+        }
+
+        .zoom {
+            float: right;
+            line-height: 25px;
+            margin-right: 5px;
+            font-size: 14px;
+        }
+
+        .zoom:before {
+            content: "🎯";
+        }
+
+        div.zoomed {
+            border: 2px solid #ff0000;
+        }
+
+        #focus {
+            display: flex;
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding: 10px;
+            line-height: 1.6;
+            background-color: #ffffff;
+            border-top: 1px solid #ccc;
+            box-shadow: 0 -6px 10px rgb(0 0 0 / 18%);
+        }
+
+        #focus label {
+            font-weight: 500;
+        }
+
+        #focus-output {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        #focus-extended-type.present::before {
+            content: " (";
+        }
+
+        #focus-extended-type.present::after {
+            content: ")";
+        }
+
+        #stats table {
+            border: none;
+        }
+
+        #stats table tr {
+            border: none;
+        }
+
+        #stats table td {
+            border: none;
+        }
+
+        .ex {
+            vertical-align: middle;
+            margin-bottom: 1px;
+            margin-top: 1px;
+        }
+
+        #json-logo {
+            float: right;
+            margin-left: 16px;
+        }
+    </style>
+    <style>
+        #modal-backdrop {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none;
+        }
+
+        #modal {
+            display: none;
+            max-height: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 16px;
+            overflow: auto;
+            background-color: #fff;
+            border: 1px solid #999;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        body.modal-open #modal-backdrop {
+            display: block;
+        }
+
+        body.modal-open #modal {
+            display: block;
+        }
+
+        #modal-close {
+            display: block;
+            float: right;
+            margin: -15px -10px 0 0;
+            font-size: 30px;
+            line-height: 1;
+            text-decoration: none;
+        }
+    </style>
+    <script type="text/javascript">"use strict";
+
+        window.Util = (function () {
+            var dateFormatter = new Intl.DateTimeFormat(undefined, { dateStyle: "long", timeStyle: "long" });
+
+            function formatDate(date) {
+                return dateFormatter.format(date);
+            }
+
+            function formatTimestamp(timestamp) {
+                return formatDate(Date.parse(timestamp));
+            }
+
+            function format(input) {
+                var type = typeof input;
+                if (input instanceof Date) return formatDate(input);
+                if (type == "number") return input.toLocaleString();
+                return input;
+            }
+
+            function escapeHTML(unsafe) {
+                if (unsafe == null) return "";
+                return unsafe.toString()
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+
+            function formatThenEscape(input) {
+                return escapeHTML(format(input));
+            }
+
+            function itemPath(item) {
+                const path = ["<root>"];
+
+                if (item.address) {
+                    for (const address of item.address.full()) {
+                        path.push(address.parent.type == "array" ? `[${address.prop}]` : `.${address.prop}`);
+                    }
+                }
+
+                return path.join("");
+            }
+
+            // Following function sourced from https://stackoverflow.com/a/23329386 
+            function byteLength(str) {
+                // returns the byte length of an utf8 string 
+                let s = str.length;
+                for (let i = str.length - 1; i >= 0; i--) {
+                    const code = str.charCodeAt(i);
+                    if (code > 0x7f && code <= 0x7ff) s++;
+                    else if (code > 0x7ff && code <= 0xffff) s += 2;
+                    if (code >= 0xDC00 && code <= 0xDFFF) i--; //trail surrogate 
+                }
+                return s;
+            }
+
+            // Following function sourced from https://stackoverflow.com/a/14919494 
+            /** 
+             * Format bytes as human-readable text. 
+             * 
+             * @param bytes Number of bytes. 
+             * @param si True to use metric (SI) units, aka powers of 1000. False to use 
+             *           binary (IEC), aka powers of 1024. 
+             * @param dp Number of decimal places to display. 
+             * 
+             * @return Formatted string. 
+             */
+            function humanFileSize(bytes, si = true, dp = 2) {
+                const thresh = si ? 1000 : 1024;
+
+                if (Math.abs(bytes) < thresh) {
+                    return bytes.toLocaleString(undefined, { minimumFractionDigits: dp, maximumFractionDigits: dp }) + ' B';
+                }
+
+                const units = si
+                    ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+                    : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+                let u = -1;
+                const r = 10 ** dp;
+
+                do {
+                    bytes /= thresh;
+                    ++u;
+                } while (Math.round(Math.abs(bytes) * r) / r >= thresh && u < units.length - 1);
+
+                return bytes.toLocaleString(undefined, { minimumFractionDigits: dp, maximumFractionDigits: dp }) + ' ' + units[u];
+            }
+
+            return {
+                formatDate: formatDate,
+                formatTimestamp: formatTimestamp,
+                format: format,
+                escapeHTML: escapeHTML,
+                formatThenEscape: formatThenEscape,
+                itemPath: itemPath,
+                byteLength: byteLength,
+                humanFileSize: humanFileSize
+            }
+        })();
+
+        window.e = Util.escapeHTML;
+        window.ef = Util.formatThenEscape;</script>
+    <script
+        type="text/javascript">"use strict"; window.transformTree = function (e) { function t(e) { d.push(e), e.index = d.length - 1 } function r(e) { if (i.test(e) || y.test(e)) return "timestamp"; if (/^(ftp|file|https?|wss?):/.test(e)) try { return new URL(e), "url" } catch (e) { } return null } function p(e, t) { var r = typeof e; return null == e ? new l(t) : "string" == r ? new u(t, e) : "number" == r ? new s(t, e) : "boolean" == r ? new f(t, e) : n(e, t) } function n(e, t) { var r = e instanceof Array ? new h(t) : new v(t); return r.tuples = Object.keys(e).map(function (t) { return new c(t, p(e[t], new b(r, t))) }), r } function o(e) { return d[e] } var d = [], l = function (e) { this.address = e, this.value = "(null)", t(this) }; Object.defineProperty(l.prototype, "type", { value: "void" }), Object.defineProperty(l.prototype, "extendedType", { value: null }), Object.defineProperty(l.prototype, "typeLabel", { value: "Void" }), Object.defineProperty(l.prototype, "extendedTypeLabel", { value: null }), Object.defineProperty(l.prototype, "simple", { value: !0 }); const i = /^(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)$/, y = /^(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:?[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:?[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:?[0-5]\d|Z))$/, a = { timestamp: "ISO8601 Timestamp", url: "URL", null: null }; var u = function (e, p) { this.address = e, this.value = p.toString(), this.extendedType = r(this.value), this.extendedTypeLabel = a[this.extendedType], t(this) }; Object.defineProperty(u.prototype, "type", { value: "string" }), Object.defineProperty(u.prototype, "typeLabel", { value: "String" }), Object.defineProperty(u.prototype, "simple", { value: !0 }); var s = function (e, r) { this.address = e, this.value = r.toString(), t(this) }; Object.defineProperty(s.prototype, "type", { value: "number" }), Object.defineProperty(s.prototype, "extendedType", { value: null }), Object.defineProperty(s.prototype, "typeLabel", { value: "Number" }), Object.defineProperty(s.prototype, "extendedTypeLabel", { value: null }), Object.defineProperty(s.prototype, "simple", { value: !0 }); var f = function (e, r) { this.address = e, this.value = r.toString(), t(this) }; Object.defineProperty(f.prototype, "type", { value: "boolean" }), Object.defineProperty(f.prototype, "extendedType", { value: null }), Object.defineProperty(f.prototype, "typeLabel", { value: "Boolean" }), Object.defineProperty(f.prototype, "extendedTypeLabel", { value: null }), Object.defineProperty(f.prototype, "simple", { value: !0 }); var c = function (e, t) { this.name = e, this.value = t }, b = function (e, t) { this.parent = e, this.prop = t }; b.prototype.full = function () { for (var e = [], t = this; t;)e.push(t), t = t.parent && t.parent.address; return e.reverse() }; var v = function (e) { this.address = e, this.tuples = [], t(this) }; Object.defineProperty(v.prototype, "type", { value: "object" }), Object.defineProperty(v.prototype, "extendedType", { value: null }), Object.defineProperty(v.prototype, "typeLabel", { value: "Object" }), Object.defineProperty(v.prototype, "extendedTypeLabel", { value: null }), Object.defineProperty(v.prototype, "simple", { value: !1 }), Object.defineProperty(v.prototype, "keyLabel", { value: "Name" }); var h = function (e) { this.address = e, this.tuples = [], t(this) }; Object.defineProperty(h.prototype, "type", { value: "array" }), Object.defineProperty(h.prototype, "extendedType", { value: null }), Object.defineProperty(h.prototype, "typeLabel", { value: "Array" }), Object.defineProperty(h.prototype, "extendedTypeLabel", { value: null }), Object.defineProperty(h.prototype, "simple", { value: !1 }), Object.defineProperty(h.prototype, "keyLabel", { value: "Index" }); var j = p(e, null), O = 0; return d.forEach(function (e) { if (e.address) { var t = e.address.full().length; t > O && (O = t) } }), { root: j, nestingLevel: O + 1, fromIndex: o } };</script>
+    <script type="text/javascript">"use strict";
+
+        window.render = function (root, targeted) {
+            const LARGE_RENDER_COUNT_CUTOFF = 250; // 250 nodes
+            let renderCount = 0;
+
+            function renderValue(value) {
+                if (value.extendedType == "url") return `<a href='${e(value.value)}' target='blank'>${e(value.value)}</a>`;
+                return e(value.value);
+            }
+
+            function renderTitle(value) {
+                if (value.extendedType == "timestamp") {
+                    return `${value.typeLabel} (${value.extendedTypeLabel}) In local time: ${Util.formatTimestamp(value.value)}`;
+                }
+                if (value.extendedType) return `${value.typeLabel} (${value.extendedTypeLabel})`;
+                return value.typeLabel;
+            }
+
+            function renderTuples(node) {
+                let out = `<table><tr><th>${node.keyLabel}</th><th>Value</th></tr>`;
+
+                for (const tuple of node.tuples) {
+                    const value = tuple.value;
+                    out += `<tr data-index='${value.index}'><td>${e(tuple.name)}</td>`;
+                    if (value.simple) out += `<td class='${value.type}' title='${renderTitle(value)}'>`;
+                    else out += `<td class='${value.type}'>`;
+
+                    if (value.simple) out += renderValue(value);
+                    else out += renderNode(value);
+
+                    out += "</td></tr>";
+                }
+
+                out += "</table>";
+                console.log(out)
+                return out;
+            }
+
+            function renderNode(node) {
+                renderCount++;
+                const pathText = node == root && targeted ? ` <code>${e(Util.itemPath(root))}</code>` : "";
+                if (!node.tuples.length) return `<div data-index='${node.index}'>(empty ${node.typeLabel}${pathText})</div>`;
+
+                const minimised = renderCount >= LARGE_RENDER_COUNT_CUTOFF;
+
+                let out = `<div class='${node.type}${(minimised ? " minimised dry" : "")}' data-index='${node.index}'><div class='widget'></div><div class='zoom'></div><h3>${node.typeLabel}${pathText}</h3>`;
+                if (!minimised) out += renderTuples(node);
+                out += "</div>";
+                return out;
+            }
+
+            if (root.simple) {
+                const title = root.extendedType ? `${root.typeLabel} (${root.extendedTypeLabel})` : root.typeLabel;
+                return `<div class='${root.type}' title='${title}' data-index='${root.index}'>${renderValue(root)}</siv>`;
+            }
+            return renderNode(root);
+        };</script>
+    <script type="text/javascript">"use strict";
+
+        window.Modal = (function () {
+            function show(content) {
+                $("#modal-content").innerHTML = content;
+                document.body.classList.add("modal-open");
+            }
+
+            function hide() {
+                $("#modal-content").innerHTML = "";
+                document.body.classList.remove("modal-open");
+
+                const event = new Event("modal-hide");
+                document.body.dispatchEvent(event);
+            }
+
+            var TEMPLATE = ` 
+    <div id="modal-backdrop"> 
+      <div id="modal"> 
+        <a href="#" id="modal-close">&times;</a> 
+        <div id="modal-content"></div> 
+      </div> 
+    </div> 
+  `;
+
+            function init() {
+                document.body.insertAdjacentHTML("beforeend", TEMPLATE);
+
+                document.body.addEventListener("click", function (e) {
+                    if (e.target.matches("#modal-close")) {
+                        e.preventDefault();
+                        hide();
+                    }
+                });
+            }
+
+            document.addEventListener("DOMContentLoaded", init);
+
+            return {
+                show: show,
+                hide: hide
+            };
+        })();</script>
+    <script type="text/javascript">"use strict";
+
+        window.gatherStatistics = function (root) {
+            let elementCount = 0;
+            let arrayCount = 0;
+            let objectCount = 0;
+
+            function visit(node) {
+                elementCount++;
+                if (node.simple) return;
+
+                if (node.type == "array") arrayCount++;
+                else if (node.type == "object") objectCount++;
+
+                node.tuples.forEach(function (tuple) {
+                    visit(tuple.value);
+                });
+            }
+
+            visit(root);
+
+            return {
+                elementCount: elementCount,
+                arrayCount: arrayCount,
+                objectCount: objectCount
+            };
+        };</script>
+    <script type="text/javascript">"use strict";
+
+        let HELP_CONTENT = null;
+        var tree = null;
+        let statsContent = null;
+
+        function doStats(result, text) {
+            const textByteLength = Util.byteLength(text);
+            return "<div id='stats'><h3>Statistics</h3>\n<table>\n<tr>\n<td>Number of Arrays:</td>\n<td>"
+                + Util.format(result.arrayCount) + "</td>\n</tr>\n"
+                + "<tr>\n<td>Number of Objects:</td>\n<td>" + Util.format(result.objectCount) + "</td>\n</tr>\n"
+                + "<tr>\n<td>Total number of all elements:</td>\n<td>" + Util.format(result.elementCount) + "</td>\n</tr>\n"
+                + "<tr>\n<td>Nesting depth:</td>\n<td>" + Util.format(tree.nestingLevel) + "</td>\n</tr>\n"
+                + "<tr>\n<td>Size of JSON document (UTF-8 bytes):</td>\n<td>" + Util.humanFileSize(textByteLength) + " ("
+                + Util.format(textByteLength) + " B)</td>\n</tr>\n"
+                + "<tr>\n<td>Size of JSON document (UTF-16 code units):</td>\n<td>" + Util.humanFileSize(text.length) + " ("
+                + Util.format(text.length) + " B)</td>\n</tr>\n"
+                + "</table>\n</div>\n";
+        }
+
+        function enableSubmit() {
+            $("#submit").value = "json 2 html";
+            $("#submit").disabled = null;
+        }
+
+        function parse(str) {
+            try {
+                return JSON.parse(str);
+            }
+            catch (e) {
+                if (e instanceof SyntaxError) {
+                    alert("There was a syntax error in your JSON string.\n" + e.message + "\nPlease check your syntax and try again.");
+                }
+                else {
+                    alert("There was an unknown error. Perhaps the JSON string contained a deep level of nesting.");
+                }
+
+                enableSubmit();
+                $("#text").focus();
+                return;
+            }
+        }
+
+        function json2html(str) {
+            const parseTree = parse(str);
+
+            if (!parseTree) return;
+            tree = transformTree(parseTree);
+            console.log(tree)
+
+            $("#output").innerHTML = render(tree.root);
+
+            statsContent = doStats(gatherStatistics(tree.root), str);
+            $("#show-stats").disabled = null;
+
+            enableSubmit();
+
+            $("#output").scrollIntoView();
+        }
+
+        function doParse() {
+            $("#submit").value = "processing...";
+            $("#submit").disabled = "disabled";
+            $("#show-stats").disabled = "disabled";
+
+            setTimeout(doParse2, 50);
+        }
+
+        function doParse2() {
+            const value = $("#text").value != "" ? $("#text").value : window.offscreenText;
+            if (value.substr(0, 4) == "http" || value.substr(0, 4) == "file" || value.substr(0, 3) == "ftp") {
+                getURL(value);
+            }
+            else {
+                json2html(value);
+            }
+        }
+
+        function getURL(str) {
+            const http = new XMLHttpRequest();
+            http.open("get", "get.php?url=" + str);
+            http.onreadystatechange = function () {
+                if (http.readyState == 4) json2html(http.responseText);
+            };
+            http.send(null);
+        }
+
+        const LARGE_DOCUMENT_CUTOFF = 150 * 1024; // 150K "UTF-16 code units" 
+
+        function onTextPaste(event) {
+            // If the textarea already has text in it, then allow the browser to handle the paste normally, because the user's 
+            // intent might be to paste a fragment of JSON to amend existing text, rather than completely replacing what is in 
+            // the textarea with a complete JSON document. 
+            if ($("#text").value != "") return;
+
+            // Get text representation of clipboard 
+            const text = (event.originalEvent || event).clipboardData.getData("text/plain");
+
+            // If the JSON document to be pasted is small enough that it won't negatively impact performance, then allow the 
+            // browser to handle the paste normally; this way the user can edit the JSON document in the textarea. 
+            if (text.length <= LARGE_DOCUMENT_CUTOFF) return;
+
+            // Cancel browser default paste behaviour. The default behaviour, laying out and rendering the string inside the 
+            // textarea, is the performance expensive operation; so skip it. 
+            event.preventDefault();
+
+            window.offscreenText = text;
+            $("#text").placeholder = "[Large JSON document of size " + Util.humanFileSize(Util.byteLength(text)) +
+                " successfully pasted; display of the document skipped for performance]";
+        }
+
+        function onTextChanged(event) {
+            if ($("#text").value == "") return;
+            window.offscreenText = null;
+            $("#text").removeAttribute("placeholder");
+        }
+
+        function onTextDrag(event) {
+            event.stopPropagation();
+            event.preventDefault();
+            // Style the drag-and-drop as a "copy file" operation. 
+            event.dataTransfer.dropEffect = "copy";
+        }
+
+        function onTextDrop(event) {
+            event.stopPropagation();
+            event.preventDefault();
+
+            const fileList = event.dataTransfer.files;
+            const file = fileList[0];
+            if (!file) return;
+
+            if (file.type != "text/plain" && file.type != "application/json") return;
+
+            const reader = new FileReader();
+            reader.addEventListener("load", function (event) {
+                const text = event.target.result;
+
+                if (text.length > LARGE_DOCUMENT_CUTOFF) {
+                    window.offscreenText = text;
+                    $("#text").value = "";
+                    $("#text").placeholder = "[Large JSON document of size " + Util.humanFileSize(Util.byteLength(text)) +
+                        " successfully pasted; display of the document skipped for performance]";
+                }
+                else {
+                    $("#text").value = text;
+                    window.offscreenText = null;
+                    $("#text").removeAttribute("placeholder");
+                }
+            });
+
+            reader.readAsText(file);
+        }
+
+        function init() {
+            window.$ = document.querySelector.bind(document);
+
+            HELP_CONTENT = $("#help-content").innerHTML;
+            $("#help-content").remove();
+
+            $("#text").addEventListener("paste", onTextPaste);
+            $("#text").addEventListener("input", onTextChanged);
+            $("#text").addEventListener("dragover", onTextDrag);
+            $("#text").addEventListener("drop", onTextDrop);
+
+            $("#reset").addEventListener("click", function (event) {
+                statsContent = "";
+                $("#output").innerHTML = "";
+            });
+
+            $("#show-stats").addEventListener("click", function (event) {
+                Modal.show(statsContent);
+            });
+
+            $("#show-help").addEventListener("click", function (event) {
+                Modal.show(HELP_CONTENT);
+            });
+
+            if ($("#text").focus) $("#text").focus();
+        }
+
+        document.addEventListener("DOMContentLoaded", init);</script>
+    <script type="text/javascript">"use strict";
+
+        (function () {
+            function itemTrailLabel(item) {
+                return `${item.typeLabel} (${item.tuples.length} item${item.tuples.length != 1 ? "s)" : ")"}`;
+            }
+
+            function itemTrail(item) {
+                const trail = ["Root"];
+
+                if (item.address) {
+                    for (const address of item.address.full()) trail.push(itemTrailLabel(address.parent));
+                }
+
+                if (!item.simple) trail.push(itemTrailLabel(item));
+
+                return trail.join(" > ");
+            }
+
+            let currentFocusElement = null;
+            function focusObject(element) {
+                if (element == currentFocusElement) return;
+
+                currentFocusElement = element;
+
+                const item = window.tree.fromIndex(parseInt(element.dataset.index));
+
+                $("#focus-path").textContent = Util.itemPath(item);
+                $("#focus-trail").textContent = itemTrail(item);
+                $("#focus-type").textContent = item.typeLabel;
+                $("#focus-extended-type").textContent = item.extendedTypeLabel;
+                $("#focus-extended-type").classList.toggle("present", item.extendedType);
+            }
+
+            let currentOutlineElement = null;
+            function outlineObject(element) {
+                if (element == currentOutlineElement) return;
+
+                if (currentOutlineElement) currentOutlineElement.style.outline = "none";
+
+                currentOutlineElement = element;
+
+                if (element) element.style.outline = "1px solid #ffa000";
+            }
+
+            let focusFrozen = false;
+
+            function handleFocus(event) {
+                const focusable = event.target.closest("div[data-index], tr[data-index]");
+                if (!focusable) return;
+
+                if (event.type == "click") {
+                    focusFrozen = true;
+                    focusObject(focusable);
+                }
+                else if (!focusFrozen) focusObject(focusable);
+            }
+
+            function handleOutline(event) {
+                const outlinable = event.target.closest("div[data-index]");
+                outlineObject(outlinable);
+            }
+
+            function handleZoom(event) {
+                const element = event.target.parentNode;
+                const zoomed = element.parentNode != $("#output");
+                const treeNode = zoomed ? window.tree.fromIndex(parseInt(element.dataset.index)) : window.tree.root;
+                $("#output").innerHTML = render(treeNode, zoomed);
+                if (zoomed) $("#output").firstChild.classList.add("zoomed");
+            }
+
+            function handleMinimise(event) {
+                const element = event.target.parentNode;
+                element.classList.toggle("minimised");
+
+                if (!element.classList.contains("dry")) return;
+                const treeNode = window.tree.fromIndex(parseInt(element.dataset.index));
+                element.insertAdjacentHTML("beforebegin", render(treeNode));
+                element.remove();
+            }
+
+            function init() {
+                document.body.addEventListener("click", function (event) {
+                    handleOutline(event);
+                    handleFocus(event);
+
+                    if (event.target.matches(".widget")) handleMinimise(event);
+                    if (event.target.matches(".zoom")) handleZoom(event);
+                });
+
+                document.body.addEventListener("mousemove", function (event) {
+                    handleOutline(event);
+                    handleFocus(event);
+                });
+
+                document.addEventListener("scroll", function (event) {
+                    focusFrozen = false;
+                });
+
+                $("#reset").addEventListener("click", function (event) {
+                    $("#focus-path").textContent = "";
+                    $("#focus-trail").textContent = "";
+                    $("#focus-type").textContent = "";
+                    $("#focus-extended-type").textContent = "";
+                    $("#focus-extended-type").classList.remove("present");
+                });
+            }
+
+            document.addEventListener("DOMContentLoaded", init);
+        })();</script>
+    <link
+        href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0////dP///3T///90////dP///3T///90////dP///3T///90////dP///3T///90////dP///3T///90////dP///wAAAP8AAAD/AAAA/wAAAP90////AAAA/wAAAP8AAAD/AAAA/3T///8AAAD/dP///3T///8AAAD/dP///3T///8AAAD/dP///3T///8AAAD/dP///wAAAP90////dP///3T///90////AAAA/3T///90////AAAA/3T///90////AAAA/3T///90////AAAA/3T///90////AAAA/3T/////////dP///wAAAP90////dP///wAAAP90////dP///wAAAP90////dP///wAAAP90/////////3T///8AAAD/dP///3T///8AAAD/dP///3T///8AAAD/dP///3T///8AAAD/dP///3T///8AAAD/dP//////////////dP///wAAAP90////AAAA/3T///90////AAAA/3T///90////AAAA/3T///90////AAAA/3T//////////////3T///8AAAD/dP///wAAAP8AAAD/AAAA/wAAAP90////dP///3T///90////dP///wAAAP90//////////////90////AAAA/3T///8AAAD/dP///3T///90////dP///////////////////3T///8AAAD/dP//////////////dP///wAAAP90////AAAA/3T///////////////////////////////////90////AAAA/3T//////////////3T///8AAAD/dP///wAAAP90////////////////////////////////////dP///wAAAP90//////////////90////AAAA/3T///8AAAD/dP///////////////////////////////////3T///8AAAD/dP//////////////dP///wAAAP90////AAAA/3T///////////////////////////////////90////dP///3T//////////////3T///8AAAD/dP///wAAAP90////////////////////////////////////dP///wAAAP90////dP///3T///90////AAAA/3T///8AAAD/dP///////////////////////////////////3T///8AAAD/dP///wAAAP8AAAD/AAAA/3T///90////AAAA/3T///////////////////////////////////90////dP///3T///90////dP///3T///90////dP///3T///90////////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+        rel="shortcut icon" type="image/x-icon">
+</head>
+
+<body>
+    <div id="header"> <img alt="json 2 html" src="images/logo.png"> </div>
+    <form onsubmit="doParse(); return false;">
+        <p> This page offers an easy way to visualize a string of JSON text. Put some JSON into the text area, and this
+            page will instantly display the text as a set of nested boxes, corresponding to the objects, arrays and
+            values in the JSON string.<br> You can also paste a URL into the textarea, and the JSON string will be
+            loaded from the URL. </p>
+        <p> JSON 2 HTML is open source and released under the MIT license - <a
+                href="http://github.com/bloopletech/json2html/tree/master">get the source on github</a>. Patches /
+            improvements are welcomed! </p>
+        <code> <textarea id="text" rows="12" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea> </code>
+        <input id="submit" onclick="doParse(); return false;" type="submit" value="json 2 html"> <input id="reset"
+            type="button" value="reset">
+    </form>
+    <hr>
+    <div id="output"></div>
+    <div id="footer"> Check out my portfolio at <a href="http://i.bloople.net">i.bloople.net</a>. &copy; Brenton
+        Fletcher. Comments? e-mail me: <a href="mailto:i@bloople.net">i@bloople.net</a>. </div>
+    <div id="focus">
+        <div id="focus-output">
+            <div> <label>Property path:</label> <code id="focus-path"></code> </div>
+            <div> <label>Trail:</label> <span id="focus-trail"></span> </div>
+            <div> <label>Type:</label> <span id="focus-type"></span><span id="focus-extended-type"></span> </div>
+        </div>
+        <div id="actions"> <input type="button" id="show-stats" value="Statistics" disabled> <input type="button"
+                id="show-help" value="Help"> </div>
+    </div>
+    <div id="help-content">
+        <h3>JSON</h3>
+        <p> <img id="json-logo" alt="JSON logo" src="images/json.gif"> <i>Quoting from the home page of <a
+                    href="http://www.json.org/">JSON</a></i><br> JSON (JavaScript Object Notation) is a lightweight
+            data-interchange format. It is easy for humans to read and write. It is easy for machines to parse and
+            generate. </p>
+        <h3>Syntax Highlighting</h3>
+        <p> <span class="string">Colour for text and null values.</span><br> <span class="number">Colour for
+                numbers.</span><br> <span class="boolean">Colour for true and false values.</span><br> <span
+                class="void">Colour for void values.</span><br> <img class="ex" src="images/object.png"> Background for
+            Objects.<br> <img class="ex" src="images/array.png"> Background for Arrays.<br> <img class="ex"
+                src="images/objectt.png"> Background for Object name/value pair tables.<br> <img class="ex"
+                src="images/arrayt.png"> Background for Array value tables.</p>
+        <h3>Note</h3>
+        <p> Individual 'words' that are extremely long may be broken into two or more lines to conserve horizontal
+            space. </p>
+    </div>
+</body>
+
+</html>

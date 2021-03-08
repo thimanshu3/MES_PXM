@@ -29,23 +29,6 @@
             }
         });
     </script>
-    <style>
-        .card: {
-            animation: slide-up 0.4s ease;
-        }
-
-        @keyframes slide-up {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -85,8 +68,8 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="container">
-                                    
+                                <div id="form" class="container-fluid"> 
+                                     
                                 </div>
                             </div>
                         </div>
@@ -114,8 +97,58 @@
 
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <script>
+        const form = '<%- JSON.stringify(formData) %>'
+        const parseform = JSON.parse(form)
+        let out = ''
+        parseform.componets.forEach(component =>{
+           out += `<div class="card"><div class="card-header m-2" style="color:white;background-color:#4d7393 !important"><strong> ${component.name}</div></strong>`
+            if(component.type == 'sec'){
+                component.subComponents.forEach(subComponent=>{
+                    if(subComponent.type == 'sec'){
+                        out+=`<div style="box-shadow: none;" class="card"><div style="color:white;background-color:#96bedf !important" class="card-header m-2">${subComponent.name}</div><div class="card-body"></div></div>`
+                    }
+                    else{
+                        out += `<div class="card-body">`
+                        out += `<ul class="nav nav-pills nav-secondary nav-pills-no-bd" id="pills-tab-without-border" role="tablist">`
+                        subComponent.tabComponents.forEach(tab => {
+                            out += `
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-${tab._id}" data-toggle="pill" href="#tab-${tab._id}" role="tab" aria-controls="pills-contact-nobd" aria-selected="false">${tab.name}</a>
+                        </li>`
+                        })
+                        out += '</ul>'
+                        out += `<div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">`
+                        subComponent.tabComponents.forEach(tab => {
+                            out += `<div class="tab-pane fade show active" id="tab-${tab._id}" role="tabpanel" aria-labelledby="pills-home-tab-nobd"></div>`
+                        })
+                        out += '</div>'
+                        out += '</div>'
+                    }
+                })
+            }
+            else{
+              out+= `<div class="card-body">`
+                out+=`<ul class="nav nav-pills nav-secondary nav-pills-no-bd" id="pills-tab-without-border" role="tablist">`
+                component.subComponents.forEach(tab=>{
+                    out+= `
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-${tab._id}" data-toggle="pill" href="#tab-${tab._id}" role="tab" aria-controls="pills-contact-nobd" aria-selected="false">${tab.name}</a>
+                        </li>`
+                })
+                out+='</ul>'
+                out+= `<div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">`
+                component.subComponents.forEach(tab => {
+                    out += `<div class="tab-pane fade show active" id="tab-${tab._id}" role="tabpanel" aria-labelledby="pills-home-tab-nobd"></div>`
+                })
+                out+= '</div>'
+              out+='</div>'
+            }
+           out+= `</div>`
+        })
 
-
+        $('#form').append(out)
+    </script>
 </body>
 
 </html>

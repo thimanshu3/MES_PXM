@@ -243,7 +243,6 @@ router.delete('/remove/:id', async (req, res) => {
 router.get('/inputgroup', async (req, res) => {
     try {
         const [fieldGroupq] = await MySql.query("select fg.id as id, fg.name as name, fg.active as active, u.firstName as fname, u.lastName as lname, fg.createdBy as createdBy, fg.createdAt as createdAt, count(fatg.groupId) as count from fieldGroups fg INNER JOIN users u ON u.id = fg.createdBy left JOIN fieldsAssignedToGroups fatg on fatg.groupId = fg.id group by fg.id")
-        console.log([fieldGroupq])
         res.render('admin/inputGroup', { User: req.user, fieldGroup: fieldGroupq, formatDateMoment })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)

@@ -61,7 +61,8 @@ router.post('/layout', async (req, res) => {
 
       const result =   await FormDesign.insertMany({ formId, componets:content})
       if(result){
-
+          req.flash('error', `Something Went Wrong`)
+          res.redirect(`/admin/customform/${formId}/fieldmap`)
       }else{
           req.flash('error', `Something Went Wrong`)
           res.redirect('/admin/customform')
@@ -106,9 +107,7 @@ router.get('/:id/fieldmap', async (req, res) => {
             // res.redirect()
         }
        const formData =  await FormDesign.findOne({
-            where:{
                 formId: customForm.id
-            }
         })
         res.render('admin/customFormFieldMapping', { User: req.user, formData })
 

@@ -66,7 +66,7 @@
                                     </ul>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-7">
 
                                         <div class="card">
                                             <div class="card-header">
@@ -81,7 +81,7 @@
                                                 </div>
                                             </div>
                                             <div class="card-body">
-                                               
+
 
                                                 <div class="table-responsive">
                                                     <table id="add-row" class="display table table-striped table-hover">
@@ -91,8 +91,8 @@
                                                                 <th>Created By</th>
                                                                 <th>Status</th>
                                                                 <th>Field Count</th>
+                                                                                                                                                                    <th>Created At</th>
                                                                 <th>Action</th>
-                                                                <th>Created At</th>
                                                             </tr>
                                                         </thead>
 
@@ -102,44 +102,58 @@
                                                                     <td>
                                                                         <%= _a.name %>
                                                                     </td>
-                                                                    <td><%= _a.fname %> <%= _a.lname %></td>
                                                                     <td>
-                                                                        <!-- <span id="activeBadge-<%= _a.id%>"
+                                                                        <%= _a.fname %>
+                                                                            <%= _a.lname %>
+                                                                    </td>
+                                                                    <td>
+                                                                       
+                                                                        <span id="activeBadge-<%= _a.id%>"
+                                                                            style="background-color:<%= _a.active ? '#088e0c' : '#d20e18' %>"
                                                                             class="badge badge-<%= _a.active ? 'success' : 'danger' %>">
-                                                                            <%= _a.active ? 'ACTIVE' : 'INACTIVE' %>
-                                                                        </span> -->
-                                                                        <span id="activeBadge-<%= _a.id%>" style="background-color:<%= _a.active ? '#088e0c' : '#d20e18' %>" class="badge badge-<%= _a.active ? 'success' : 'danger' %>">
                                                                             <%= _a.active ? 'ACTIVE' : 'INACTIVE' %>
                                                                         </span>
                                                                     </td>
                                                                     <td>
                                                                         <div class="form-button-action">
                                                                             <div class="kk_group_item_number">
-                                                                                <button
-                                                                                    class="btn btn-link btn-round "
+                                                                                <button class="btn btn-link btn-round "
                                                                                     data-toggle="modal"
-                                                                                    data-target="#kk_group_items"><%= _a.count %></button>
+                                                                                    data-target="#kk_group_items">
+                                                                                    <%= _a.count %>
+                                                                                </button>
                                                                             </div>
                                                                         </div>
                                                                     </td>
                                                                     <td>
+                                                                        <%= formatDateMoment(_a.createdAt) %>
+                                                                    </td>
+                                                                    <td>
                                                                         <div class="form-button-action">
-                                                                            <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-lg"
+                                                                            <button type="button" data-toggle="tooltip"
+                                                                                title="" class="btn btn-link btn-lg"
                                                                                 data-original-title="Edit Task">
                                                                                 <i class="fa fa-edit"></i>
                                                                             </button>
-                                                                            <button id="changeFieldStatus-<%=_a.id%>" onclick="changeFieldStatus('<%=_a.id%>')" type="button"
-                                                                                data-toggle="tooltip" title="Toggle to Change Status" class="btn btn-link btn-default"
+                                                                            <button id="changeFieldStatus-<%=_a.id%>"
+                                                                                onclick="changeFieldStatus('<%=_a.id%>')"
+                                                                                type="button" data-toggle="tooltip"
+                                                                                title="Toggle to Change Status"
+                                                                                class="btn btn-link btn-default"
                                                                                 data-original-title="Remove">
-                                                                                <i class="fas <%= _a.active ? 'fa-toggle-on': 'fa-toggle-off' %>"></i>
+                                                                                <i
+                                                                                    class="fas <%= _a.active ? 'fa-toggle-on': 'fa-toggle-off' %>"></i>
                                                                             </button>
-                                                                            <button id="removefield-<%=_a.id%>" onclick="removeField('<%=_a.id%>')" type="button" data-toggle="tooltip"
-                                                                                title="" class="btn btn-link btn-danger" data-original-title="Remove">
+                                                                            <button id="removefield-<%=_a.id%>"
+                                                                                onclick="removeField('<%=_a.id%>')"
+                                                                                type="button" data-toggle="tooltip"
+                                                                                title="" class="btn btn-link btn-danger"
+                                                                                data-original-title="Remove">
                                                                                 <i class="fas fa-trash"></i>
                                                                             </button>
                                                                         </div>
                                                                     </td>
-                                                                    <td><%= _a.createdAt %></td>
+                                                                    
                                                                 </tr>
                                                                 <% }) %>
 
@@ -155,7 +169,7 @@
                                     </div>
 
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
 
                                         <div class="card kk_field_items">
                                             <div class="card-header">
@@ -168,8 +182,9 @@
                                             <div class="card-body">
                                                 <div class="selectgroup selectgroup-pills">
                                                     <div class="scroll-area-lg">
-                                                        <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
-                                                            
+                                                        <div id="fieldListArea"
+                                                            class="scrollbar-container ps--active-y ps">
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -190,7 +205,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
 
 
                         <div class="modal kk_modal_popup_form" id="kk_create_group" style="display: none;"
@@ -268,25 +283,26 @@
                             select: {
                                 style: 'single'
                             },
+                            scrollY:'47vh'
 
                         });
                         table.off("select").on("select", function (e, dt, type, indexes) {
                             ids = $.map(table.rows('.selected').ids(), function (item) {
                                 return item
                             });
-                           ids = ids.toString()
+                            ids = ids.toString()
                             showItemFields(ids)
                         });
 
 
                         $('#assigntogroup').click(function () {
                             let checked = []
-                           $.each($("input[name='field']:checked"), function () {
-                                 checked.push(
-                                     $(this).val(),
-                                 )
+                            $.each($("input[name='field']:checked"), function () {
+                                checked.push(
+                                    $(this).val(),
+                                )
                             });
-                            if(checked.length !== 0){
+                            if (checked.length !== 0) {
                                 fetch('/admin/inputfield/inputgroup', {
                                     method: 'POST',
                                     headers: {
@@ -317,18 +333,18 @@
                                     })
                                     .catch(err => console.log(err))
                             }
-                            else{
+                            else {
                                 iziToast.warning({
                                     message: 'Please select Input to add in this group'
                                 })
                             }
                         });
 
-                        const showItemFields = (id) =>{
+                        const showItemFields = (id) => {
                             $('#fieldListArea').empty()
                             $("#fieldListArea").prepend(`<div id="preloader"><div id="loader"></div>
                                         </div>`);
-                             fetch(`/admin/inputfield/inputgroup/${id}`)
+                            fetch(`/admin/inputfield/inputgroup/${id}`)
                                 .then(function (res) {
                                     return res.json()
                                 })
@@ -344,7 +360,7 @@
                                         })
                                     else if (json.status == 200) {
                                         let itemFields = ''
-            
+
                                         json.data.itemFields.sort((a, b) => { if (a.isAssigned) return -1; if (!a.isAssigned) return 1; return 0; }).forEach(b => {
                                             let checked = b.isAssigned ? 'checked' : '';
                                             itemFields += ` <label class="selectgroup-item">
@@ -363,7 +379,7 @@
                                 .catch(err => console.log(err))
                         }
                     </script>
-                   
+
 </body>
 
 </html>
