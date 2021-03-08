@@ -141,7 +141,7 @@
   font-size: 300px;
   margin-bottom: 20px;
   color: #66cccc;
-  text-shadow: 20px 20px 4px #379392;
+  text-shadow: 20px 20px 4px #5394ca;
   line-height: 300px;
   font-family: cursive;
 }
@@ -317,7 +317,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #379392;
+  color: #5394ca;
 }
 
 .kk_field_items .selectgroup-pills .selectgroup-item {
