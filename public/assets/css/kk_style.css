@@ -687,9 +687,12 @@ table.dataTable {
 }
 
 
+.table-hover tbody tr:hover {
+     background-color: rgba(0,0,0,.03);
+}
 
 .table-hover tbody tr:nth-of-type(odd):hover {
-     background-color: rgba(0,0,0,.075);
+     background-color: rgba(0,0,0,.03);
 }
 
 .dataTable .form-button-action .btn{
@@ -705,4 +708,37 @@ table.dataTable {
 
 .dataTable .form-button-action .btn i:hover{
       transform: scale(1.3);
+}
+
+
+
+body {
+    background: #eaf2f4 !important;
+}
+
+
+
+.custom-counter {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.custom-counter li {
+  counter-increment: step-counter;
+  margin-bottom: 14px;
+  font-size:18px;
+  margin-left:10px
+}
+
+.custom-counter li::before {
+  content: counter(step-counter);
+  margin-right: 5px;
+  font-size: 80%;
+  background-color: #e4ca99;
+  color: white;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 3px;
+      margin-right: 18px;
 }
