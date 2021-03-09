@@ -62,11 +62,19 @@ router.post('/add', async (req, res) => {
 
     try {
         const ListRecord = await listRecord.create({ name, createdBy: req.user.id })
-        await listRecordValues.bulkCreate(values.map(s => ({
-            parentListId: ListRecord.id,
-            label: s,
-            createdBy: req.user.id,
-        })))
+        if(ListRecord){
+            await listRecordValues.bulkCreate(values.map(s => ({
+                parentListId: ListRecord.id,
+                label: s,
+                createdBy: req.user.id,
+            })))
+
+        }
+        else{
+            req.flash('error', 'Something Went Wrong Please try after a while')
+            res.redirect('/admin/listRecord')
+            return  
+        }
         
         await ActivityLog.create({
             id: ListRecord.id,
