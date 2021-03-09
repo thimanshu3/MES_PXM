@@ -565,12 +565,12 @@ $(document).ready(function () {
 
 var headers;
 let selectedFile;
-document.getElementById('exampleFormControlFile1').addEventListener("change", (event) => {
+document.getElementById('et_pb_contact_brand_file_request_0').addEventListener("change", (event) => {
   selectedFile = event.target.files[0];
 })
 
 const previewTheData = () => {
-
+console.log(selectedFile);
   if (selectedFile) {
     let fileReader = new FileReader();
     fileReader.readAsBinaryString(selectedFile);
@@ -596,13 +596,18 @@ const previewTheData = () => {
       }
     }
   }
+  else {
+    iziToast.error({
+      message: 'not working'
+    })
+  }
 }
 
 
 const GetTable = () => {
   var table = $('#dytable').DataTable({
-    scrollX:true,
-    scrollY:'60vh'
+    scrollX: true,
+    scrollY: '60vh'
   });
   $('#preloader').hide()
   $('#tableField').append(`<div class="f1-buttons mt-5"><button type="button" class="btn btn-previous" > Previous</button ><button type="submit" class="btn ml-3 btn-submit">Submit</button></div >`)

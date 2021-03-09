@@ -58,7 +58,7 @@ const addComponent = (type, where) => {
                         </ul>
                         <div id="ctabc-${order}" class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
                             <div class="tab-pane fade" id="ctabc-${order}-1-content_item" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
-                                <p>Default Tab</p>
+                                <p>Default Tab  <button class="btn btn-primary">Add Sub Section</button></p>
                             </div>
                         </div>
                     </div>
@@ -138,7 +138,7 @@ const addComponent = (type, where) => {
                         </ul>
                         <div id="ctabc-${str1}-${orderObject[where]}" class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
                             <div class="tab-pane fade" id="ctabc-${str1}-${orderObject[where]}-1-content_item" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
-                                <p>Default Tab</p>
+                                <p>Default Tab <button class="btn btn-primary" style="background-color: white;margin-left: 600px;color: blue;border: 1px solid;padding: 10px;box-shadow: 5px 10px 18px grey;border-style:hidden;">Add Sub-Section</button></p>
                             </div>
                         </div>
                     </div>
@@ -161,7 +161,7 @@ const addTab = (val) => {
 
 
         $(`#${path}`).append(`<li class="nav-item submenu" id="${val}-${orderObject[path]}-item"> <a class="nav-link"  data-toggle="pill" href="#${val}-${orderObject[path]}-content_item" role= "tab" aria-controls="pills-home-nobd" aria-selected="false"> ${extName} </a > </li >`);
-        $(`#${val}`).append(` <div class="tab-pane fade" id='${val}-${orderObject[path]}-content_item' role="tabpanel" aria-labelledby="pills-home-tab-nobd"><p>Default Tab ${val}-${orderObject[path]}</p></div>`);
+        $(`#${val}`).append(` <div style="min-height: 200px;" class="tab-pane fade" id='${val}-${orderObject[path]}-content_item' role="tabpanel" aria-labelledby="pills-home-tab-nobd"><p>Default Tab ${val}-${orderObject[path]}</p></div>`);
         extName = ''
     }
 }
