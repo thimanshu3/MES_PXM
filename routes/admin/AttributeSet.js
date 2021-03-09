@@ -8,7 +8,7 @@ const router = express.Router()
 
 router.get('/', async (req, res) => {
     const data = await AttributeSet.findAll()
-  
+
     res.render('admin/AttributeSet', { User: req.user, attr: data })
 })
 
@@ -20,7 +20,7 @@ router.get('/:id', async (req, res) => {
             }
         })
 
-        if (!foundAttribute){
+        if (!foundAttribute) {
             req.flash('error', 'Attribute Not Found!')
             res.redirect('/admin/AttributeSet')
             return
@@ -46,14 +46,33 @@ router.get('/:id', async (req, res) => {
 
 
 router.post('/add', async (req, res) => {
-    const { name } = req.body
+    const { name, tagValues } = req.body
+    const values = tagValues.split(',')
     if (!name) {
         req.flash('error', 'name is required!')
         res.redirect('/admin/AttributeSet')
         return
     }
+    if (!Array.isArray(values) && values.length) {
+        req.flash('error', 'values are required!')
+        res.redirect('/admin/AttributeSet')
+        return
+    }
     try {
         const attribute = await AttributeSet.create({ name })
+        if (attribute) {
+            await AttributeValueSets.bulkCreate(values.map(s => ({
+                parentAttributeId: attribute.id,
+                name: s,
+                createdBy: req.user.id,
+            })
+            ))
+        } else {
+            req.flash('error', 'Something Went Wrong Please try after a while')
+            res.redirect('/admin/AttributeSet')
+            return
+        }
+
         await ActivityLog.create({
             id: attribute.id,
             name: 'Attribute Set',
@@ -61,6 +80,7 @@ router.post('/add', async (req, res) => {
             user: req.user.id,
             timestamp: new Date()
         })
+        console.log(values);
         req.flash('success', `${attribute.name} Added Successfully!`)
         res.redirect('/admin/AttributeSet')
     } catch (err) {

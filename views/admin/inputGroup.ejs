@@ -318,9 +318,7 @@
                                     .then(function (json) {
                                         showItemFields(ids)
                                         if (json.status == 200)
-                                            iziToast.success({
-                                                message: json.message
-                                            })
+                                            location.reload(true)
                                         else if (json.status == 400)
                                             iziToast.error({
                                                 title: json.message,

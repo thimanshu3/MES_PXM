@@ -33,6 +33,7 @@ const excelUpload = multer({
     fileFilter: excelFilter
 })
 
+// Get data to render on page load
 router.get('/', async (req, res) => {
     try {
         const inputType = await inputTypes.findAll()
@@ -49,46 +50,7 @@ router.get('/', async (req, res) => {
     }
 })
 
-
-// router.post('/add', async (req, res) => {
-//     const { label, description, type } = req.body
-//     if (!label) {
-//         req.flash('error', 'name is required!')
-//         res.redirect('/admin/inputField')
-//         return
-//     }
-//     if (!description) {
-//         req.flash('error', 'description is required!')
-//         res.redirect('/admin/inputField')
-//         return
-//     }
-//     if (!type) {
-//         req.flash('error', 'type is required!')
-//         res.redirect('/admin/inputField')
-//         return
-//     }
-//     console.log(req.body)
-//     try {
-//         // const inputField = await inputFields.create({ label, typeOfField: type, description, createdBy: req.user.id })
-//         // await ActivityLog.create({
-//         //     id: inputField.id,
-//         //     name: 'input Field',
-//         //     type: 'Add',
-//         //     user: req.user.id,
-//         //     timestamp: new Date()
-//         // })
-//         req.flash('success', `${inputField.label} Added Successfully!`)
-//         res.redirect('/admin/inputField')
-//     } catch (err) {
-//         console.error('\x1b[31m%s\x1b[0m', err)
-//         if (err.name === 'SequelizeUniqueConstraintError')
-//             req.flash('error', `${err.errors[0].message} '${err.errors[0].value}' already exists!`)
-//         else
-//             req.flash('error', err.toString() || 'Something Went Wrong!')
-//         res.redirect('/admin/inputField')
-//     }
-// })
-
+// Import Input Fields File
 router.post('/import', excelUpload.single('file'), async (req, res) => {
     if (req.fileValidationError) {
         req.flash('error', req.fileValidationError)
@@ -160,6 +122,7 @@ router.post('/import', excelUpload.single('file'), async (req, res) => {
         })
 })
 
+//Add an Item Field
 router.post('/add', async (req, res) => {
     const { label, type, listrecord, description } = req.body
     console.log(req.body);
@@ -201,6 +164,7 @@ router.post('/add', async (req, res) => {
     }
 })
 
+// Activate/Deactivate an Item Field
 router.delete('/:id', async (req, res) => {
     const foundField = await inputFields.findOne({
         where: {
@@ -220,6 +184,7 @@ router.delete('/:id', async (req, res) => {
     res.json({ status: 200, message: `Field ${foundField.active ? 'Activated' : 'Deactivated'} Successfully!`, active: foundField.active })
 })
 
+// Delete an Item Field
 router.delete('/remove/:id', async (req, res) => {
     const foundField = await inputFields.findOne({
         where: {
@@ -240,6 +205,7 @@ router.delete('/remove/:id', async (req, res) => {
     }
 })
 
+// Get All Field Groups
 router.get('/inputgroup', async (req, res) => {
     try {
         const [fieldGroupq] = await MySql.query("select fg.id as id, fg.name as name, fg.active as active, u.firstName as fname, u.lastName as lname, fg.createdBy as createdBy, fg.createdAt as createdAt, count(fatg.groupId) as count from fieldGroups fg INNER JOIN users u ON u.id = fg.createdBy left JOIN fieldsAssignedToGroups fatg on fatg.groupId = fg.id group by fg.id")
@@ -251,7 +217,7 @@ router.get('/inputgroup', async (req, res) => {
     }
 })
 
-
+//Add an Input Group
 router.post('/inputgroup/add', async (req, res) => {
     const { name, description } = req.body
     if (!name) {
@@ -285,6 +251,7 @@ router.post('/inputgroup/add', async (req, res) => {
     }
 })
 
+// Show All Input Fields in Selected Group 
 router.get('/inputgroup/:id', async (req, res) => {
     try {
 
@@ -312,6 +279,7 @@ router.get('/inputgroup/:id', async (req, res) => {
     }
 })
 
+// Get Values of a List/Record attached to a Input Field 
 router.get('/lrValue/:id', async (req, res) => {
     try {
         const foundList = await listRecord.findOne({
@@ -337,12 +305,14 @@ router.get('/lrValue/:id', async (req, res) => {
     }
 })
 
+
+// Assign Item Fields To a Particular Group
 router.post('/inputgroup', async (req, res) => {
     const { checked, groupId } = req.body
     if (!groupId)
         return res.status(400).json({ status: 400, message: 'Group Id is required!' })
     if (!(Array.isArray(checked)))
-        return res.status(400).json({ status: 400, message: 'item fields Must be an Array!' })
+        return res.status(400).json({ status: 400, message: 'Item Fields Must be an Array!' })
 
     try {
 
@@ -352,12 +322,24 @@ router.post('/inputgroup', async (req, res) => {
             return res.status(400).json({ status: 400, message: 'Field items are required' })
 
         if (checked.length)
+        {
+            //console.log(groupId);
+            await fieldsAssignedToGroup.destroy(
+                {
+                    where: {
+                        groupId: groupId
+                    }
+                }
+            )
             await fieldsAssignedToGroup.bulkCreate(checked.map(s => ({
                 groupId,
                 fieldId: s,
                 AssignedBy: req.user.id,
 
             })))
+        }
+
+
 
 
         res.json({ status: 200, message: 'Grouped Successfully!' })
@@ -367,6 +349,8 @@ router.post('/inputgroup', async (req, res) => {
     }
 })
 
+
+// Activate/Deactivate a Group
 router.delete('/inputgroup/:id', async (req, res) => {
     const foundGroup = await fieldGroups.findOne({
         where: {
@@ -386,6 +370,8 @@ router.delete('/inputgroup/:id', async (req, res) => {
     res.json({ status: 200, message: `Group ${foundGroup.active ? 'Activated' : 'Deactivated'} Successfully!`, active: foundGroup.active })
 })
 
+
+// Delete a Group
 router.delete('/inputgroup/remove/:id', async (req, res) => {
     const foundGroup = await fieldGroups.findOne({
         where: {
@@ -407,3 +393,43 @@ router.delete('/inputgroup/remove/:id', async (req, res) => {
 })
 
 module.exports = router
+
+
+// router.post('/add', async (req, res) => {
+//     const { label, description, type } = req.body
+//     if (!label) {
+//         req.flash('error', 'name is required!')
+//         res.redirect('/admin/inputField')
+//         return
+//     }
+//     if (!description) {
+//         req.flash('error', 'description is required!')
+//         res.redirect('/admin/inputField')
+//         return
+//     }
+//     if (!type) {
+//         req.flash('error', 'type is required!')
+//         res.redirect('/admin/inputField')
+//         return
+//     }
+//     console.log(req.body)
+//     try {
+//         // const inputField = await inputFields.create({ label, typeOfField: type, description, createdBy: req.user.id })
+//         // await ActivityLog.create({
+//         //     id: inputField.id,
+//         //     name: 'input Field',
+//         //     type: 'Add',
+//         //     user: req.user.id,
+//         //     timestamp: new Date()
+//         // })
+//         req.flash('success', `${inputField.label} Added Successfully!`)
+//         res.redirect('/admin/inputField')
+//     } catch (err) {
+//         console.error('\x1b[31m%s\x1b[0m', err)
+//         if (err.name === 'SequelizeUniqueConstraintError')
+//             req.flash('error', `${err.errors[0].message} '${err.errors[0].value}' already exists!`)
+//         else
+//             req.flash('error', err.toString() || 'Something Went Wrong!')
+//         res.redirect('/admin/inputField')
+//     }
+// })
