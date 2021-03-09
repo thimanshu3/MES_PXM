@@ -116,7 +116,7 @@
                                                                                     <td>
                                                                                         <%= _a.inputType %>
                                                                                         <%if ( _a.inputType == 'list/record') { %>
-                                                                                        <button type="button" data-toggle="tooltip" title="" onclick="fetchListValues('<%= _a.lr %>')" class="btn btn-link btn-sm"
+                                                                                        <button type="button" data-toggle="tooltip" title="" onclick="fetchListValues('<%= _a.lr %>','<%= _a.label%>')" class="btn btn-link btn-sm"
                                                                                             data-original-title="View List/Record Values">
                                                                                             <i class="fa fa-eye"></i>
                                                                                         </button>
@@ -286,7 +286,8 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">List/Record Values </h4>
+                <h4 id="demo" class="modal-title">List/Record Values of <strong  style="color: blue;" id="nameV"></strong> </h4>
+                
                 <button type="button" class="close" data-dismiss="modal">×</button>
             </div>
 
@@ -365,7 +366,7 @@
             markStatusOrDelete(`/admin/inputfield/remove/${id}`, 'DELETE')
         }
 
-        function fetchListValues(id) {
+        function fetchListValues(id,label) {
             fetch(`/admin/inputfield/lrValue/${id}`)
             .then(res => res.json())
             .then(json=>{
@@ -381,11 +382,13 @@
                     else{
                         data = '<center><h2>No Values in List!!</h2></center>'
                     }
+                    $('#nameV').text(label)
                     $('#lrValues').append(data)
                     $('#kk_list_modal').modal('show');
                 }
             })
             .catch(err => console.log(err))
+           
         }
 
     </script>
