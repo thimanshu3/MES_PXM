@@ -123,8 +123,6 @@ const addComponent = (type, where) => {
         orderObject[where] = ++orderObject[where];
         orderObject[`ctabc-${str1}-${orderObject[where]}-list`] = 1;
         orderObject[`ctabc-sec-${order}`] = 0;
-        console.log(orderObject[where]);
-        // console.log(`-> ctabc-${str1}-${orderObject[where]}`);
         $(`#${where}`).append(`
             <div class="m-3" id="${str1}-tab-${orderObject[where]}">
                 <div class="card">
@@ -235,20 +233,23 @@ document.getElementById("saveButton").addEventListener("click", function () {
                 if (id.includes('tab')) {
                     let child = b.getElementsByTagName('ul')[0].getElementsByTagName("li");
                     let val = b.getElementsByClassName("card-body")[0].getElementsByTagName("div")[0]
-                    console.log(val.getElementsByTagName("div")[0].getElementsByTagName("div")[1]);
-                    let allSec = Array.from(val.children);
-                    console.log(allSec);
-                    allSec.forEach(s => {
-                        console.log(s.getElementsByTagName("div")[1]);
-                        let id = Array.from(s.getElementsByTagName("div")[1].children);
-                        id.forEach(i => {
-                            // console.log(i.getAttribute("id"));
-                        });
-                    })
+                    let allTabSec = Array.from(val.children);
+
                     let allTabs = Array.from(child)
-                    allTabs.forEach(b => {
-                        let tab = {}
+                    allTabs.forEach((b, index) => {
+                        let tab = { pageContent: [] }
                         let id = b.getAttribute('id');
+
+                        let sub = Array.from(allTabSec[index].getElementsByTagName("div")[1].children);
+                        sub.forEach(i => {
+                            let obj = {}
+                            let subid = i.getAttribute('id')
+                            subid = subid.split()
+                            obj.type = 'sec'
+                            obj.order = subid[3]
+                            obj.name = 'wait a while'
+                            tab.pageContent.push(obj)
+                        });
                         id = id.split('-');
                         tab.type = "tablist";
                         tab.order = id[4];
@@ -267,7 +268,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
             let val = component.getElementsByClassName("card-body")[0].getElementsByClassName("card-body")[1].getElementsByTagName("div")[0];
             let allChild = Array.from(child)
             allChild.forEach(b => {
-                let childObj = { pages: [] };
+                let childObj = {};
                 let id = b.getAttribute('id');
                 id = id.split('-');
                 childObj.type = "tab";

@@ -16,11 +16,11 @@
     <link rel="stylesheet" href="/assets/css/kk_style.css">
     <!-- <link rel="stylesheet" href="/assets/css/iziToast.min.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css"
-        integrity="sha512-DIW4FkYTOxjCqRt7oS9BFO+nVOwDL4bzukDyDtMO7crjUZhwpyrWBFroq+IqRe6VnJkTpRAS6nhDvf0w+wHmxg=="
-        crossorigin="anonymous" />
+          integrity="sha512-DIW4FkYTOxjCqRt7oS9BFO+nVOwDL4bzukDyDtMO7crjUZhwpyrWBFroq+IqRe6VnJkTpRAS6nhDvf0w+wHmxg=="
+          crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nestable2/1.6.0/jquery.nestable.min.css"
-        integrity="sha512-yOW3WV01iPnrQrlHYlpnfVooIAQl/hujmnCmiM3+u8F/6cCgA3BdFjqQfu8XaOtPilD/yYBJR3Io4PO8QUQKWA=="
-        crossorigin="anonymous" />
+          integrity="sha512-yOW3WV01iPnrQrlHYlpnfVooIAQl/hujmnCmiM3+u8F/6cCgA3BdFjqQfu8XaOtPilD/yYBJR3Io4PO8QUQKWA=="
+          crossorigin="anonymous" />
 
     <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
@@ -32,7 +32,7 @@
             }
         });
     </script>
-  
+
 </head>
 
 <body>
@@ -83,28 +83,38 @@
                                                     <div class="dd" id="nestable">
                                                         <ol class="dd-list">
                                                             <% formData.componets.forEach((component,i)=> { %>
-                                                                <li class="dd-item mt-5" data-id="2">
+                                                                <li class="dd-item mt-5" data-id="">
                                                                     <div class="dd-handle">
-                                                                        <%=++i %>.&nbsp;&nbsp; <%= component.name %> <span class="badge badge-pill badge-dark"
-                                                                                    style="float: right;">
+                                                                        <%=++i %>.&nbsp;&nbsp; <%= component.name %>
+                                                                                <span
+                                                                                      class="badge badge-pill badge-dark"
+                                                                                      style="float: right;">
                                                                                     <%= component.type %>
                                                                                 </span>
                                                                     </div>
                                                                     <% if(component.subComponents.length){ %>
                                                                         <ol class="dd-list">
-                                                                            <% component.subComponents.forEach(subComponent=> { %>
+                                                                            <%
+                                                                               component.subComponents.forEach(subComponent=>
+                                                                                { %>
                                                                                 <% if(subComponent.type=='tab' ){ %>
                                                                                     <li class="dd-item" data-id="5">
                                                                                         <div class="dd-handle">
-                                                                                            <%=subComponent.name%> <span class="badge badge-pill badge-info"
-                                                                                                    style="float: right;">
-                                                                                                    <%= subComponent.type %>
+                                                                                            <%=subComponent.name%> <span
+                                                                                                      class="badge badge-pill badge-info"
+                                                                                                      style="float: right;">
+                                                                                                    <%= subComponent.type
+                                                                                                        %>
                                                                                                 </span>
                                                                                         </div>
                                                                                         <ol class="dd-list">
-                                                                                            <% subComponent.tabComponents.forEach(tabComponent=>{ %>
-                                                                                                <li class="dd-item" data-id="6">
-                                                                                                    <div class="dd-handle">
+                                                                                            <%
+                                                                                               subComponent.tabComponents.forEach(tabComponent=>
+                                                                                                { %>
+                                                                                                <li class="dd-item"
+                                                                                                    data-id="6">
+                                                                                                    <div
+                                                                                                         class="dd-handle">
                                                                                                         <%=tabComponent.name%>
                                                                                                     </div>
                                                                                                 </li>
@@ -114,14 +124,17 @@
                                                                                     <% }else{ %>
                                                                                         <li class="dd-item" data-id="6">
                                                                                             <div class="dd-handle">
-                                                                                                <%=subComponent.name%><span class="badge badge-pill badge-dark"
-                                                                                                        style="float: right;">
-                                                                                                        <%= component.type %>
+                                                                                                <%=subComponent.name%>
+                                                                                                    <span
+                                                                                                          class="badge badge-pill badge-dark"
+                                                                                                          style="float: right;">
+                                                                                                        <%= component.type
+                                                                                                            %>
                                                                                                     </span>
                                                                                             </div>
                                                                                         </li>
                                                                                         <% } %>
-                                                                                 <% }) %>
+                                                                                            <% }) %>
                                                                         </ol>
                                                                         <% } %>
                                                                 </li>
@@ -134,14 +147,17 @@
                                         <div class="col-md-7">
                                             <div class="card">
                                                 <div class="card-header">Field Group And Field Items</div>
-                                                <div class="card-body"></div>
+                                                <div class="card-body">
+                                                    <textarea id="nestable-output"></textarea>
+                                                    <textarea id="nestable2-output"></textarea>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <%-include('../partials/footer.ejs')%>
+                        <%-include('.. /partials/footer.ejs')%>
                     </div>
 
     </div>
@@ -163,65 +179,105 @@
     <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nestable2/1.6.0/jquery.nestable.min.js"
-        integrity="sha512-7bS2beHr26eBtIOb/82sgllyFc1qMsDcOOkGK3NLrZ34yTbZX8uJi5sE0NNDYFNflwx1TtnDKkEq+k2DCGfb5w=="
-        crossorigin="anonymous"></script>
+            integrity="sha512-7bS2beHr26eBtIOb/82sgllyFc1qMsDcOOkGK3NLrZ34yTbZX8uJi5sE0NNDYFNflwx1TtnDKkEq+k2DCGfb5w=="
+            crossorigin="anonymous"></script>
 
 
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
     <script>
-        $('#nestable').nestable();
-        $('#nestable2').nestable();
-        const form = '<%- JSON.stringify(formData) %>'
-        const parseform = JSON.parse(form)
-        let out = ''
-        parseform.componets.forEach(component =>{
-           out += `<div class="card"><div class="card-header m-2" style="color:white;background-color:#4d7393 !important"><strong> ${component.name}</div></strong><div class="card-body">`
-            if(component.type == 'sec'){
-                component.subComponents.forEach(subComponent=>{
-                    if(subComponent.type == 'sec'){
-                        out+=`<div style="box-shadow: none;" class="card"><div style="color:white;background-color:#96bedf !important" class="card-header m-2">${subComponent.name}</div><div class="card-body" style="min-height: 200px;"></div></div>`
-                    }
-                    else{
-                        out += `<div style="box-shadow: none;" class="card"><div class="card-header m-2" style="color:white;background-color:#96bedf !important"><strong> ${subComponent.name}</div></strong></div><div class="card-body" style="min-height: 200px;">`
-                        out += `<ul class="nav nav-pills nav-secondary nav-pills-no-bd" id="pills-tab-without-border" role="tablist">`
-                        subComponent.tabComponents.forEach(tab => {
-                            out += `
-                        <li class="nav-item">
-                            <a class="nav-link" id="pills-${tab._id}" data-toggle="pill" href="#tab-${tab._id}" role="tab" aria-controls="pills-contact-nobd" aria-selected="false">${tab.name}</a>
-                        </li>`
-                        })
-                        out += '</ul>'
-                        out += `<div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">`
-                        subComponent.tabComponents.forEach(tab => {
-                            out += `<div class="tab-pane fade show active" id="tab-${tab._id}" role="tabpanel" aria-labelledby="pills-home-tab-nobd"></div>`
-                        })
-                        out += '</div>'
-                        out += '</div></div>'
-                    }
-                })
-            }
-            else{
-              out+= `<div class="card-body" style="min-height: 200px;">`
-                out+=`<ul class="nav nav-pills nav-secondary nav-pills-no-bd" id="pills-tab-without-border" role="tablist">`
-                component.subComponents.forEach(tab=>{
-                    out+= `
-                        <li class="nav-item">
-                            <a class="nav-link" id="pills-${tab._id}" data-toggle="pill" href="#tab-${tab._id}" role="tab" aria-controls="pills-contact-nobd" aria-selected="false">${tab.name}</a>
-                        </li>`
-                })
-                out+='</ul>'
-                out+= `<div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">`
-                component.subComponents.forEach(tab => {
-                    out += `<div class="tab-pane fade show active" id="tab-${tab._id}" role="tabpanel" aria-labelledby="pills-home-tab-nobd"></div>`
-                })
-                out+= '</div>'
-              out+='</div>'
-            }
-           out+= `</div>`
-        })
 
-        $('#form').append(out)
+        $(document).ready(function () {
+
+            var updateOutput = function (e) {
+                var list = e.length ? e : $(e.target),
+                    output = list.data('output');
+                if (window.JSON) {
+                    output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
+                } else {
+                    output.val('JSON browser support required for this demo.');
+                }
+            };
+
+            // activate Nestable for list 1
+            $('#nestable').nestable({
+                group: 1
+            })
+                .on('change', updateOutput);
+
+            // activate Nestable for list 2
+            $('#nestable2').nestable({
+                group: 1
+            })
+                .on('change', updateOutput);
+
+            // output initial serialised data
+            updateOutput($('#nestable').data('output', $('#nestable-output')));
+            updateOutput($('#nestable2').data('output', $('#nestable2-output')));
+
+            $('#nestable-menu').on('click', function (e) {
+                var target = $(e.target),
+                    action = target.data('action');
+                if (action === 'expand-all') {
+                    $('.dd').nestable('expandAll');
+                }
+                if (action === 'collapse-all') {
+                    $('.dd').nestable('collapseAll');
+                }
+            });
+
+            $('#nestable3').nestable();
+        })
+        // const form = '<%- JSON.stringify(formData) %>'
+        // const parseform = JSON.parse(form)
+        // let out = ''
+        // parseform.componets.forEach(component =>{
+        //    out += `<div class="card"><div class="card-header m-2" style="color:white;background-color:#4d7393 !important"><strong> ${component.name}</div></strong><div class="card-body">`
+        //     if(component.type == 'sec'){
+        //         component.subComponents.forEach(subComponent=>{
+        //             if(subComponent.type == 'sec'){
+        //                 out+=`<div style="box-shadow: none;" class="card"><div style="color:white;background-color:#96bedf !important" class="card-header m-2">${subComponent.name}</div><div class="card-body" style="min-height: 200px;"></div></div>`
+        //             }
+        //             else{
+        //                 out += `<div style="box-shadow: none;" class="card"><div class="card-header m-2" style="color:white;background-color:#96bedf !important"><strong> ${subComponent.name}</div></strong></div><div class="card-body" style="min-height: 200px;">`
+        //                 out += `<ul class="nav nav-pills nav-secondary nav-pills-no-bd" id="pills-tab-without-border" role="tablist">`
+        //                 subComponent.tabComponents.forEach(tab => {
+        //                     out += `
+        //                 <li class="nav-item">
+        //                     <a class="nav-link" id="pills-${tab._id}" data-toggle="pill" href="#tab-${tab._id}" role="tab" aria-controls="pills-contact-nobd" aria-selected="false">${tab.name}</a>
+        //                 </li>`
+        //                 })
+        //                 out += '</ul>'
+        //                 out += `<div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">`
+        //                 subComponent.tabComponents.forEach(tab => {
+        //                     out += `<div class="tab-pane fade show active" id="tab-${tab._id}" role="tabpanel" aria-labelledby="pills-home-tab-nobd"></div>`
+        //                 })
+        //                 out += '</div>'
+        //                 out += '</div></div>'
+        //             }
+        //         })
+        //     }
+        //     else{
+        //       out+= `<div class="card-body" style="min-height: 200px;">`
+        //         out+=`<ul class="nav nav-pills nav-secondary nav-pills-no-bd" id="pills-tab-without-border" role="tablist">`
+        //         component.subComponents.forEach(tab=>{
+        //             out+= `
+        //                 <li class="nav-item">
+        //                     <a class="nav-link" id="pills-${tab._id}" data-toggle="pill" href="#tab-${tab._id}" role="tab" aria-controls="pills-contact-nobd" aria-selected="false">${tab.name}</a>
+        //                 </li>`
+        //         })
+        //         out+='</ul>'
+        //         out+= `<div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">`
+        //         component.subComponents.forEach(tab => {
+        //             out += `<div class="tab-pane fade show active" id="tab-${tab._id}" role="tabpanel" aria-labelledby="pills-home-tab-nobd"></div>`
+        //         })
+        //         out+= '</div>'
+        //       out+='</div>'
+        //     }
+        //    out+= `</div>`
+        // })
+
+        // $('#form').append(out)
     </script>
 </body>
 
