@@ -32,7 +32,7 @@
             }
         });
     </script>
-  
+
 </head>
 
 <body>
@@ -82,29 +82,39 @@
                                                 <div class="card-body">
                                                     <div class="dd" id="nestable">
                                                         <ol class="dd-list">
-                                                            <% formData.componets.forEach((component,i)=> { %>
-                                                                <li class="dd-item mt-5" data-id="2">
+                                                            <% data.formData.componets.forEach((component,i)=> { %>
+                                                                <li class="dd-item mt-5" data-id="">
                                                                     <div class="dd-handle">
-                                                                        <%=++i %>.&nbsp;&nbsp; <%= component.name %> <span class="badge badge-pill badge-dark"
+                                                                        <%=++i %>.&nbsp;&nbsp; <%= component.name %>
+                                                                                <span
+                                                                                    class="badge badge-pill badge-dark"
                                                                                     style="float: right;">
                                                                                     <%= component.type %>
                                                                                 </span>
                                                                     </div>
                                                                     <% if(component.subComponents.length){ %>
                                                                         <ol class="dd-list">
-                                                                            <% component.subComponents.forEach(subComponent=> { %>
+                                                                            <%
+                                                                                component.subComponents.forEach(subComponent=>
+                                                                                { %>
                                                                                 <% if(subComponent.type=='tab' ){ %>
                                                                                     <li class="dd-item" data-id="5">
                                                                                         <div class="dd-handle">
-                                                                                            <%=subComponent.name%> <span class="badge badge-pill badge-info"
+                                                                                            <%=subComponent.name%> <span
+                                                                                                    class="badge badge-pill badge-info"
                                                                                                     style="float: right;">
-                                                                                                    <%= subComponent.type %>
+                                                                                                    <%= subComponent.type
+                                                                                                        %>
                                                                                                 </span>
                                                                                         </div>
                                                                                         <ol class="dd-list">
-                                                                                            <% subComponent.tabComponents.forEach(tabComponent=>{ %>
-                                                                                                <li class="dd-item" data-id="6">
-                                                                                                    <div class="dd-handle">
+                                                                                            <%
+                                                                                                subComponent.tabComponents.forEach(tabComponent=>
+                                                                                                { %>
+                                                                                                <li class="dd-item"
+                                                                                                    data-id="6">
+                                                                                                    <div
+                                                                                                        class="dd-handle">
                                                                                                         <%=tabComponent.name%>
                                                                                                     </div>
                                                                                                 </li>
@@ -114,14 +124,16 @@
                                                                                     <% }else{ %>
                                                                                         <li class="dd-item" data-id="6">
                                                                                             <div class="dd-handle">
-                                                                                                <%=subComponent.name%><span class="badge badge-pill badge-dark"
+                                                                                                <%=subComponent.name%>
+                                                                                                    <span
+                                                                                                        class="badge badge-pill badge-dark"
                                                                                                         style="float: right;">
-                                                                                                        <%= component.type %>
+                                                                                                        <%= component.type%>
                                                                                                     </span>
                                                                                             </div>
                                                                                         </li>
                                                                                         <% } %>
-                                                                                 <% }) %>
+                                                                                            <% }) %>
                                                                         </ol>
                                                                         <% } %>
                                                                 </li>
@@ -134,7 +146,14 @@
                                         <div class="col-md-7">
                                             <div class="card">
                                                 <div class="card-header">Field Group And Field Items</div>
-                                                <div class="card-body"></div>
+                                                <div class="card-body">
+                                                   <div class="row">
+                                                    <div class="col-md-6">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -170,58 +189,8 @@
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
     <script>
-        $('#nestable').nestable();
-        $('#nestable2').nestable();
-        const form = '<%- JSON.stringify(formData) %>'
+        const form = '<%- JSON.stringify(data.formData) %>'
         const parseform = JSON.parse(form)
-        let out = ''
-        parseform.componets.forEach(component =>{
-           out += `<div class="card"><div class="card-header m-2" style="color:white;background-color:#4d7393 !important"><strong> ${component.name}</div></strong><div class="card-body">`
-            if(component.type == 'sec'){
-                component.subComponents.forEach(subComponent=>{
-                    if(subComponent.type == 'sec'){
-                        out+=`<div style="box-shadow: none;" class="card"><div style="color:white;background-color:#96bedf !important" class="card-header m-2">${subComponent.name}</div><div class="card-body" style="min-height: 200px;"></div></div>`
-                    }
-                    else{
-                        out += `<div style="box-shadow: none;" class="card"><div class="card-header m-2" style="color:white;background-color:#96bedf !important"><strong> ${subComponent.name}</div></strong></div><div class="card-body" style="min-height: 200px;">`
-                        out += `<ul class="nav nav-pills nav-secondary nav-pills-no-bd" id="pills-tab-without-border" role="tablist">`
-                        subComponent.tabComponents.forEach(tab => {
-                            out += `
-                        <li class="nav-item">
-                            <a class="nav-link" id="pills-${tab._id}" data-toggle="pill" href="#tab-${tab._id}" role="tab" aria-controls="pills-contact-nobd" aria-selected="false">${tab.name}</a>
-                        </li>`
-                        })
-                        out += '</ul>'
-                        out += `<div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">`
-                        subComponent.tabComponents.forEach(tab => {
-                            out += `<div class="tab-pane fade show active" id="tab-${tab._id}" role="tabpanel" aria-labelledby="pills-home-tab-nobd"></div>`
-                        })
-                        out += '</div>'
-                        out += '</div></div>'
-                    }
-                })
-            }
-            else{
-              out+= `<div class="card-body" style="min-height: 200px;">`
-                out+=`<ul class="nav nav-pills nav-secondary nav-pills-no-bd" id="pills-tab-without-border" role="tablist">`
-                component.subComponents.forEach(tab=>{
-                    out+= `
-                        <li class="nav-item">
-                            <a class="nav-link" id="pills-${tab._id}" data-toggle="pill" href="#tab-${tab._id}" role="tab" aria-controls="pills-contact-nobd" aria-selected="false">${tab.name}</a>
-                        </li>`
-                })
-                out+='</ul>'
-                out+= `<div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">`
-                component.subComponents.forEach(tab => {
-                    out += `<div class="tab-pane fade show active" id="tab-${tab._id}" role="tabpanel" aria-labelledby="pills-home-tab-nobd"></div>`
-                })
-                out+= '</div>'
-              out+='</div>'
-            }
-           out+= `</div>`
-        })
-
-        $('#form').append(out)
     </script>
 </body>
 

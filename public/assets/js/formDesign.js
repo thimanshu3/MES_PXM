@@ -36,6 +36,7 @@ const addComponent = (type, where) => {
         order += 1;
         orderObject[`tab-${order}`] = 1;
         orderObject[`ctabc-${order}-list`] = 1;
+        orderObject[`ctabc-sec-${order}`] = 0;
         $(`#${where}`).append(`
             <div class="m-3" id="tab-${order}">
                 <div class="card">
@@ -57,9 +58,18 @@ const addComponent = (type, where) => {
                             </li>
                         </ul>
                         <div id="ctabc-${order}" class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
-                            <div class="tab-pane fade" id="ctabc-${order}-1-content_item" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
-                                <p>Default Tab  <button class="btn btn-primary">Add Sub Section</button></p>
+                        <div class="tab-pane fade" id="ctabc-${order}-1-content_item" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
+                                <div class="d-flex justify-content-between">
+                                <p>default tab</p>
+                                <button onclick="addComponent(3,'ctabc-sec-${order}')" class="btn btn-link">
+                                Add new sub section
+                                </button>
+                                
+                                </div>
+                                 <div id="ctabc-sec-${order}">
                             </div>
+                            </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -112,8 +122,7 @@ const addComponent = (type, where) => {
         let str1 = str[1] + '-' + str[2];
         orderObject[where] = ++orderObject[where];
         orderObject[`ctabc-${str1}-${orderObject[where]}-list`] = 1;
-        console.log(orderObject[where]);
-        // console.log(`-> ctabc-${str1}-${orderObject[where]}`);
+        orderObject[`ctabc-sec-${order}`] = 0;
         $(`#${where}`).append(`
             <div class="m-3" id="${str1}-tab-${orderObject[where]}">
                 <div class="card">
@@ -138,7 +147,15 @@ const addComponent = (type, where) => {
                         </ul>
                         <div id="ctabc-${str1}-${orderObject[where]}" class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
                             <div class="tab-pane fade" id="ctabc-${str1}-${orderObject[where]}-1-content_item" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
-                                <p>Default Tab <button class="btn btn-primary" style="background-color: white;margin-left: 600px;color: blue;border: 1px solid;padding: 10px;box-shadow: 5px 10px 18px grey;border-style:hidden;">Add Sub-Section</button></p>
+                               <div class="d-flex justify-content-between">
+                                <p>default tab</p>
+                                <button onclick="addComponent(3,'ctabc-sec-${order}')" class="btn btn-link">
+                                Add new sub section
+                                </button>
+                                
+                                </div>
+                                 <div id="ctabc-sec-${order}">
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -158,10 +175,25 @@ const addTab = (val) => {
         path += '-list';
         console.log(orderObject[path]);
         orderObject[path] = ++orderObject[path];
+        orderObject[`${val}-${orderObject[path]}-item`] = 0;
 
+        orderObject[`${val}-sec-${orderObject[path]}`] = 0;
 
         $(`#${path}`).append(`<li class="nav-item submenu" id="${val}-${orderObject[path]}-item"> <a class="nav-link"  data-toggle="pill" href="#${val}-${orderObject[path]}-content_item" role= "tab" aria-controls="pills-home-nobd" aria-selected="false"> ${extName} </a > </li >`);
-        $(`#${val}`).append(` <div style="min-height: 200px;" class="tab-pane fade" id='${val}-${orderObject[path]}-content_item' role="tabpanel" aria-labelledby="pills-home-tab-nobd"><p>Default Tab ${val}-${orderObject[path]}</p></div>`);
+        $(`#${val}`).append(` <div class="tab-pane fade" 
+                        id='${val}-${orderObject[path]}-content_item' role="tabpanel" aria-labelledby="pills-home-tab-nobd">
+        
+         <div class="d-flex justify-content-between">
+                                <p>default tab${val}-sec-${orderObject[path]}</p>
+                                <button onclick="addComponent(3,'${val}-sec-${orderObject[path]}')" class="btn btn-link">
+                                Add new sub section
+                                </button>
+                                
+                                </div>
+                                <div id="${val}-sec-${orderObject[path]}">
+                            </div>
+        
+        </div> `);
         extName = ''
     }
 }
@@ -200,10 +232,26 @@ document.getElementById("saveButton").addEventListener("click", function () {
 
                 if (id.includes('tab')) {
                     let child = b.getElementsByTagName('ul')[0].getElementsByTagName("li");
+                    let val = b.getElementsByClassName("card-body")[0].getElementsByTagName("div")[0]
+                    let allTabSec = Array.from(val.children);
+
                     let allTabs = Array.from(child)
-                    allTabs.forEach(b => {
-                        let tab = {}
+                    allTabs.forEach((b, index) => {
+                        let tab = { pageContent: [] }
                         let id = b.getAttribute('id');
+
+                        let sub = Array.from(allTabSec[index].getElementsByTagName("div")[1].children);
+                        sub.forEach(i => {
+                            let obj = {}
+                            let subid = i.getAttribute('id')
+                            let name = i.querySelectorAll("input")[0].value;
+                            console.log(name)
+                            subid = subid.split('-')
+                            obj.type = 'sec'
+                            obj.order = subid[3]
+                            obj.name = name;
+                            tab.pageContent.push(obj)
+                        });
                         id = id.split('-');
                         tab.type = "tablist";
                         tab.order = id[4];
@@ -219,49 +267,69 @@ document.getElementById("saveButton").addEventListener("click", function () {
         }
         else {
             let child = component.getElementsByClassName("card-body")[0].getElementsByTagName('ul')[0].getElementsByTagName("li");
+            let val = component.getElementsByClassName("card-body")[0].getElementsByTagName("div")[0]
+            let allTabSec = Array.from(val.children);
+
+
             let allChild = Array.from(child)
-            allChild.forEach(b => {
-                let childObj = {};
+
+            allChild.forEach((b,index) => {
+                let childObj = { pageContent: []};
                 let id = b.getAttribute('id');
                 id = id.split('-');
+                let sub = Array.from(allTabSec[index].getElementsByTagName("div")[1].children);
+                sub.forEach(i => {
+                    let obj = { }
+                    let subid = i.getAttribute('id')
+                    let name = i.querySelectorAll("input")[0].value;
+                    subid = subid.split('-')
+                    obj.type = 'sec'
+                    obj.order = subid[3]
+                    obj.name = name;
+                    childObj.pageContent.push(obj)
+                });
                 childObj.type = "tab";
                 childObj.order = id[2];
                 childObj.name = b.innerText || b.nodeValue
                 obj.subComponents.push(childObj)
+
             })
+
+
+
         }
         AllData.push(obj);
     })
 
-    fetch('/admin/customform/layout', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            content: AllData,
-            formId
-        })
-    })
-        .then(function (res) {
-            return res.json()
-        })
-        .then(function (json) {
-            if (json.status == 200)
-                iziToast.success({
-                    message: json.message
-                })
-            else if (json.status == 400)
-                iziToast.error({
-                    title: json.message,
-                    message: json.error
-                })
-            else
-                iziToast.error({
-                    message: json.message
-                })
-        })
-        .catch(err => console.log(err))
+    // fetch('/admin/customform/layout', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //         content: AllData,
+    //         formId
+    //     })
+    // })
+    //     .then(function (res) {
+    //         return res.json()
+    //     })
+    //     .then(function (json) {
+    //         if (json.status == 200)
+    //             iziToast.success({
+    //                 message: json.message
+    //             })
+    //         else if (json.status == 400)
+    //             iziToast.error({
+    //                 title: json.message,
+    //                 message: json.error
+    //             })
+    //         else
+    //             iziToast.error({
+    //                 message: json.message
+    //             })
+    //     })
+    //     .catch(err => console.log(err))
 
 })
 
