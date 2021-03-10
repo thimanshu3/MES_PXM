@@ -83,59 +83,56 @@
                                                     <div class="dd" id="nestable">
                                                         <ol class="dd-list">
                                                             <% data.formData.componets.forEach((component,i)=> { %>
-                                                                <li class="dd-item mt-5" data-id="">
-                                                                    <div class="dd-handle">
-                                                                        <%=++i %>.&nbsp;&nbsp; <%= component.name %>
-                                                                                <span
-                                                                                    class="badge badge-pill badge-dark"
-                                                                                    style="float: right;">
+                                                                <li class="dd-item mt-5" data-id="<%= i  %>">
+                                                                    <div class="dd-handle"><%=++i %>.&nbsp;&nbsp;
+                                                                         <%= component.name %>
+                                                                                <span class="badge badge-pill badge-dark" style="float: right;">
                                                                                     <%= component.type %>
                                                                                 </span>
                                                                     </div>
                                                                     <% if(component.subComponents.length){ %>
                                                                         <ol class="dd-list">
-                                                                            <%
-                                                                                component.subComponents.forEach(subComponent=>
-                                                                                { %>
+                                                                            <%component.subComponents.forEach(subComponent=>{ %>
                                                                                 <% if(subComponent.type=='tab' ){ %>
                                                                                     <li class="dd-item" data-id="5">
-                                                                                        <div class="dd-handle">
-                                                                                            <%=subComponent.name%> <span
-                                                                                                    class="badge badge-pill badge-info"
-                                                                                                    style="float: right;">
-                                                                                                    <%= subComponent.type
-                                                                                                        %>
-                                                                                                </span>
+                                                                                        <div class="dd-handle"><%=subComponent.name%> <span class="badge badge-pill badge-info"
+                                                                                            style="float: right;"><%= subComponent.type %></span>
                                                                                         </div>
                                                                                         <ol class="dd-list">
-                                                                                            <%
-                                                                                                subComponent.tabComponents.forEach(tabComponent=>
-                                                                                                { %>
-                                                                                                <li class="dd-item"
-                                                                                                    data-id="6">
-                                                                                                    <div
-                                                                                                        class="dd-handle">
+                                                                                            <%subComponent.tabComponents.forEach(tabComponent=>{ %>
+                                                                                                <li class="dd-item" data-id="6">
+                                                                                                    <div class="dd-handle">
                                                                                                         <%=tabComponent.name%>
                                                                                                     </div>
+                                                                                                
+                                                                                                <% if(tabComponent.pageContent) {%>
+                                                                                                    <ol class="dd-list">
+                                                                                                        <% tabComponent.pageContent.forEach(page=>{ %>
+                                                                                                            <li class="dd-item" data-id="6">
+                                                                                                                <div class="dd-handle">
+                                                                                                                    <%=page.name%>
+                                                                                                                </div>
+                                                                                                            </li>
+                                                                                                        <% }) %> 
+                                                                                                    </ol>
+                                                                                                <% } %>  
                                                                                                 </li>
-                                                                                                <% }) %>
+                                                                                            <% }) %>
                                                                                         </ol>
                                                                                     </li>
                                                                                     <% }else{ %>
                                                                                         <li class="dd-item" data-id="6">
                                                                                             <div class="dd-handle">
                                                                                                 <%=subComponent.name%>
-                                                                                                    <span
-                                                                                                        class="badge badge-pill badge-dark"
-                                                                                                        style="float: right;">
+                                                                                                    <span class="badge badge-pill badge-dark" style="float: right;">
                                                                                                         <%= component.type%>
                                                                                                     </span>
                                                                                             </div>
                                                                                         </li>
-                                                                                        <% } %>
-                                                                                            <% }) %>
+                                                                                    <% } %>
+                                                                                <% }) %>
                                                                         </ol>
-                                                                        <% } %>
+                                                                    <% } %>
                                                                 </li>
                                                                 <% }) %>
                                                         </ol>
@@ -145,12 +142,39 @@
                                         </div>
                                         <div class="col-md-7">
                                             <div class="card">
-                                                <div class="card-header">Field Group And Field Items</div>
+                                                <div class="card-header">Field Groups</div>
                                                 <div class="card-body">
-                                                   <div class="row">
-                                                    <div class="col-md-6">
+                                                    <div class="selectgroup selectgroup-pills">
+                                                        <div class="scroll-area-lg">
+                                                            <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
+                                                                <% data.itemGroups.forEach(group=> { %>
+                                                                    <label class="selectgroup-item m-2">
+                                                                        <input type="checkbox" name="field" id="" value="<%=group.fieldIds %>" class="selectgroup-input fclass">
+                                                                        <span class="selectgroup-button">
+                                                                            <%=group.name %>
+                                                                        </span>
+                                                                    </label>
+                                                                    <% }); %>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-6">
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-header">Field Items</div>
+                                                <div class="card-body">
+                                                    <div class="selectgroup selectgroup-pills">
+                                                        <div class="scroll-area-lg">
+                                                            <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
+                                                                <% data.itemFields.forEach((item,i)=> { %>
+                                                                    <label class="selectgroup-item m-2">
+                                                                        <input type="checkbox" name="field" id="" value="<%=item.id  %> " class="selectgroup-input fclass">
+                                                                        <span class="selectgroup-button">
+                                                                            <%=item.label %>
+                                                                        </span>
+                                                                    </label>
+                                                                    <% }); %>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -181,14 +205,24 @@
     <!-- jQuery UI -->
     <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/nestable2/1.6.0/jquery.nestable.min.js"
-        integrity="sha512-7bS2beHr26eBtIOb/82sgllyFc1qMsDcOOkGK3NLrZ34yTbZX8uJi5sE0NNDYFNflwx1TtnDKkEq+k2DCGfb5w=="
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sortable/0.9.13/jquery-sortable-min.js"
+        integrity="sha512-9pm50HHbDIEyz2RV/g2tn1ZbBdiTlgV7FwcQhIhvykX6qbQitydd6rF19iLmOqmJVUYq90VL2HiIUHjUMQA5fw=="
         crossorigin="anonymous"></script>
 
 
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
     <script>
+        $(function () {
+                $("#left-col").sortable({
+                    handle: '.item h2',
+                    connectWith: '#right-col'
+                }).disableSelection();
+                $("#right-col").sortable({
+                    handle: '.item h2',
+                    connectWith: '#left-col'
+                }).disableSelection();
+            });
         const form = '<%- JSON.stringify(data.formData) %>'
         const parseform = JSON.parse(form)
     </script>
