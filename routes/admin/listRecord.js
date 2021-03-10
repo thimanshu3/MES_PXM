@@ -55,7 +55,12 @@ router.post('/add', async (req, res) => {
     }
 
     if (!Array.isArray(values) && values.length) {
-        req.flash('error', 'values are required!')
+        req.flash('error', 'Something went Wrong, Try again in a while!!')
+        res.redirect('/admin/listRecord')
+        return
+    }
+    if (!values.length){
+        req.flash('error', 'Empty List cannot be Added!!')
         res.redirect('/admin/listRecord')
         return
     }
@@ -129,16 +134,34 @@ router.post('/:id/add', async (req, res) => {
     }
 })
 
+router.delete('/:id', async (req,res) => {
+    const foundList = await listRecord.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+
+    if (!foundList)
+        return res.status(404).json({ message: 'List Not Found!' })
+
+    // if (foundList.role === 0)
+    //     return res.status(400).json({ message: 'Cannot Deactive Admin' })
+
+    foundList.active = !foundList.active
+    await foundList.save()
+
+    res.json({ status: 200, message: `List/Record ${foundList.active ? 'Activated' : 'Deactivated'} Successfully!`, active: foundList.active })
+})
 router.delete('/remove/:id', async (req, res) => {
     try {
-        const attribute = await AttributeSet.destroy({
+        const attribute = await listRecord.destroy({
             where: {
                 id: req.params.id
             }
         })
         req.flash('success', `Deleted Successfully`)
         res.json({ status: 200, message: 'Deleted Successfully' })
-        res.redirect('/admin/AttributeSet')
+        res.redirect('/admin/listrecord')
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         res.status(500).json({ status: 500, message: err.toString() })

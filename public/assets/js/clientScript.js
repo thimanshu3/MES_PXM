@@ -22,19 +22,17 @@ const markStatusOrDelete = (uri,method,type,data) =>{
                                     message: json.message
                                 })
                                 if(type === 'status'){
-
+                                    $(`#changeStatus-${data.id}`).empty()
+                                    $(`#changeStatus-${data.id}`).append(`<i class="fas ${json.active ? 'fa-toggle-on' : 'fa-toggle-off'}"></i>`)
                                     $(`#activeBadge-${data.id}`).text(json.active ? 'ACTIVE' : 'INACTIVE')
-                            document.querySelector(`#activeBadge-${data.id}`).classList.remove('badge-success')
-                            document.querySelector(`#activeBadge-${data.id}`).classList.remove('badge-danger')
-                            document.querySelector(`#activeBadge-${data.id}`).classList.add(json.active ? 'badge-success' : 'badge-danger')
-                            document.querySelector(`#activeBadge-${data.id}`).style.backgroundColor = (json.active ? '#088e0c' : "#d20e18")
-                            $(`#changeFieldStatus-${data.id}`).empty()
-                            $(`#changeFieldStatus-${data.id}`).append(`
-                            <i class="fas ${json.active ? 'fa-toggle-on' : 'fa-toggle-off'}"></i>
-                        `)
-                                }else{
+                                    document.querySelector(`#activeBadge-${data.id}`).classList.remove('badge-success')
+                                    document.querySelector(`#activeBadge-${data.id}`).classList.remove('badge-danger')
+                                    document.querySelector(`#activeBadge-${data.id}`).classList.add(json.active ? 'badge-success' : 'badge-danger')
+                                    document.querySelector(`#activeBadge-${data.id}`).style.backgroundColor = (json.active ? '#088e0c' : "#d20e18")
+                                }
+                                else{
                                     
-                                    //location.reload();
+                                    location.reload();
                                 }
                             } else {
                                 iziToast.error({
