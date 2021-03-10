@@ -188,7 +188,6 @@ const addTab = (val) => {
                                 <button onclick="addComponent(3,'${val}-sec-${orderObject[path]}')" class="btn btn-link">
                                 Add new sub section
                                 </button>
-                                
                                 </div>
                                 <div id="${val}-sec-${orderObject[path]}">
                             </div>
@@ -274,7 +273,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
             let allChild = Array.from(child)
 
             allChild.forEach((b,index) => {
-                let childObj = { pageContent: []};
+                let childObj = {tabComponents: []};
                 let id = b.getAttribute('id');
                 id = id.split('-');
                 let sub = Array.from(allTabSec[index].getElementsByTagName("div")[1].children);
@@ -286,7 +285,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
                     obj.type = 'sec'
                     obj.order = subid[3]
                     obj.name = name;
-                    childObj.pageContent.push(obj)
+                    childObj.tabComponents.push(obj)
                 });
                 childObj.type = "tab";
                 childObj.order = id[2];
@@ -301,35 +300,35 @@ document.getElementById("saveButton").addEventListener("click", function () {
         AllData.push(obj);
     })
 
-    // fetch('/admin/customform/layout', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //         content: AllData,
-    //         formId
-    //     })
-    // })
-    //     .then(function (res) {
-    //         return res.json()
-    //     })
-    //     .then(function (json) {
-    //         if (json.status == 200)
-    //             iziToast.success({
-    //                 message: json.message
-    //             })
-    //         else if (json.status == 400)
-    //             iziToast.error({
-    //                 title: json.message,
-    //                 message: json.error
-    //             })
-    //         else
-    //             iziToast.error({
-    //                 message: json.message
-    //             })
-    //     })
-    //     .catch(err => console.log(err))
+    fetch('/admin/customform/layout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            content: AllData,
+            formId
+        })
+    })
+        .then(function (res) {
+            return res.json()
+        })
+        .then(function (json) {
+            if (json.status == 200)
+                iziToast.success({
+                    message: json.message
+                })
+            else if (json.status == 400)
+                iziToast.error({
+                    title: json.message,
+                    message: json.error
+                })
+            else
+                iziToast.error({
+                    message: json.message
+                })
+        })
+        .catch(err => console.log(err))
 
 })
 
