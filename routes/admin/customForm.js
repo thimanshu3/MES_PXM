@@ -59,10 +59,9 @@ router.post('/layout', async (req, res) => {
     if (!formId) return res.status(400).json({ status: 400, message: 'Form ID is required!' })
     try {
 
-      const result =   await FormDesign.insertMany({ formId, componets:content})
+      const result = await FormDesign.create({ formId, componets:content})
       if(result){
-          req.flash('error', `Something Went Wrong`)
-          res.redirect(`/admin/customform/${formId}/fieldmap`)
+          res.json({ status: 200, href: `/admin/customform/${formId}/fieldmap`})
       }else{
           req.flash('error', `Something Went Wrong`)
           res.redirect('/admin/customform')
@@ -111,7 +110,6 @@ router.get('/:id/fieldmap', async (req, res) => {
             async () => await MySql.query('select fatg.groupId as groupId, fg.name, group_concat(fatg.fieldId Separator "," ) as fieldIds from fieldsAssignedToGroups fatg inner join fieldGroups fg on groupId = fg.id inner join inputFields ipf on fatg.fieldId =  ipf.id  where ipf.active="1" group by fatg.groupid'),
             async () => await FormDesign.findOne({formId:customForm.id})
         ])
-        console.log(itemGroups)
         res.render('admin/customFormFieldMapping', { User: req.user,data:{itemFields , itemGroups:itemGroups[0], formData} })
 
     } catch (err) {

@@ -16,11 +16,11 @@
     <link rel="stylesheet" href="/assets/css/kk_style.css">
     <!-- <link rel="stylesheet" href="/assets/css/iziToast.min.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css"
-        integrity="sha512-DIW4FkYTOxjCqRt7oS9BFO+nVOwDL4bzukDyDtMO7crjUZhwpyrWBFroq+IqRe6VnJkTpRAS6nhDvf0w+wHmxg=="
-        crossorigin="anonymous" />
+          integrity="sha512-DIW4FkYTOxjCqRt7oS9BFO+nVOwDL4bzukDyDtMO7crjUZhwpyrWBFroq+IqRe6VnJkTpRAS6nhDvf0w+wHmxg=="
+          crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nestable2/1.6.0/jquery.nestable.min.css"
-        integrity="sha512-yOW3WV01iPnrQrlHYlpnfVooIAQl/hujmnCmiM3+u8F/6cCgA3BdFjqQfu8XaOtPilD/yYBJR3Io4PO8QUQKWA=="
-        crossorigin="anonymous" />
+          integrity="sha512-yOW3WV01iPnrQrlHYlpnfVooIAQl/hujmnCmiM3+u8F/6cCgA3BdFjqQfu8XaOtPilD/yYBJR3Io4PO8QUQKWA=="
+          crossorigin="anonymous" />
 
     <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
@@ -82,10 +82,11 @@
                                                 <div class="card-body">
                                                     <div class="dd" id="nestable">
                                                         <ol class="dd-list">
-                                                            <% data.formData.componets.forEach((component,i)=> { %>
-                                                                <li class="dd-item mt-5" data-id="<%= i  %>">
-                                                                    <div class="dd-handle"><%=++i %>.&nbsp;&nbsp;
-                                                                         <%= component.name %>
+                                                            <%data.formData.componets.forEach((component,i)=> { %>
+                                                                <li class="dd-item mb-5" data-id="<%= i  %>">
+                                                                    <div class="dd-handle">
+                                                                        <input name="component" class="form-check-input mr-2" type="radio" id="<%=component.type %>-<%=component.order %>" value="<%=component._id %>">
+                                                                        <%=++i %>.&nbsp;&nbsp;<%= component.name %>
                                                                                 <span class="badge badge-pill badge-dark" style="float: right;">
                                                                                     <%= component.type %>
                                                                                 </span>
@@ -95,44 +96,51 @@
                                                                             <%component.subComponents.forEach(subComponent=>{ %>
                                                                                 <% if(subComponent.type=='tab' ){ %>
                                                                                     <li class="dd-item" data-id="5">
-                                                                                        <div class="dd-handle"><%=subComponent.name%> <span class="badge badge-pill badge-info"
-                                                                                            style="float: right;"><%= subComponent.type %></span>
+                                                                                        <div class="dd-handle">
+                                                                                            <input name="component" class="form-check-input mr-2" type="radio" id="<%=subComponent.type %>-<%=subComponent.order %>" value="<%=subComponent._id %> ">
+
+                                                                                            <%=subComponent.name%> <span class="badge badge-pill badge-info"
+                                                                                                      style="float: right;">
+                                                                                                    <%= subComponent.type %>
+                                                                                                </span>
                                                                                         </div>
                                                                                         <ol class="dd-list">
-                                                                                            <%subComponent.tabComponents.forEach(tabComponent=>{ %>
-                                                                                                <li class="dd-item" data-id="6">
+                                                                                            <%subComponent.tabComponents.forEach(tabComponent=>{ %> <li class="dd-item" data-id="6">
                                                                                                     <div class="dd-handle">
+                                                                                                         <input name="component" class="form-check-input mr-2" type="radio" id="<%=tabComponent.type %>-<%=tabComponent.order %>" value="<%=tabComponent._id %> ">
                                                                                                         <%=tabComponent.name%>
                                                                                                     </div>
-                                                                                                
-                                                                                                <% if(tabComponent.pageContent) {%>
-                                                                                                    <ol class="dd-list">
-                                                                                                        <% tabComponent.pageContent.forEach(page=>{ %>
-                                                                                                            <li class="dd-item" data-id="6">
-                                                                                                                <div class="dd-handle">
-                                                                                                                    <%=page.name%>
-                                                                                                                </div>
-                                                                                                            </li>
-                                                                                                        <% }) %> 
-                                                                                                    </ol>
-                                                                                                <% } %>  
+
+                                                                                                    <% if(tabComponent.pageContent) {%>
+                                                                                                        <ol class="dd-list">
+                                                                                                            <% tabComponent.pageContent.forEach(page=>{ %>
+                                                                                                                <li class="dd-item" data-id="6">
+                                                                                                                    <div class="dd-handle">
+                                                                                                                        <input name="component" class="form-check-input mr-2" type="radio" id="sec-<%=page.order %>" value="<%=page._id %> ">
+                                                                                                                        <%=page.name%>
+                                                                                                                    </div>
+                                                                                                                </li>
+                                                                                                                <% }) %>
+                                                                                                        </ol>
+                                                                                                        <% } %>
                                                                                                 </li>
-                                                                                            <% }) %>
+                                                                                                <% }) %>
                                                                                         </ol>
                                                                                     </li>
                                                                                     <% }else{ %>
                                                                                         <li class="dd-item" data-id="6">
                                                                                             <div class="dd-handle">
+                                                                                                <input name="component" class="form-check-input mr-2" type="radio" id="<%=subComponent.type %>-<%=subComponent.order %>" value="<%=subComponent._id %> ">
                                                                                                 <%=subComponent.name%>
                                                                                                     <span class="badge badge-pill badge-dark" style="float: right;">
-                                                                                                        <%= component.type%>
+                                                                                                        <%= subComponent.type%>
                                                                                                     </span>
                                                                                             </div>
                                                                                         </li>
-                                                                                    <% } %>
-                                                                                <% }) %>
+                                                                                        <% } %>
+                                                                             <% }) %>
                                                                         </ol>
-                                                                    <% } %>
+                                                                        <% } %>
                                                                 </li>
                                                                 <% }) %>
                                                         </ol>
@@ -142,22 +150,25 @@
                                         </div>
                                         <div class="col-md-7">
                                             <div class="card">
-                                                <div class="card-header">Field Groups</div>
+                                                <div class="card-header d-flex justify-content-between">
+                                                    <div class="title">
+                                                        Field Groups
+                                                    </div>
+                                                    <button id="assignSelectedGroup" class="btn btn-sm btn-primary">
+                                                        Assign Group
+                                                    </button>
+                                            </div>
                                                 <div class="card-body">
-                                                    <div class="selectgroup selectgroup-pills">
-                                                        <div class="scroll-area-lg">
-                                                            <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
-                                                                <% data.itemGroups.forEach(group=> { %>
-                                                                    <label class="selectgroup-item m-2">
-                                                                        <input type="checkbox" name="field" id="" value="<%=group.fieldIds %>" class="selectgroup-input fclass">
-                                                                        <span class="selectgroup-button">
-                                                                            <%=group.name %>
-                                                                        </span>
-                                                                    </label>
-                                                                    <% }); %>
-                                                            </div>
-                                                        </div>
-                                                    </div> 
+                                                
+                                                    <% data.itemGroups.forEach(group=> { %>
+                                                        <label class="selectgroup-item m-2">
+                                                            <input type="radio" name="itemgroups" id="<%=group._id %>" value="<%=group.fieldIds %>" class="selectgroup-input fclass">
+                                                            <span class="selectgroup-button">
+                                                                <%=group.name %>
+                                                            </span>
+                                                        </label>
+                                                        <% }); %>
+                                        
                                                 </div>
                                             </div>
                                             <div class="card">
@@ -168,7 +179,7 @@
                                                             <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
                                                                 <% data.itemFields.forEach((item,i)=> { %>
                                                                     <label class="selectgroup-item m-2">
-                                                                        <input type="checkbox" name="field" id="" value="<%=item.id  %> " class="selectgroup-input fclass">
+                                                                        <input type="checkbox" name="itemfields" id="" value="<%=item.id  %> " class="selectgroup-input fclass">
                                                                         <span class="selectgroup-button">
                                                                             <%=item.label %>
                                                                         </span>
@@ -205,26 +216,28 @@
     <!-- jQuery UI -->
     <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sortable/0.9.13/jquery-sortable-min.js"
-        integrity="sha512-9pm50HHbDIEyz2RV/g2tn1ZbBdiTlgV7FwcQhIhvykX6qbQitydd6rF19iLmOqmJVUYq90VL2HiIUHjUMQA5fw=="
-        crossorigin="anonymous"></script>
-
-
+    
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
     <script>
-        $(function () {
-                $("#left-col").sortable({
-                    handle: '.item h2',
-                    connectWith: '#right-col'
-                }).disableSelection();
-                $("#right-col").sortable({
-                    handle: '.item h2',
-                    connectWith: '#left-col'
-                }).disableSelection();
-            });
         const form = '<%- JSON.stringify(data.formData) %>'
         const parseform = JSON.parse(form)
+
+        document.getElementById("assignSelectedGroup").addEventListener("click", function () {
+            let data  = []
+            let component;
+            
+            
+            assignFieldsAndGroups(data , component) 
+        });
+
+        // document.getElementById("assignSelectedGroup").addEventListener("click", function () {
+
+        // });
+
+        const assignFieldsAndGroups = (data , component) =>{
+
+        }
     </script>
 </body>
 

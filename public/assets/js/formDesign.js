@@ -30,7 +30,8 @@ const addComponent = (type, where) => {
                     </div>
                 </div>
             </div>
-        `)
+        `).show('slow');
+        scrollDown(`sec-${order}`)
     }
     if (type == 2) {
         order += 1;
@@ -74,9 +75,9 @@ const addComponent = (type, where) => {
                     </div>
                 </div>
             </div>
-        `)
+        `).show('slow');
 
-
+        scrollDown(`tab-${order}`)
 
     }
     if (type == 3) {
@@ -85,10 +86,6 @@ const addComponent = (type, where) => {
         let str1 = str[1] + '-' + str[2];
 
         let count = ++orderObject[where];
-
-
-
-
         orderObject[where] = count;
 
         $(`#${where}`).append(`
@@ -114,7 +111,8 @@ const addComponent = (type, where) => {
                     </div>
                 </div>
             </div>
-        `)
+        `).show('slow');
+        scrollDown(`sec-${str1}-${count}`)
     }
     if (type == 4) {
 
@@ -161,20 +159,17 @@ const addComponent = (type, where) => {
                     </div>
                 </div>
             </div>
-        `).animate({
-            left: '100%'  // for instance
-        }, 2000);
+        `).show('slow')
+        scrollDown(`${str1}-tab-${orderObject[where]}`)
+
     }
-    scrollDown()
 
 }
 
 const addTab = (val) => {
     if (extName != '' && extName != undefined) {
-        console.log(extName);
         let path = val;
         path += '-list';
-        console.log(orderObject[path]);
         orderObject[path] = ++orderObject[path];
         orderObject[`${val}-${orderObject[path]}-item`] = 0;
 
@@ -193,8 +188,9 @@ const addTab = (val) => {
                                 <div id="${val}-sec-${orderObject[path]}">
                             </div>
         
-        </div> `);
+        </div> `).show('slow');
         extName = ''
+        scrollDown(`${path}`)
     }
 }
 
@@ -210,7 +206,6 @@ document.getElementById("saveButton").addEventListener("click", function () {
     allComponent.forEach(component => {
 
         let id = component.getAttribute("id");
-        let nameId = id;
         let name = component.querySelectorAll("input")[0].value
         let obj = { subComponents: [] };
         id = id.split('-')
@@ -218,7 +213,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
         obj.order = id[1];
         obj.name = name
         if (name == '') {
-            flag = false;;
+            flag = false;
         }
         if (obj.type != "tab") {
             var child = component.getElementsByClassName("card-body")[0].getElementsByClassName("m-3")[0];
@@ -251,7 +246,6 @@ document.getElementById("saveButton").addEventListener("click", function () {
                         sub.forEach(i => {
                             let obj = {}
                             let subid = i.getAttribute('id')
-                            let nameId = subid;
                             let name = i.querySelectorAll("input")[0].value;
                             // console.log(name)
                             subid = subid.split('-')
@@ -272,10 +266,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
                         childObj.tabComponents.push(tab)
                     })
                 }
-
                 obj.subComponents.push(childObj);
-
-
             })
 
         }
@@ -288,7 +279,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
             let allChild = Array.from(child)
 
             allChild.forEach((b, index) => {
-                let childObj = { pageContent: [] };
+                let childObj = { tabContent: [] };
                 let id = b.getAttribute('id');
                 id = id.split('-');
                 let sub = Array.from(allTabSec[index].getElementsByTagName("div")[1].children);
@@ -303,54 +294,17 @@ document.getElementById("saveButton").addEventListener("click", function () {
                     if (name == '') {
                         flag = false;
                     }
-                    childObj.pageContent.push(obj)
+                    childObj.tabContent.push(obj)
                 });
                 childObj.type = "tab";
                 childObj.order = id[2];
                 childObj.name = b.innerText || b.nodeValue
                 obj.subComponents.push(childObj)
-
             })
-
-
-
         }
-
         AllData.push(obj);
-
-
     })
     validation(flag);
-    // fetch('/admin/customform/layout', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //         content: AllData,
-    //         formId
-    //     })
-    // })
-    //     .then(function (res) {
-    //         return res.json()
-    //     })
-    //     .then(function (json) {
-    //         if (json.status == 200)
-    //             iziToast.success({
-    //                 message: json.message
-    //             })
-    //         else if (json.status == 400)
-    //             iziToast.error({
-    //                 title: json.message,
-    //                 message: json.error
-    //             })
-    //         else
-    //             iziToast.error({
-    //                 message: json.message
-    //             })
-    //     })
-    //     .catch(err => console.log(err))
-
 })
 
 
@@ -392,10 +346,8 @@ const getName = (id) => {
 
 }
 
-function scrollDown() {
-    $('html, body').animate({
-        scrollTop: $(document).height()
-    }, 'slow');
+function scrollDown(id) {
+    $('body, html').animate({ scrollTop: $(`#${id}`).offset().top }, 1000);
 }
 
 function validation(flag) {
@@ -405,6 +357,35 @@ function validation(flag) {
         iziToast.error({
             message: "please enter section name"
         })
+    }else{
+        fetch('/admin/customform/layout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            content: AllData,
+            formId
+        })
+    })
+        .then(function (res) {
+            return res.json()
+        })
+        .then(function (json) {
+            console.log(json)
+            if (json.status == 200)
+                location.href = `${json.href}`
+            else if (json.status == 400)
+                iziToast.error({
+                    title: json.message,
+                    message: json.error
+                })
+            else
+                iziToast.error({
+                    message: json.message
+                })
+        })
+        .catch(err => console.log(err))
     }
 
 
