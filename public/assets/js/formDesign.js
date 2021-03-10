@@ -97,7 +97,7 @@ const addComponent = (type, where) => {
                     <div class="card-header d-flex justify-content-between">
                         <div class="form-group w-50">
                             <label for="email2">Enter Section  Name</label>
-                            <input type="text" class="form-control" name="name" id="${str1}-sec-${count}-inp" placeholder="Name">
+                            <input type="text" class="form-control" name="name" id="${str1}-sec-${count}-inp" placeholder="Name" required>
                         </div>
                     
                      <div
@@ -170,7 +170,8 @@ const addComponent = (type, where) => {
 }
 
 const addTab = (val) => {
-    if (extName != '' || extName != undefined) {
+    if (extName != '' && extName != undefined) {
+        console.log(extName);
         let path = val;
         path += '-list';
         console.log(orderObject[path]);
@@ -203,19 +204,23 @@ var AllData = [];
 //fire event on save button click
 document.getElementById("saveButton").addEventListener("click", function () {
     AllData = [];
+    flag = true;
     let main = document.getElementById('builder');
     let allComponent = Array.from(main.children);
 
     allComponent.forEach(component => {
 
         let id = component.getAttribute("id");
+        let nameId = id;
         let name = component.querySelectorAll("input")[0].value
         let obj = { subComponents: [] };
         id = id.split('-')
         obj.type = id[0];
         obj.order = id[1];
         obj.name = name
-
+        if (name == '') {
+            flag = false;;
+        }
         if (obj.type != "tab") {
             var child = component.getElementsByClassName("card-body")[0].getElementsByClassName("m-3")[0];
             let allChild = Array.from(child.children);
@@ -229,6 +234,9 @@ document.getElementById("saveButton").addEventListener("click", function () {
                 childObj.order = id[3];
                 childObj.type = id[2];
                 childObj.name = name;
+                if (name == '') {
+                    flag = false;
+                }
 
                 if (id.includes('tab')) {
                     let child = b.getElementsByTagName('ul')[0].getElementsByTagName("li");
@@ -244,13 +252,19 @@ document.getElementById("saveButton").addEventListener("click", function () {
                         sub.forEach(i => {
                             let obj = {}
                             let subid = i.getAttribute('id')
+                            let nameId = subid;
                             let name = i.querySelectorAll("input")[0].value;
-                            console.log(name)
+                            // console.log(name)
                             subid = subid.split('-')
                             obj.type = 'sec'
                             obj.order = subid[3]
                             obj.name = name;
-                            tab.pageContent.push(obj)
+                            if (name == '') {
+
+                                flag = false;
+                            }
+                            tab.pageContent.push(obj);
+
                         });
                         id = id.split('-');
                         tab.type = "tablist";
@@ -261,6 +275,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
                 }
 
                 obj.subComponents.push(childObj);
+
 
             })
 
@@ -273,19 +288,22 @@ document.getElementById("saveButton").addEventListener("click", function () {
 
             let allChild = Array.from(child)
 
-            allChild.forEach((b,index) => {
-                let childObj = { pageContent: []};
+            allChild.forEach((b, index) => {
+                let childObj = { pageContent: [] };
                 let id = b.getAttribute('id');
                 id = id.split('-');
                 let sub = Array.from(allTabSec[index].getElementsByTagName("div")[1].children);
                 sub.forEach(i => {
-                    let obj = { }
+                    let obj = {}
                     let subid = i.getAttribute('id')
                     let name = i.querySelectorAll("input")[0].value;
                     subid = subid.split('-')
                     obj.type = 'sec'
                     obj.order = subid[3]
                     obj.name = name;
+                    if (name == '') {
+                        flag = false;
+                    }
                     childObj.pageContent.push(obj)
                 });
                 childObj.type = "tab";
@@ -298,9 +316,12 @@ document.getElementById("saveButton").addEventListener("click", function () {
 
 
         }
-        AllData.push(obj);
-    })
 
+        AllData.push(obj);
+
+
+    })
+    validation(flag);
     // fetch('/admin/customform/layout', {
     //     method: 'POST',
     //     headers: {
@@ -376,4 +397,16 @@ function scrollDown() {
     $('html, body').animate({
         scrollTop: $(document).height()
     }, 'slow');
+}
+
+function validation(flag) {
+    if (!flag) {
+        AllData = [];
+        // console.log(AllData);
+        iziToast.error({
+            message: "please enter section name"
+        })
+    }
+
+
 }
