@@ -1,8 +1,8 @@
 const express = require('express')
 const { Op } = require('sequelize')
-
+const async = require('async')
 const { MySql } = require('../../db')
-const { ActivityLog, FormDesign, formParts, form } = require('../../models')
+const { ActivityLog, FormDesign, formParts, form, inputFields , fieldGroups } = require('../../models')
 const { formatDateMoment } = require('../../util')
 const router = express.Router()
 
@@ -106,10 +106,12 @@ router.get('/:id/fieldmap', async (req, res) => {
         if(!customForm){
             // res.redirect()
         }
-       const formData =  await FormDesign.findOne({
-                formId: customForm.id
-        })
-        res.render('admin/customFormFieldMapping', { User: req.user, formData })
+        const [itemFields, itemGroups , formData] = await async.parallel([
+            async () => await inputFields.findAll({ attributes: ['id', 'label'], where: { active:true}}),
+            async () => await fieldGroups.findAll({ attributes: ['id', 'name'], where: { active: true } }),
+            async () => await await FormDesign.findOne({formId:customForm.id})
+        ])
+        res.render('admin/customFormFieldMapping', { User: req.user,data:{itemFields , itemGroups, formData} })
 
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
