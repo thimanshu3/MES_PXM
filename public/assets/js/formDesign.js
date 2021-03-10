@@ -244,12 +244,12 @@ document.getElementById("saveButton").addEventListener("click", function () {
                         sub.forEach(i => {
                             let obj = {}
                             let subid = i.getAttribute('id')
-                            console.log(subid);
+                            let name = i.querySelectorAll("input")[0].value;
+                            console.log(name)
                             subid = subid.split('-')
-                            console.log(subid);
                             obj.type = 'sec'
                             obj.order = subid[3]
-                            obj.name = 'wait a while'
+                            obj.name = name;
                             tab.pageContent.push(obj)
                         });
                         id = id.split('-');
@@ -267,17 +267,36 @@ document.getElementById("saveButton").addEventListener("click", function () {
         }
         else {
             let child = component.getElementsByClassName("card-body")[0].getElementsByTagName('ul')[0].getElementsByTagName("li");
-            let val = component.getElementsByClassName("card-body")[0].getElementsByClassName("card-body")[1].getElementsByTagName("div")[0];
+            let val = component.getElementsByClassName("card-body")[0].getElementsByTagName("div")[0]
+            let allTabSec = Array.from(val.children);
+
+
             let allChild = Array.from(child)
-            allChild.forEach(b => {
-                let childObj = {};
+
+            allChild.forEach((b,index) => {
+                let childObj = { pageContent: []};
                 let id = b.getAttribute('id');
                 id = id.split('-');
+                let sub = Array.from(allTabSec[index].getElementsByTagName("div")[1].children);
+                sub.forEach(i => {
+                    let obj = { }
+                    let subid = i.getAttribute('id')
+                    let name = i.querySelectorAll("input")[0].value;
+                    subid = subid.split('-')
+                    obj.type = 'sec'
+                    obj.order = subid[3]
+                    obj.name = name;
+                    childObj.pageContent.push(obj)
+                });
                 childObj.type = "tab";
                 childObj.order = id[2];
                 childObj.name = b.innerText || b.nodeValue
                 obj.subComponents.push(childObj)
+
             })
+
+
+
         }
         AllData.push(obj);
     })
