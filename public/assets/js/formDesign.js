@@ -244,7 +244,9 @@ document.getElementById("saveButton").addEventListener("click", function () {
                         sub.forEach(i => {
                             let obj = {}
                             let subid = i.getAttribute('id')
-                            subid = subid.split()
+                            console.log(subid);
+                            subid = subid.split('-')
+                            console.log(subid);
                             obj.type = 'sec'
                             obj.order = subid[3]
                             obj.name = 'wait a while'
