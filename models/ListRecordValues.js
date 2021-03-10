@@ -17,6 +17,10 @@ const listRecordValues = MySql.define('listRecordValues', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+    },
     createdBy: {
         type: DataTypes.STRING,
         allowNull: false
