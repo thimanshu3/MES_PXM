@@ -99,13 +99,13 @@
                                                             <div class="form-group">
                                                                 <label>List Name</label>
                                                                 <input type="text" class="form-control" name="name"
-                                                                    id="name" placeholder="Enter List record Name">
+                                                                    id="name" placeholder="Enter List record Name" required>
                                                                  
                                                             </div>
 
                                                             <div class="form-group kk_data-tag">
                                                                 <label>List Value(s)</label>
-                                                                <input id="list-values" type="text" data-role="tagsinput" name="tags" class="form-control">
+                                                                <input id="list-values" type="text" data-role="tagsinput" name="tags" class="form-control" required>
                                                                 <input type="hidden" id="setVal" name="tagValues">
                                                             </div>
                                                         </div>
@@ -165,10 +165,14 @@
                                                                             class="border-0 btn-transition btn btn-outline-primary">
                                                                             <i class="fa fa-cogs"></i>
                                                                         </button>
+                                                                        <button id ="changeStatus-<%=a.id%>" data-original-title="Change Status" data-toggle="tooltip" onclick="changeStatus('<%=a.id%>')"
+                                                                            class="border-0 btn-transition btn-link">
+                                                                            <i class="fas <%= a.active ? 'fa-toggle-on': 'fa-toggle-off' %>"></i>
+                                                                        </button>
                                                                         <button data-original-title="Remove"
                                                                             data-toggle="tooltip"
-                                                                            onclick="deleteThis('<%=a.id%>')"
-                                                                            class="border-0 btn-transition btn btn-outline-danger">
+                                                                            onclick="removeField('<%=a.id%>')"
+                                                                            class="border-0 btn btn-outline-danger">
                                                                             <i class="fa fa-trash-alt"></i>
                                                                         </button>
                                                                     </div>
@@ -272,7 +276,7 @@
 
     </div>
     <!--   Core JS Files   -->
-
+    <script src="/assets/js/clientScript.js"></script>
     <!-- jQuery library -->
     <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
     <!-- Latest compiled JavaScript -->
@@ -301,36 +305,15 @@
            $('#setVal').val(data)
         })
 
-        // $('#saveChanges').on('click', function(){
-        //      fetch(`/admin/attributeset/${attrId}`, {
-        //         method: 'PATCH',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({
-        //             name: $('#newname').val()
-        //         })
-        //     })
-        //         .then(res => res.json())
-        //         .then(json => {
-        //             if (json.status === 200) {
-        //                 iziToast.info({
-        //                     message: json.message
-        //                 })
-        //             } else {
-        //                 iziToast.error({
-        //                     message: json.message
-        //                 })
-        //             }
-        //         })
-        //         .catch(err => {
-        //             console.log(err)
-        //         })
-        // })
+        function changeStatus(id) {
+                markStatusOrDelete(`/admin/listrecord/${id}`, 'DELETE', 'status', `{"id":"${id}"}`)
+            }
+        function removeField(id) {
+            markStatusOrDelete(`/admin/listrecord/remove/${id}`, 'DELETE')
+            
+        }
 
-    </script>
-        <script>
-            $(document).ready(function () {
+        $(document).ready(function () {
                 $('input[type="file"]').on('click', function () {
                     $(".file_names").html("");
                 })
@@ -360,10 +343,33 @@
                     });
                 }
             });
-
-
-
-        </script>
+        // $('#saveChanges').on('click', function(){
+        //      fetch(`/admin/attributeset/${attrId}`, {
+        //         method: 'PATCH',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({
+        //             name: $('#newname').val()
+        //         })
+        //     })
+        //         .then(res => res.json())
+        //         .then(json => {
+        //             if (json.status === 200) {
+        //                 iziToast.info({
+        //                     message: json.message
+        //                 })
+        //             } else {
+        //                 iziToast.error({
+        //                     message: json.message
+        //                 })
+        //             }
+        //         })
+        //         .catch(err => {
+        //             console.log(err)
+        //         })
+        // })
+    </script>
 </body>
 
 </html>

@@ -147,8 +147,8 @@
                                                                                                     class="fa fa-edit"></i>
                                                                                             </button>
                                                                                             <button
-                                                                                                id="changeFieldStatus-<%=_a.id%>"
-                                                                                                onclick="changeFieldStatus('<%=_a.id%>')"
+                                                                                                id="changeStatus-<%=_a.id%>"
+                                                                                                onclick="changeStatus('<%=_a.id%>')"
                                                                                                 type="button"
                                                                                                 data-toggle="tooltip"
                                                                                                 title="Toggle to Change Status"
@@ -358,7 +358,7 @@
             });
         });
 
-        function changeFieldStatus(id) {
+        function changeStatus(id) {
             markStatusOrDelete(`/admin/inputfield/${id}`, 'DELETE', 'status', `{"id":"${id}"}`)
         }
         function removeField(id) {

@@ -155,6 +155,10 @@
                                                                             data-original-title="Edit Task">
                                                                             <i class="fa fa-edit"></i>
                                                                         </button>
+                                                                        <button id="changeStatus-<%=a.id%>" data-original-title="Change Status" data-toggle="tooltip"
+                                                                            onclick="changeStatus('<%=a.id%>')" class="border-0 btn-transition btn-link">
+                                                                            <i class="fas <%= a.active ? 'fa-toggle-on': 'fa-toggle-off' %>"></i>
+                                                                        </button>
                                                                         <button id="changeActiveUser-"
                                                                             onclick="changeActive('')" type="button"
                                                                             data-toggle="tooltip" title=""
@@ -273,6 +277,13 @@
 
 
     <script>
+        function changeStatus(id) {
+                markStatusOrDelete(`/admin/listrecord/${id}`, 'DELETE', 'status', `{"id":"${id}"}`)
+            }
+        function removeField(id) {
+            markStatusOrDelete(`/admin/listrecord/remove/${id}`, 'DELETE')
+
+        }
         $('#add-row').dataTable()
 
         const editthis = (id) => {
