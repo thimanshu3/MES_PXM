@@ -189,7 +189,6 @@ const addTab = (val) => {
                                 <button onclick="addComponent(3,'${val}-sec-${orderObject[path]}')" class="btn btn-link">
                                 Add new sub section
                                 </button>
-                                
                                 </div>
                                 <div id="${val}-sec-${orderObject[path]}">
                             </div>

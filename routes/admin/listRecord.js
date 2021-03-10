@@ -55,7 +55,12 @@ router.post('/add', async (req, res) => {
     }
 
     if (!Array.isArray(values) && values.length) {
-        req.flash('error', 'values are required!')
+        req.flash('error', 'Something went Wrong, Try again in a while!!')
+        res.redirect('/admin/listRecord')
+        return
+    }
+    if (!values.length){
+        req.flash('error', 'Empty List cannot be Added!!')
         res.redirect('/admin/listRecord')
         return
     }
@@ -105,40 +110,94 @@ router.post('/:id/add', async (req, res) => {
     })
 
     if (!label) {
-        req.flash('error', 'name is required!')
-        res.redirect('/admin/listRecordValue')
+        req.flash('error', 'Value is required!')
+        res.redirect(`/admin/${req.params.id}/listRecordValue`)
         return
     }
     if (!parentListRecord) {
         req.flash('error', 'parent id is required')
-        res.redirect('/admin/listRecordValue')
+        res.redirect(`/admin/${req.params.id}/listRecordValue`)
         return
     }
 
     try {
         const listrecord = await listRecordValues.create({ label, parentListId: parentListRecord.id, createdBy: req.user.id })
-        req.flash('success', `${listrecord.name} Added Successfully!`)
-        res.redirect(`/admin/listrecord/${parentListRecord.id}`)
+        //req.flash('success', `Added Successfully!!`)
+        res.json({ status: 200, message: 'Added Successfully' })
+        //res.redirect(`/admin/listrecord/${parentListRecord.id}`)
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         if (err.name === 'SequelizeUniqueConstraintError')
             req.flash('error', `${err.errors[0].message} '${err.errors[0].value}' already exists!`)
         else
             req.flash('error', err.toString() || 'Something Went Wrong!')
-        res.redirect('/admin/listRecordValue')
+        res.redirect(`/admin/${req.params.id}/listRecordValue`)
     }
+})
+
+router.delete('/:id', async (req,res) => {
+    const foundList = await listRecord.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+
+    if (!foundList)
+        return res.status(404).json({ message: 'List Not Found!' })
+
+    // if (foundList.role === 0)
+    //     return res.status(400).json({ message: 'Cannot Deactive Admin' })
+
+    foundList.active = !foundList.active
+    await foundList.save()
+
+    res.json({ status: 200, message: `List/Record ${foundList.active ? 'Activated' : 'Deactivated'} Successfully!`, active: foundList.active })
 })
 
 router.delete('/remove/:id', async (req, res) => {
     try {
-        const attribute = await AttributeSet.destroy({
+        const attribute = await listRecord.destroy({
             where: {
                 id: req.params.id
             }
         })
         req.flash('success', `Deleted Successfully`)
         res.json({ status: 200, message: 'Deleted Successfully' })
-        res.redirect('/admin/AttributeSet')
+        res.redirect('/admin/listrecord')
+    } catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        res.status(500).json({ status: 500, message: err.toString() })
+    }
+})
+
+router.delete('/value/:id', async (req, res) => {
+    const foundListValue = await listRecordValues.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+
+    if (!foundListValue)
+        return res.status(404).json({ message: 'Value Not Found!' })
+
+    // if (foundList.role === 0)
+    //     return res.status(400).json({ message: 'Cannot Deactive Admin' })
+
+    foundListValue.active = !foundListValue.active
+    await foundListValue.save()
+
+    res.json({ status: 200, message: `Value ${foundListValue.active ? 'Activated' : 'Deactivated'} Successfully!`, active: foundListValue.active })
+})
+router.delete('/value/remove/:id', async (req, res) => {
+    try {
+        const listRecordValue = await listRecordValues.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        req.flash('success', `Deleted Successfully`)
+        res.json({ status: 200, message: 'Deleted Successfully' })
+
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         res.status(500).json({ status: 500, message: err.toString() })

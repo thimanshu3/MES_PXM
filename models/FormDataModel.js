@@ -1,5 +1,18 @@
 const mongoose = require('mongoose')
 
+
+
+const PageContentSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    order: {
+        type: Number,
+    },
+})
+
+
 const TabComponentSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -8,7 +21,8 @@ const TabComponentSchema = new mongoose.Schema({
     order: {
         type: Number,
     },
-    type: String
+    type: String ,
+    pageContent: [PageContentSchema]
 })
 
 const SubComponentSchema = new mongoose.Schema({

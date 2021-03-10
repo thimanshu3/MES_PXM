@@ -2,7 +2,7 @@ const express = require('express')
 const { Op } = require('sequelize')
 const async = require('async')
 const { MySql } = require('../../db')
-const { ActivityLog, FormDesign, formParts, form, inputFields , fieldGroups } = require('../../models')
+const { ActivityLog, FormDesign, formParts, form, inputFields , fieldGroups, fieldsAssignedToGroup } = require('../../models')
 const { formatDateMoment } = require('../../util')
 const router = express.Router()
 
@@ -108,10 +108,11 @@ router.get('/:id/fieldmap', async (req, res) => {
         }
         const [itemFields, itemGroups , formData] = await async.parallel([
             async () => await inputFields.findAll({ attributes: ['id', 'label'], where: { active:true}}),
-            async () => await fieldGroups.findAll({ attributes: ['id', 'name'], where: { active: true } }),
-            async () => await await FormDesign.findOne({formId:customForm.id})
+            async () => await MySql.query('select fatg.groupId as groupId, fg.name, group_concat(fatg.fieldId Separator "," ) as fieldIds from fieldsAssignedToGroups fatg inner join fieldGroups fg on groupId = fg.id inner join inputFields ipf on fatg.fieldId =  ipf.id  where ipf.active="1" group by fatg.groupid'),
+            async () => await FormDesign.findOne({formId:customForm.id})
         ])
-        res.render('admin/customFormFieldMapping', { User: req.user,data:{itemFields , itemGroups, formData} })
+        console.log(itemGroups)
+        res.render('admin/customFormFieldMapping', { User: req.user,data:{itemFields , itemGroups:itemGroups[0], formData} })
 
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
