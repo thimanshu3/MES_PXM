@@ -119,4 +119,47 @@ router.get('/:id/fieldmap', async (req, res) => {
     }
 })
 
+router.post('/:id/fieldmap/assign', async (req, res) => {
+    const { newForm} = req.body
+    try {
+        const result = await FormDesign.findOne({formId : req.params.id})
+        result.componets = newForm.componets
+        await result.save(function (err, doc) {
+            if (err){
+                console.log(err.toString());
+                return res.json({ status: 500, message: err.toString() || 'Something went wrong' });
+            } 
+            res.json({ status: 200, message: 'Field Mapped Successfully!' })
+        });
+
+    } catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        if (err.name === 'SequelizeUniqueConstraintError')
+            req.flash('error', `${err.errors[0].message} '${err.errors[0].value}' already exists!`)
+        else
+            req.flash('error', err.toString() || 'Something Went Wrong!')
+        res.redirect('/admin/customform')
+    }
+})
+
+router.get('/:id/form', async (req, res) => {
+    try {
+       const layout = await FormDesign.findOne({formId: req.params.id})
+        layout.componets.forEach(component=>{
+            component.subComponents.forEach(subComponent=>{
+                subComponent.AssignedFields.forEach(a=>{
+                    console.log()
+                })
+            })
+        })
+       console.log(layout)
+        // res.render('admin/customFormDesign', { User: req.user, customForm, formatDateMoment, formPart })
+
+    } catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        req.flash('error', 'Something Went Wrong!')
+        res.redirect('/')
+    }
+})
+
 module.exports = router
