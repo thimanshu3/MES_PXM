@@ -30,6 +30,24 @@ router.post('/add', async (req, res) => {
     }
 })
 
+router.delete('/:id',async (req,res) => {
+    const found = await Distributor.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+
+    if (!found)
+        return res.status(404).json({ message: 'Value Not Found!' })
+
+    // if (foundList.role === 0)
+    //     return res.status(400).json({ message: 'Cannot Deactive Admin' })
+
+    found.active = !found.active
+    await found.save()
+
+    res.json({ status: 200, message: `Value ${found.active ? 'Activated' : 'Deactivated'} Successfully!`, active: found.active })
+})
 
 router.delete('/remove/:id', async (req, res) => {
     try {
