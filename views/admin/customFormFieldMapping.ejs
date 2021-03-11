@@ -85,7 +85,7 @@
                                                             <%data.formData.componets.forEach((component,i)=> { %>
                                                                 <li class="dd-item mb-5" data-id="<%= i  %>">
                                                                     <div class="dd-handle">
-                                                                        <input name="component" class="form-check-input mr-2" type="radio" id="<%=component.type %>-<%=component.order %>" value="<%=component._id %>">
+                                                                       
                                                                         <%=++i %>.&nbsp;&nbsp;<%= component.name %>
                                                                                 <span class="badge badge-pill badge-dark" style="float: right;">
                                                                                     <%= component.type %>
@@ -132,8 +132,8 @@
                                                                                             <div class="dd-handle">
                                                                                                 <input name="component" class="form-check-input mr-2" type="radio" id="<%=subComponent.type %>-<%=subComponent.order %>" value="<%=subComponent._id %> ">
                                                                                                 <%=subComponent.name%>
-                                                                                                    <span class="badge badge-pill badge-dark" style="float: right;">
-                                                                                                        <%= subComponent.type%>
+                                                                                                    <span class="badge badge-pill badge-secondary" style="float: right;">
+                                                                                                        <%= subComponent.type == 'sec' ? 'sub-section' : ''%>
                                                                                                     </span>
                                                                                             </div>
                                                                                         </li>
@@ -221,22 +221,89 @@
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
     <script>
         const form = '<%- JSON.stringify(data.formData) %>'
-        const parseform = JSON.parse(form)
+        const parseForm = JSON.parse(form)
+        let data = ['a', 'b', 'c']
+
+        console.log(typeof data);
+        //const newForm = getValues(parseform , '_id' , '60491b50d80f1e051004f401',data)
+
+        function getValues(obj, key, value, data) {
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    getValues(obj[i], key, value, data)
+                }
+                else if (i==key && obj[i].toString().trim() == value.trim()) {
+                    console.log("hello the")
+                    data.forEach(element => 
+                        obj.AssignedFields.push({ fieldId: element})                        
+                    )
+                  //  console.log(obj)
+                }
+            }
+            return obj
+            
+//            return objects;
+        }
+
+        //return an array of keys that match on a certain value
+        function getKeys(obj, val) {
+            var objects = [];
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    objects = objects.concat(getKeys(obj[i], val));
+                } else if (obj[i] == val) {
+                    objects.push(i);
+                }
+            }
+            return objects;
+        }
 
         document.getElementById("assignSelectedGroup").addEventListener("click", function () {
-            let data  = []
-            let component;
+        
+                let component = $("input[name='component']:checked").val()
+                let data = $("input[name='itemgroups']:checked").val().split(',')
+                assignFieldsAndGroups(component, data)
             
-            
-            assignFieldsAndGroups(data , component) 
+           
         });
 
-        // document.getElementById("assignSelectedGroup").addEventListener("click", function () {
 
-        // });
-
-        const assignFieldsAndGroups = (data , component) =>{
-
+        const assignFieldsAndGroups = (componentId, fields) =>{
+            var value = componentId
+            let data = fields
+            console.log(typeof value," : ",data);
+            const newForm = getValues(parseForm, '_id', value, data)
+            console.log("New Form: ",newForm);
+            fetch(`/admin/customform/${parseForm.formId}/fieldmap/assign`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    newForm
+                })
+            })
+                .then(function (res) {
+                    return res.json()
+                })
+                .then(function (json) {
+                    console.log(json)
+                    if (json.status == 200)
+                    console.log("hi");
+                        // location.href = `${json.href}`
+                    else if (json.status == 400)
+                        iziToast.error({
+                            title: json.message,
+                            message: json.error
+                        })
+                    else
+                        iziToast.error({
+                            message: json.message
+                        })
+                })
+                .catch(err => console.log(err))
         }
     </script>
 </body>
