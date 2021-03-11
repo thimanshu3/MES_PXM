@@ -107,6 +107,68 @@ const addValue = (uri,method) =>{
     });
 }
 
+const editValue = (uri, method, value) => {
+    iziToast.info({
+        timeout: 20000,
+        overlay: true,
+        displayMode: 'once',
+        id: 'inputs',
+        zindex: 999,
+        title: 'Enter Value',
+        position: 'center',
+        drag: false,
+        inputs: [
+            [`<input id="newVal" type="text" value="${value}" required>`, 'change', function (instance, toast, input, e) {
+                newValue = input.value;
+            }]
+        ],
+        buttons: [
+            ['<button><b>Save</b></button>', function (instance, toast) {
+
+                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button')
+                newValue = $('#newVal').val()
+                if (newValue != '' && newValue != value) {
+                    console.log(uri)
+                    fetch(`${uri}`, {
+                        method,
+                        body: JSON.stringify({ newValue }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                        .then(res => res.json())
+                        .then(json => {
+                            if (json.status === 200) {
+                                location.reload()
+                                iziToast.info({
+                                    message: json.message
+                                })
+                                // document.querySelector(`#activeBadge-${data.id}`).classList.remove('badge-success')
+                                // document.querySelector(`#activeBadge-${data.id}`).classList.remove('badge-danger')
+                                // document.querySelector(`#activeBadge-${data.id}`).classList.add(json.active ? 'badge-success' : 'badge-danger')
+                                // document.querySelector(`#activeBadge-${data.id}`).style.backgroundColor = (json.active ? '#088e0c' : "#d20e18")
+                            } else {
+                                iziToast.error({
+                                    message: json.message
+                                })
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                }
+                else{
+                    iziToast.info({
+                        message: (newValue=='' ? "Value can't be empty":"No Update!")
+                    })
+                }
+
+            }, true]],
+
+    });
+}
+
+
 const getApiResponse = (uri,method,data,type) =>{
 
 }

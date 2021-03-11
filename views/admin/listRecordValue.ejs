@@ -156,10 +156,8 @@
                                                                 </td>
                                                                 <td class="d-flex justify-content-end">
                                                                     <div class="form-button-action">
-                                                                        <button type="button" data-toggle="tooltip"
-                                                                            title=""
-                                                                            class="btn btn-link btn-primary btn-lg"
-                                                                            data-original-title="Edit Task">
+                                                                        <button onclick="editValue('/admin/listrecord/value/<%=a.id%>','PATCH','<%=a.label %>')"
+                                                                            class="border-0 btn btn-primary">
                                                                             <i class="fa fa-edit"></i>
                                                                         </button>
                                                                         <button id="changeStatus-<%=a.id%>" data-original-title="Change Status" data-toggle="tooltip"

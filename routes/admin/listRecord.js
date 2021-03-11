@@ -1,6 +1,6 @@
 const express = require('express')
 const { Op } = require('sequelize')
-
+const async = require('async')
 const { MySql } = require('../../db')
 const { listRecord, listRecordValues, ActivityLog } = require('../../models')
 const router = express.Router()
@@ -59,7 +59,7 @@ router.post('/add', async (req, res) => {
         res.redirect('/admin/listRecord')
         return
     }
-    if (!values.length){
+    if (!values.length) {
         req.flash('error', 'Empty List cannot be Added!!')
         res.redirect('/admin/listRecord')
         return
@@ -67,7 +67,7 @@ router.post('/add', async (req, res) => {
 
     try {
         const ListRecord = await listRecord.create({ name, createdBy: req.user.id })
-        if(ListRecord){
+        if (ListRecord) {
             await listRecordValues.bulkCreate(values.map(s => ({
                 parentListId: ListRecord.id,
                 label: s,
@@ -75,12 +75,12 @@ router.post('/add', async (req, res) => {
             })))
 
         }
-        else{
+        else {
             req.flash('error', 'Something Went Wrong Please try after a while')
             res.redirect('/admin/listRecord')
-            return  
+            return
         }
-        
+
         await ActivityLog.create({
             id: ListRecord.id,
             name: 'List record',
@@ -135,7 +135,7 @@ router.post('/:id/add', async (req, res) => {
     }
 })
 
-router.delete('/:id', async (req,res) => {
+router.delete('/:id', async (req, res) => {
     const foundList = await listRecord.findOne({
         where: {
             id: req.params.id
@@ -156,11 +156,20 @@ router.delete('/:id', async (req,res) => {
 
 router.delete('/remove/:id', async (req, res) => {
     try {
-        const attribute = await listRecord.destroy({
-            where: {
-                id: req.params.id
-            }
-        })
+        await async.parallel([
+            async () => 
+                await listRecord.destroy({
+                    where: {
+                        id: req.params.id
+                    }
+                }),
+            async () => 
+                await listRecordValues.destroy({
+                    where: {
+                        parentListId: req.params.id
+                    }
+                })
+        ])
         req.flash('success', `Deleted Successfully`)
         res.json({ status: 200, message: 'Deleted Successfully' })
         res.redirect('/admin/listrecord')
@@ -205,32 +214,62 @@ router.delete('/value/remove/:id', async (req, res) => {
 })
 
 router.patch('/:id', async (req, res) => {
-    const attribute = await AttributeSet.findOne({
-        where: {
-            id: req.params.id
-        }
-    })
-
-    if (!attribute)
-        return res.status(404).json({ message: 'User Not Found!' })
-
-    const { name } = req.body
-
-    if (!name)
-        return res.status(400).json({ message: 'Attribute Name is required!' })
-
-    attribute.name = name;
-
+    const { newValue } = req.body
     try {
-        await attribute.save()
-        res.json({ status: 200, message: 'Attribute Updated Successfully!' })
-    } catch (err) {
+        await listRecord.update({
+            name: newValue,
+            updatedBy: req.params.id
+        }, {
+            where: { id: req.params.id },
+            returning: true,
+            plain: true
+        })
+
+        await ActivityLog.create({
+            id: req.params.id,
+            name: 'List/Record',
+            type: 'Update',
+            user: req.user.id,
+            timestamp: new Date()
+        })
+        req.flash('success', `Successfully Updated to ${newValue}!!`)
+        res.json({ status: 200 })
+    }
+    catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
-        if (err.name === 'SequelizeUniqueConstraintError')
-            return res.status(400).json({ message: `${err.errors[0].message} '${err.errors[0].value}' already exists!` })
-        return res.status(500).json({ message: err.toString() || 'Somthing Went Wrong!' })
+        req.flash('error', err.toString() || 'Something Went Wrong!')
+        res.redirect('/admin/Manufacturer')
+    }
+})
+
+
+router.patch('/value/:id', async (req, res) => {
+    const { newValue } = req.body
+    try {
+        await listRecordValues.update({
+            label: newValue,
+            updatedBy: req.params.id
+        }, {
+            where: { id: req.params.id },
+            returning: true,
+            plain: true
+        })
+
+        await ActivityLog.create({
+            id: req.params.id,
+            name: 'List/Record',
+            type: 'Update',
+            user: req.user.id,
+            timestamp: new Date()
+        })
+        req.flash('success', `Successfully Updated to ${newValue}!!`)
+        res.json({ status: 200 })
+    }
+    catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        req.flash('error', err.toString() || 'Something Went Wrong!')
+        res.redirect('/admin/Manufacturer')
     }
 })
 
 module.exports = router
- 

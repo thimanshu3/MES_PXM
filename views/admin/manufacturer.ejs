@@ -134,9 +134,9 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="widget-content-right widget-content-actions">
-                                                                        <button data-toggle="modal" data-target="#edit-attribute" onclick="editthis('<%=a.id%>','<%=a.name %>')"
+                                                                        <button onclick="editValue('/admin/manufacturer/<%=a.id%>','PATCH','<%=a.name %>')"
                                                                             class="border-0 btn-transition btn btn-outline-primary">
-                                                                            <i class="fa fa-cogs"></i>
+                                                                            <i class="fa fa-edit"></i>
                                                                         </button>
                                                                         <button id="changeStatus-<%=a.id%>" data-original-title="Change Status" data-toggle="tooltip"
                                                                             onclick="changeStatus('<%=a.id%>')" class="border-0 btn-transition btn-link">
@@ -205,35 +205,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal kk_modal_popup_form" id="edit-attribute">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-
-                                        <!-- Modal Header -->
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Edit Manufacturer Name</h4>
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
-
-                                        <!-- Modal body -->
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <label>Name</label>
-                                                <input type="text" class="form-control" id="name"
-                                                    placeholder="Enter First Name">
-                                            </div>
-
-                                        </div>
-
-                                        <!-- Modal footer -->
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary">Save</button>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
+                            
 
                     </div>
 
