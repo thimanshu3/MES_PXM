@@ -30,11 +30,14 @@ router.use('/customform', require('./customForm'))
 
 router.use('/importrawdata',require('./importRawData'))
 router.use('/kktest',async (req, res) => {
-        
-        res.render('admin/kktest', { User: req.user })
-    })
-
-
+res.render('admin/kktest', { User: req.user })
+})
+router.use('/kktest2', async (req, res) => {
+    res.render('admin/kktest2', { User: req.user })
+})
+router.use('/kktest3', async (req, res) => {
+    res.render('admin/kktest3', { User: req.user })
+})
 
 
 
