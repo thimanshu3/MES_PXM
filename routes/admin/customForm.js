@@ -124,7 +124,6 @@ router.post('/:id/fieldmap/assign', async (req, res) => {
     try {
         const result = await FormDesign.findOne({formId : req.params.id})
         result.componets = newForm.componets
-        console.log(JSON.stringify(result))
         await result.save(function (err, doc) {
             if (err){
                 console.log(err.toString());
@@ -140,6 +139,26 @@ router.post('/:id/fieldmap/assign', async (req, res) => {
         else
             req.flash('error', err.toString() || 'Something Went Wrong!')
         res.redirect('/admin/customform')
+    }
+})
+
+router.get('/:id/form', async (req, res) => {
+    try {
+       const layout = await FormDesign.findOne({formId: req.params.id})
+        layout.componets.forEach(component=>{
+            component.subComponents.forEach(subComponent=>{
+                subComponent.AssignedFields.forEach(a=>{
+                    console.log()
+                })
+            })
+        })
+       console.log(layout)
+        // res.render('admin/customFormDesign', { User: req.user, customForm, formatDateMoment, formPart })
+
+    } catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        req.flash('error', 'Something Went Wrong!')
+        res.redirect('/')
     }
 })
 
