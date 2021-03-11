@@ -256,7 +256,9 @@ router.get('/inputgroup/:id', async (req, res) => {
     try {
 
         const [itemFields, assignedItemFields] = await async.parallel([
-            async () => await inputFields.findAll(),
+            async () => await inputFields.findAll({where:{
+                active:true
+            }}),
             async () => await fieldsAssignedToGroup.findAll({
                 where: {
                     groupId: req.params.id,

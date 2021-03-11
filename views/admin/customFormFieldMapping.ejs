@@ -82,41 +82,47 @@
                                                 <div class="card-body">
                                                     <div class="dd" id="nestable">
                                                         <ol class="dd-list">
-                                                            <% formData.componets.forEach((component,i)=> { %>
-                                                                <li class="dd-item mt-5" data-id="">
+                                                            <%data.formData.componets.forEach((component,i)=> { %>
+                                                                <li class="dd-item mb-5" data-id="<%= i  %>">
                                                                     <div class="dd-handle">
-                                                                        <%=++i %>.&nbsp;&nbsp; <%= component.name %>
-                                                                                <span
-                                                                                      class="badge badge-pill badge-dark"
-                                                                                      style="float: right;">
+                                                                        <input name="component" class="form-check-input mr-2" type="radio" id="<%=component.type %>-<%=component.order %>" value="<%=component._id %>">
+                                                                        <%=++i %>.&nbsp;&nbsp;<%= component.name %>
+                                                                                <span class="badge badge-pill badge-dark" style="float: right;">
                                                                                     <%= component.type %>
                                                                                 </span>
                                                                     </div>
                                                                     <% if(component.subComponents.length){ %>
                                                                         <ol class="dd-list">
-                                                                            <%
-                                                                               component.subComponents.forEach(subComponent=>
-                                                                                { %>
+                                                                            <%component.subComponents.forEach(subComponent=>{ %>
                                                                                 <% if(subComponent.type=='tab' ){ %>
                                                                                     <li class="dd-item" data-id="5">
                                                                                         <div class="dd-handle">
-                                                                                            <%=subComponent.name%> <span
-                                                                                                      class="badge badge-pill badge-info"
+                                                                                            <input name="component" class="form-check-input mr-2" type="radio" id="<%=subComponent.type %>-<%=subComponent.order %>" value="<%=subComponent._id %> ">
+
+                                                                                            <%=subComponent.name%> <span class="badge badge-pill badge-info"
                                                                                                       style="float: right;">
-                                                                                                    <%= subComponent.type
-                                                                                                        %>
+                                                                                                    <%= subComponent.type %>
                                                                                                 </span>
                                                                                         </div>
                                                                                         <ol class="dd-list">
-                                                                                            <%
-                                                                                               subComponent.tabComponents.forEach(tabComponent=>
-                                                                                                { %>
-                                                                                                <li class="dd-item"
-                                                                                                    data-id="6">
-                                                                                                    <div
-                                                                                                         class="dd-handle">
+                                                                                            <%subComponent.tabComponents.forEach(tabComponent=>{ %> <li class="dd-item" data-id="6">
+                                                                                                    <div class="dd-handle">
+                                                                                                         <input name="component" class="form-check-input mr-2" type="radio" id="<%=tabComponent.type %>-<%=tabComponent.order %>" value="<%=tabComponent._id %> ">
                                                                                                         <%=tabComponent.name%>
                                                                                                     </div>
+
+                                                                                                    <% if(tabComponent.pageContent) {%>
+                                                                                                        <ol class="dd-list">
+                                                                                                            <% tabComponent.pageContent.forEach(page=>{ %>
+                                                                                                                <li class="dd-item" data-id="6">
+                                                                                                                    <div class="dd-handle">
+                                                                                                                        <input name="component" class="form-check-input mr-2" type="radio" id="sec-<%=page.order %>" value="<%=page._id %> ">
+                                                                                                                        <%=page.name%>
+                                                                                                                    </div>
+                                                                                                                </li>
+                                                                                                                <% }) %>
+                                                                                                        </ol>
+                                                                                                        <% } %>
                                                                                                 </li>
                                                                                                 <% }) %>
                                                                                         </ol>
@@ -124,17 +130,15 @@
                                                                                     <% }else{ %>
                                                                                         <li class="dd-item" data-id="6">
                                                                                             <div class="dd-handle">
+                                                                                                <input name="component" class="form-check-input mr-2" type="radio" id="<%=subComponent.type %>-<%=subComponent.order %>" value="<%=subComponent._id %> ">
                                                                                                 <%=subComponent.name%>
-                                                                                                    <span
-                                                                                                          class="badge badge-pill badge-dark"
-                                                                                                          style="float: right;">
-                                                                                                        <%= component.type
-                                                                                                            %>
+                                                                                                    <span class="badge badge-pill badge-dark" style="float: right;">
+                                                                                                        <%= subComponent.type%>
                                                                                                     </span>
                                                                                             </div>
                                                                                         </li>
                                                                                         <% } %>
-                                                                                            <% }) %>
+                                                                             <% }) %>
                                                                         </ol>
                                                                         <% } %>
                                                                 </li>
@@ -146,10 +150,44 @@
                                         </div>
                                         <div class="col-md-7">
                                             <div class="card">
-                                                <div class="card-header">Field Group And Field Items</div>
+                                                <div class="card-header d-flex justify-content-between">
+                                                    <div class="title">
+                                                        Field Groups
+                                                    </div>
+                                                    <button id="assignSelectedGroup" class="btn btn-sm btn-primary">
+                                                        Assign Group
+                                                    </button>
+                                            </div>
                                                 <div class="card-body">
-                                                    <textarea id="nestable-output"></textarea>
-                                                    <textarea id="nestable2-output"></textarea>
+                                                
+                                                    <% data.itemGroups.forEach(group=> { %>
+                                                        <label class="selectgroup-item m-2">
+                                                            <input type="radio" name="itemgroups" id="<%=group._id %>" value="<%=group.fieldIds %>" class="selectgroup-input fclass">
+                                                            <span class="selectgroup-button">
+                                                                <%=group.name %>
+                                                            </span>
+                                                        </label>
+                                                        <% }); %>
+                                        
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-header">Field Items</div>
+                                                <div class="card-body">
+                                                    <div class="selectgroup selectgroup-pills">
+                                                        <div class="scroll-area-lg">
+                                                            <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
+                                                                <% data.itemFields.forEach((item,i)=> { %>
+                                                                    <label class="selectgroup-item m-2">
+                                                                        <input type="checkbox" name="itemfields" id="" value="<%=item.id  %> " class="selectgroup-input fclass">
+                                                                        <span class="selectgroup-button">
+                                                                            <%=item.label %>
+                                                                        </span>
+                                                                    </label>
+                                                                    <% }); %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -157,7 +195,7 @@
                                 </div>
                             </div>
                         </div>
-                        <%-include('.. /partials/footer.ejs')%>
+                        <%-include('../partials/footer.ejs')%>
                     </div>
 
     </div>
@@ -178,106 +216,28 @@
     <!-- jQuery UI -->
     <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/nestable2/1.6.0/jquery.nestable.min.js"
-            integrity="sha512-7bS2beHr26eBtIOb/82sgllyFc1qMsDcOOkGK3NLrZ34yTbZX8uJi5sE0NNDYFNflwx1TtnDKkEq+k2DCGfb5w=="
-            crossorigin="anonymous"></script>
-
-
+    
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
     <script>
+        const form = '<%- JSON.stringify(data.formData) %>'
+        const parseform = JSON.parse(form)
 
-        $(document).ready(function () {
+        document.getElementById("assignSelectedGroup").addEventListener("click", function () {
+            let data  = []
+            let component;
+            
+            
+            assignFieldsAndGroups(data , component) 
+        });
 
-            var updateOutput = function (e) {
-                var list = e.length ? e : $(e.target),
-                    output = list.data('output');
-                if (window.JSON) {
-                    output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
-                } else {
-                    output.val('JSON browser support required for this demo.');
-                }
-            };
+        // document.getElementById("assignSelectedGroup").addEventListener("click", function () {
 
-            // activate Nestable for list 1
-            $('#nestable').nestable({
-                group: 1
-            })
-                .on('change', updateOutput);
+        // });
 
-            // activate Nestable for list 2
-            $('#nestable2').nestable({
-                group: 1
-            })
-                .on('change', updateOutput);
+        const assignFieldsAndGroups = (data , component) =>{
 
-            // output initial serialised data
-            updateOutput($('#nestable').data('output', $('#nestable-output')));
-            updateOutput($('#nestable2').data('output', $('#nestable2-output')));
-
-            $('#nestable-menu').on('click', function (e) {
-                var target = $(e.target),
-                    action = target.data('action');
-                if (action === 'expand-all') {
-                    $('.dd').nestable('expandAll');
-                }
-                if (action === 'collapse-all') {
-                    $('.dd').nestable('collapseAll');
-                }
-            });
-
-            $('#nestable3').nestable();
-        })
-        // const form = '<%- JSON.stringify(formData) %>'
-        // const parseform = JSON.parse(form)
-        // let out = ''
-        // parseform.componets.forEach(component =>{
-        //    out += `<div class="card"><div class="card-header m-2" style="color:white;background-color:#4d7393 !important"><strong> ${component.name}</div></strong><div class="card-body">`
-        //     if(component.type == 'sec'){
-        //         component.subComponents.forEach(subComponent=>{
-        //             if(subComponent.type == 'sec'){
-        //                 out+=`<div style="box-shadow: none;" class="card"><div style="color:white;background-color:#96bedf !important" class="card-header m-2">${subComponent.name}</div><div class="card-body" style="min-height: 200px;"></div></div>`
-        //             }
-        //             else{
-        //                 out += `<div style="box-shadow: none;" class="card"><div class="card-header m-2" style="color:white;background-color:#96bedf !important"><strong> ${subComponent.name}</div></strong></div><div class="card-body" style="min-height: 200px;">`
-        //                 out += `<ul class="nav nav-pills nav-secondary nav-pills-no-bd" id="pills-tab-without-border" role="tablist">`
-        //                 subComponent.tabComponents.forEach(tab => {
-        //                     out += `
-        //                 <li class="nav-item">
-        //                     <a class="nav-link" id="pills-${tab._id}" data-toggle="pill" href="#tab-${tab._id}" role="tab" aria-controls="pills-contact-nobd" aria-selected="false">${tab.name}</a>
-        //                 </li>`
-        //                 })
-        //                 out += '</ul>'
-        //                 out += `<div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">`
-        //                 subComponent.tabComponents.forEach(tab => {
-        //                     out += `<div class="tab-pane fade show active" id="tab-${tab._id}" role="tabpanel" aria-labelledby="pills-home-tab-nobd"></div>`
-        //                 })
-        //                 out += '</div>'
-        //                 out += '</div></div>'
-        //             }
-        //         })
-        //     }
-        //     else{
-        //       out+= `<div class="card-body" style="min-height: 200px;">`
-        //         out+=`<ul class="nav nav-pills nav-secondary nav-pills-no-bd" id="pills-tab-without-border" role="tablist">`
-        //         component.subComponents.forEach(tab=>{
-        //             out+= `
-        //                 <li class="nav-item">
-        //                     <a class="nav-link" id="pills-${tab._id}" data-toggle="pill" href="#tab-${tab._id}" role="tab" aria-controls="pills-contact-nobd" aria-selected="false">${tab.name}</a>
-        //                 </li>`
-        //         })
-        //         out+='</ul>'
-        //         out+= `<div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">`
-        //         component.subComponents.forEach(tab => {
-        //             out += `<div class="tab-pane fade show active" id="tab-${tab._id}" role="tabpanel" aria-labelledby="pills-home-tab-nobd"></div>`
-        //         })
-        //         out+= '</div>'
-        //       out+='</div>'
-        //     }
-        //    out+= `</div>`
-        // })
-
-        // $('#form').append(out)
+        }
     </script>
 </body>
 

@@ -30,7 +30,8 @@ const addComponent = (type, where) => {
                     </div>
                 </div>
             </div>
-        `)
+        `).show('slow');
+        scrollDown(`sec-${order}`)
     }
     if (type == 2) {
         order += 1;
@@ -74,9 +75,9 @@ const addComponent = (type, where) => {
                     </div>
                 </div>
             </div>
-        `)
+        `).show('slow');
 
-
+        scrollDown(`tab-${order}`)
 
     }
     if (type == 3) {
@@ -85,10 +86,6 @@ const addComponent = (type, where) => {
         let str1 = str[1] + '-' + str[2];
 
         let count = ++orderObject[where];
-
-
-
-
         orderObject[where] = count;
 
         $(`#${where}`).append(`
@@ -97,7 +94,7 @@ const addComponent = (type, where) => {
                     <div class="card-header d-flex justify-content-between">
                         <div class="form-group w-50">
                             <label for="email2">Enter Section  Name</label>
-                            <input type="text" class="form-control" name="name" id="${str1}-sec-${count}-inp" placeholder="Name">
+                            <input type="text" class="form-control" name="name" id="${str1}-sec-${count}-inp" placeholder="Name" required>
                         </div>
                     
                      <div
@@ -114,7 +111,8 @@ const addComponent = (type, where) => {
                     </div>
                 </div>
             </div>
-        `)
+        `).show('slow');
+        scrollDown(`sec-${str1}-${count}`)
     }
     if (type == 4) {
 
@@ -161,19 +159,17 @@ const addComponent = (type, where) => {
                     </div>
                 </div>
             </div>
-        `).animate({
-            left: '100%'  // for instance
-        }, 2000);
+        `).show('slow')
+        scrollDown(`${str1}-tab-${orderObject[where]}`)
+
     }
-    scrollDown()
 
 }
 
 const addTab = (val) => {
-    if (extName != '' || extName != undefined) {
+    if (extName != '' && extName != undefined) {
         let path = val;
         path += '-list';
-        console.log(orderObject[path]);
         orderObject[path] = ++orderObject[path];
         orderObject[`${val}-${orderObject[path]}-item`] = 0;
 
@@ -188,13 +184,13 @@ const addTab = (val) => {
                                 <button onclick="addComponent(3,'${val}-sec-${orderObject[path]}')" class="btn btn-link">
                                 Add new sub section
                                 </button>
-                                
                                 </div>
                                 <div id="${val}-sec-${orderObject[path]}">
                             </div>
         
-        </div> `);
+        </div> `).show('slow');
         extName = ''
+        scrollDown(`${path}`)
     }
 }
 
@@ -203,6 +199,7 @@ var AllData = [];
 //fire event on save button click
 document.getElementById("saveButton").addEventListener("click", function () {
     AllData = [];
+    flag = true;
     let main = document.getElementById('builder');
     let allComponent = Array.from(main.children);
 
@@ -215,7 +212,9 @@ document.getElementById("saveButton").addEventListener("click", function () {
         obj.type = id[0];
         obj.order = id[1];
         obj.name = name
-
+        if (name == '') {
+            flag = false;
+        }
         if (obj.type != "tab") {
             var child = component.getElementsByClassName("card-body")[0].getElementsByClassName("m-3")[0];
             let allChild = Array.from(child.children);
@@ -229,6 +228,9 @@ document.getElementById("saveButton").addEventListener("click", function () {
                 childObj.order = id[3];
                 childObj.type = id[2];
                 childObj.name = name;
+                if (name == '') {
+                    flag = false;
+                }
 
                 if (id.includes('tab')) {
                     let child = b.getElementsByTagName('ul')[0].getElementsByTagName("li");
@@ -244,11 +246,18 @@ document.getElementById("saveButton").addEventListener("click", function () {
                         sub.forEach(i => {
                             let obj = {}
                             let subid = i.getAttribute('id')
-                            subid = subid.split()
+                            let name = i.querySelectorAll("input")[0].value;
+                            // console.log(name)
+                            subid = subid.split('-')
                             obj.type = 'sec'
                             obj.order = subid[3]
-                            obj.name = 'wait a while'
-                            tab.pageContent.push(obj)
+                            obj.name = name;
+                            if (name == '') {
+
+                                flag = false;
+                            }
+                            tab.pageContent.push(obj);
+
                         });
                         id = id.split('-');
                         tab.type = "tablist";
@@ -257,20 +266,36 @@ document.getElementById("saveButton").addEventListener("click", function () {
                         childObj.tabComponents.push(tab)
                     })
                 }
-
                 obj.subComponents.push(childObj);
-
             })
 
         }
         else {
             let child = component.getElementsByClassName("card-body")[0].getElementsByTagName('ul')[0].getElementsByTagName("li");
-            let val = component.getElementsByClassName("card-body")[0].getElementsByClassName("card-body")[1].getElementsByTagName("div")[0];
+            let val = component.getElementsByClassName("card-body")[0].getElementsByTagName("div")[0]
+            let allTabSec = Array.from(val.children);
+
+
             let allChild = Array.from(child)
-            allChild.forEach(b => {
-                let childObj = {};
+
+            allChild.forEach((b, index) => {
+                let childObj = { tabContent: [] };
                 let id = b.getAttribute('id');
                 id = id.split('-');
+                let sub = Array.from(allTabSec[index].getElementsByTagName("div")[1].children);
+                sub.forEach(i => {
+                    let obj = {}
+                    let subid = i.getAttribute('id')
+                    let name = i.querySelectorAll("input")[0].value;
+                    subid = subid.split('-')
+                    obj.type = 'sec'
+                    obj.order = subid[3]
+                    obj.name = name;
+                    if (name == '') {
+                        flag = false;
+                    }
+                    childObj.tabContent.push(obj)
+                });
                 childObj.type = "tab";
                 childObj.order = id[2];
                 childObj.name = b.innerText || b.nodeValue
@@ -279,37 +304,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
         }
         AllData.push(obj);
     })
-
-    // fetch('/admin/customform/layout', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //         content: AllData,
-    //         formId
-    //     })
-    // })
-    //     .then(function (res) {
-    //         return res.json()
-    //     })
-    //     .then(function (json) {
-    //         if (json.status == 200)
-    //             iziToast.success({
-    //                 message: json.message
-    //             })
-    //         else if (json.status == 400)
-    //             iziToast.error({
-    //                 title: json.message,
-    //                 message: json.error
-    //             })
-    //         else
-    //             iziToast.error({
-    //                 message: json.message
-    //             })
-    //     })
-    //     .catch(err => console.log(err))
-
+    validation(flag);
 })
 
 
@@ -351,8 +346,47 @@ const getName = (id) => {
 
 }
 
-function scrollDown() {
-    $('html, body').animate({
-        scrollTop: $(document).height()
-    }, 'slow');
+function scrollDown(id) {
+    $('body, html').animate({ scrollTop: $(`#${id}`).offset().top }, 1000);
+}
+
+function validation(flag) {
+    if (!flag) {
+        AllData = [];
+        // console.log(AllData);
+        iziToast.error({
+            message: "please enter section name"
+        })
+    }else{
+        fetch('/admin/customform/layout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            content: AllData,
+            formId
+        })
+    })
+        .then(function (res) {
+            return res.json()
+        })
+        .then(function (json) {
+            console.log(json)
+            if (json.status == 200)
+                location.href = `${json.href}`
+            else if (json.status == 400)
+                iziToast.error({
+                    title: json.message,
+                    message: json.error
+                })
+            else
+                iziToast.error({
+                    message: json.message
+                })
+        })
+        .catch(err => console.log(err))
+    }
+
+
 }
