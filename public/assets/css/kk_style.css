@@ -751,8 +751,186 @@ body {
 }
 
 .kk_list_grid .grid .result {
-    padding: 0px;
+    padding: 25px;
     background: transparent;
-    border: 1px solid #ccd1d8;
-    margin: 15px;
+    border: 0px solid #ccd1d8;
+
+}
+
+.kk_table_grid_head{
+right: 20px;
+    position: absolute;
+
+}
+
+
+.kk_table_grid_head .btn {
+    padding: 6px;
+    font-size: 16px;
+  
+}
+
+.kk_list_grid .grid .result:before {
+       content: "";
+    background-color:#fff;
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    border:1px solid #ccd1d8
+  }
+
+.kk_list_grid .grid .result {  
+  ;padding: 0px
+    position: relative;
+    background-color: rgb(255, 255, 255);
+}
+
+.kk_list_grid .grid .result * {
+    position: relative; 
+}
+
+
+.kk_list_grid .grid .result.three .form-button-action {
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+
+
+
+.kk_list_grid .grid .result.three:hover .form-button-action {
+  opacity: 1;
+}
+
+.kk_list_grid .grid .result.three .checkbox {
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+
+
+
+.kk_list_grid .grid .result.three:hover .checkbox {
+  opacity: 1;
+}
+
+
+
+.kk_list_grid .grid  .form-button-action .btn {
+    padding: 0px 8px !important;
+    background: transparent  !important;
+    border: 0px !important;
+}
+
+.kk_list_grid .grid .form-button-action .btn i {
+    color: #5394ca9c;
+
+}
+
+
+.kk_list_grid .grid .result div:nth-child(3){
+  font-size: 14px;
+    font-weight: bold;
+    color: #4d7393;
+    margin-top: 12px;
+    letter-spacing: 0px;
+}
+
+.kk_list_grid .grid .result div:nth-child(4){
+   font-size: 16px;
+    font-weight: bold;
+    color: #8d9498;
+    margin: 2px 0px 6px;
+    letter-spacing: 0px;
+
+}
+
+.kk_product_page .card-header{
+  padding: 40px 0px;
+  margin: 20px 60px;
+} 
+
+.kk_product_page .card-header .progress{
+    width: 300px;
+    position: absolute;
+    bottom: 0px;
+}
+
+.kk_product_page{
+    background: #fff;
+}
+
+.kk_product_page .card-header{
+    background: transparent;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  right: 0;
+  background-color: rgb(252, 252, 252);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+.kk_form_page{
+ background-color: #fff;
+}
+
+.kk_form_page .level_1_header {
+    background: #4d7393;
+    padding: 5px 30px;
+    color: #fff;
+}
+
+.kk_form_page .level_2_header {
+    background: #5394ca ;
+    padding: 5px 30px;
+    color: #fff;
+}
+
+.kk_form_page .level_3_header {
+    background: #83bae7 ;
+    padding: 5px 30px;
+    color: #fff;
+}
+
+.kk_form_page .level_4_header {
+    background: #b7dfff ;
+    padding: 5px 30px;
+    color: #fff;
+}
+
+.pad-40{
+  padding: 10px 0px 10px 40px;
 }
