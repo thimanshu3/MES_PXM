@@ -222,10 +222,6 @@
     <script>
         const form = '<%- JSON.stringify(data.formData) %>'
         const parseForm = JSON.parse(form)
-        let data = ['a', 'b', 'c']
-
-        console.log(typeof data);
-        //const newForm = getValues(parseform , '_id' , '60491b50d80f1e051004f401',data)
 
         function getValues(obj, key, value, data) {
             for (var i in obj) {
@@ -238,35 +234,16 @@
                     data.forEach(element => 
                         obj.AssignedFields.push({ fieldId: element})                        
                     )
-                  //  console.log(obj)
                 }
             }
             return obj
             
-//            return objects;
-        }
-
-        //return an array of keys that match on a certain value
-        function getKeys(obj, val) {
-            var objects = [];
-            for (var i in obj) {
-                if (!obj.hasOwnProperty(i)) continue;
-                if (typeof obj[i] == 'object') {
-                    objects = objects.concat(getKeys(obj[i], val));
-                } else if (obj[i] == val) {
-                    objects.push(i);
-                }
-            }
-            return objects;
         }
 
         document.getElementById("assignSelectedGroup").addEventListener("click", function () {
-        
                 let component = $("input[name='component']:checked").val()
                 let data = $("input[name='itemgroups']:checked").val().split(',')
                 assignFieldsAndGroups(component, data)
-            
-           
         });
 
 
@@ -291,8 +268,9 @@
                 .then(function (json) {
                     console.log(json)
                     if (json.status == 200)
-                    console.log("hi");
-                        // location.href = `${json.href}`
+                        iziToast.success({
+                            message: json.message
+                        })
                     else if (json.status == 400)
                         iziToast.error({
                             title: json.message,
