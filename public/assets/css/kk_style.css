@@ -949,3 +949,85 @@ right: 20px;
     border-radius: 3px !important;
     /* box-sizing: border-box !important; */
 }
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9998;
+  background-color: rgba(0,0,0,0.7);
+}
+.overlay.enabled {
+  display: initial;
+}
+
+
+
+.kk_rightnav {
+  background-color: #f9f9f9 !important;
+}
+
+.kk_rightnav ul{
+    list-style: none;
+    padding-left: 0px;
+    margin-top: 18px;
+}
+
+.kk_rightnav li {
+    font-size: 16px;
+    color:#4d7393 ;
+    letter-spacing: 0.3px;
+    margin-top: 4px;
+}
+
+.kk_rightnav li:hover {
+   color:  #0062cc;
+}
+
+.kk_rightnav .closebtn{
+    font-size: 19px;
+    color: #4d4d4d;
+    margin-top: 20px;
+}
+.kk_rightnav .closebtn:hover{
+   color: #0062cc;
+}
+
+.modal .btn {
+    padding: 6px 14px !important;
+}
+
+.modal .modal-body{
+    background: #F4F7FC;
+    padding: 30px;
+}
+
+
+.modal .modal-content {
+    border: 1px solid rgba(0,0,0,.2) !important;
+    border-radius: 0px !important;
+}
+
+
+.modal .modal-content label[for="et_pb_contact_brand_file_request_0"] {
+     width: 100%; 
+}
+
+.modal .modal-content .kk_down_temp p{
+    font-size: 12px;
+    color: #4d7393 !important;
+    margin-bottom: 10px;
+}
+
+.modal .modal-content .kk_down_temp .btn{
+       margin: 0px !important;
+    padding: 8px 12px;
+    background: #fff !important;
+    color: #4d7393 !important;
+    border: 1px solid #1F314A1D !important;
+    box-shadow: 0px 11px 11px #34547a0e;
+    font-size: 13px;
+}
