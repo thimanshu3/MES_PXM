@@ -110,6 +110,7 @@ router.get('/:id/fieldmap', async (req, res) => {
             async () => await MySql.query('select fatg.groupId as groupId, fg.name, group_concat(fatg.fieldId Separator "," ) as fieldIds from fieldsAssignedToGroups fatg inner join fieldGroups fg on groupId = fg.id inner join inputFields ipf on fatg.fieldId =  ipf.id  where ipf.active="1" group by fatg.groupid'),
             async () => await FormDesign.findOne({ formId: customForm.id })
         ])
+        
         res.render('admin/customFormFieldMapping', { User: req.user, data: { itemFields, itemGroups: itemGroups[0], formData } })
 
     } catch (err) {

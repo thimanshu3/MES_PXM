@@ -136,23 +136,30 @@
                                                 <div class="level_1_header">
                                                     <%=component.name %>
                                                 </div>
-                                                <% component.subComponents.forEach(subComponent=>{ %>
-                                                    <% if(subComponent.type=='tab'){ %>
-                                                        <div class="card-body">
-                                                            <ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
-                                                            <% subComponent.forEach(tab=>{ %> 
+                                                <div class="card-body">
+                                                    <ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
+                                                        <% component.subComponents.forEach(tab=>{ %>
                                                                 <li class="nav-item submenu">
-                                                                    <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home"
+                                                                    <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-<%=tab.name %>" role="tab" aria-controls="pills-home"
                                                                         aria-selected="false"><%=tab.name %> </a>
                                                                 </li>
                                                             <%}) %>
-                                                            </ul> 
-                                                            <% subComponent.forEach(tab=>{ %>
+                                                    </ul> 
+                                                     <div class="tab-content mt-2 mb-3" id="pills-tabContent">
+
+                                                        <% component.subComponents.forEach(tab=>{ %>
+                                                            <div class="tab-pane fade" id="pills-<%=tab.name %>" role="tabpanel" aria-labelledby="pills-home-tab">
+                                                                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind
+                                                                    texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.
+                                                                </p>
                                                             
-                                                            <%}) %>
-                                                        </div>
-                                                    <% } %>
-                                                <% }) %>
+                                                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a
+                                                                    paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                                            </div>
+                                                        <%}) %>
+                                                        
+                                                    </div>
+                                                </div>
                                             </section>
                                         <% } %>  
                                    <% }) %> 
