@@ -283,7 +283,7 @@
 
     <script>
         function addListValue(){
-            addValue(window.location.pathname+'/add', 'POST')
+            addValue('/'+window.location.pathname+'/add', 'POST')
         }
         function changeStatus(id) {
                 markStatusOrDelete(`/admin/listrecord/value/${id}`, 'DELETE', 'status', `{"id":"${id}"}`)

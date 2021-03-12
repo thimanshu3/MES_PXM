@@ -12,38 +12,6 @@ router.get('/', async (req, res) => {
     res.render('admin/AttributeSet', { User: req.user, attr: data })
 })
 
-router.get('/:id', async (req, res) => {
-    try {
-        const foundAttribute = await AttributeSet.findOne({
-            where: {
-                id: req.params.id,
-            }
-        })
-
-        if (!foundAttribute) {
-            req.flash('error', 'Attribute Not Found!')
-            res.redirect('/admin/AttributeSet')
-            return
-        }
-        const attributeValues = await AttributeValueSets.findAll({
-            where: {
-                parentAttributeId: foundAttribute.id
-            },
-        })
-        await ActivityLog.create({
-            id: req.params.id,
-            name: 'Attribute Set',
-            type: 'View',
-            user: req.user.id,
-            timestamp: new Date()
-        })
-        res.render('admin/AttributeSetValue', { User: req.user, attributeValues, foundAttribute })
-    } catch (err) {
-        console.error('\x1b[31m%s\x1b[0m', err)
-        res.status(500).json({ status: 500, message: 'Something Went Wrong!', error: err.toString() })
-    }
-})
-
 
 router.post('/add', async (req, res) => {
     const { name, tagValues } = req.body
@@ -159,11 +127,11 @@ router.delete('/:id', async (req, res) => {
     const foundAttributeSet = await AttributeSet.findOne({
         where: {
             id: req.params.id
-        }
+        } 
     })
 
     if (!foundAttributeSet)
-        return res.status(404).json({ message: 'Group Not Found!' })
+        return res.status(404).json({ message: 'Attribute Set Not Found!' })
 
     // if (foundAttributeSet.role === 0)
     //     return res.status(400).json({ message: 'Cannot Deactive Admin' })

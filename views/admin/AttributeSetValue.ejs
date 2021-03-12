@@ -275,7 +275,12 @@
 
     <script>
         function addListValue() {
-            addValue(window.location.pathname + '/add', 'POST')
+            console.log(window.location.pathname);
+            //str = window.location.pathname.split('/')
+            //console.log(str);
+            //str = str[1]+'/attributesetValue/'+str[3]
+            //console.log(str);
+            addValue(window.location.pathname+'/add', 'POST')
         }
 
         function changeStatus(id) {

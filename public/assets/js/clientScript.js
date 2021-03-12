@@ -63,16 +63,16 @@ const addValue = (uri,method) =>{
         position: 'center',
         drag: false,
         inputs: [
-            ['<input type="text" required>', 'change', function (instance, toast, input, e) {
+            ['<input id="label" type="text" required>', 'change', function (instance, toast, input, e) {
                 label = input.value;
             }]
         ],
         buttons: [
             ['<button><b>Save</b></button>', function (instance, toast) {
-
+                label=$('#label').val()
                 instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
                 if (label != '') {
-                    console.log(uri)
+                    console.log("cs: ",uri)       
                     fetch(`${uri}`,{
                         method,
                         body: JSON.stringify({label}),
@@ -99,6 +99,11 @@ const addValue = (uri,method) =>{
                     })
                     .catch(err => {
                         console.log(err)
+                    })
+                }
+                else {
+                    iziToast.info({
+                        message: "Value can't be empty!!"
                     })
                 }
 
