@@ -110,6 +110,7 @@ router.get('/:id/fieldmap', async (req, res) => {
             async () => await MySql.query('select fatg.groupId as groupId, fg.name, group_concat(fatg.fieldId Separator "," ) as fieldIds from fieldsAssignedToGroups fatg inner join fieldGroups fg on groupId = fg.id inner join inputFields ipf on fatg.fieldId =  ipf.id  where ipf.active="1" group by fatg.groupid'),
             async () => await FormDesign.findOne({ formId: customForm.id })
         ])
+        
         res.render('admin/customFormFieldMapping', { User: req.user, data: { itemFields, itemGroups: itemGroups[0], formData } })
 
     } catch (err) {
@@ -144,31 +145,30 @@ router.post('/:id/fieldmap/assign', async (req, res) => {
 
 router.get('/:id/form', async (req, res) => {
     try {
-        const layout = await FormDesign.findOne({ formId: req.params.id })
-
+        let layout = await FormDesign.findOne({ formId: req.params.id })
+        layout = layout.toObject()
           await Promise.all(layout.componets.map(async component => {
             await Promise.all(component.subComponents.map(async subComponent => {
                 if (subComponent.type == 'sec') {
                     await Promise.all(subComponent.AssignedFields.map(async a => {
                         const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
-                        subComponent.AssignedFields.push({fields})
+                        delete a.fieldId
+                        a.field = fields[0][0]
                     }))
                 } else {
                     await Promise.all(subComponent.tabComponents.map(async tabComponent => {
                         await Promise.all(tabComponent.pageContent.map(async page => {
                             await Promise.all(page.AssignedFields.map(async a => {
                                 const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
-                                
-                                //  AssignedFields.push(fields)
-
+                                delete a.fieldId
+                                a.field = fields[0][0]
                             }))
                         }))
                     }))
                 }
             }))
         }))
-           res.json({layout})
-        // res.render('admin/kktest3', { User: req.user, new })
+        res.render('admin/kktest3', { User: req.user, layout })
 
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
