@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 
 
 
+const AssignedFieldSchema = new mongoose.Schema({
+    fieldId: String
+})
+
 const PageContentSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -10,6 +14,7 @@ const PageContentSchema = new mongoose.Schema({
     order: {
         type: Number,
     },
+    AssignedFields: [AssignedFieldSchema]
 })
 
 
@@ -22,7 +27,8 @@ const TabComponentSchema = new mongoose.Schema({
         type: Number,
     },
     type: String ,
-    pageContent: [PageContentSchema]
+    pageContent: [PageContentSchema],
+    AssignedFields: [AssignedFieldSchema]
 })
 
 const SubComponentSchema = new mongoose.Schema({
@@ -38,6 +44,7 @@ const SubComponentSchema = new mongoose.Schema({
         type: Number,
     },
     tabComponents: [TabComponentSchema],
+    AssignedFields: [AssignedFieldSchema]
 })
 
 const ComponentSchema = new mongoose.Schema({

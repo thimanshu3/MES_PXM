@@ -72,7 +72,7 @@
                                     </ul>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-5">
+                                    <!-- <div class="col-md-5">
 
                                         <div class="card kk_full_form kk_user_form">
                                             <div class="card-header">
@@ -101,14 +101,14 @@
                                                     </div>
                                                 </div>
                                                 <div class="card-footer d-flex justify-content-end">
-                                                    <button type="submit" class="btn mr-3">Submit</button>
+                                                    <button type="submit" class="btn btn-primary mr-3">Submit</button>
                                                 </div>
                                             </form>
                                         </div>
 
-                                    </div>
+                                    </div> -->
 
-                                    <div class="col-md-1">
+                                    <div class="col-md-3">
                                     </div>
 
 
@@ -119,7 +119,9 @@
                                         <div class="card-header">
                                             <div class="d-flex align-items-center">
                                                 <h4 class="card-title">Attribute Values of <b class="text-primary"> <%= foundAttribute.name %> </b></h4>
-                                
+                                                <button style="position: absolute;right: 10px;" type="button" onclick="addListValue()"
+                                                    class="btn btn-info btn-sm btn-circle"><i class="fa fa-plus"></i>&nbsp;Add Attribute Value
+                                                </button>
                                             </div>
                                         </div>
                                         <div class="card-body">
@@ -129,8 +131,9 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th rowspan="1" colspan="1">#</th>
-                                                                        <th rowspan="1" colspan="1">Attribute Value</th>
-                                                                        <th rowspan="1" colspan="1">Action</th>
+                                                                        <th rowspan="1" colspan="1">Value(s)</th>
+                                                                        <th rowspan="1" colspan="1">Status</th>
+                                                                        <th rowspan="1" colspan="1">Actions</th>
                                                                     </tr>
                                                                 </thead>
                                 
@@ -139,13 +142,23 @@
                                                                         <tr role="row" class="odd">
                                                                             <td class="sorting_1"><%= ++index %></td>
                                                                             <td><%= a.name %></td>
+                                                                            <td>
+                                                                                <span id="activeBadge-<%= a.id%>" style="background-color:  <%= a.active ? '#088e0c' : '#d20e18' %>"
+                                                                                    class="badge badge-<%= a.active ? 'success' : 'danger' %>">
+                                                                                    <%= a.active ? 'ACTIVE' : 'INACTIVE' %>
+                                                                                </span>
+                                                                            </td>
                                                                             <td class="d-flex justify-content-end">
                                                                                 <div class="form-button-action">
                                                                                     <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg"
                                                                                         data-original-title="Edit Task">
                                                                                         <i class="fa fa-edit"></i>
                                                                                     </button>
-                                                                                    <button id="changeActiveUser-" onclick="changeActive('')" type="button" data-toggle="tooltip" title=""
+                                                                                    <button id="changeStatus-<%=a.id%>" data-original-title="Change Status" data-toggle="tooltip"
+                                                                                        onclick="changeStatus('<%=a.id%>')" class="border-0 btn-transition btn-link">
+                                                                                        <i class="fas <%= a.active ? 'fa-toggle-on': 'fa-toggle-off' %>"></i>
+                                                                                    </button>
+                                                                                    <button id="changeActiveUser-" onclick="removefield('<%=a.id%>')" type="button" data-toggle="tooltip" title=""
                                                                                         class="btn btn-link btn-danger" data-original-title="Remove">
                                                                                         <i class="fa fa-trash"></i>
                                                                                     </button>
@@ -240,7 +253,7 @@
 
     </div>
     <!--   Core JS Files   -->
-
+    <script src="/assets/js/clientScript.js"></script>
     <!-- jQuery library -->
     <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
     <!-- Latest compiled JavaScript -->
@@ -261,6 +274,17 @@
 
 
     <script>
+        function addListValue() {
+            addValue(window.location.pathname + '/add', 'POST')
+        }
+
+        function changeStatus(id) {
+            markStatusOrDelete(`/admin/attributeset/value/${id}`, 'DELETE', 'status', `{"id":"${id}"}`)
+        }
+        function removeField(id) {
+            markStatusOrDelete(`/admin/attributeset/value/remove/${id}`, 'DELETE')
+        }
+
             $('#add-row').dataTable()
 
 const editthis = (id) => {

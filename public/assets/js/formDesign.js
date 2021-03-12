@@ -279,7 +279,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
             let allChild = Array.from(child)
 
             allChild.forEach((b, index) => {
-                let childObj = { tabContent: [] };
+                let childObj = { tabComponents: [] };
                 let id = b.getAttribute('id');
                 id = id.split('-');
                 let sub = Array.from(allTabSec[index].getElementsByTagName("div")[1].children);
@@ -294,7 +294,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
                     if (name == '') {
                         flag = false;
                     }
-                    childObj.tabContent.push(obj)
+                    childObj.tabComponents.push(obj)
                 });
                 childObj.type = "tab";
                 childObj.order = id[2];

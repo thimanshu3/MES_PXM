@@ -1,6 +1,6 @@
 const express = require('express')
 const { Op } = require('sequelize')
-
+const async = require('async')
 const { MySql } = require('../../db')
 const { AttributeSet, AttributeValueSets, ActivityLog } = require('../../models')
 const router = express.Router()
@@ -126,47 +126,76 @@ router.post('/:id/add', async (req, res) => {
     }
 })
 
-router.delete('/remove/:id', async (req, res) => {
+router.patch('/:id', async (req, res) => {
+    const { newValue } = req.body
     try {
-        const attribute = await AttributeSet.destroy({
-            where: {
-                id: req.params.id
-            }
+        await AttributeSet.update({
+            name: newValue,
+            updatedBy: req.params.id
+        }, {
+            where: { id: req.params.id },
+            returning: true,
+            plain: true
         })
-        req.flash('success', `Deleted Successfully`)
-        res.json({ status: 200, message: 'Deleted Successfully' })
-        res.redirect('/admin/AttributeSet')
-    } catch (err) {
+
+        await ActivityLog.create({
+            id: req.params.id,
+            name: 'AttributeSet',
+            type: 'Update',
+            user: req.user.id,
+            timestamp: new Date()
+        })
+        req.flash('success', `Successfully Updated to ${newValue}!!`)
+        res.json({ status: 200 })
+    }
+    catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
-        res.status(500).json({ status: 500, message: err.toString() })
+        req.flash('error', err.toString() || 'Something Went Wrong!')
+        res.redirect('/admin/AttributeSet')
     }
 })
 
-router.patch('/:id', async (req, res) => {
-    const attribute = await AttributeSet.findOne({
+router.delete('/:id', async (req, res) => {
+    const foundAttributeSet = await AttributeSet.findOne({
         where: {
             id: req.params.id
         }
     })
 
-    if (!attribute)
-        return res.status(404).json({ message: 'User Not Found!' })
+    if (!foundAttributeSet)
+        return res.status(404).json({ message: 'Group Not Found!' })
 
-    const { name } = req.body
+    // if (foundAttributeSet.role === 0)
+    //     return res.status(400).json({ message: 'Cannot Deactive Admin' })
 
-    if (!name)
-        return res.status(400).json({ message: 'Attribute Name is required!' })
+    foundAttributeSet.active = !foundAttributeSet.active
+    await foundAttributeSet.save()
 
-    attribute.name = name;
+    res.json({ status: 200, message: `AttributeSet ${foundAttributeSet.active ? 'Activated' : 'Deactivated'} Successfully!`, active: foundAttributeSet.active })
+})
 
+router.delete('/remove/:id', async (req, res) => {
     try {
-        await attribute.save()
-        res.json({ status: 200, message: 'Attribute Updated Successfully!' })
+        await async.parallel([
+            async () =>
+                await AttributeSet.destroy({
+                    where: {
+                        id: req.params.id
+                    }
+                }),
+            async () =>
+                await AttributeValueSets.destroy({
+                    where: {
+                        parentAttributeId: req.params.id
+                    }
+                })
+        ])
+        req.flash('success', `Deleted Successfully`)
+        res.json({ status: 200, message: 'Deleted Successfully' })
+        res.redirect('/admin/listrecord')
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
-        if (err.name === 'SequelizeUniqueConstraintError')
-            return res.status(400).json({ message: `${err.errors[0].message} '${err.errors[0].value}' already exists!` })
-        return res.status(500).json({ message: err.toString() || 'Somthing Went Wrong!' })
+        res.status(500).json({ status: 500, message: err.toString() })
     }
 })
 

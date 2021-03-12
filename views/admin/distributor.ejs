@@ -92,7 +92,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="card-action">
-                                                    <button type="submit" class="btn mr-3">Submit</button>
+                                                    <button type="submit" class="btn btn-primary mr-3">Submit</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -113,28 +113,43 @@
                                                 </div>
                                             </div>
                                             <div class="card-body">
-                                                <ul class="specification-list">
-                                                    <% attr.forEach(a=>{ %>
-                                                        <li>
-                                                            <span class="name-specification">
-                                                                <%=a.name%>
-                                                            </span>
-
-                                                            <div class="form-button-action">
-                                                                <button onclick="editthis('<%=a.id%>')" type="button"
-                                                                    title="" class="btn btn-link btn-primary btn-lg"
-                                                                    data-toggle="modal" data-target="#edit-attribute">
-                                                                    <i class="fa fa-edit"></i>
-                                                                </button>
-
-                                                                <button onclick="deleteThis('<%=a.id%>')" type="button"
-                                                                    data-toggle="tooltip" title=""
-                                                                    class="btn btn-link btn-danger"
-                                                                    data-original-title="Remove">
-                                                                    <i class="fa fa-times"></i>
-                                                                </button>
+                                                <ul class="todo-list-wrapper list-group list-group-flush">
+                                                    <% attr.forEach((a, index)=>{ %>
+                                                        <li class="list-group-item">
+                                                            <div class="todo-indicator bg-warning"></div>
+                                                            <div class="widget-content p-0" style="width: 100% !important;">
+                                                                <div class="widget-content-wrapper">
+                                                                    <div class="widget-content-left mr-2">
+                                                                        <div class="widget-subheading"><b>
+                                                                                <%= ++index%>
+                                                                            </b>.</div>
+                                                                    </div>
+                                                                    <div class="widget-content-left">
+                                                                        <div class="widget">
+                                                                            <a href="# " class="ml-2 text-dark">
+                                                                                <strong>
+                                                                                    <%=a.name%>
+                                                                                </strong>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="widget-content-right widget-content-actions">
+                                                                        <button onclick="editValue('/admin/Distributor/<%=a.id%>','PATCH','<%=a.name %>')"
+                                                                            class="border-0 btn-transition btn btn-outline-primary">
+                                                                            <i class="fa fa-edit"></i>
+                                                                        </button>
+                                                                        <button id="changeStatus-<%=a.id%>" data-original-title="Change Status" data-toggle="tooltip"
+                                                                            onclick="changeStatus('<%=a.id%>')" class="border-0 btn-transition btn-link">
+                                                                            <i class="fas <%= a.active ? 'fa-toggle-on': 'fa-toggle-off' %>"></i>
+                                                                        </button>
+                                                                        <button data-original-title="Remove" data-toggle="tooltip" onclick="removeField('<%=a.id%>')"
+                                                                            class="border-0 btn btn-outline-danger">
+                                                                            <i class="fa fa-trash-alt"></i>
+                                                                        </button>
+                                                                    </div>
+                                                            
+                                                                </div>
                                                             </div>
-
                                                         </li>
                                                         <% }) %>
 
@@ -189,36 +204,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal kk_modal_popup_form" id="edit-attribute">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-
-                                        <!-- Modal Header -->
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Edit Distributors Name</h4>
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
-
-                                        <!-- Modal body -->
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <label>Name</label>
-                                                <input type="text" class="form-control" id="name"
-                                                    placeholder="Enter First Name">
-                                            </div>
-
-                                        </div>
-
-                                        <!-- Modal footer -->
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary">Save</button>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
+                            
                     </div>
 
     </div>
@@ -246,8 +232,12 @@
             console.log(id)
         }
 
-        const deleteThis = (id) => {
+        function removeField(id){
             markStatusOrDelete(`/admin/Distributor/remove/${id}`, 'DELETE')
+        }
+
+        function changeStatus(id){
+            markStatusOrDelete(`/admin/Distributor/${id}`,'DELETE','status', `{ "id": "${id}" }`)
         }
 
 
