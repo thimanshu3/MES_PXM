@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Infeenity Dashboard</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/atlantis.min.css">
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="/assets/css/demo.css">
+    <link rel="stylesheet" href="/assets/css/kk_style.css">
+    <link rel="stylesheet" href="/assets/css/iziToast.min.css">
+
+    <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+        WebFont.load({
+            google: { "families": ["Lato:300,400,700,900"] },
+            custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css'] },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+<style>
+.collapsibleList li{
+  list-style-image : url('https://code.iamkate.com/javascript/collapsible-lists/button.png');
+  cursor           : auto;
+}
+
+li.collapsibleListOpen{
+  list-style-image : url('https://code.iamkate.com/javascript/collapsible-lists/button-open.png');
+  cursor           : pointer;
+}
+
+li.collapsibleListClosed{
+  list-style-image : url('https://code.iamkate.com/javascript/collapsible-lists/button-closed.png');
+  cursor           : pointer;
+}
+    </style>
+ 
+</head>
+
+<body>
+    <div class="wrapper">
+        <%-include('../partials/config')%>
+
+            <!-- header -->
+            <%-include('../partials/header.ejs')%>
+                <!-- header end -->
+
+                <!-- Sidebar -->
+                <%-include('../partials/sidebar.ejs')%>
+                    <!-- End Sidebar -->
+
+                    <div class="main-panel kk_product_page">
+                        <div class="content">
+                            <div class="page-inner">
+                            
+                                <div class="container-fluid ">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <div class="card-title">Top Products</div>
+                                                </div>
+                                                <div class="card-body pb-0">
+                                                <ul id="newList" class="collapsibleList">
+                                                    <li>
+                                                        Parent item
+                                                        <ul>
+                                                            <li>Child item</li>
+                                                            <li>Child item</li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        Parent item
+                                                        <ul>
+                                                            <li>Child item</li>
+                                                            <li>Child item</li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                                </div>
+                                            </div>
+                                    
+                                        
+                                    
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <%-include('../partials/footer.ejs')%>
+                    </div>
+
+                   
+                    
+    </div>
+    <!--   Core JS Files   -->
+
+    <!-- jQuery library -->
+    <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="/assets/js/core/bootstrap.js"></script>
+    <!-- Popper JS -->
+    <script src="/assets/js/core/popper.min.js"></script>
+    <!-- Atlantis JS -->
+    <script src="/assets/js/atlantis.min.js"></script>
+    <script src="/assets/js/iziToast.js"></script>
+    <script src="/assets/js/flashMessage.js"></script>
+    <!-- jQuery UI -->
+    <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+        <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+   <script>
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "280px";
+        document.getElementById("overlay").style.display="initial"
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("overlay").style.display = "none"
+    }
+
+
+</script>
+
+<script>
+    //code.iamkate.com
+    var CollapsibleLists = function () { function e(b, c) { [].forEach.call(b.getElementsByTagName("li"), function (a) { c && b !== a.parentNode || (a.style.userSelect = "none", a.style.MozUserSelect = "none", a.style.msUserSelect = "none", a.style.WebkitUserSelect = "none", a.addEventListener("click", g.bind(null, a)), f(a)) }) } function g(b, c) { for (var a = c.target; "LI" !== a.nodeName;)a = a.parentNode; a === b && f(b) } function f(b) { var c = b.classList.contains("collapsibleListClosed"), a = b.getElementsByTagName("ul");[].forEach.call(a, function (a) { for (var d = a; "LI" !== d.nodeName;)d = d.parentNode; d === b && (a.style.display = c ? "block" : "none") }); b.classList.remove("collapsibleListOpen"); b.classList.remove("collapsibleListClosed"); 0 < a.length && b.classList.add("collapsibleList" + (c ? "Open" : "Closed")) } return { apply: function (b) { [].forEach.call(document.getElementsByTagName("ul"), function (c) { c.classList.contains("collapsibleList") && (e(c, !0), b || [].forEach.call(c.getElementsByTagName("ul"), function (a) { a.classList.add("collapsibleList") })) }) }, applyTo: e } }();
+    </script>
+    <script>
+   $(function () {
+        CollapsibleLists.apply();
+    });
+
+        </script>
+
+</body>
+
+</html>

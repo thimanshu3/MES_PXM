@@ -35,8 +35,8 @@ res.render('admin/kktest', { User: req.user })
 router.use('/kktest2', async (req, res) => {
     res.render('admin/kktest2', { User: req.user })
 })
-router.use('/kktest3', async (req, res) => {
-    res.render('admin/kktest3', { User: req.user })
+router.use('/kktest4', async (req, res) => {
+    res.render('admin/kktest4', { User: req.user })
 })
 
 
