@@ -118,7 +118,7 @@
                                                         <td><span class="badge badge-<%=color[a.role]%>">
                                                                 <%= role[a.role] %>
                                                             </span></td>
-                                                        <td>
+                                                        <td id="email">
                                                             <%=a.email %>
                                                         </td>
                                                         <td>
@@ -130,8 +130,8 @@
                                                             </span></td>
                                                         <td>
                                                             <div class="form-button-action">
-                                                                <button style="text-decoration: none;" type="button" data-toggle="tooltip" title=""
-                                                                    class="btn btn-link" data-original-title="Edit Task">
+                                                                <button style="text-decoration: none;" type="button" data-target=".bd-example-modal-sm" data-toggle="modal"
+                                                                onclick="displayReport('<%=a.id%>')">
                                                                     View More
                                                                     <i class="flaticon-right-arrow"></i> 
                                                                 </button>
@@ -153,6 +153,31 @@
                     </div>
 
     </div>
+    <!-- login timeline modal -->
+    <div class="modal bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+         style="display: none;" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <table id="UserLoginReport" style="height: 80%;" class="mb-0 table table-hover scroll-area-lg">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Login Date</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody class="scrollbar-container ps--active-y ps" id="loginReportModalTBody">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- login timeline modal end -->
     <!--   Core JS Files   -->
 
     <!-- jQuery library -->
@@ -171,6 +196,70 @@
     
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <!-- Datatables -->
+    <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+    <script>
+        function displayReport(id) {
+            $('#UserLoginReport').DataTable().destroy()
+            $('#loginReportModalTBody').empty()
+            $('#img-no').remove()
+            fetch(`/admin/loginReport/${id}`)
+                .then(function (res) {
+                    return res.json()
+                })
+                .then(function (json) {
+                    if (json.status == 404)
+                        iziToast.error({
+                            message: json.message
+                        })
+                    else if (json.status == 500)
+                        iziToast.error({
+                            title: json.message,
+                            message: json.error
+                        })
+                    else if (json.status == 200) {
+                        const loginReports = json.data.loginReport
+                        if (loginReports.length == 0)
+                            return $('.modal-body').append(`<div id="img-no" class="border col-12">
+                                <div class=" text-center">
+                                    <!-- Image -->
+                                    <img src="https://dashkit.goodthemes.co/assets/img/illustrations/scale.svg" alt="..." class="img-fluid"
+                                        style="max-width: 200px">
+                                    <h4>
+                                        No reports yet.
+                                    </h4>
+                                </div>
+                            </div>`)
+                        let elements = ''
+                        loginReports.forEach(function (r, index) {
+                            let mail = $('#email').val();
+                            let d = new Date(r.createdAt)
+                            elements += `
+                                    <tr>
+                                        <th scope="row">${index + 1}</th>
+                                        <td>${d.toString().slice(0, -31)}</td>
+                                        <td>${mail}</td>
+                                    </tr>
+                                `
+                        })
+                        $('#loginReportModalTBody').append(elements)
+                        var table = $('#UserLoginReport').DataTable(
+                            {
+                                dom: 'Bfrtip',
+                                buttons: [
+                                    'csv', 'excel', 'pdf', 'print'
+                                ],
+                            }
+                        )
+                    }
+                    else
+                        iziToast.error({
+                            message: 'Something Went Wrong!'
+                        })
+                })
+                .catch(err => console.log(err))
+        }
+    </script>
 
 </body>
 

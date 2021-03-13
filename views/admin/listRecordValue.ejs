@@ -71,79 +71,28 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="row">
-                                    <!-- <div class="col-md-5">
-
-                                        <div class="card kk_full_form kk_user_form">
-                                            <div class="card-header">
-                                                <div class="d-flex align-items-center">
-                                                    <h4 class="card-title">Add a List/Record</h4>
-                                                    <button class="btn btn-primary btn-round ml-auto"
-                                                        data-toggle="modal" data-target="#myModal">
-                                                        <i class="fa fa-plus"></i>
-                                                        Import List Records
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <form action="/admin/listrecord/<%=foundList.id %>/add"
-                                                method="POST">
-                                                <div class="card-body">
-                                                    <div class="row">
-
-                                                        <div class="col-md-12">
-
-                                                            <div class="form-group">
-                                                                <label>Name</label>
-                                                                <input type="text" class="form-control" name="label"
-                                                                    id="name" placeholder="Enter Attribute Name">
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card-footer d-flex justify-content-end">
-                                                    <button type="submit" class="btn btn-primary mr-3">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
-
-                                    </div> -->
-
-                                    <div class="col-md-3">
-                                    </div>
-
-
-
-                                    <div class="col-md-6">
-
-                                        <div class="card kk_full_form kk_attribute_set_card">
-                                            <div class="card-header">
-                                                <div class="d-flex align-items-center">
-                                                    <h4 class="card-title">List Values of <b class="text-primary">
-                                                            <%= foundList.name %>
-                                                        </b></h4>
-                                                    <button style="position: absolute;right: 10px;" type="button" onclick="addListValue()" class="btn btn-info btn-sm btn-circle"><i class="fa fa-plus"></i>&nbsp;Add Value
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-
-                                                <table id="add-row"
-                                                    class="display table table-striped table-hover dataTable"
-                                                    role="grid" aria-describedby="add-row_info">
+                               
+                            <div class="row">
+                            
+                                <div class="col-6">
+                                    <div class="main-card mb-3 card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">List Record Value(s) of </h5>
+                                            <div class="table-responsive">
+                                                <table id="listrecord" class="mb-0 table table-borderless">
                                                     <thead>
                                                         <tr>
-                                                            <th rowspan="1" colspan="1">#</th>
-                                                            <th rowspan="1" colspan="1">Value(s)</th>
-                                                            <th rowspan="1" colspan="1">Status</th>
-                                                            <th rowspan="1" colspan="1">Actions</th>
+                                                            <th>#</th>
+                                                            <th>Label</th>
+                                                            <th>Status</th>
+                                                            
+                                                            <th>Action</th>
                                                         </tr>
                                                     </thead>
-
                                                     <tbody>
                                                         <% listRecordv.forEach((a,index)=>{ %>
-                                                            <tr role="row" class="odd">
-                                                                <td class="sorting_1">
+                                                            <tr>
+                                                                <td>
                                                                     <%= ++index %>
                                                                 </td>
                                                                 <td>
@@ -157,41 +106,33 @@
                                                                 <td class="d-flex justify-content-end">
                                                                     <div class="form-button-action">
                                                                         <button onclick="editValue('/admin/listrecord/value/<%=a.id%>','PATCH','<%=a.label %>')"
-                                                                            class="border-0 btn btn-primary">
+                                                                                class="border-0 btn btn-primary">
                                                                             <i class="fa fa-edit"></i>
                                                                         </button>
                                                                         <button id="changeStatus-<%=a.id%>" data-original-title="Change Status" data-toggle="tooltip"
-                                                                            onclick="changeStatus('<%=a.id%>')" class="border-0 btn-transition btn-link">
+                                                                                onclick="changeStatus('<%=a.id%>')" class="border-0 btn-transition btn-link">
                                                                             <i class="fas <%= a.active ? 'fa-toggle-on': 'fa-toggle-off' %>"></i>
                                                                         </button>
                                                                         <button id="changeActiveUser-"
-                                                                            onclick="removeField('<%=a.id%>')" type="button"
-                                                                            data-toggle="tooltip" title=""
-                                                                            class="btn btn-link btn-danger"
-                                                                            data-original-title="Remove">
+                                                                                onclick="removeField('<%=a.id%>')" type="button"
+                                                                                data-toggle="tooltip" title=""
+                                                                                class="btn btn-link btn-danger"
+                                                                                data-original-title="Remove">
                                                                             <i class="fa fa-trash"></i>
                                                                         </button>
                                                                     </div>
                                                                 </td>
                                                             </tr>
                                                             <% }) %>
-
-
+                                                    
+                                                    
                                                     </tbody>
                                                 </table>
-
-
-
-
                                             </div>
-
-
-
                                         </div>
-
                                     </div>
-
                                 </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -291,7 +232,7 @@
         function removeField(id) {
             markStatusOrDelete(`/admin/listrecord/value/remove/${id}`, 'DELETE')
         }
-        $('#add-row').dataTable()
+        $('#listrecord').dataTable()
 
         const editthis = (id) => {
             console.log(id)

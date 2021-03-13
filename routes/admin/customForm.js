@@ -111,7 +111,7 @@ router.get('/:id/fieldmap', async (req, res) => {
             async () => await FormDesign.findOne({ formId: customForm.id })
         ])
         
-        res.render('admin/customFormFieldMapping', { User: req.user, data: { itemFields, itemGroups: itemGroups[0], formData } })
+        res.render('admin/customFormFieldMapping', { User: req.user, data: { itemFields, itemGroups: itemGroups[0], formData: formData.toObject() } })
 
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)

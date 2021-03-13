@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&display=swap');
+* , html , body {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
 .navbar-header {
   /* background: #fff !important; */
   border-bottom: 1px solid #f6f6f6;
@@ -1031,3 +1036,59 @@ right: 20px;
     box-shadow: 0px 11px 11px #34547a0e;
     font-size: 13px;
 }
+
+/*! CSS Used from: http://filedash.laborasyon.com/vendors/bundle.css */
+*,::after,::before{box-sizing:border-box;}
+[tabindex="-1"]:focus{outline:0!important;}
+ul{margin-top:0;margin-bottom:1rem;}
+a{color:#007bff;text-decoration:none;background-color:transparent;}
+a:hover{color:#0056b3;text-decoration:underline;}
+.text-warning{color:#ffc107!important;}
+@media print{
+*,::after,::before{text-shadow:none!important;box-shadow:none!important;}
+a:not(.btn){text-decoration:underline;}
+}
+[class*=" ti-"]{font-family:themify;speak:none;font-style:normal;font-weight:400;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+.ti-folder:before{content:"\e639";}
+/*! CSS Used from: http://filedash.laborasyon.com/vendors/jstree/themes/default/style.min.css */
+.jstree-node,.jstree-children,.jstree-container-ul{display:block;margin:0;padding:0;list-style-type:none;list-style-image:none;}
+.jstree-node{white-space:nowrap;}
+.jstree-anchor{display:inline-block;color:black;white-space:nowrap;padding:0 4px 0 1px;margin:0;vertical-align:top;}
+.jstree-anchor:focus{outline:0;}
+.jstree-anchor,.jstree-anchor:link,.jstree-anchor:visited,.jstree-anchor:hover,.jstree-anchor:active{text-decoration:none;color:inherit;}
+.jstree-icon{display:inline-block;text-decoration:none;margin:0;padding:0;vertical-align:top;text-align:center;}
+.jstree-icon:empty{display:inline-block;text-decoration:none;margin:0;padding:0;vertical-align:top;text-align:center;}
+.jstree-ocl{cursor:pointer;}
+.jstree-anchor>.jstree-themeicon{margin-right:2px;}
+.jstree-default .jstree-node,.jstree-default .jstree-icon{background-repeat:no-repeat;background-color:transparent;}
+.jstree-default .jstree-anchor{transition:background-color .15s,box-shadow .15s;}
+.jstree-default .jstree-clicked{background:#beebff;border-radius:2px;box-shadow:inset 0 0 1px #999999;}
+.jstree-default .jstree-node{min-height:24px;line-height:24px;margin-left:24px;min-width:24px;}
+.jstree-default .jstree-anchor{line-height:24px;height:24px;}
+.jstree-default .jstree-icon{width:24px;height:24px;line-height:24px;}
+.jstree-default .jstree-icon:empty{width:24px;height:24px;line-height:24px;}
+.jstree-default .jstree-node,.jstree-default .jstree-icon{background-image:url("http://filedash.laborasyon.com/vendors/jstree/themes/default/32px.png");}
+.jstree-default .jstree-node{background-position:-292px -4px;background-repeat:repeat-y;}
+.jstree-default .jstree-last{background:transparent;}
+.jstree-default .jstree-closed>.jstree-ocl{background-position:-100px -4px;}
+.jstree-default .jstree-themeicon{background-position:-260px -4px;}
+.jstree-default>.jstree-no-dots .jstree-node{background:transparent;}
+.jstree-default>.jstree-no-dots .jstree-closed>.jstree-ocl{background-position:-4px -4px;}
+.jstree-default .jstree-themeicon-custom{background-color:transparent;background-image:none;background-position:0 0;}
+.jstree-default>.jstree-container-ul>.jstree-node{margin-left:0;margin-right:0;}
+/*! CSS Used from: http://filedash.laborasyon.com/assets/css/app.min.css */
+*{min-width:0;}
+.text-warning{color:#FFC542!important;}
+ul:not(.list-unstyled){margin:0;padding:0;}
+ul:not(.list-unstyled) li{list-style-type:none;}
+ul:not(.list-unstyled) li a:hover,ul:not(.list-unstyled) li a:focus{text-decoration:underline;}
+ul li a:hover,ul li a:focus{text-decoration:none!important;}
+a{color:#666666;text-decoration:none;transition:color 0.2s;}
+a:hover{color:#0062ff;text-decoration:none;}
+a:not(.active.list-group-item),a:not(.btn):hover,a:not(.btn):active,a:not(.btn):focus{text-decoration:none!important;color:black;outline:none;}
+*:focus{outline:none;}
+.jstree-default .jstree-anchor{border-radius:0.25rem;}
+.jstree-default .jstree-clicked{background-color:#0062ff!important;color:white!important;}
+.jstree-default .jstree-node{margin-top:10px;margin-bottom:10px;}
+/*! CSS Used fontfaces */
+@font-face{font-family:themify;src:url(http://filedash.laborasyon.com/fonts/themify.eot);src:url(http://filedash.laborasyon.com/fonts/themify.eot#iefix) format('embedded-opentype'),url(http://filedash.laborasyon.com/fonts/themify.woff) format('woff'),url(http://filedash.laborasyon.com/fonts/themify.ttf) format('truetype'),url(http://filedash.laborasyon.com/fonts/themify.svg) format('svg');font-weight:400;font-style:normal;}

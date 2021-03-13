@@ -26,23 +26,9 @@
             }
         });
     </script>
-<style>
-.collapsibleList li{
-  list-style-image : url('https://code.iamkate.com/javascript/collapsible-lists/button.png');
-  cursor           : auto;
-}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 
-li.collapsibleListOpen{
-  list-style-image : url('https://code.iamkate.com/javascript/collapsible-lists/button-open.png');
-  cursor           : pointer;
-}
 
-li.collapsibleListClosed{
-  list-style-image : url('https://code.iamkate.com/javascript/collapsible-lists/button-closed.png');
-  cursor           : pointer;
-}
-    </style>
- 
 </head>
 
 <body>
@@ -60,7 +46,7 @@ li.collapsibleListClosed{
                     <div class="main-panel kk_product_page">
                         <div class="content">
                             <div class="page-inner">
-                            
+
                                 <div class="container-fluid ">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -69,40 +55,61 @@ li.collapsibleListClosed{
                                                     <div class="card-title">Top Products</div>
                                                 </div>
                                                 <div class="card-body pb-0">
-                                                <ul id="newList" class="collapsibleList">
-                                                    <li>
-                                                        Parent item
-                                                        <ul>
-                                                            <li>Child item</li>
-                                                            <li>Child item</li>
+                                                    <div id="files" class="jstree jstree-1 jstree-default" role="tree" aria-multiselectable="true" tabindex="0" aria-activedescendant="j1_5"
+                                                         aria-busy="false">
+                                                        <ul class="jstree-container-ul jstree-children jstree-no-dots" role="group">
+                                                            <li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="j1_1_anchor" aria-expanded="false" id="j1_1"
+                                                                class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl"
+                                                                   role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j1_1_anchor"><i
+                                                                       class="jstree-icon jstree-themeicon ti-folder text-warning jstree-themeicon-custom"
+                                                                       role="presentation"></i>Backups</a></li>
+                                                            <li role="treeitem" aria-selected="true" aria-level="1" aria-labelledby="j1_5_anchor" aria-expanded="true" id="j1_5"
+                                                                class="jstree-node jstree-open"><i class="jstree-icon jstree-ocl"
+                                                                   role="presentation"></i><a class="jstree-anchor jstree-clicked" href="#" tabindex="-1" id="j1_5_anchor"><i
+                                                                       class="jstree-icon jstree-themeicon ti-folder text-warning jstree-themeicon-custom" role="presentation"></i>Documents</a>
+                                                                <ul role="group" class="jstree-children" style="">
+                                                                    <li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j1_6_anchor" id="j1_6" class="jstree-node  jstree-leaf"><i
+                                                                           class="jstree-icon jstree-ocl"
+                                                                           role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j1_6_anchor"><i
+                                                                               class="jstree-icon jstree-themeicon ti-folder text-warning jstree-themeicon-custom"
+                                                                               role="presentation"></i>Design Thinking Project</a></li>
+                                                                    <li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j1_7_anchor" id="j1_7" class="jstree-node  jstree-leaf"><i
+                                                                           class="jstree-icon jstree-ocl"
+                                                                           role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j1_7_anchor"><i
+                                                                               class="jstree-icon jstree-themeicon ti-folder text-warning jstree-themeicon-custom"
+                                                                               role="presentation"></i>User Research</a></li>
+                                                                    <li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j1_8_anchor" id="j1_8"
+                                                                        class="jstree-node  jstree-leaf jstree-last"><i class="jstree-icon jstree-ocl"
+                                                                           role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j1_8_anchor"><i
+                                                                               class="jstree-icon jstree-themeicon ti-folder text-warning jstree-themeicon-custom"
+                                                                               role="presentation"></i>Important Documents</a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="j1_9_anchor" aria-expanded="false" id="j1_9"
+                                                                class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl"
+                                                                   role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j1_9_anchor"><i
+                                                                       class="jstree-icon jstree-themeicon ti-folder text-warning jstree-themeicon-custom"
+                                                                       role="presentation"></i>Music</a></li>
+                                                            <li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="j1_13_anchor" aria-expanded="false" id="j1_13"
+                                                                class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl"
+                                                                   role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j1_13_anchor"><i
+                                                                       class="jstree-icon jstree-themeicon ti-folder text-warning jstree-themeicon-custom"
+                                                                       role="presentation"></i>Pictures</a></li>
+                                                            <li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="j1_16_anchor" aria-expanded="false" id="j1_16"
+                                                                class="jstree-node  jstree-closed jstree-last"><i
+                                                                   class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j1_16_anchor"><i
+                                                                       class="jstree-icon jstree-themeicon ti-folder text-warning jstree-themeicon-custom" role="presentation"></i>Downloads</a></li>
                                                         </ul>
-                                                    </li>
-                                                    <li>
-                                                        Parent item
-                                                        <ul>
-                                                            <li>Child item</li>
-                                                            <li>Child item</li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
+                                                    </div>
                                                 </div>
                                             </div>
-                                    
-                                        
-                                    
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
-
-
                         </div>
                         <%-include('../partials/footer.ejs')%>
                     </div>
-
-                   
-                    
     </div>
     <!--   Core JS Files   -->
 
@@ -119,34 +126,142 @@ li.collapsibleListClosed{
     <!-- jQuery UI -->
     <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-        <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+    <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
 
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-   <script>
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "280px";
-        document.getElementById("overlay").style.display="initial"
-    }
-
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-        document.getElementById("overlay").style.display = "none"
-    }
-
-
-</script>
-
-<script>
-    //code.iamkate.com
-    var CollapsibleLists = function () { function e(b, c) { [].forEach.call(b.getElementsByTagName("li"), function (a) { c && b !== a.parentNode || (a.style.userSelect = "none", a.style.MozUserSelect = "none", a.style.msUserSelect = "none", a.style.WebkitUserSelect = "none", a.addEventListener("click", g.bind(null, a)), f(a)) }) } function g(b, c) { for (var a = c.target; "LI" !== a.nodeName;)a = a.parentNode; a === b && f(b) } function f(b) { var c = b.classList.contains("collapsibleListClosed"), a = b.getElementsByTagName("ul");[].forEach.call(a, function (a) { for (var d = a; "LI" !== d.nodeName;)d = d.parentNode; d === b && (a.style.display = c ? "block" : "none") }); b.classList.remove("collapsibleListOpen"); b.classList.remove("collapsibleListClosed"); 0 < a.length && b.classList.add("collapsibleList" + (c ? "Open" : "Closed")) } return { apply: function (b) { [].forEach.call(document.getElementsByTagName("ul"), function (c) { c.classList.contains("collapsibleList") && (e(c, !0), b || [].forEach.call(c.getElementsByTagName("ul"), function (a) { a.classList.add("collapsibleList") })) }) }, applyTo: e } }();
-    </script>
     <script>
-   $(function () {
-        CollapsibleLists.apply();
-    });
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "280px";
+            document.getElementById("overlay").style.display = "initial"
+        }
 
-        </script>
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("overlay").style.display = "none"
+        }
+
+
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+
+    <script>
+        $(function () {
+            var jsonData = {
+                'data': [
+                    {
+                        'text': 'Backups',
+                        'type': 'folder',
+                        'children': [
+                            {
+                                'text': '2020/5/2',
+                                'type': 'folder'
+                            },
+                            {
+                                'text': '2020/2/7',
+                                'type': 'folder'
+                            },
+                            {
+                                'text': '2020/7/1',
+                                'type': 'folder'
+                            }
+                        ]
+                    },
+                    {
+                        'text': 'Documents',
+                        'type': 'folder',
+                        'state': {
+                            'opened': true,
+                            'selected': true
+                        },
+                        'children': [
+                            {
+                                'text': 'Design Thinking Project',
+                                'type': 'folder'
+                            },
+                            {
+                                'text': 'User Research',
+                                'type': 'folder'
+                            },
+                            {
+                                'text': 'Important Documents',
+                                'type': 'folder'
+                            }
+                        ]
+                    },
+                    {
+                        'text': 'Music',
+                        'type': 'folder',
+                        'children': [
+                            {
+                                'text': 'Rock',
+                                'type': 'folder',
+                            },
+                            {
+                                'text': 'Classic',
+                                'type': 'folder',
+                            },
+                            {
+                                'text': 'Blues',
+                                'type': 'folder',
+                            }
+                        ]
+                    },
+                    {
+                        'text': 'Pictures',
+                        'type': 'folder',
+                        'children': [
+                            {
+                                'text': 'Child 1',
+                                'type': 'folder',
+                            },
+                            {
+                                'text': 'Child 2',
+                                'type': 'folder',
+                            }
+                        ]
+                    },
+                    {
+                        'text': 'Downloads',
+                        'type': 'folder',
+                        'children': [
+                            {
+                                'text': 'Child 1',
+                                'type': 'folder',
+                            },
+                            {
+                                'text': 'Child 2',
+                                'type': 'folder',
+                            }
+                        ]
+                    },
+                ],
+                themes: {
+                    dots: false
+                }
+            };
+
+            $('#files').jstree({
+                'core': jsonData,
+                "types": {
+                    "folder": {
+                        "icon": "ti-folder text-warning",
+                    },
+                    "file": {
+                        "icon": "ti-file",
+                    }
+                },
+                plugins: ["types","checkbox"]
+            });
+
+         
+
+           
+
+        });
+
+    </script>
 
 </body>
 
