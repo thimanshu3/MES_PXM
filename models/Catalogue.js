@@ -2,7 +2,7 @@ const { DataTypes, Sequelize } = require('sequelize')
 
 const { MySql } = require('../db')
 
-const Catlogue = MySql.define('Catlogue', {
+const Catalogue = MySql.define('Catalogue', {
     id: {
         type: DataTypes.UUID,
         unique: true,
@@ -14,9 +14,8 @@ const Catlogue = MySql.define('Catlogue', {
         unique: true,
         allowNull: false
     },
-    CatalogueHierarchy: {
+    parentId: {
         type: DataTypes.STRING,
-        default: 'Unassigned'
     },
     active: {
         type: DataTypes.BOOLEAN,
@@ -32,14 +31,10 @@ const Catlogue = MySql.define('Catlogue', {
 
 })
 
-module.exports = Catlogue
+module.exports = Catalogue
 
-// Role
+// Catlogue
 //     .sync({ force: process.env.NODE_ENV === 'production' ? false : true })
 //     .then(() => {
-//         Role.bulkCreate([{
-//             id: 0,
-//             name: 'admin'
-//         },
-//        ])
+//        console.log('sync completed')
 //     })

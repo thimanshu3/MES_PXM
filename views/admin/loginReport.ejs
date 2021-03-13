@@ -118,7 +118,7 @@
                                                         <td><span class="badge badge-<%=color[a.role]%>">
                                                                 <%= role[a.role] %>
                                                             </span></td>
-                                                        <td id="email">
+                                                        <td id="email-<%=a.id %>">
                                                             <%=a.email %>
                                                         </td>
                                                         <td>
@@ -232,7 +232,7 @@
                             </div>`)
                         let elements = ''
                         loginReports.forEach(function (r, index) {
-                            let mail = $('#email').val();
+                            let mail = $(`#email-${id}`).text();
                             let d = new Date(r.createdAt)
                             elements += `
                                     <tr>

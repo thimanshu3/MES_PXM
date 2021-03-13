@@ -57,49 +57,7 @@
                                                 <div class="card-body pb-0">
                                                     <div id="files" class="jstree jstree-1 jstree-default" role="tree" aria-multiselectable="true" tabindex="0" aria-activedescendant="j1_5"
                                                          aria-busy="false">
-                                                        <ul class="jstree-container-ul jstree-children jstree-no-dots" role="group">
-                                                            <li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="j1_1_anchor" aria-expanded="false" id="j1_1"
-                                                                class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl"
-                                                                   role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j1_1_anchor"><i
-                                                                       class="jstree-icon jstree-themeicon ti-folder text-warning jstree-themeicon-custom"
-                                                                       role="presentation"></i>Backups</a></li>
-                                                            <li role="treeitem" aria-selected="true" aria-level="1" aria-labelledby="j1_5_anchor" aria-expanded="true" id="j1_5"
-                                                                class="jstree-node jstree-open"><i class="jstree-icon jstree-ocl"
-                                                                   role="presentation"></i><a class="jstree-anchor jstree-clicked" href="#" tabindex="-1" id="j1_5_anchor"><i
-                                                                       class="jstree-icon jstree-themeicon ti-folder text-warning jstree-themeicon-custom" role="presentation"></i>Documents</a>
-                                                                <ul role="group" class="jstree-children" style="">
-                                                                    <li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j1_6_anchor" id="j1_6" class="jstree-node  jstree-leaf"><i
-                                                                           class="jstree-icon jstree-ocl"
-                                                                           role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j1_6_anchor"><i
-                                                                               class="jstree-icon jstree-themeicon ti-folder text-warning jstree-themeicon-custom"
-                                                                               role="presentation"></i>Design Thinking Project</a></li>
-                                                                    <li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j1_7_anchor" id="j1_7" class="jstree-node  jstree-leaf"><i
-                                                                           class="jstree-icon jstree-ocl"
-                                                                           role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j1_7_anchor"><i
-                                                                               class="jstree-icon jstree-themeicon ti-folder text-warning jstree-themeicon-custom"
-                                                                               role="presentation"></i>User Research</a></li>
-                                                                    <li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j1_8_anchor" id="j1_8"
-                                                                        class="jstree-node  jstree-leaf jstree-last"><i class="jstree-icon jstree-ocl"
-                                                                           role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j1_8_anchor"><i
-                                                                               class="jstree-icon jstree-themeicon ti-folder text-warning jstree-themeicon-custom"
-                                                                               role="presentation"></i>Important Documents</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="j1_9_anchor" aria-expanded="false" id="j1_9"
-                                                                class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl"
-                                                                   role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j1_9_anchor"><i
-                                                                       class="jstree-icon jstree-themeicon ti-folder text-warning jstree-themeicon-custom"
-                                                                       role="presentation"></i>Music</a></li>
-                                                            <li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="j1_13_anchor" aria-expanded="false" id="j1_13"
-                                                                class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl"
-                                                                   role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j1_13_anchor"><i
-                                                                       class="jstree-icon jstree-themeicon ti-folder text-warning jstree-themeicon-custom"
-                                                                       role="presentation"></i>Pictures</a></li>
-                                                            <li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="j1_16_anchor" aria-expanded="false" id="j1_16"
-                                                                class="jstree-node  jstree-closed jstree-last"><i
-                                                                   class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j1_16_anchor"><i
-                                                                       class="jstree-icon jstree-themeicon ti-folder text-warning jstree-themeicon-custom" role="presentation"></i>Downloads</a></li>
-                                                        </ul>
+                                                      
                                                     </div>
                                                 </div>
                                             </div>
@@ -229,6 +187,16 @@
                             {
                                 'text': 'Child 1',
                                 'type': 'folder',
+                                'children': [
+                                    {
+                                        'text': 'himanshu 1',
+                                        'type': 'folder',
+                                    },
+                                    {
+                                        'text': 'sakshi 2',
+                                        'type': 'folder',
+                                    }
+                                ]
                             },
                             {
                                 'text': 'Child 2',
@@ -244,6 +212,10 @@
 
             $('#files').jstree({
                 'core': jsonData,
+                // {
+                //     // data:JSON.parse('<%- JSON.stringify(mainArr) %>')
+                        
+                // },
                 "types": {
                     "folder": {
                         "icon": "ti-folder text-warning",

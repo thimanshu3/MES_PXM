@@ -10,8 +10,9 @@ var con = mysql.createConnection({
 con.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");
-    con.query("SELECT * FROM fieldsAssignedToGroups", function (err, result) {
+    con.query(" ",
+     function (err, result) {
         if (err) throw err;
-        console.log(result);
-    });
+            console.log(result);
+     });
 });
