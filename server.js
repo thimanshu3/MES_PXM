@@ -19,6 +19,7 @@ const sessionSecret = process.env.SESSION_SECRET
 const NotFoundPage = path.join(__dirname, 'public/404.html')
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
 
+
 const app = express()
 initializePassport(passport)
 
@@ -54,7 +55,6 @@ app.use(session({
 app.use(flash())
 app.use(passport.initialize())
 app.use(passport.session())
-
 app.use('/', require('./routes/routes'))
 app.use('*', (req, res) => res.status(404).sendFile(NotFoundPage))
 
@@ -62,3 +62,5 @@ app.listen(port, console.log(
     '\x1b[36m%s\x1b[0m',
     `${process.env.NODE_ENV === 'production' ? 'Production' : 'Development'} Server started on port ${port}...`)
 )
+
+

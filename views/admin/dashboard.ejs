@@ -102,87 +102,25 @@
                         <div class="col-md-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="card-title fw-mediumbold">Suggested People</div>
+                                    <div class="card-title fw-mediumbold">Active People</div>
+                                <% finalArr.forEach(a=>{%>
                                     <div class="card-list">
                                         <div class="item-list">
                                             <div class="avatar">
-                                                <img src="/assets/img/jm_denis.jpg" alt="..."
+                                                <img src="/uploads/userProfile/<%=a.user.profileImageSource%>" alt="..."
                                                     class="avatar-img rounded-circle">
                                             </div>
                                             <div class="info-user ml-3">
-                                                <div class="username">Jimmy Denis</div>
-                                                <div class="status">Graphic Designer</div>
+                                                <div class="username"><%=a.user.firstName + ' ' +a.user.lastName  %> </div>
+                                                <div class="status"><%=a.user.role%></div>
                                             </div>
-                                            <button class="btn btn-icon btn-primary btn-round btn-xs">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
+                                            <span>
+                                                <%= formatDateMoment(new Date(a.time))  %>
+                                            </span>
                                         </div>
-                                        <div class="item-list">
-                                            <div class="avatar">
-                                                <img src="/assets/img/chadengle.jpg" alt="..."
-                                                    class="avatar-img rounded-circle">
-                                            </div>
-                                            <div class="info-user ml-3">
-                                                <div class="username">Chad</div>
-                                                <div class="status">CEO Zeleaf</div>
-                                            </div>
-                                            <button class="btn btn-icon btn-primary btn-round btn-xs">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
-                                        </div>
-                                        <div class="item-list">
-                                            <div class="avatar">
-                                                <img src="/assets/img/talha.jpg" alt="..."
-                                                    class="avatar-img rounded-circle">
-                                            </div>
-                                            <div class="info-user ml-3">
-                                                <div class="username">Talha</div>
-                                                <div class="status">Front End Designer</div>
-                                            </div>
-                                            <button class="btn btn-icon btn-primary btn-round btn-xs">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
-                                        </div>
-                                        <div class="item-list">
-                                            <div class="avatar">
-                                                <img src="/assets/img/mlane.jpg" alt="..."
-                                                    class="avatar-img rounded-circle">
-                                            </div>
-                                            <div class="info-user ml-3">
-                                                <div class="username">John Doe</div>
-                                                <div class="status">Back End Developer</div>
-                                            </div>
-                                            <button class="btn btn-icon btn-primary btn-round btn-xs">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
-                                        </div>
-                                        <div class="item-list">
-                                            <div class="avatar">
-                                                <img src="/assets/img/talha.jpg" alt="..."
-                                                    class="avatar-img rounded-circle">
-                                            </div>
-                                            <div class="info-user ml-3">
-                                                <div class="username">Talha</div>
-                                                <div class="status">Front End Designer</div>
-                                            </div>
-                                            <button class="btn btn-icon btn-primary btn-round btn-xs">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
-                                        </div>
-                                        <div class="item-list">
-                                            <div class="avatar">
-                                                <img src="/assets/img/jm_denis.jpg" alt="..."
-                                                    class="avatar-img rounded-circle">
-                                            </div>
-                                            <div class="info-user ml-3">
-                                                <div class="username">Jimmy Denis</div>
-                                                <div class="status">Graphic Designer</div>
-                                            </div>
-                                            <button class="btn btn-icon btn-primary btn-round btn-xs">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
-                                        </div>
+                                        
                                     </div>
+                                <% }) %>
                                 </div>
                             </div>
                         </div>
@@ -190,7 +128,7 @@
                             <div class="card ">
                                 <div class="card-body">
                                     <h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Active user right now</h4>
-                                    <h1 class="mb-4 fw-bold">17</h1>
+                                    <h1 class="mb-4 fw-bold"><%= finalArr.length  %> </h1>
                                     <h4 class="mt-3 b-b1 pb-2 mb-5 fw-bold">Page view per minutes</h4>
                                     <div id="activeUsersChart"></div>
                                     <h4 class="mt-5 pb-3 mb-0 fw-bold">Top active pages</h4>

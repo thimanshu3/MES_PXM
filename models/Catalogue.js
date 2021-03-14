@@ -9,7 +9,7 @@ const Catalogue = MySql.define('Catalogue', {
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
     },
-    name: {
+    text: {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false

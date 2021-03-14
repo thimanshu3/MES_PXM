@@ -57,7 +57,7 @@
                                                 <div class="card-body pb-0">
                                                     <div id="files" class="jstree jstree-1 jstree-default" role="tree" aria-multiselectable="true" tabindex="0" aria-activedescendant="j1_5"
                                                          aria-busy="false">
-                                                      
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,117 +105,41 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 
     <script>
-        $(function () {
-            var jsonData = {
-                'data': [
-                    {
-                        'text': 'Backups',
-                        'type': 'folder',
-                        'children': [
-                            {
-                                'text': '2020/5/2',
-                                'type': 'folder'
-                            },
-                            {
-                                'text': '2020/2/7',
-                                'type': 'folder'
-                            },
-                            {
-                                'text': '2020/7/1',
-                                'type': 'folder'
-                            }
-                        ]
-                    },
-                    {
-                        'text': 'Documents',
-                        'type': 'folder',
-                        'state': {
-                            'opened': true,
-                            'selected': true
-                        },
-                        'children': [
-                            {
-                                'text': 'Design Thinking Project',
-                                'type': 'folder'
-                            },
-                            {
-                                'text': 'User Research',
-                                'type': 'folder'
-                            },
-                            {
-                                'text': 'Important Documents',
-                                'type': 'folder'
-                            }
-                        ]
-                    },
-                    {
-                        'text': 'Music',
-                        'type': 'folder',
-                        'children': [
-                            {
-                                'text': 'Rock',
-                                'type': 'folder',
-                            },
-                            {
-                                'text': 'Classic',
-                                'type': 'folder',
-                            },
-                            {
-                                'text': 'Blues',
-                                'type': 'folder',
-                            }
-                        ]
-                    },
-                    {
-                        'text': 'Pictures',
-                        'type': 'folder',
-                        'children': [
-                            {
-                                'text': 'Child 1',
-                                'type': 'folder',
-                            },
-                            {
-                                'text': 'Child 2',
-                                'type': 'folder',
-                            }
-                        ]
-                    },
-                    {
-                        'text': 'Downloads',
-                        'type': 'folder',
-                        'children': [
-                            {
-                                'text': 'Child 1',
-                                'type': 'folder',
-                                'children': [
-                                    {
-                                        'text': 'himanshu 1',
-                                        'type': 'folder',
-                                    },
-                                    {
-                                        'text': 'sakshi 2',
-                                        'type': 'folder',
-                                    }
-                                ]
-                            },
-                            {
-                                'text': 'Child 2',
-                                'type': 'folder',
-                            }
-                        ]
-                    },
-                ],
-                themes: {
-                    dots: false
+        const list_to_tree = (list) => {
+            var map = {}, node = {}, roots = [], i;
+            for (i = 0; i < list.length; i += 1) {
+                map[list[i].id] = i;
+                list[i].children = [];
+            }
+
+            for (i = 0; i < list.length; i += 1) {
+                node = list[i];
+                node.type = 'folder'
+                node.data = {}
+                if (node.parentId !== "0") {
+                    list[map[node.parentId]].children.push(node);
+                } else {
+                    roots.push(node);
                 }
-            };
+            }
+            return roots;
+        }
+
+        $(function () {
+
 
             $('#files').jstree({
-                'core': jsonData,
-                // {
-                //     // data:JSON.parse('<%- JSON.stringify(mainArr) %>')
-                        
-                // },
+                'core': {
+                    'data': list_to_tree(<%- JSON.stringify(catalogue) %>),
+                    
+                    check_callback: true,
+                    themes: {
+                        dots: false,
+                        'name': 'proton',
+                        'responsive': true
+                    },
+                },
+
                 "types": {
                     "folder": {
                         "icon": "ti-folder text-warning",
@@ -224,12 +148,56 @@
                         "icon": "ti-file",
                     }
                 },
-                plugins: ["types","checkbox"]
-            });
+                plugins: ["types", 'state', 'contextmenu']
+            })
+                .on('create_node.jstree', function (e, data) {
+                    console.log(data)
+                    $.get('', { 'id': data.node.parent, 'position': data.position, 'text': data.node.text })
+                        .done(function (d) {
+                            data.instance.set_id(data.node, d.id);
+                        })
+                        .fail(function () {
+                            data.instance.refresh();
+                        });
+                }).on('rename_node.jstree', function (e, data) {
+                    fetch(`/admin/catalog/update/${data.node.id}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            text : data.node.text
+                        })
+                    })
+                        .then(res => res.json())
+                        .then(json => {
+                            if (json.status == 200) {
+                                location.reload(true);
+                            }
+                            else {
+                                iziToast.error({
+                                    message: json.message || 'Something Went Wrong!'
+                                })
+                            }
 
-         
+                        }).catch(err => console.log(err))
+                }).on('delete_node.jstree', function (e, data) {
+                    fetch(`/admin/catalog/remove/${data.node.id}`, {
+                        method: 'DELETE',
+                    })
+                        .then(res => res.json())
+                        .then(json => {
+                            if (json.status == 200) {
+                                location.reload(true);
+                            }
+                            else {
+                                iziToast.error({
+                                    message: json.message || 'Something Went Wrong!'
+                                })
+                            }
 
-           
+                        }).catch(err => console.log(err))
+                });
 
         });
 

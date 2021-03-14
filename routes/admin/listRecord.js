@@ -248,7 +248,7 @@ router.patch('/value/:id', async (req, res) => {
     try {
         await listRecordValues.update({
             label: newValue,
-            updatedBy: req.params.id
+            updatedBy: req.user.id
         }, {
             where: { id: req.params.id },
             returning: true,
