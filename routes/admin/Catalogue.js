@@ -9,8 +9,8 @@ const router = express.Router()
 
 router.get('/', async (req, res) => {
     try {
-        const catalogue = await Catalogue.findAll()        
-        res.render('admin/kktest4', { User: req.user, catalogue, formatDateMoment })
+        const catalogues = await CatalogueHierarchy.findAll()        
+        res.render('admin/kktest4', { User: req.user, catalogues, formatDateMoment })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         req.flash('error', 'Something Went Wrong!')
