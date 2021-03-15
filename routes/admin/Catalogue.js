@@ -9,8 +9,20 @@ const router = express.Router()
 
 router.get('/', async (req, res) => {
     try {
-        const catalogues = await CatalogueHierarchy.findAll()        
-        res.render('admin/kktest4', { User: req.user, catalogues, formatDateMoment })
+        // const catalogues = await CatalogueHierarchy.findAll() 
+        const a = await Catalogue.findAll()    
+        console.log(a)   
+        res.render('admin/kktest4', { User: req.user, formatDateMoment,a })
+    } catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        req.flash('error', 'Something Went Wrong!')
+        res.redirect('/')
+    }
+})
+router.get('/:id', async (req, res) => {
+    try {
+        const catalog = await Catalogue.findAll({where: {CatalogueHierarchy: req.params.id}})
+        res.render('admin/kktest4', { User: req.user, catalog, formatDateMoment })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         req.flash('error', 'Something Went Wrong!')
@@ -79,6 +91,7 @@ router.delete('/remove/:id', async (req, res) => {
         res.status(500).json({ status: 500, message: err.toString() })
     }
 })
+
 
 
 module.exports = router

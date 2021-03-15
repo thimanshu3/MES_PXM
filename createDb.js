@@ -10,7 +10,7 @@ var con = mysql.createConnection({
 con.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");
-    con.query("ALTER TABLE Catalogues RENAME COLUMN name TO text;",
+    con.query("select * from Catalogues",
      function (err, result) {
         if (err) throw err;
             console.log(result);
