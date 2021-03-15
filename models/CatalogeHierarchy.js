@@ -29,12 +29,17 @@ const CatalogueHierarchy = MySql.define('CatalogueHierarchy', {
 
 module.exports = CatalogueHierarchy
 
-// Role
+
+// CatalogueHierarchy
 //     .sync({ force: process.env.NODE_ENV === 'production' ? false : true })
 //     .then(() => {
-//         Role.bulkCreate([{
-//             id: 0,
-//             name: 'admin'
+//        CatalogueHierarchy.bulkCreate([{
+//             name: 'master',
+//             createdBy: 'admin'
+//         },
+//         {
+//             name: 'online',
+//             createdBy: 'admin'
 //         },
 //        ])
 //     })
