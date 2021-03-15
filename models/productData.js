@@ -2,24 +2,20 @@ const { DataTypes, Sequelize } = require('sequelize')
 
 const { MySql } = require('../db')
 
-const Catalogue = MySql.define('Catalogue', {
+
+//Model not complete ...need to work on it!!!!
+
+
+const productData = MySql.define('productData', {
     id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.UUID,
         unique: true,
-        autoIncrement:true,
+        autoIncrement: true,
         primaryKey: true,
     },
-    catalogueHierarchy:{
+    productId: { //id of product from productMetaData table
         type: DataTypes.STRING,
-        allowNull:false
-    },
-    text: {
-        type: DataTypes.STRING,
-        unique: true,
         allowNull: false
-    },
-    parentId: {
-        type: DataTypes.STRING,
     },
     active: {
         type: DataTypes.BOOLEAN,
@@ -35,9 +31,9 @@ const Catalogue = MySql.define('Catalogue', {
 
 })
 
-module.exports = Catalogue
+module.exports = productData
 
-// Catalogue
+// productData
 //     .sync({ force: process.env.NODE_ENV === 'production' ? false : true })
 //     .then(() => {
 //        console.log('sync completed')

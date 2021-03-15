@@ -1,7 +1,7 @@
 const express = require('express')
 
 const { MySql } = require('../../db')
-const { User, Catalogue } = require('../../models')
+const { User, Catalogue,CatalogueHierarchy } = require('../../models')
 const { formatDateMoment } = require('../../util')
 
 const router = express.Router()
@@ -9,12 +9,41 @@ const router = express.Router()
 
 router.get('/', async (req, res) => {
     try {
-        const catalogue = await Catalogue.findAll()        
-        res.render('admin/kktest4', { User: req.user, catalogue, formatDateMoment })
+        const catalogues = await CatalogueHierarchy.findAll()        
+        res.render('admin/kktest4', { User: req.user, catalogues, formatDateMoment })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         req.flash('error', 'Something Went Wrong!')
         res.redirect('/')
+    }
+})
+
+router.post('/', async (req,res) =>{
+    try{
+        const { text, parentId, catalogueHierarchy } = req.body
+        if(!text){
+            req.flash('error', 'Name is required!')
+            res.redirect('/admin/catalog')
+            return
+        }
+        if(!parentId){
+            req.flash('error', 'Parent Node not Selected!')
+            res.redirect('/admin/catalog')
+            return
+        }
+        if(!catalogueHierarchy){
+            req.flash('error', 'Please Select the Root Catalog')
+            res.redirect('/admin/catalog')
+            return
+        }
+        await Catalogue.create({ catalogueHierarchy, text, parentId, createdBy: req.user.id })
+        req.flash('success', `Added Successfully!`)
+        res.redirect('/admin/catalog')
+    }
+    catch(err){
+        console.error('\x1b[31m%s\x1b[0m', err)
+        req.flash('error', 'Something Went Wrong!')
+        res.redirect('/admin/catalog')
     }
 })
 

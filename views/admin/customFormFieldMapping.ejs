@@ -186,7 +186,7 @@
                                                             <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
                                                                 <% data.itemFields.forEach((item,i)=> { %>
                                                                     <label class="selectgroup-item m-2">
-                                                                        <input type="checkbox" name="itemfields" id="" value="<%=item.id %>" class="selectgroup-input fclass">
+                                                                        <input type="checkbox" name="itemfields" id="field-<%=item.id %>" value="<%=item.id %>" class="selectgroup-input fclass">
                                                                         <span class="selectgroup-button">
                                                                             <%=item.label %>
                                                                         </span>
@@ -229,7 +229,11 @@
     <script>
         const form = '<%- JSON.stringify(data.formData) %>'
         const parseForm = JSON.parse(form)
-
+        $(function () {
+            parseForm.allFields.forEach(field =>{
+                $(`#f-${field}`).attr("disabled", true);
+            })        
+        });
         function getValues(obj, key, value, data) {
             for (var i in obj) {
                 if (!obj.hasOwnProperty(i)) continue;
@@ -237,7 +241,6 @@
                     getValues(obj[i], key, value, data)
                 }
                 else if (i==key && obj[i].toString().trim() == value.trim()) {
-                    console.log("hello the")
                     data.forEach(element => 
                         obj.AssignedFields.push({ fieldId: element})                        
                     )
@@ -269,34 +272,34 @@
             const newForm = getValues(parseForm, '_id', value, data)
             newForm.allFields.push(...fields)
             console.log("New Form: ",newForm);
-            fetch(`/admin/customform/${parseForm.formId}/fieldmap/assign`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    newForm
-                })
-            })
-                .then(function (res) {
-                    return res.json()
-                })
-                .then(function (json) {
-                    if (json.status == 200)
-                        iziToast.success({
-                            message: json.message
-                        })
-                    else if (json.status == 400)
-                        iziToast.error({
-                            title: json.message,
-                            message: json.error
-                        })
-                    else
-                        iziToast.error({
-                            message: json.message
-                        })
-                })
-                .catch(err => console.log(err))
+            // fetch(`/admin/customform/${parseForm.formId}/fieldmap/assign`, {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify({
+            //         newForm
+            //     })
+            // })
+            //     .then(function (res) {
+            //         return res.json()
+            //     })
+            //     .then(function (json) {
+            //         if (json.status == 200)
+            //             iziToast.success({
+            //                 message: json.message
+            //             })
+            //         else if (json.status == 400)
+            //             iziToast.error({
+            //                 title: json.message,
+            //                 message: json.error
+            //             })
+            //         else
+            //             iziToast.error({
+            //                 message: json.message
+            //             })
+            //     })
+            //     .catch(err => console.log(err))
         }
     </script>
 </body>

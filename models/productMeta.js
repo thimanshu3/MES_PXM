@@ -2,32 +2,37 @@ const { DataTypes, Sequelize } = require('sequelize')
 
 const { MySql } = require('../db')
 
-const Catalogue = MySql.define('Catalogue', {
+const productMetaData = MySql.define('productMetaData', {
     id: {
         type: Sequelize.INTEGER,
         unique: true,
-        autoIncrement:true,
         primaryKey: true,
     },
-    catalogueHierarchy:{
+    name: {
         type: DataTypes.STRING,
-        allowNull:false
+        defaultValue:"Sample Product"
     },
-    text: {
-        type: DataTypes.STRING,
-        unique: true,
-        allowNull: false
-    },
-    parentId: {
+    formId: {
         type: DataTypes.STRING,
     },
     active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
     },
+    productType:{
+        type: DataTypes.STRING,
+        allowNull:false
+    },
+    CatalogueHierarchy:{
+        type:DataTypes.STRING,
+        defaultValue:"master"
+    },
+    Catalogue:{
+        type:DataTypes.STRING
+    },
     createdBy: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
     updatedBy: {
         type: DataTypes.STRING
@@ -35,9 +40,9 @@ const Catalogue = MySql.define('Catalogue', {
 
 })
 
-module.exports = Catalogue
+module.exports = productMetaData
 
-// Catalogue
+// productMetaData
 //     .sync({ force: process.env.NODE_ENV === 'production' ? false : true })
 //     .then(() => {
 //        console.log('sync completed')
