@@ -15,7 +15,9 @@
     <link rel="stylesheet" href="/assets/css/demo.css">
     <link rel="stylesheet" href="/assets/css/kk_style.css">
     <link rel="stylesheet" href="/assets/css/iziToast.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+        integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
+        crossorigin="anonymous" />
     <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
         WebFont.load({
@@ -69,9 +71,26 @@
                                         </ul>
                                     </div>
 
-                                <div class="card kk_file_tree p-5">
+                                <div class="card kk_file_tree ">
+                                    <div class="card-header">
+                                        <div class="d-flex align-items-center">
+                                            <h4 class="card-title">Catalog</h4>
+                                           
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
                                     <div class="row" style="height: 100vH;">
                                         <div class="col-md-3" style="border-right: 1px solid lightgrey;">
+                                           
+                                            <div class="form-group">
+                                                <select class="form-control" id="exampleFormControlSelect1">
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                </select>
+                                            </div>
                                          <div id="files" class="jstree jstree-1 jstree-default" role="tree" aria-multiselectable="true" tabindex="0" aria-activedescendant="j1_5"
                                                          aria-busy="false">
 
@@ -150,6 +169,7 @@
                                         
                                         </div>
                                     </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -172,7 +192,9 @@
     <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
     <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+        integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+        crossorigin="anonymous"></script>
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
     <script>
@@ -289,7 +311,22 @@
         });
 
     </script>
+<script>
+    function formatState(state) {
+            if (!state.id) {
+                return state.text;
+            }
+            var baseUrl = "/user/pages/images/flags";
+            var $state = $(
+                '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+            );
+            return $state;
+        };
 
+        $("#exampleFormControlSelect1").select2({
+            
+        });
+</script>
 </body>
 
 </html>
