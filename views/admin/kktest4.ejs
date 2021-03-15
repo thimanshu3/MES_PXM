@@ -84,11 +84,9 @@
                                            
                                             <div class="form-group">
                                                 <select class="form-control" id="exampleFormControlSelect1">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                    <% catalogues.forEach(catalog => { %>
+                                                        <option value="<%= catalog.id %>"><%=catalog.name  %> </option>    
+                                                    <%   }); %> 
                                                 </select>
                                             </div>
                                          <div id="files" class="jstree jstree-1 jstree-default" role="tree" aria-multiselectable="true" tabindex="0" aria-activedescendant="j1_5"
@@ -277,7 +275,7 @@
 
             $('#files').jstree({
                 'core': {
-                    'data': list_to_tree(<%- JSON.stringify(catalogue) %>),
+                    'data': list_to_tree(),
                     
                     check_callback: true,
                     themes: {
