@@ -172,14 +172,21 @@
                                                 </div>
                                             </div>
                                             <div class="card">
-                                                <div class="card-header">Field Items</div>
+                                                <div class="card-header d-flex justify-content-between">
+                                                    <div class="title">
+                                                        Field Items
+                                                    </div>
+                                                    <button id="assignSelectedFields" class="btn btn-sm btn-primary">
+                                                        Assign Fields
+                                                    </button>
+                                                </div>
                                                 <div class="card-body">
                                                     <div class="selectgroup selectgroup-pills">
                                                         <div class="scroll-area-lg">
                                                             <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
                                                                 <% data.itemFields.forEach((item,i)=> { %>
                                                                     <label class="selectgroup-item m-2">
-                                                                        <input type="checkbox" name="itemfields" id="" value="<%=item.id  %> " class="selectgroup-input fclass">
+                                                                        <input type="checkbox" name="itemfields" id="" value="<%=item.id %>" class="selectgroup-input fclass">
                                                                         <span class="selectgroup-button">
                                                                             <%=item.label %>
                                                                         </span>
@@ -246,14 +253,23 @@
                 assignFieldsAndGroups(component, data)
         });
 
+        document.getElementById("assignSelectedFields").addEventListener("click", function () {
+                let component = $("input[name='component']:checked").val()
+                let data = []
+                $('input[name="itemfields"]:checked').each(function () {
+                data.push(this.value)
+            });
+                assignFieldsAndGroups(component, data)
+        });
+
 
         const assignFieldsAndGroups = (componentId, fields) =>{
             var value = componentId
             let data = fields
-            console.log(typeof value," : ",data);
             const newForm = getValues(parseForm, '_id', value, data)
+            newForm.allFields.push(...fields)
             console.log("New Form: ",newForm);
-            fetch(`/admin/customform/${parseForm.formId}/fieldmap/assign`, {
+            fetch(`/admin/customform/${parseForm.formId}/fieldmap/assignaa`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -266,7 +282,6 @@
                     return res.json()
                 })
                 .then(function (json) {
-                    console.log(json)
                     if (json.status == 200)
                         iziToast.success({
                             message: json.message
