@@ -32,6 +32,8 @@ router.use('/importrawdata',require('./importRawData'))
 
 router.use('/catalog', require('./Catalogue'))
 
+router.use('/cataloghierarchy', require('./CatalogHierarchy'))
+
 router.use('/kktest',async (req, res) => {
 res.render('admin/kktest', { User: req.user })
 })

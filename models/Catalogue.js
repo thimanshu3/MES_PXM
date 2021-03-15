@@ -4,10 +4,14 @@ const { MySql } = require('../db')
 
 const Catalogue = MySql.define('Catalogue', {
     id: {
-        type: DataTypes.UUID,
+        type: Sequelize.INTEGER,
         unique: true,
-        defaultValue: Sequelize.UUIDV4,
+        autoIncrement:true,
         primaryKey: true,
+    },
+    catalogueHierarchy:{
+        type: DataTypes.STRING,
+        allowNull:false
     },
     text: {
         type: DataTypes.STRING,
@@ -33,7 +37,7 @@ const Catalogue = MySql.define('Catalogue', {
 
 module.exports = Catalogue
 
-// Catlogue
+// Catalogue
 //     .sync({ force: process.env.NODE_ENV === 'production' ? false : true })
 //     .then(() => {
 //        console.log('sync completed')
