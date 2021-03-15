@@ -18,11 +18,6 @@ const form = MySql.define('form', {
         type: DataTypes.STRING(500),
         allowNull: true
     },
-    content: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-        defaultValue: ''
-    },
     createdBy: {
         type: DataTypes.STRING,
         allowNull: false

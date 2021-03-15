@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
             timestamp: new Date()
         })
         req.flash('success', `${customForm.name} Added Successfully!`)
-        res.redirect('/admin/customform')
+        res.redirect(`/admin/customform/${customForm.id}`)
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         if (err.name === 'SequelizeUniqueConstraintError')
@@ -147,6 +147,7 @@ router.get('/:id/form', async (req, res) => {
     try {
         let layout = await FormDesign.findOne({ formId: req.params.id })
         layout = layout.toObject()
+
           await Promise.all(layout.componets.map(async component => {
             await Promise.all(component.subComponents.map(async subComponent => {
                 if (subComponent.type == 'sec') {
