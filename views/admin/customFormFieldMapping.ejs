@@ -269,7 +269,7 @@
             const newForm = getValues(parseForm, '_id', value, data)
             newForm.allFields.push(...fields)
             console.log("New Form: ",newForm);
-            fetch(`/admin/customform/${parseForm.formId}/fieldmap/assignaa`, {
+            fetch(`/admin/customform/${parseForm.formId}/fieldmap/assign`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
