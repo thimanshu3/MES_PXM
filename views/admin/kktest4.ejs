@@ -43,24 +43,111 @@
                 <%-include('../partials/sidebar.ejs')%>
                     <!-- End Sidebar -->
 
-                    <div class="main-panel kk_product_page">
+                    <div class="main-panel ">
                         <div class="content">
                             <div class="page-inner">
+                                    <div class="page-header">
+                                    
+                                        <ul class="breadcrumbs">
+                                            <li class="nav-home">
+                                                <a href="/admin/dashboard">
+                                                    <i class="flaticon-home"></i>
+                                                </a>
+                                            </li>
+                                            <li class="separator">
+                                                <i class="flaticon-right-arrow"></i>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#">List Record</a>
+                                            </li>
+                                            <li class="separator">
+                                                <i class="flaticon-right-arrow"></i>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#">Add New List Records</a>
+                                            </li>
+                                        </ul>
+                                    </div>
 
-                                <div class="container-fluid ">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    <div class="card-title">Top Products</div>
-                                                </div>
-                                                <div class="card-body pb-0">
-                                                    <div id="files" class="jstree jstree-1 jstree-default" role="tree" aria-multiselectable="true" tabindex="0" aria-activedescendant="j1_5"
+                                <div class="card kk_file_tree p-5">
+                                    <div class="row" style="height: 100vH;">
+                                        <div class="col-md-3" style="border-right: 1px solid lightgrey;">
+                                         <div id="files" class="jstree jstree-1 jstree-default" role="tree" aria-multiselectable="true" tabindex="0" aria-activedescendant="j1_5"
                                                          aria-busy="false">
 
                                                     </div>
+                                              
+                                        </div>
+
+                                        <div class="col-md-9">
+                                       <ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
+                                                <li class="nav-item submenu">
+                                                    <a class="nav-link active show" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+                                                        aria-controls="pills-home" aria-selected="true">Properties</a>
+                                                </li>
+                                                <li class="nav-item submenu">
+                                                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+                                                        aria-controls="pills-profile" aria-selected="false">History</a>
+                                                </li>
+                                              
+                                            </ul>
+                                            <div class="tab-content mt-2 mb-3" id="pills-tabContent">
+                                                <div class="tab-pane fade active show" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                                <div class="card-title mt-3">General Properties</div>
+                                                <hr  style="margin-top: 0.4rem;">
+                                        <div class="form-group">
+                                            <label for="disableinput">Code (required)</label>
+                                            <input type="text" class="form-control" id="disableinput" placeholder="Enter Input" disabled="">
+                                        </div>
+
+                                        <div class="card-title mt-3">Node Values</div>
+                                        <hr style="margin-top: 0.4rem;">
                                                 </div>
+                                                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                                   <table class="table table-condensed" id="myTable">
+                                                        <thead>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th>Version</th>
+                                                                <th>Author</th>
+                                                                <th>Logged At</th>
+                                                              
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="panel">
+                                                            <tr data-toggle="collapse" data-target="#demo1" data-parent="#myTable">
+                                                                <td><i class="fas fa-chevron-circle-right"></i></td>
+                                                                <td>1</td>
+                                                                <td>Credit Account</td>
+                                                                <td>05 May 2013</td>
+                                                             
+                                                            
+                                                            </tr>
+                                                            <tr id="demo1" class="collapse">
+                                                                <td colspan="6" class="hiddenRow">
+                                                                    <div>Demo1</div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr data-toggle="collapse" data-target="#demo2" data-parent="#myTable">
+                                                                <td><i class="fas fa-chevron-circle-right"></i></td>
+                                                                <td>2</td>
+                                                                <td>Credit Account</td>
+                                                                <td>05 May 2013</td>
+                                                              
+                                                            
+                                                            </tr>
+                                                            <tr id="demo2" class="collapse">
+                                                                <td colspan="6" class="hiddenRow">
+                                                                    <div>Demo2</div>
+                                                                </td>
+                                                            </tr>
+                                                        
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                           
                                             </div>
+                                        
                                         </div>
                                     </div>
                                 </div>

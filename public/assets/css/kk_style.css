@@ -1049,7 +1049,16 @@ a:hover{color:#0056b3;text-decoration:underline;}
 a:not(.btn){text-decoration:underline;}
 }
 [class*=" ti-"]{font-family:themify;speak:none;font-style:normal;font-weight:400;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
-.ti-folder:before{content:"\e639";}
+.ti-folder:before{    font-family: Flaticon;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    line-height: 1;
+    text-decoration: inherit;
+    text-rendering: optimizeLegibility;
+    text-transform: none;
+    content: "\f145";
+  }
 /*! CSS Used from: http://filedash.laborasyon.com/vendors/jstree/themes/default/style.min.css */
 .jstree-node,.jstree-children,.jstree-container-ul{display:block;margin:0;padding:0;list-style-type:none;list-style-image:none;}
 .jstree-node{white-space:nowrap;}
@@ -1092,3 +1101,16 @@ a:not(.active.list-group-item),a:not(.btn):hover,a:not(.btn):active,a:not(.btn):
 .jstree-default .jstree-node{margin-top:10px;margin-bottom:10px;}
 /*! CSS Used fontfaces */
 @font-face{font-family:themify;src:url(http://filedash.laborasyon.com/fonts/themify.eot);src:url(http://filedash.laborasyon.com/fonts/themify.eot#iefix) format('embedded-opentype'),url(http://filedash.laborasyon.com/fonts/themify.woff) format('woff'),url(http://filedash.laborasyon.com/fonts/themify.ttf) format('truetype'),url(http://filedash.laborasyon.com/fonts/themify.svg) format('svg');font-weight:400;font-style:normal;}
+
+
+.navbar-nav.topbar-nav .switch{
+  display: none;
+}
+
+.navbar-nav.topbar-nav #notifDropdown{
+  display: none;
+}
+
+.kk_file_tree{
+  height: 80vh;
+}
