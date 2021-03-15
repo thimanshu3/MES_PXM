@@ -1049,7 +1049,16 @@ a:hover{color:#0056b3;text-decoration:underline;}
 a:not(.btn){text-decoration:underline;}
 }
 [class*=" ti-"]{font-family:themify;speak:none;font-style:normal;font-weight:400;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
-.ti-folder:before{content:"\e639";}
+.ti-folder:before{    font-family: Flaticon;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    line-height: 1;
+    text-decoration: inherit;
+    text-rendering: optimizeLegibility;
+    text-transform: none;
+    content: "\f145";
+  }
 /*! CSS Used from: http://filedash.laborasyon.com/vendors/jstree/themes/default/style.min.css */
 .jstree-node,.jstree-children,.jstree-container-ul{display:block;margin:0;padding:0;list-style-type:none;list-style-image:none;}
 .jstree-node{white-space:nowrap;}
