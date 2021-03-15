@@ -67,7 +67,7 @@ const FormSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    allFields: [],
+    allFields: { type: Array, "default": [] },
     componets: [ComponentSchema],
 }, {
     timestamps: true
