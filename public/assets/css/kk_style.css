@@ -1101,3 +1101,16 @@ a:not(.active.list-group-item),a:not(.btn):hover,a:not(.btn):active,a:not(.btn):
 .jstree-default .jstree-node{margin-top:10px;margin-bottom:10px;}
 /*! CSS Used fontfaces */
 @font-face{font-family:themify;src:url(http://filedash.laborasyon.com/fonts/themify.eot);src:url(http://filedash.laborasyon.com/fonts/themify.eot#iefix) format('embedded-opentype'),url(http://filedash.laborasyon.com/fonts/themify.woff) format('woff'),url(http://filedash.laborasyon.com/fonts/themify.ttf) format('truetype'),url(http://filedash.laborasyon.com/fonts/themify.svg) format('svg');font-weight:400;font-style:normal;}
+
+
+.navbar-nav.topbar-nav .switch{
+  display: none;
+}
+
+.navbar-nav.topbar-nav #notifDropdown{
+  display: none;
+}
+
+.kk_file_tree{
+  height: 80vh;
+}
