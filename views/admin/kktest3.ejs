@@ -51,46 +51,6 @@
                                         <a href="/admin/customform/<%= layout.formId%>/fieldmap"
                                             class="btn btn-info">Edit Fieldset</a>
                                     </div>
-                                    <!-- <div class="row ">
-<div class="col-md-12">
-<section class="pad-40">
-<div class="level_1_header">
-Level 1
-</div>
-
-<section class="pad-40">
-<div class="level_2_header">
-Level 2
-</div>
-</section>
-</section>
-
-<section class="pad-40">
-<div class="level_1_header">
-Level 1
-</div>
-
-<section class="pad-40">
-<div class="level_2_header">
-Level 2
-</div>
-
-<section class="pad-40">
-<div class="level_3_header">
-Level 3
-</div>
-
-<section class="pad-40">
-<div class="level_4_header">
-
-</div>
-</section>
-</section>
-</section>
-</section>
-
-</div>
-</div> -->
                                     <% const inputs=['text' , 'number' , 'email' , 'tel' ] %>
                                         <% layout.componets.forEach(component=>{ %>
                                             <% if(component.type=='sec' ){ %>
@@ -237,7 +197,7 @@ Level 3
                                                                 </section>
                                                                 <% } %>
 
-                                                                    <% }) %>
+                                                        <% }) %>
                                                 </section>
                                                 <% } %>
                                                     <% if(component.type=='tab' ){ %>

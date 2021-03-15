@@ -75,11 +75,14 @@
                                          <div id="files" class="jstree jstree-1 jstree-default" role="tree" aria-multiselectable="true" tabindex="0" aria-activedescendant="j1_5"
                                                          aria-busy="false">
 
-                                                    </div>
-                                              
+                                                    </div>  
                                         </div>
 
                                         <div class="col-md-9">
+                                            <button class="btn btn-primary btn-round ml-auto position-absolute " data-toggle="modal" data-target="#myModal" style="right: 0;">
+                                                <i class="fa fa-plus"></i>
+                                                Add New Catalog
+                                            </button>
                                        <ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
                                                 <li class="nav-item submenu">
                                                     <a class="nav-link active show" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
@@ -154,8 +157,43 @@
                             </div>
                         </div>
                         <%-include('../partials/footer.ejs')%>
+      
+
+                <div class="modal fade kk_modal_popup_form" id="myModal" style="display: none;" aria-hidden="true" data-keyboard="false"
+                    data-backdrop="static">
+                    <div class="modal-dialog ">
+                        <div class="modal-content">
+                
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add New Catalog</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <form action="/admin/cataloghierarchy" method="POST">
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                
+                                    <div class="form-group">
+                                        <label for="disableinput">Catalog Name (required)</label>
+                                        <input name="name" type="text" class="form-control" id="disableinput" placeholder="Enter Input">
+                                    </div>
+                                </div>
+                
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
+                </div>
+                   
+                    </div>
+
     </div>
+
+    
     <!--   Core JS Files   -->
 
     <!-- jQuery library -->
