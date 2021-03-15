@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Infeenity Dashboard</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/atlantis.min.css">
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="/assets/css/demo.css">
+    <link rel="stylesheet" href="/assets/css/kk_style.css">
+    <link rel="stylesheet" href="/assets/css/iziToast.min.css">
+
+    <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+        WebFont.load({
+            google: { "families": ["Lato:300,400,700,900"] },
+            custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css'] },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+
+
+<style>
+
+/*******************************
+* MODAL AS LEFT/RIGHT SIDEBAR
+* Add "left" or "right" in modal parent div, after class="modal".
+* Get free snippets on bootpen.com
+*******************************/
+	.modal.left .modal-dialog,
+	.modal.right .modal-dialog {
+		position: fixed;
+		margin: auto;
+		width: 600px;
+		height: 100%;
+		-webkit-transform: translate3d(0%, 0, 0) !important;
+		    -ms-transform: translate3d(0%, 0, 0) !important;
+		     -o-transform: translate3d(0%, 0, 0) !important;
+		        transform: translate3d(0%, 0, 0) !important;
+	}
+
+	.modal.left .modal-content,
+	.modal.right .modal-content {
+		height: 100%;
+		overflow-y: auto;
+	}
+	
+	.modal.left .modal-body,
+	.modal.right .modal-body {
+		padding: 15px 15px 80px;
+	}
+
+        
+/*Right*/
+	.modal.right.fade .modal-dialog {
+		right: 0px;
+		-webkit-transition: opacity 0.3s linear, right 0.3s ease-out !important;
+		   -moz-transition: opacity 0.3s linear, right 0.3s ease-out !important;
+		     -o-transition: opacity 0.3s linear, right 0.3s ease-out !important;
+		        transition: opacity 0.3s linear, right 0.3s ease-out !important;
+	}
+	
+	.modal.right.fade.in .modal-dialog {
+		right: 0;
+	}
+
+/* ----- MODAL STYLE ----- */
+	.modal-content {
+		border-radius: 0;
+		border: none;
+	}
+
+	.modal-header {
+		border-bottom-color: #EEEEEE;
+		background-color: #FAFAFA;
+	}
+
+</style>
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <%-include('../partials/config')%>
+
+            <!-- header -->
+            <%-include('../partials/header.ejs')%>
+                <!-- header end -->
+
+                <!-- Sidebar -->
+                <%-include('../partials/sidebar.ejs')%>
+                    <!-- End Sidebar -->
+
+                    <div class="main-panel">
+                        <div class="content">
+                            <div class="page-inner">
+                                <div class="page-header">
+
+                                    <ul class="breadcrumbs">
+                                        <li class="nav-home">
+                                            <a href="/admin/dashboard">
+                                                <i class="flaticon-home"></i>
+                                            </a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">System</a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">User Managment</a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">Users</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="container-fluid ">
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                                    <button type="button" class="btn btn-demo" data-toggle="modal" data-target="#myModal2">
+                                                        Right Sidebar Modal
+                                                    </button>
+
+
+                                                    <div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                    
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                                            aria-hidden="true">&times;</span></button>
+                                                                    <h4 class="modal-title" id="myModalLabel2">Right Sidebar</h4>
+                                                                </div>
+                                                    
+                                                                <div class="modal-body">
+                                                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                                                                        wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                                                                        eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                                                                        assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+                                                                        sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                                                                        farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                                                                        labore sustainable VHS.
+                                                                    </p>
+                                                                </div>
+                                                    
+                                                            </div><!-- modal-content -->
+                                                        </div><!-- modal-dialog -->
+                                                    </div><!-- modal -->
+
+
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <%-include('../partials/footer.ejs')%>
+                    </div>
+
+
+
+    </div>
+    <!--   Core JS Files   -->
+
+    <!-- jQuery library -->
+    <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="/assets/js/core/bootstrap.js"></script>
+    <!-- Popper JS -->
+    <script src="/assets/js/core/popper.min.js"></script>
+    <!-- Atlantis JS -->
+    <script src="/assets/js/atlantis.min.js"></script>
+    <script src="/assets/js/iziToast.js"></script>
+    <script src="/assets/js/flashMessage.js"></script>
+    <!-- jQuery UI -->
+    <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+        <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+
+</body>
+
+</html>
