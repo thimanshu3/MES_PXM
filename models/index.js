@@ -22,8 +22,10 @@ module.exports = {
     form: require('./form'),
     formParts: require('./formParts'),
     formConfig: require('./formConfig'),
+    productMetaData: require('./productMeta'),
     //mongo Models
     ActivityLog: require('./ActivityLogModel'),
     FormDesign:require('./FormDataModel')
+
 
 }
