@@ -145,9 +145,6 @@ router.delete('/:id', async (req, res) => {
     if (!foundList)
         return res.status(404).json({ message: 'List Not Found!' })
 
-    // if (foundList.role === 0)
-    //     return res.status(400).json({ message: 'Cannot Deactive Admin' })
-
     foundList.active = !foundList.active
     await foundList.save()
 
@@ -188,9 +185,6 @@ router.delete('/value/:id', async (req, res) => {
 
     if (!foundListValue)
         return res.status(404).json({ message: 'Value Not Found!' })
-
-    // if (foundList.role === 0)
-    //     return res.status(400).json({ message: 'Cannot Deactive Admin' })
 
     foundListValue.active = !foundListValue.active
     await foundListValue.save()

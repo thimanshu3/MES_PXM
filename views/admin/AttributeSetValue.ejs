@@ -275,11 +275,6 @@
 
     <script>
         function addListValue() {
-            console.log(window.location.pathname);
-            //str = window.location.pathname.split('/')
-            //console.log(str);
-            //str = str[1]+'/attributesetValue/'+str[3]
-            //console.log(str);
             addValue(window.location.pathname+'/add', 'POST')
         }
 
@@ -291,46 +286,6 @@
         }
 
             $('#add-row').dataTable()
-
-const editthis = (id) => {
-            console.log(id)
-        }
-
-        const deleteThis = (id) => {
-            iziToast.question({
-                overlay: true,
-                toastOnce: true,
-                id: 'question',
-                title: 'Hey',
-                message: 'Are you sure?',
-                position: 'center',
-                buttons: [
-                    ['<button><b>YES</b></button>', function (instance, toast) {
-                        fetch(`/admin/attributesetValue/remove/${id}`, {
-                            method: 'DELETE',
-                        })
-                            .then(res => res.json())
-                            .then(json => {
-                                if (json.status == 200) {
-                                    location.reload(true);
-                                }
-                                else {
-                                    iziToast.error({
-                                        message: json.message || 'Something Went Wrong!'
-                                    })
-                                }
-
-                            })
-                        instance.hide({ transitionOut: 'fadeOut' }, toast)
-                    }, true],
-                    ['<button>NO</button>', function (instance, toast) {
-                        instance.hide({ transitionOut: 'fadeOut' }, toast);
-                    }]
-                ]
-            });
-        }
-
-
 
     </script>
 </body>
