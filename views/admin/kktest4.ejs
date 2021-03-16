@@ -83,7 +83,12 @@
                                         <div class="col-md-3" style="border-right: 1px solid lightgrey;">
                                            
                                             <div class="form-group">
-                                              
+                                                <select name="catalogs" id="cataloghierarchy">
+                                                    <% catalogues.forEach(element => { %> 
+                                                        
+                                                        <option value="<%=element.id  %>" <%= element.name == 'master'? 'selected' : '' %> ><%=element.name %></option>
+                                                    <% }); %> 
+                                                </select>
                                             </div>
                                          <div id="files" class="jstree jstree-1 jstree-default" role="tree" aria-multiselectable="true" tabindex="0" aria-activedescendant="j1_5"
                                                          aria-busy="false">
@@ -267,12 +272,26 @@
         }
 
         $(function () {
+             $('#cataloghierarchy').select2();
+        });
 
+    </script>
+<script>
+    function formatState(state) {
+            if (!state.id) {
+                return state.text;
+            }
+            var baseUrl = "/user/pages/images/flags";
+            var $state = $(
+                '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+            );
+            return $state;
+        };
 
-            $('#files').jstree({
+        const initializeCatalog = (data) =>{
+             $('#files').jstree({
                 'core': {
-                    'data': list_to_tree(<%- JSON.stringify(a)%>),
-                    
+                    data,
                     check_callback: true,
                     themes: {
                         dots: false,
@@ -289,25 +308,44 @@
                         "icon": "ti-file",
                     }
                 },
-                plugins: ["types", 'state', 'contextmenu', 'checkbox']
+                plugins: ["types", 'state', 'contextmenu', ]
             })
-                .on('create_node.jstree', function (e, data) {
-                    console.log(data)
-                    $.get('', { 'id': data.node.parent, 'position': data.position, 'text': data.node.text })
-                        .done(function (d) {
-                            data.instance.set_id(data.node, d.id);
-                        })
-                        .fail(function () {
-                            data.instance.refresh();
-                        });
-                }).on('rename_node.jstree', function (e, data) {
+            .on("create_node.jstree", function (event, data) {
+                     console.log(data , 'create vala');
+                        fetch(`/admin/catalog`, {
+                             method: 'POST',
+                             headers: {
+                                 'Content-Type': 'application/json'
+                             },
+                             body: JSON.stringify({
+                                 text: data.node.text,
+                                 parentId: data.node.parent,
+                                 catalogueHierarchy: $('#cataloghierarchy').find(":selected").val()
+
+                             })
+                         })
+                             .then(res => res.json())
+                             .then(json => {
+                                 if (json.status == 200) {
+                                     location.reload(true);
+                                 }
+                                 else {
+                                     iziToast.error({
+                                         message: json.message || 'Something Went Wrong!'
+                                     })
+                                 }
+
+                             }).catch(err => console.log(err))
+                 })
+                .on('rename_node.jstree', function (e, data) {
+                    console.log('update vala ' , data);
                     fetch(`/admin/catalog/update/${data.node.id}`, {
                         method: 'PATCH',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            text : data.node.text
+                            text: data.node.text
                         })
                     })
                         .then(res => res.json())
@@ -339,25 +377,26 @@
 
                         }).catch(err => console.log(err))
                 });
+        }
 
+      $('#cataloghierarchy').on('select2:select', function (e) {
+            var id = e.params.data.id;
+              fetch(`/admin/catalog/${id}`)
+              .then(res => res.json())
+              .then(json => {
+                  if (json.status == 200) {
+                        const data =  list_to_tree(json.catalog)
+                        initializeCatalog(data)
+                  }
+                  else {
+                      iziToast.error({
+                          message: json.message || 'Something Went Wrong!'
+                      })
+                  }
+
+              })
         });
 
-    </script>
-<script>
-    function formatState(state) {
-            if (!state.id) {
-                return state.text;
-            }
-            var baseUrl = "/user/pages/images/flags";
-            var $state = $(
-                '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
-            );
-            return $state;
-        };
-
-        $("#exampleFormControlSelect1").select2({
-            
-        });
 </script>
 </body>
 
