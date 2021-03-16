@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Infeenity Dashboard</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/atlantis.min.css">
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="/assets/css/demo.css">
+    <link rel="stylesheet" href="/assets/css/kk_style.css">
+    <link rel="stylesheet" href="/assets/css/iziToast.min.css">
+
+    <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+        WebFont.load({
+            google: { "families": ["Lato:300,400,700,900"] },
+            custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css'] },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+
+    <style>
+        .progress {
+    height: 3px;
+}
+.step-wizard {
+  display: inline-block;
+  position: relative;
+  width: 85%;
+}
+.step-wizard .progress {
+     position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 75%;
+}
+.step-wizard .progressbar {
+  position: absolute;
+  background-color: #3b5343;
+  opacity: 1;
+  height: 3px;
+  width: 0%;
+  -webkit-transition: width 0.6s ease;
+  -o-transition: width 0.6s ease;
+  transition: width 0.6s ease;
+}
+.step-wizard .progressbar.empty {
+  opacity: 1;
+  width: 100%;
+  background-color: #d0d0d0;
+}
+.step-wizard ul {
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    justify-content: space-between;
+    display: flex;
+}
+.step-wizard li {
+  display: inline-block;
+  text-align: center;
+  width: 24%;
+}
+.step-wizard li .step {
+  text-align: center;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 30px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 3px solid;
+  border-color: #d0d0d0;
+  background: #ffffff;
+  -webkit-transition: background-color 0.6s ease, border-color 0.6s ease;
+  -o-transition: background-color 0.6s ease, border-color 0.6s ease;
+  transition: background-color 0.6s ease, border-color 0.6s ease;
+}
+.step-wizard li .title {
+  text-decoration: underline;
+  width: 100%;
+  padding-top: 10px;
+  color: #767676;
+  -webkit-transition: color 0.6s ease;
+  -o-transition: color 0.6s ease;
+  transition: color 0.6s ease;
+}
+.step-wizard li.active .step {
+  border-color: #3b5343;
+  color: #3b5343;
+}
+.step-wizard li.active .title {
+  text-decoration: none;
+  color: #3b5343;
+  font-weight: bold;
+}
+.step-wizard li.done .title {
+  color: #3b5343;
+}
+.step-wizard li.done .title:hover {
+  color: #3b5343;
+}
+.step-wizard li.done .step {
+  color: white;
+  background-color: #3b5343;
+  border-color: #3b5343;
+}
+.step-wizard li > button {
+  background: none;
+  border: none;
+  display: block;
+  width: 100%;
+  color: #777;
+  position: relative;
+  text-align: center;
+}
+.step-wizard li > button:hover .step {
+  border-color: #3b5343;
+  background: #eee;
+  color: #3b5343;
+}
+.step-wizard li > button:hover .title {
+  color: #3b5343;
+}
+@media only screen and (max-width: 1200px) {
+  .step-wizard li {
+    width: 24%;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .step-wizard li {
+    width: 22%;
+  }
+}
+li.done button div.step {
+  font-size: 0;
+}
+li.done button div.step::before {
+  content: "\2713 ";
+  font-size: 18px;
+}
+
+        </style>
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <%-include('../partials/config')%>
+
+            <!-- header -->
+            <%-include('../partials/header.ejs')%>
+                <!-- header end -->
+
+                <!-- Sidebar -->
+                <%-include('../partials/sidebar.ejs')%>
+                    <!-- End Sidebar -->
+
+                    <div class="main-panel">
+                        <div class="content">
+                            <div class="page-inner">
+                                <div class="page-header">
+
+                                    <ul class="breadcrumbs">
+                                        <li class="nav-home">
+                                            <a href="/admin/dashboard">
+                                                <i class="flaticon-home"></i>
+                                            </a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">System</a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">User Managment</a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">Users</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="container-fluid ">
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            
+                                            <div class="card kk_full_form">
+                                                <div class="card-header text-center">
+                                                        <div class="step-wizard" role="navigation">
+                                                                    <div class="progress">
+                                                                        <div class="progressbar empty"></div>
+                                                                        <div id="prog" class="progressbar"></div>
+                                                                    </div>
+                                                                    <ul>
+                                                                        <li class="active">
+                                                                            <button id="step1">
+                                                                                <div class="step">1</div>
+                                                                            
+                                                                            </button>
+                                                                        </li>
+                                                                        <li class="">
+                                                                            <button id="step2">
+                                                                                <div class="step">2</div>
+                                                                              
+                                                                            </button>
+                                                                        </li>
+                                                                        <li class="">
+                                                                            <button id="step3">
+                                                                                <div class="step">3</div>
+                                                                               
+                                                                            </button>
+                                                                        </li>
+                                                        
+                                                                    </ul>
+                                                                </div>
+                                                        
+
+                                                   
+                                                </div>
+                                                <form action="/admin/addUser" method="POST">
+                                            
+                                                    <div class="card-body">
+                                                           
+                                                        <div class="row">
+                                            
+                                                            <div class="col-4">
+                                            
+                                                            <div class="form-group w-100">
+                                                                <label for="exampleFormControlSelect1">Select</label>
+                                                                <select class="form-control" id="exampleFormControlSelect1">
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                    <option>4</option>
+                                                                    <option>5</option>
+                                                                </select>
+                                                            </div>
+                                            
+                                                            </div>
+
+                                                            <div class="col-4">
+                                                            <div class="form-group w-100">
+                                                                <label for="exampleFormControlSelect1">Hierarchy</label>
+                                                                <select class="form-control" id="exampleFormControlSelect1">
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                    <option>4</option>
+                                                                    <option>5</option>
+                                                                </select>
+                                                            </div>
+                                                            </div>
+
+                                                            <div class="col-4">
+                                                            <div class="form-group w-100">
+                                                                <label class="form-label d-block">Choose Type</label>
+                                                                <div class="selectgroup selectgroup-pills">
+                                                                    <label class="selectgroup-item">
+                                                                        <input type="select" name="value" value="HTML" class="selectgroup-input" checked="">
+                                                                        <span class="selectgroup-button">HTML</span>
+                                                                    </label>
+                                                                    <label class="selectgroup-item">
+                                                                        <input type="select" name="value" value="CSS" class="selectgroup-input">
+                                                                        <span class="selectgroup-button">CSS</span>
+                                                                    </label>
+                                                                 
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            </div>
+
+
+
+
+
+                                                        </div>
+                                                        <div class="card-footer d-flex justify-content-end">
+                                                            <button type="submit" class="btn  mr-3">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <%-include('../partials/footer.ejs')%>
+                    </div>
+
+
+
+    </div>
+    <!--   Core JS Files   -->
+
+    <!-- jQuery library -->
+    <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="/assets/js/core/bootstrap.js"></script>
+    <!-- Popper JS -->
+    <script src="/assets/js/core/popper.min.js"></script>
+    <!-- Atlantis JS -->
+    <script src="/assets/js/atlantis.min.js"></script>
+    <script src="/assets/js/iziToast.js"></script>
+    <script src="/assets/js/flashMessage.js"></script>
+    <!-- jQuery UI -->
+    <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+        <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+
+</body>
+
+</html>
