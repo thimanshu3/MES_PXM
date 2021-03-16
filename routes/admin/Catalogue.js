@@ -9,10 +9,9 @@ const router = express.Router()
 
 router.get('/', async (req, res) => {
     try {
-        // const catalogues = await CatalogueHierarchy.findAll() 
-        const a = await Catalogue.findAll()    
-        console.log(a)   
-        res.render('admin/kktest4', { User: req.user, formatDateMoment,a })
+        const catalogues = await CatalogueHierarchy.findAll() 
+          
+        res.render('admin/kktest4', { User: req.user, formatDateMoment, catalogues })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         req.flash('error', 'Something Went Wrong!')
@@ -22,13 +21,16 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const catalog = await Catalogue.findAll({where: {CatalogueHierarchy: req.params.id}})
-        res.render('admin/kktest4', { User: req.user, catalog, formatDateMoment })
+        res.json({ status: 200, catalog})
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         req.flash('error', 'Something Went Wrong!')
         res.redirect('/')
     }
 })
+
+
+
 
 router.post('/', async (req,res) =>{
     try{
