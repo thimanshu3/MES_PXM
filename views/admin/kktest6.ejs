@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="/assets/css/demo.css">
     <link rel="stylesheet" href="/assets/css/kk_style.css">
     <link rel="stylesheet" href="/assets/css/iziToast.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+        integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
+        crossorigin="anonymous" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 
     <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
@@ -204,95 +208,100 @@ li.done button div.step::before {
                                         <div class="col-md-12">
 
                                             
-                                            <div class="card kk_full_form">
+                                            <div class="card kk_full_form" >
                                                 <div class="card-header text-center">
                                                         <div class="step-wizard" role="navigation">
-                                                                    <div class="progress">
-                                                                        <div class="progressbar empty"></div>
-                                                                        <div id="prog" class="progressbar"></div>
-                                                                    </div>
-                                                                    <ul>
-                                                                        <li class="active">
-                                                                            <button id="step1">
-                                                                                <div class="step">1</div>
-                                                                            
-                                                                            </button>
-                                                                        </li>
-                                                                        <li class="">
-                                                                            <button id="step2">
-                                                                                <div class="step">2</div>
-                                                                              
-                                                                            </button>
-                                                                        </li>
-                                                                        <li class="">
-                                                                            <button id="step3">
-                                                                                <div class="step">3</div>
-                                                                               
-                                                                            </button>
-                                                                        </li>
-                                                        
-                                                                    </ul>
-                                                                </div>
+                                                        <div class="progress">
+                                                            <div class="progressbar empty"></div>
+                                                            <div id="prog" class="progressbar"></div>
+                                                        </div>
+                                                        <ul>
+                                                            <li id="1" class="active">
+                                                                <button id="step1">
+                                                                    <div class="step">1</div>
+                                                                
+                                                                </button>
+                                                            </li>
+                                                            <li id="2" class="">
+                                                                <button id="step2">
+                                                                    <div class="step">2</div>
+                                                                    
+                                                                </button>
+                                                            </li>
+                                                            <li id="3" class="">
+                                                                <button id="step3">
+                                                                    <div class="step">3</div>
+                                                                    
+                                                                </button>
+                                                            </li>
+                                            
+                                                        </ul>
+                                                    </div>
                                                         
 
                                                    
                                                 </div>
-                                                <form action="/admin/addUser" method="POST">
+                                                <form action="" method="POST">
                                             
                                                     <div class="card-body">
                                                            
-                                                        <div class="row">
+                                                        <div class="row" style="height: 60vh;">
                                             
-                                                            <div class="col-4">
+                                                            <div class="col-4 ">
                                             
                                                             <div class="form-group w-100">
-                                                                <label for="exampleFormControlSelect1">Select</label>
+                                                                <label for="exampleFormControlSelect1">Select Form</label>
                                                                 <select class="form-control" id="exampleFormControlSelect1">
-                                                                    <option>1</option>
-                                                                    <option>2</option>
-                                                                    <option>3</option>
-                                                                    <option>4</option>
-                                                                    <option>5</option>
-                                                                </select>
+                                                                    <option value="" selected disabled>please select form</option>
+                                                                <% forms.forEach(element => { %> 
+                                                        
+                                                                    <option value="<%=element.id  %>" <%= element.name == 'master'? 'selected' : '' %> ><%=element.name %></option>
+                                                                 <% }); %> 
+                                                                </select>   
                                                             </div>
                                             
                                                             </div>
 
-                                                            <div class="col-4">
+                                                            <div class="col-4 " style="border-left:1px solid lightgrey;border-right:1px solid lightgrey">
                                                             <div class="form-group w-100">
-                                                                <label for="exampleFormControlSelect1">Hierarchy</label>
-                                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                                    <option>1</option>
-                                                                    <option>2</option>
-                                                                    <option>3</option>
-                                                                    <option>4</option>
-                                                                    <option>5</option>
+                                                                <label for="cataloghierarchy">Assign Product to Catalog</label>
+                                                                <select class="form-control" id="cataloghierarchy" disabled>
+                                                                     <option value="" selected disabled>please select catalog</option> 
+                                                                    <% catalogues.forEach(element=> { %>
+                                                                    
+                                                                        <option value="<%=element.id  %>" ><%=element.name %>
+                                                                        </option>
+                                                                        <% }); %>
                                                                 </select>
                                                             </div>
+                                                                <div id="files" class="jstree jstree-1 jstree-default" role="tree" aria-multiselectable="true" tabindex="0"
+                                                                    aria-activedescendant="j1_5" aria-busy="false">
+                                                                
+                                                                </div>
                                                             </div>
 
-                                                            <div class="col-4">
+                                                            <div class="col-4 ">
                                                             <div class="form-group w-100">
-                                                                <label class="form-label d-block">Choose Type</label>
+                                                                <label class="form-label d-block">Choose Product Type</label>
                                                                 <div class="selectgroup selectgroup-pills">
                                                                     <label class="selectgroup-item">
-                                                                        <input type="select" name="value" value="HTML" class="selectgroup-input" checked="">
-                                                                        <span class="selectgroup-button">HTML</span>
+                                                                        <input type="radio" name="type" value="HTML" class="selectgroup-input" disabled>
+                                                                        <span class="selectgroup-button">Part</span>
                                                                     </label>
                                                                     <label class="selectgroup-item">
-                                                                        <input type="select" name="value" value="CSS" class="selectgroup-input">
-                                                                        <span class="selectgroup-button">CSS</span>
+                                                                        <input type="radio" name="type" value="CSS" class="selectgroup-input" disabled>
+                                                                        <span class="selectgroup-button">Matirx Product</span>
                                                                     </label>
+                                                                    <label class="selectgroup-item">
+                                                                        <input type="radio" name="type" value="CSS" class="selectgroup-input" disabled>
+                                                                        <span class="selectgroup-button">Single line item</span>
+                                                                    </label>
+                                                                    
                                                                  
                                                                 </div>
                                                             </div>
                                                             
                                                             </div>
-
-
-
-
-
                                                         </div>
                                                         <div class="card-footer d-flex justify-content-end">
                                                             <button type="submit" class="btn  mr-3">Submit</button>
@@ -301,17 +310,9 @@ li.done button div.step::before {
                                                 </form>
                                             
                                             </div>
-
-
-
-
                                         </div>
                                     </div>
 
-
-
-
-                                
 
                                 </div>
                             </div>
@@ -320,9 +321,6 @@ li.done button div.step::before {
                         </div>
                         <%-include('../partials/footer.ejs')%>
                     </div>
-
-
-
     </div>
     <!--   Core JS Files   -->
 
@@ -339,12 +337,106 @@ li.done button div.step::before {
     <!-- jQuery UI -->
     <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-        <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+        integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+        crossorigin="anonymous"></script>
 
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 
+<script>
+    const list_to_tree = (list) => {
+        var map = {}, node = {}, roots = [], i;
+        for (i = 0; i < list.length; i += 1) {
+            map[list[i].id] = i;
+            list[i].children = [];
+        }
 
+        for (i = 0; i < list.length; i += 1) {
+            node = list[i];
+            node.type = 'folder'
+            node.data = {}
+            if (node.parentId !== "0") {
+                list[map[node.parentId]].children.push(node);
+            } else {
+                roots.push(node);
+            }
+        }
+        return roots;
+    }
+
+    $(function () {
+        $('#cataloghierarchy').select2();
+    });
+
+</script>
+<script>
+    const initializeCatalog = (data) => {
+        $('#files').jstree({
+            'core': {
+                data,
+                check_callback: true,
+                themes: {
+                    dots: false,
+                    'name': 'proton',
+                    'responsive': true
+                },
+            },
+
+            "types": {
+                "folder": {
+                    "icon": "ti-folder text-warning",
+                },
+                "file": {
+                    "icon": "ti-file",
+                }
+            },
+            plugins: ["types", 'checkbox']
+        }).on(
+            "select_node.jstree", function (evt, data) {
+                console.log(data)
+                $("input[type=radio]").attr('disabled', false);
+                $('#2').addClass('active')
+                document.getElementById('prog').style.width = '100%'
+            }
+        );
+    }
+
+    $('#cataloghierarchy').on('select2:select', function (e) {
+        var id = e.params.data.id;
+        fetch(`/admin/catalog/${id}`)
+            .then(res => res.json())
+            .then(json => {
+                if (json.status == 200) {
+                    const data = list_to_tree(json.catalog)
+                    initializeCatalog(data)
+                }
+                else {
+                    iziToast.error({
+                        message: json.message || 'Something Went Wrong!'
+                    })
+                }
+
+            })
+    });
+
+    $('#exampleFormControlSelect1').on('change' , function(){
+       console.log($('#exampleFormControlSelect1').find(":selected").val());
+       document.getElementById('prog').style.width = '50%'
+       $('#cataloghierarchy').attr('disabled' , false)
+       
+    })
+    $('input[type=radio][name=type]').change(function () {
+            if (this.value == '') {
+                alert("Allot Thai Gayo Bhai");
+            }
+            else if (this.value == 'transfer') {
+                alert("Transfer Thai Gayo");
+            }
+        });
+</script>
 </body>
 
 </html>

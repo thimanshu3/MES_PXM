@@ -234,19 +234,6 @@
         crossorigin="anonymous"></script>
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-    <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "280px";
-            document.getElementById("overlay").style.display = "initial"
-        }
-
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-            document.getElementById("overlay").style.display = "none"
-        }
-
-
-    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 
@@ -308,7 +295,7 @@
                         "icon": "ti-file",
                     }
                 },
-                plugins: ["types", 'state', 'contextmenu', ]
+                plugins: ["types", 'state', 'contextmenu','checkbox' ]
             })
             .on("create_node.jstree", function (event, data) {
                      console.log(data , 'create vala');
