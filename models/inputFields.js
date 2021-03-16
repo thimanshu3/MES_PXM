@@ -36,6 +36,10 @@ const inputFields = MySql.define('inputFields', {
     active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
+    },
+    isItemField: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
     }
 
 })

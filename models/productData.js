@@ -17,6 +17,14 @@ const productData = MySql.define('productData', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    fieldId:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    fieldValue:{
+        type:DataTypes.STRING(1000),
+        allowNull:false
+    },
     active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
