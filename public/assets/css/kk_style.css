@@ -1123,3 +1123,42 @@ a:not(.active.list-group-item),a:not(.btn):hover,a:not(.btn):active,a:not(.btn):
     border: 1px solid #ccd1d8;
     margin: 15px 0px 15px 25px;
 }
+
+.footer{
+  bottom: -120px;
+}
+
+.main-header .navbar-header {
+    min-height: 62px;
+    background: #eaf2f4 !important;
+    border-bottom: 0px !important;
+}
+
+.page-inner .page-header{
+  display: none;
+}
+
+.breadcrumbs{
+  width: 60%;
+}
+
+
+.navbar[class*=bg-] .nav-search .input-group {
+     border: 1px solid #a4c3e0 !important;
+    background: rgb(255 255 255 / 65%)!important;
+}
+
+.nav-search .form-control {
+   padding: 8px 20px;
+    line-height: 14px;
+  color: #5394ca !important;
+}
+
+.navbar[class*=bg-] .nav-search .input-group .form-control {
+    color: #5394ca !important;
+}
+
+.navbar[class*=bg-] .nav-search .search-icon {
+    color: #5394ca !important;
+    font-size: 14px;
+}
