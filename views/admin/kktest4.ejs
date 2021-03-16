@@ -308,35 +308,37 @@
                         "icon": "ti-file",
                     }
                 },
-                plugins: ["types", 'state', 'contextmenu', 'checkbox']
+                plugins: ["types", 'state', 'contextmenu', ]
             })
-                .on('create_node.jstree', function (e, data) {
-                    console.log(data)
-                     fetch(`/admin/catalog/`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            text: data.node.text,
-                            parentId: data.node.parent,
-                            catalogHierarchy: $('#cataloghierarchy').find(":selected").val()
+            .on("create_node.jstree", function (event, data) {
+                     console.log(data , 'create vala');
+                        fetch(`/admin/catalog`, {
+                             method: 'POST',
+                             headers: {
+                                 'Content-Type': 'application/json'
+                             },
+                             body: JSON.stringify({
+                                 text: data.node.text,
+                                 parentId: data.node.parent,
+                                 catalogueHierarchy: $('#cataloghierarchy').find(":selected").val()
 
-                        })
-                    })
-                        .then(res => res.json())
-                        .then(json => {
-                            if (json.status == 200) {
-                                location.reload(true);
-                            }
-                            else {
-                                iziToast.error({
-                                    message: json.message || 'Something Went Wrong!'
-                                })
-                            }
+                             })
+                         })
+                             .then(res => res.json())
+                             .then(json => {
+                                 if (json.status == 200) {
+                                     location.reload(true);
+                                 }
+                                 else {
+                                     iziToast.error({
+                                         message: json.message || 'Something Went Wrong!'
+                                     })
+                                 }
 
-                        }).catch(err => console.log(err))
-                }).on('rename_node.jstree', function (e, data) {
+                             }).catch(err => console.log(err))
+                 })
+                .on('rename_node.jstree', function (e, data) {
+                    console.log('update vala ' , data);
                     fetch(`/admin/catalog/update/${data.node.id}`, {
                         method: 'PATCH',
                         headers: {
@@ -394,6 +396,7 @@
 
               })
         });
+
 </script>
 </body>
 
