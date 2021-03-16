@@ -1186,3 +1186,12 @@ table.dataTable thead .sorting_asc:before{
     box-shadow: 0px 11px 11px #34547a0e;
 
 }
+
+@media(min-width:993px){
+#search-nav{
+      position: absolute;
+    right: 8%;
+    width: 400px;
+}
+
+}
