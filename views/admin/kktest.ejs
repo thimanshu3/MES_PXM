@@ -179,13 +179,15 @@
                                                                     <th rowspan="1" colspan="1">Featured Image </th>
                                                                     <th rowspan="1" colspan="1">Product ID</th>
                                                                     <th rowspan="1" colspan="1">Product Name</th>
+                                                                    <th rowspan="1" colspan="1">Catalogue</th>
+                                                                    <th rowspan="1" colspan="1">Product Type</th>
                                                                     <th rowspan="1" colspan="1">Stauts</th>
                                                                     <th rowspan="1" colspan="1">Action</th>
 
                                                                 </tr>
                                                             </thead>
-
-                                                            <tbody>
+                                                            <%= JSON.stringify(result) %> 
+                                                            <!-- <tbody>
                                                                 <% result.forEach(a=>{ %>
                                                                     <tr>
                                                                         <td>
@@ -200,6 +202,8 @@
                                                                         </td>
                                                                         <td><%=a.id%> </td>
                                                                         <td><a class="text-info" href="/admin/product/<%=a.formId %>/p/<%=a.id%> "><%=a.name%></a></td>
+                                                                        <td><span class="badge badge-dark"> <%=a.catalogue%></span> </td>
+                                                                        <td><span class="badge badge-info"><%= a.productType  %> </span></td>
                                                                         <td><span id="activeBadge-<%= a.id%>" class="badge badge-<%= a.active ? 'success' : 'danger' %>">
                                                                                 <%= a.active ? 'ACTIVE': 'INACTIVE' %></span></td>
                                                                         <td>
@@ -219,7 +223,7 @@
                                                                <% }) %> 
                                                               
 
-                                                            </tbody>
+                                                            </tbody> -->
                                                         </table>
                                                     </div>
                                                 </div>
