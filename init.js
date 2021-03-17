@@ -210,18 +210,22 @@ formParts
     .sync()
     .then(() => formParts.bulkCreate([
         {
-            "name":"Section"
+            "name":"Section",
+            "componentType":1
         },
         {
-            "name":"Tab"
+            "name":"Tab",
+            "componentType": 2
         },
         {
             "name":"Sub-Section",
-            "isSubComponent":true
+            "isSubComponent":true,
+            "componentType": 3
         },
         {
             "name":"Sub-Tab",
-            "isSubComponent":true
+            "isSubComponent":true,
+            "componentType": 4
         }
     ]))
     .then(() => console.log('\x1b[32m%s\x1b[0m', 'FormParts Model Sync Complete'))
