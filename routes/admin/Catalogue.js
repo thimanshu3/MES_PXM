@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     try {
         const catalogues = await CatalogueHierarchy.findAll() 
           
-        res.render('admin/kktest4', { User: req.user, formatDateMoment, catalogues })
+        res.render('admin/catalog', { User: req.user, formatDateMoment, catalogues })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         req.flash('error', 'Something Went Wrong!')

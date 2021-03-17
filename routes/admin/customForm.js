@@ -169,7 +169,7 @@ router.get('/:id/form', async (req, res) => {
                 }
             }))
         }))
-        res.render('admin/kktest3', { User: req.user, layout })
+        res.render('admin/formPreview', { User: req.user, layout })
 
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)

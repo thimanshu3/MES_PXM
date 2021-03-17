@@ -30,10 +30,10 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const { CatalogueHierarchy, productType, Catalogue, formId } = req.body
+    const { CatalogueHierarchy, productType, Catalogue, formId, name , id } = req.body
 
     try {
-        const result = await productMetaData.create({id: 2 ,  formId, Catalogue, CatalogueHierarchy, productType,createdBy: req.user.id })
+        const result = await productMetaData.create({ id,formId, Catalogue, CatalogueHierarchy, productType,createdBy: req.user.id, name })
         
         res.json({ status: 200, message: 'Added Successfully' })
         
