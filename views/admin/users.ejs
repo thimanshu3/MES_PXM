@@ -44,7 +44,7 @@
                         <div class="content">
                             <div class="page-inner">
                                 <div class="page-header">
-                                
+
                                     <ul class="breadcrumbs">
                                         <li class="nav-home">
                                             <a href="/admin/dashboard">
@@ -69,131 +69,131 @@
                                         <li class="nav-item">
                                             <a href="#">Users</a>
                                         </li>
-                                
+
                                     </ul>
                                 </div>
-                            
-                            <div class="container-fluid ">
-                                <div class="row">
-                                    <div class="col-md-12">
+
+                                <div class="container-fluid ">
+                                    <div class="row">
+                                        <div class="col-md-12">
 
 
-                                        <div class="card kk_full_form">
-                                            <div class="card-header">
-                                                <div class="d-flex align-items-center">
-                                                    <h4 class="card-title">All Users</h4>
-                                                    <a href="/admin/addUser" class="btn btn-primary btn-round ml-auto">
-                                                        <i class="fa fa-plus"></i>
-                                                        Add New user
-                                                    </a>
+                                            <div class="card kk_full_form">
+                                                <div class="card-header">
+                                                    <div class="d-flex align-items-center">
+                                                        <h4 class="card-title">All Users</h4>
+                                                        <a href="/admin/addUser" class="btn btn-primary btn-round ml-auto">
+                                                            <i class="fa fa-plus"></i>
+                                                            Add New user
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="card-body">
+                                                <div class="card-body">
 
 
-                                                <div class="table-responsive">
-                                                    <div id="add-row_wrapper"
-                                                        class="dataTables_wrapper container-fluid dt-bootstrap4">
+                                                    <div class="table-responsive">
+                                                        <div id="add-row_wrapper"
+                                                             class="dataTables_wrapper container-fluid dt-bootstrap4">
 
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                                <table id="add-row"
-                                                                    class="display table table-borderless table-hover dataTable"
-                                                                    role="grid" aria-describedby="add-row_info">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th rowspan="1" colspan="1">Name</th>
-                                                                            <th rowspan="1" colspan="1">Role</th>
-                                                                            <th rowspan="1" colspan="1">Email Address
-                                                                            </th>
-                                                                            <th rowspan="1" colspan="1">Contact Number
-                                                                            </th>
-                                                                            <th rowspan="1" colspan="1">Contact Number
-                                                                            </th>
-                                                                            <th rowspan="1" colspan="1">Action</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tfoot>
-                                                                        <tr>
-                                                                            <th rowspan="1" colspan="1">Name</th>
-                                                                            <th rowspan="1" colspan="1">Role</th>
-                                                                            <th rowspan="1" colspan="1">Email Address
-                                                                            </th>
-                                                                            <th rowspan="1" colspan="1">Contact Number
-                                                                            </th>
-                                                                            <th rowspan="1" colspan="1">Contact Number
-                                                                            </th>
-                                                                            <th rowspan="1" colspan="1">Action</th>
-                                                                        </tr>
-                                                                    </tfoot>
-                                                                    <tbody>
-                                                                        <% const role=['Admin', 'Product Manager'
-                                                                            , 'Power User' ]; const
-                                                                            color=['info','primary','secondary'] %>
-                                                                            <% users.forEach(a=>{ %>
-                                                                                <tr role="row" class="odd">
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <table id="add-row"
+                                                                           class="display table table-borderless table-hover dataTable"
+                                                                           role="grid" aria-describedby="add-row_info">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th rowspan="1" colspan="1">Name</th>
+                                                                                <th rowspan="1" colspan="1">Role</th>
+                                                                                <th rowspan="1" colspan="1">Email Address
+                                                                                </th>
+                                                                                <th rowspan="1" colspan="1">Contact Number
+                                                                                </th>
+                                                                                <th rowspan="1" colspan="1">Contact Number
+                                                                                </th>
+                                                                                <th rowspan="1" colspan="1">Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tfoot>
+                                                                            <tr>
+                                                                                <th rowspan="1" colspan="1">Name</th>
+                                                                                <th rowspan="1" colspan="1">Role</th>
+                                                                                <th rowspan="1" colspan="1">Email Address
+                                                                                </th>
+                                                                                <th rowspan="1" colspan="1">Contact Number
+                                                                                </th>
+                                                                                <th rowspan="1" colspan="1">Contact Number
+                                                                                </th>
+                                                                                <th rowspan="1" colspan="1">Action</th>
+                                                                            </tr>
+                                                                        </tfoot>
+                                                                        <tbody>
+                                                                            <% const role=['Admin', 'Product Manager'
+                                                                               , 'Power User' ]; const
+                                                                               color=['info','primary','secondary'] %>
+                                                                                <% users.forEach(a=>{ %>
+                                                                                    <tr role="row" class="odd">
 
-                                                                                    <td class="">
-                                                                                        <%=a.firstName + ' ' +
-                                                                                            a.lastName %>
-                                                                                    </td>
-                                                                                    <td><span
-                                                                                            class="badge badge-<%=color[a.role]%>">
-                                                                                            <%= role[a.role] %>
-                                                                                        </span></td>
-                                                                                    <td>
-                                                                                        <%=a.email %>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <%=a.contactNumber %>
-                                                                                    </td>
-                                                                                    <td><span
-                                                                                            id="activeBadge-<%= a.id%>"
-                                                                                            class="badge badge-<%= a.active ? 'success' : 'danger' %>">
-                                                                                            <%= a.active ? 'ACTIVE'
-                                                                                                : 'INACTIVE' %>
-                                                                                        </span></td>
-                                                                                    <td>
-                                                                                        <div class="form-button-action">
-                                                                                            <button type="button"
-                                                                                                data-toggle="tooltip"
-                                                                                                title=""
-                                                                                                class="btn btn-link btn-primary btn-lg"
-                                                                                                data-original-title="Edit Task">
-                                                                                                <i
-                                                                                                    class="fa fa-edit"></i>
-                                                                                            </button>
-                                                                                            <button
-                                                                                                id="changeActiveUser-<%=a.id%>"
-                                                                                                onclick="changeActive('<%=a.id%>')"
-                                                                                                type="button"
-                                                                                                data-toggle="tooltip"
-                                                                                                title=""
-                                                                                                class="btn btn-link btn-danger"
-                                                                                                data-original-title="Remove">
-                                                                                                <i
-                                                                                                    class="fa fa-trash"></i>
-                                                                                            </button>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <% }) %>
+                                                                                        <td class="">
+                                                                                            <%=a.firstName + ' ' +
+                                                                                                           a.lastName %>
+                                                                                        </td>
+                                                                                        <td><span
+                                                                                                  class="badge badge-<%=color[a.role]%>">
+                                                                                                <%= role[a.role] %>
+                                                                                            </span></td>
+                                                                                        <td>
+                                                                                            <%=a.email %>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <%=a.contactNumber %>
+                                                                                        </td>
+                                                                                        <td><span
+                                                                                                  id="activeBadge-<%= a.id%>"
+                                                                                                  class="badge badge-<%= a.active ? 'success' : 'danger' %>">
+                                                                                                <%= a.active ? 'ACTIVE'
+                                                                                                    : 'INACTIVE' %>
+                                                                                            </span></td>
+                                                                                        <td>
+                                                                                            <div class="form-button-action">
+                                                                                                <button type="button"
+                                                                                                        data-toggle="tooltip"
+                                                                                                        title=""
+                                                                                                        class="btn btn-link btn-primary btn-lg"
+                                                                                                        data-original-title="Edit Task">
+                                                                                                    <i
+                                                                                                       class="fa fa-edit"></i>
+                                                                                                </button>
+                                                                                                <button
+                                                                                                        id="changeActiveUser-<%=a.id%>"
+                                                                                                        onclick="changeActive('<%=a.id%>')"
+                                                                                                        type="button"
+                                                                                                        data-toggle="tooltip"
+                                                                                                        title=""
+                                                                                                        class="btn btn-link btn-danger"
+                                                                                                        data-original-title="Remove">
+                                                                                                    <i
+                                                                                                       class="fa fa-trash"></i>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <% }) %>
 
-                                                                    </tbody>
-                                                                </table>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
                                                             </div>
-                                                        </div>
 
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+
+
+
                                         </div>
-
-
-
                                     </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
                         <%-include('../partials/footer.ejs')%>
@@ -218,7 +218,7 @@
     <!-- jQuery UI -->
     <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-    
+
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
     <script>

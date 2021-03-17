@@ -7,7 +7,22 @@ const { formatDateMoment } = require('../../util')
 const router = express.Router()
 
 
-router.get('/:formId/product/:productId', async (req, res) => {
+router.get('/all' , async (req,res)=>{
+    try{
+        // let finalData = []
+        const result = await productMetaData.findAll()
+        
+        
+        res.render('admin/kktest', { User: req.user, result})
+    }
+    catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        req.flash('error', 'Something Went Wrong!')
+        res.redirect('/')
+    }
+})
+
+router.get('/:formId/p/:productId', async (req, res) => {
     try {
         let layout = await FormDesign.findOne({ formId: req.params.formId })
         layout = layout.toObject()
