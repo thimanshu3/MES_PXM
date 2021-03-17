@@ -60,5 +60,8 @@ router.use('/kktest6', async (req, res) => {
     res.render('admin/kktest6', { User: req.user })
 })
 
+router.use('/usersettings', async (req, res) => {
+    res.render('admin/usersettings', { User: req.user })
+})
 
 module.exports = router

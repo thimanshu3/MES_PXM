@@ -1195,3 +1195,66 @@ table.dataTable thead .sorting_asc:before{
 }
 
 }
+
+.Kk_no_assigned{
+  text-align: center;
+}
+
+.Kk_no_assigned img{
+     max-width: 200px;
+}
+
+.Kk_no_assigned h4{
+     color: #4B303E;
+    letter-spacing: 1px;
+}
+.Kk_no_assigned h6
+{
+      color: #9FA4A6;
+    letter-spacing: 1px;
+    margin-bottom: 60px;
+}
+#imageUpload
+{
+    display: none;
+}
+
+#profileImage
+{
+    cursor: pointer;
+}
+
+#profile-container {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+}
+
+#profile-container img {
+    width: 100px;
+    height: 100px;
+}
+
+#v-pills-tab .nav-link {
+    display: block;
+    padding: 8px 30px;
+    border-radius: 30px;
+    background: #eaf2f4;
+    width: 150px;
+    margin: auto;
+    margin-bottom: 14px;
+    font-size: 15px;
+   color: #4d7393 !important;
+    border: 1px solid #eaf2f4
+}
+
+#v-pills-tab .nav-link.active {
+   background: transparent;
+  border: 1px solid #4d7393;
+}
+
