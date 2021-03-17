@@ -1,5 +1,4 @@
 require('dotenv').config()
-
 require('./db')
 const {
     ForgotPassword,
@@ -9,7 +8,6 @@ const {
     Vendor,
     ProductType,
     AttributeSet,
-    ActivityLog,
     AttributeValueSets,
     CatalogueHierarchy,
     Distributor,
@@ -24,6 +22,8 @@ const {
     form,
     formParts,
     formConfig,
+    productData,
+    productMetaData
 } = require('./models')
 
 const ENVIRONMENT_VARIABLES = [
@@ -283,6 +283,34 @@ UserRole
         },
         ]))
     .then(() => console.log('\x1b[32m%s\x1b[0m', 'UserRole Model Sync Complete!'))
+    .catch(err => {
+        if (err.name === 'SequelizeUniqueConstraintError') {
+            console.log('Already Exists!')
+            console.log('\x1b[32m%s\x1b[0m', 'UserRole Model Sync Complete!')
+        }
+        else {
+            console.error(err)
+            process.exit(1)
+        }
+    })
+
+productData
+    .sync({ force: process.env.NODE_ENV === 'production' ? false : true })
+    .then(() => console.log('\x1b[32m%s\x1b[0m', 'productData Model Sync Complete!'))
+    .catch(err => {
+        if (err.name === 'SequelizeUniqueConstraintError') {
+            console.log('Already Exists!')
+            console.log('\x1b[32m%s\x1b[0m', 'UserRole Model Sync Complete!')
+        }
+        else {
+            console.error(err)
+            process.exit(1)
+        }
+    })
+
+productMetaData
+    .sync({ force: process.env.NODE_ENV === 'production' ? false : true })
+    .then(() => console.log('\x1b[32m%s\x1b[0m', 'productMetaData Model Sync Complete!'))
     .catch(err => {
         if (err.name === 'SequelizeUniqueConstraintError') {
             console.log('Already Exists!')
