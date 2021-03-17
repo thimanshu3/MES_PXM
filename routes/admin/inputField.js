@@ -287,9 +287,8 @@ router.get('/lrValue/:id', async (req, res) => {
             }
         })
 
-        if (!foundList) {
-            res.json({"status":404,"message":"Lit Record Not Found!!"})
-        }
+        if (!foundList) return res.json({"status":404,"message":"List Record Not Found!!"})
+            
         const listRecordv = await listRecordValues.findAll({
             where: {
                 parentListId: foundList.id
