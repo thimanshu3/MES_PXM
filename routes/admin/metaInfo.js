@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     try {
         const catalogues = await CatalogueHierarchy.findAll()
         const forms = await form.findAll()
-        res.render('admin/kktest6', { User: req.user, formatDateMoment, catalogues , forms })
+        res.render('admin/metaInfo', { User: req.user, formatDateMoment, catalogues , forms })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         req.flash('error', 'Something Went Wrong!')
@@ -24,16 +24,15 @@ router.get('/:id', async (req, res) => {
         res.json({ status: 200, catalog })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
-        req.flash('error', 'Something Went Wrong!')
-        res.redirect('/')
+        res.json({message: err.toString() || 'Something went wrong' , status: 500})
     }
 })
 
 router.post('/', async (req, res) => {
-    const { CatalogueHierarchy, productType, Catalogue, formId, name , id } = req.body
+    const { CatalogueHierarchy, productType, Catalogue, formId, name  } = req.body
 
     try {
-        const result = await productMetaData.create({ id,formId, Catalogue, CatalogueHierarchy, productType,createdBy: req.user.id, name })
+        const result = await productMetaData.create({ id: Math.floor(100000 + Math.random() * 900000),formId, Catalogue, CatalogueHierarchy, productType,createdBy: req.user.id, name })
         
         res.json({ status: 200, message: 'Added Successfully' })
         
@@ -42,7 +41,7 @@ router.post('/', async (req, res) => {
         if (err.name === 'SequelizeUniqueConstraintError')
             res.json({status:500 , message: `${err.errors[0].message} '${err.errors[0].value}' already exists!`})
         else
-            req.flash({status:500 , message: err.toString() || 'Something Went Wrong!'})
+            res.json({status:500 , message: err.toString() || 'Something Went Wrong!'})
     }
 })
 

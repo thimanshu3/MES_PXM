@@ -248,7 +248,10 @@ li.done button div.step::before {
                                                         <div class="row" style="height: 60vh;">
                                             
                                                             <div class="col-4 ">
-                                            
+                                                            <div class="form-group w-100">
+                                                                <label for="productname">Product Name</label>
+                                                                <input type="text" name="name" class="form-control" id="productname" placeholder="Product Name">
+                                                            </div>
                                                             <div class="form-group w-100">
                                                                 <label for="exampleFormControlSelect1">Select Form</label>
                                                                 <select class="form-control" id="exampleFormControlSelect1">
@@ -260,16 +263,8 @@ li.done button div.step::before {
                                                                 </select>   
                                                             </div>
 
-                                                            <div class="form-group w-100">
-                                                                <label for="password">Password</label>
-                                                                <input type="text" class="form-control" id="password" placeholder="Password">
-                                                            </div>
-                                            
-                                                            <div class="form-group w-100">
-                                                                <label for="password">Password</label>
-                                                                <input type="text" class="form-control" id="password" placeholder="Password">
-                                                            </div>
                                                             
+                                              
                                                             </div>
 
                                                             <div class="col-4 " style="border-left:1px solid lightgrey;border-right:1px solid lightgrey">
@@ -383,7 +378,7 @@ li.done button div.step::before {
 
 </script>
 <script>
-    let formId , productType, CatalogueHierarchy , Catalogue;
+    let formId , productType, CatalogueHierarchy , Catalogue, name;
 
     const initializeCatalog = (data) => {
         $('#files').jstree({
@@ -438,6 +433,7 @@ li.done button div.step::before {
 
     $('#exampleFormControlSelect1').on('change' , function(){
        formId =  $('#exampleFormControlSelect1').find(":selected").val()
+       name = $('#productname').val()
        document.getElementById('prog').style.width = '50%'
        $('#cataloghierarchy').attr('disabled' , false)
        
@@ -447,7 +443,7 @@ li.done button div.step::before {
     });
 
     document.getElementById('submitBtn').addEventListener('click' , ()=>{
-        if (Catalogue != ' ', CatalogueHierarchy != ' ', formId != ' ', productType != ' ') {
+        if (Catalogue != ' ' && CatalogueHierarchy != ' ' && formId != ' ' && productType != ' ' && name != '' ) {
 
         fetch('/admin/metainfo', {
             method: 'POST',
