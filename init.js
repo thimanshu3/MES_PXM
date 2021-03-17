@@ -101,7 +101,7 @@ inputTypes
     .sync()
     .then(() =>
         inputTypes.bulkCreate([{
-            inputType: 'check box'
+            inputType: 'checkbox'
         },
         {
             inputType: 'Currency'

@@ -59,7 +59,7 @@
                                                                 src="https://www.medicaleshop.com/core/media/media.nl?id=669592&c=3635909&h=aeec525357b80053c9e3">
                                                         </div>
                                                         <div class="col-md-8">
-                                                            <h5 class="product_id">SM29032</h5>
+                                                            <h5 class="product_id"><%- productId%></h5>
                                                             <h1 class="product_id">Product Name</h1>
                                                             
                                                             <div class="progress">
@@ -100,7 +100,7 @@
                                                                                                 </div>
                                                                                                 <% }else{ %>
                                                                                                     <% subComponent.AssignedFields.forEach(_a=>{%>
-                                                                                                        <% if(_a.field.inputType=='checkbox' ){ %>
+                                                                                                        <% if(_a.field.inputType=='checkbox'  ){ %>
                                                                                                             <div class="col-md-3 mb-3">
                                                                                                                 <div class="form-check">
                                                                                                                     <label class="form-check-label">

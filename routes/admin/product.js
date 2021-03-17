@@ -11,7 +11,7 @@ router.get('/:formId/product/:productId', async (req, res) => {
     try {
         let layout = await FormDesign.findOne({ formId: req.params.formId })
         layout = layout.toObject()
-
+        
         await Promise.all(layout.componets.map(async component => {
             await Promise.all(component.subComponents.map(async subComponent => {
                 if (subComponent.type == 'sec') {
@@ -34,6 +34,7 @@ router.get('/:formId/product/:productId', async (req, res) => {
                 }
             }))
         }))
+        console.log(layout.componets[0].subComponents[0].AssignedFields[0]);
         res.render('admin/kktest2', { User: req.user, layout, productId: req.params.productId })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
