@@ -4,13 +4,13 @@ var con = mysql.createConnection({
     host: "dme-pxm.crdyivm2svkb.us-east-2.rds.amazonaws.com",
     user: "admin",
     password: "mes-hanzala",
-    database: 'dmepxm'
+    // database: 'dmepxm'
 });
 
 con.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");
-    con.query("select * from Catalogues",
+    con.query("create database dmepxm",
      function (err, result) {
         if (err) throw err;
             console.log(result);

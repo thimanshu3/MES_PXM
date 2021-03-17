@@ -7,9 +7,9 @@ const { formatDateMoment } = require('../../util')
 const router = express.Router()
 
 
-router.get('/:id', async (req, res) => {
+router.get('/:formId/product/:productId', async (req, res) => {
     try {
-        let layout = await FormDesign.findOne({ formId: req.params.id })
+        let layout = await FormDesign.findOne({ formId: req.params.formId })
         layout = layout.toObject()
 
         await Promise.all(layout.componets.map(async component => {
@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
                 }
             }))
         }))
-        res.render('admin/addProductFrom', { User: req.user, layout })
+        res.render('admin/addProductFrom', { User: req.user, layout, productId: req.params.productId })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         req.flash('error', 'Something Went Wrong!')
@@ -46,8 +46,8 @@ router.post('/', async (req, res) => {
     try {
        const formdata = req.body
        Promise.all([
-        Object.keys(formdata).forEach(a=>{
-            await productData.create({})
+        Object.keys(formdata).forEach(async a=>{
+            await productData.create({ fieldId: a, fieldValue: formdata[a] , createdBy: req.user.id , productId: req.body.productId })
         })
        ])
     } catch (err) {

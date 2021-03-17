@@ -48,6 +48,7 @@
 
                                 <div class="container-fluid ">
                                     <form action="/admin/form" method="POST">
+                                        <input type="hidden" name="productId" value="<%=productId %>">
                                         <% const inputs=['text' , 'number' , 'email' , 'tel' ] %>
                                             <% layout.componets.forEach(component=>{ %>
                                                 <% if(component.type=='sec' ){ %>
