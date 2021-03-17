@@ -36,6 +36,8 @@ router.use('/cataloghierarchy', require('./CatalogHierarchy'))
 
 router.use('/metainfo', require('./metaInfo'))
 
+router.use('/form', require('./form'))
+
 router.use('/kktest',async (req, res) => {
 res.render('admin/kktest', { User: req.user })
 })
