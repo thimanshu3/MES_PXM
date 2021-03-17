@@ -2,10 +2,6 @@ const { DataTypes, Sequelize } = require('sequelize')
 
 const { MySql } = require('../db')
 
-
-//Model not complete ...need to work on it!!!!
-
-
 const productData = MySql.define('productData', {
     id: {
         type: DataTypes.UUID,
