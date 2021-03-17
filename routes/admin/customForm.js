@@ -124,6 +124,7 @@ router.post('/:id/fieldmap/assign', async (req, res) => {
     const { newForm } = req.body
     try {
         const result = await FormDesign.findOne({ formId: req.params.id })
+        result.allFields = newForm.allFields
         result.componets = newForm.componets
         await result.save(function (err, doc) {
             if (err) {

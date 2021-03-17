@@ -111,7 +111,11 @@
                                                                                         <button type="button" data-toggle="tooltip" title="" onclick="fetchListValues('<%= _a.lr %>','<%= _a.label%>')" class="btn btn-link btn-sm"
                                                                                                 data-original-title="View List/Record Values">
                                                                                             <i class="fa fa-eye"></i>
+                                                                                            
                                                                                         </button>
+                                                                                        <% if (_a.lr=='-' ) { %>
+                                                                                            <span class="badge badge-warning">No List Attached</span>
+                                                                                            <%}%>
                                                                                         <% } %>
                                                                 
                                                                             </td>
@@ -256,7 +260,7 @@
                             </div> -->
 
 
-                            <div class="col-12">
+                            <!-- <div class="col-12">
                                 <p class="text-danger d-flex justify-content-center">Or add by import</p>
                                 <button class="btn btn-primary btn-round ml-auto" data-toggle="modal"
                                     data-target="#myModal">
@@ -264,13 +268,22 @@
                                     Import Item Fields
                                 </button>
 
-                            </div>
+                            </div> -->
                         </div>
                         <div class="modal-footer no-bd">
                             <button type="submit" id="addRowButton" class="btn btn-primary">Add</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         </div>
                     </form>
+                    <div class="col-12">
+                        <p class="text-danger d-flex justify-content-center">Or add by import</p>
+                        <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#myModal">
+                            <i class="fa fa-plus"></i>
+                            Import Item Fields
+                        </button>
+                    
+                    </div>
+    
 
                 </div>
 
@@ -382,6 +395,11 @@
                     $('#nameV').text(label)
                     $('#lrValues').append(data)
                     $('#kk_list_modal').modal('show');
+                }
+                if(json.status == 404){
+                    iziToast.warning({
+                        message: json.message
+                    })
                 }
             })
             .catch(err => console.log(err))

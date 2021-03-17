@@ -2,15 +2,11 @@ const { DataTypes, Sequelize } = require('sequelize')
 
 const { MySql } = require('../db')
 
-
-//Model not complete ...need to work on it!!!!
-
-
 const productData = MySql.define('productData', {
     id: {
         type: DataTypes.UUID,
         unique: true,
-        autoIncrement: true,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
     },
     productId: { //id of product from productMetaData table
