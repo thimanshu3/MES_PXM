@@ -6,7 +6,7 @@ const productData = MySql.define('productData', {
     id: {
         type: DataTypes.UUID,
         unique: true,
-        autoIncrement: true,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
     },
     productId: { //id of product from productMetaData table
