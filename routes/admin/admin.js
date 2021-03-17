@@ -38,6 +38,8 @@ router.use('/metainfo', require('./metaInfo'))
 
 router.use('/form', require('./form'))
 
+router.use('/product', require('./product'))
+
 router.use('/kktest',async (req, res) => {
 res.render('admin/kktest', { User: req.user })
 })
@@ -58,5 +60,8 @@ router.use('/kktest6', async (req, res) => {
     res.render('admin/kktest6', { User: req.user })
 })
 
+router.use('/usersettings', async (req, res) => {
+    res.render('admin/usersettings', { User: req.user })
+})
 
 module.exports = router

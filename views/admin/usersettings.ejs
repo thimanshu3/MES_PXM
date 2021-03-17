@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Infeenity Dashboard</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
+<!-- CSS Files -->
+<link rel="stylesheet" href="/assets/css/bootstrap.css">
+<link rel="stylesheet" href="/assets/css/atlantis.min.css">
+
+<!-- CSS Just for demo purpose, don't include it in your project -->
+<link rel="stylesheet" href="/assets/css/demo.css">
+<link rel="stylesheet" href="/assets/css/kk_style.css">
+<link rel="stylesheet" href="/assets/css/iziToast.min.css">
+<!-- Fonts and icons -->
+<script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    WebFont.load({
+        google: { "families": ["Lato:300,400,700,900"] },
+        custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css'] },
+        active: function () {
+            sessionStorage.fonts = true;
+        }
+    });
+</script>
+</head>
+
+<body>
+    <div class="wrapper">
+    <%-include('../partials/config')%>
+
+        <!-- header -->
+        <%-include('../partials/header.ejs')%>
+            <!-- header end -->
+
+            <!-- Sidebar -->
+            <%-include('../partials/sidebar.ejs')%>
+                <!-- End Sidebar -->
+                <div class="main-panel">
+                  
+                    <div class="content">
+                        <div class="page-inner">
+                            <div class="page-header">
+                    
+                                <ul class="breadcrumbs">
+                                    <li class="nav-home">
+                                        <a href="/admin/dashboard">
+                                            <i class="flaticon-home"></i>
+                                        </a>
+                                    </li>
+                                    <li class="separator">
+                                        <i class="flaticon-right-arrow"></i>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#">Users</a>
+                                    </li>
+                                    <li class="separator">
+                                        <i class="flaticon-right-arrow"></i>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#">Add New User</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card kk_full_form">
+                                        <div class="card-header">
+                                            <div class="d-flex align-items-center">
+                                                <h4 class="card-title">User Settings</h4>
+                                               
+                                            </div>
+                                        </div>
+                                         <form action="/admin/addUser" method="POST">
+
+                                        <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-5 col-md-3 pl-5" style="    border-right: 1px solid lightgrey;">
+                                                <div class="nav flex-column" id="v-pills-tab" role="tablist"
+                                                    aria-orientation="vertical">
+                                                    <a class="nav-link active show" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+                                                        aria-controls="v-pills-home" aria-selected="true">Home</a>
+                                                    <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+                                                        aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+                                                    <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+                                                        aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-7 col-md-9 pl-5">
+                                                <div class="tab-content" id="v-pills-tabContent">
+                                                    <div class="tab-pane fade active show" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                                        
+                                    
+                                                        <div class="mb-4">
+                                                    <div id="profile-container">
+                                                        <image id="profileImage" src="../../assets/img/jm_denis.jpg" />
+                                                    </div>
+                                                    <input id="imageUpload" type="file" name="profile_photo" placeholder="Photo" required="" capture>
+                                                        </div>
+
+                                                    <div class="form-group">
+                                                        <label for="password">First Name</label>
+                                                        <input type="text" class="form-control" id="password" placeholder="Password">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="password">Last Name</label>
+                                                        <input type="text" class="form-control" id="password" placeholder="Password">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="password">Phone Number</label>
+                                                        <input type="text" class="form-control" id="password" placeholder="Password">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="password">Email Address</label>
+                                                        <input type="text" class="form-control" id="password" placeholder="Password">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="form-label d-block">Role</label>
+                                                        <div class="selectgroup selectgroup-pills">
+                                                            <label class="selectgroup-item">
+                                                                <input type="radio" name="value" value="HTML" class="selectgroup-input" checked="">
+                                                                <span class="selectgroup-button">HTML</span>
+                                                            </label>
+                                                            <label class="selectgroup-item">
+                                                                <input type="radio" name="value" value="CSS" class="selectgroup-input">
+                                                                <span class="selectgroup-button">CSS</span>
+                                                            </label>
+                                                            <label class="selectgroup-item">
+                                                                <input type="radio" name="value" value="PHP" class="selectgroup-input">
+                                                                <span class="selectgroup-button">PHP</span>
+                                                            </label>
+                                                        
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="form-label d-block">Gender</label>
+                                                        <div class="selectgroup selectgroup-pills">
+                                                            <label class="selectgroup-item">
+                                                                <input type="radio" name="value" value="HTML" class="selectgroup-input" checked="">
+                                                                <span class="selectgroup-button">Female</span>
+                                                            </label>
+                                                            <label class="selectgroup-item">
+                                                                <input type="radio" name="value" value="CSS" class="selectgroup-input">
+                                                                <span class="selectgroup-button">Male</span>
+                                                            </label>
+                                                            <label class="selectgroup-item">
+                                                                <input type="radio" name="value" value="PHP" class="selectgroup-input">
+                                                                <span class="selectgroup-button">Other</span>
+                                                            </label>
+                                                    
+                                                        </div>
+                                                    </div>
+
+                                                    </div>
+                                                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                                        <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic
+                                                            life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the
+                                                            far World of Grammar.</p>
+                                                        <p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question
+                                                            Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia,
+                                                            put her initial into the belt and made herself on the way.
+                                                        </p>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                                                        <p>Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a
+                                                            copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a
+                                                            thousand times and everything that was left from its origin would be the word "and" and the Little
+                                                            Blind Text should turn around and return to its own, safe country.</p>
+                                        
+                                                        <p> But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy
+                                                            Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where
+                                                            they abused her for their</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                           
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-end">
+                                            <button type="submit" class="btn  mr-3">Save</button>
+                                        </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%-include('../partials/footer.ejs')%>
+                 
+                    
+                
+                </div>
+
+    </div>
+<!--   Core JS Files   -->
+
+<!-- jQuery library -->
+<script src="/assets/js/core/jquery.3.2.1.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="/assets/js/core/bootstrap.js"></script>
+<!-- Popper JS -->
+<script src="/assets/js/core/popper.min.js"></script>
+<!-- Atlantis JS -->
+<script src="/assets/js/atlantis.min.js"></script>
+<script src="/assets/js/iziToast.js"></script>
+<script src="/assets/js/flashMessage.js"></script>
+<!-- jQuery UI -->
+<script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
+<!-- jQuery Scrollbar -->
+<script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+<script>
+   $("#profileImage").click(function (e) {
+        $("#imageUpload").click();
+    });
+
+    function fasterPreview(uploader) {
+        if (uploader.files && uploader.files[0]) {
+            $('#profileImage').attr('src',
+                window.URL.createObjectURL(uploader.files[0]));
+        }
+    }
+
+    $("#imageUpload").change(function () {
+        fasterPreview(this);
+    });
+
+</script>
+</body>
+
+</html>

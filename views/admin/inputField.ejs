@@ -323,6 +323,33 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade kk_modal_popup_form " id="myModal" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Import User</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <form action="/admin/inputField/import" method="POST" enctype="multipart/form-data">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <p class="text-danger">Supported extensions .XLSX</p>
+                    <button type="button" class="btn btn-primary mb-5">Download Template</button>
+                    <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Import</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
     <!-- jQuery library -->
     <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
     <!-- Latest compiled JavaScript -->
