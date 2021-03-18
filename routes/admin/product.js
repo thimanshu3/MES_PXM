@@ -9,7 +9,8 @@ const router = express.Router()
 
 router.get('/all' , async (req,res)=>{
     try{
-        const result = await MySql.query('SELECT productMetaData.id as id, productMetaData.name as name, productMetaData.formId as formId, productMetaData.active as active,productMetaData.Catalogue as catalogueId, productMetaData.CatalogueHierarchy as catalogueHierarchy, productMetaData.productType as productType,productMetaData.createdBy as createdBy, cat.text as catalogue, ch.name as catalogueHierarchy FROM productMetaData inner join Catalogues cat on productMetaData.Catalogue = cat.id inner join CatalogueHierarchies ch on productMetaData.CatalogueHierarchy = ch.id')
+        const [result] = await MySql.query('SELECT productMetaData.id as id, productMetaData.name as name, productMetaData.formId as formId, productMetaData.active as active,productMetaData.Catalogue as catalogueId, productMetaData.CatalogueHierarchy as catalogueHierarchy, productMetaData.productType as productType,productMetaData.createdBy as createdBy, cat.text as catalogue, ch.name as catalogueHierarchy FROM productMetaData Left join Catalogues cat on productMetaData.Catalogue = cat.id left join CatalogueHierarchies ch on productMetaData.CatalogueHierarchy = ch.id')
+        console.log(result.length);
         res.render('admin/kktest', { User: req.user, result})
     }
     catch (err) {
