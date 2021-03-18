@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Infeenity Dashboard</title>
+    <title>Inbound PMS</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css"
         integrity="sha512-DIW4FkYTOxjCqRt7oS9BFO+nVOwDL4bzukDyDtMO7crjUZhwpyrWBFroq+IqRe6VnJkTpRAS6nhDvf0w+wHmxg=="
         crossorigin="anonymous" />
-    
+
     <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
         WebFont.load({
@@ -30,19 +30,21 @@
         });
     </script>
     <style>
-        .card:{
+        .card: {
             animation: slide-up 0.4s ease;
         }
+
         @keyframes slide-up {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 
@@ -84,16 +86,19 @@
                                     </ul>
                                 </div>
                                 <div class="container-fluid">
-                                    <div class="d-flex justify-content-center border" >
-                                        <%formPart.forEach(element => { %>
-                                            <% if( element.componentType < 3){ %> 
-                                            <button class="btn btn-link btn-shadow" onclick="addComponent('<%= element.componentType %>' , 'builder')">Add <%= element.name%></button>
-                                            <% } %> 
-                                       <% })  %> 
+                                    <div class="d-flex justify-content-center border">
+                                        <%formPart.forEach(element=> { %>
+                                            <% if( element.componentType < 3){ %>
+                                                <button class="btn btn-link btn-shadow"
+                                                    onclick="addComponent('<%= element.componentType %>' , 'builder')">Add
+                                                    <%= element.name%>
+                                                </button>
+                                                <% } %>
+                                                    <% }) %>
                                     </div>
                                 </div>
                                 <div id="builder" class="container-fluid border mt-5">
-                                   
+
                                 </div>
                                 <div class="d-flex justify-content-end mt-5">
                                     <button id="saveButton" class="btn btn-primary">
@@ -136,7 +141,7 @@
     </script>
     <script src="/assets/js/formDesign.js"></script>
 
-  
+
 </body>
 
 </html>

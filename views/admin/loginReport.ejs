@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Infeenity Dashboard</title>
+    <title>Inbound PMS</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
 
@@ -45,7 +45,7 @@
 
                             <div class="page-inner ">
                                 <div class="page-header">
-                                
+
                                     <ul class="breadcrumbs">
                                         <li class="nav-home">
                                             <a href="/admin/dashboard">
@@ -70,83 +70,90 @@
                                         <li class="nav-item">
                                             <a href="#">Login Reports</a>
                                         </li>
-                                       
+
                                     </ul>
                                 </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="card">
-                                        
-                                        <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="card">
+                                           
 
-                                        
-                                    <table id="add-row" class="display table table-striped table-hover dataTable" role="grid"
-                                        aria-describedby="add-row_info">
-                                        <thead>
-                                            <tr>
-                                                <th rowspan="1" colspan="1">Name</th>
-                                                <th rowspan="1" colspan="1">Login Count</th>
-                                                <th rowspan="1" colspan="1">Role</th>
-                                                <th rowspan="1" colspan="1">Email Address</th>
-                                                <th rowspan="1" colspan="1">Last Login</th>
-                                                <th rowspan="1" colspan="1">Status</th>
+                                            <div class="card-body">
+                                               
 
-                                                <th rowspan="1" colspan="1">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th rowspan="1" colspan="1">Name</th>
-                                                <th rowspan="1" colspan="1">Login Count</th>
-                                                <th rowspan="1" colspan="1">Role</th>
-                                                <th rowspan="1" colspan="1">Email Address</th>
-                                                <th rowspan="1" colspan="1">Last Login</th>
-                                                <th rowspan="1" colspan="1">Status</th>
-                                                <th rowspan="1" colspan="1">Action</th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
-                                            <% const role=['Admin', 'Product Manager' , 'Power User' ]; const color=['info','primary','secondary']
-                                                %>
-                                                <% loginReports.forEach(a=>{ %>
-                                                    <tr role="row" class="odd">
-                            
-                                                        <td class="">
-                                                            <%=a.firstName + ' ' + a.lastName %>
-                                                        </td>
-                                                        <td><%= a.loginCount %> </td>
-                                                        <td><span class="badge badge-<%=color[a.role]%>">
-                                                                <%= role[a.role] %>
-                                                            </span></td>
-                                                        <td id="email-<%=a.id %>">
-                                                            <%=a.email %>
-                                                        </td>
-                                                        <td>
-                                                            <%=a.lastLogin !== null ? a.lastLogin : 'N-A' %>
-                                                        </td>
-                                                        <td><span id="activeBadge-<%= a.id%>"
-                                                                class="badge badge-<%= a.active ? 'success' : 'danger' %>">
-                                                                <%= a.active ? 'ACTIVE' : 'INACTIVE' %>
-                                                            </span></td>
-                                                        <td>
-                                                            <div class="form-button-action">
-                                                                <button style="text-decoration: none;" type="button" data-target=".bd-example-modal-sm" data-toggle="modal"
-                                                                onclick="displayReport('<%=a.id%>')">
-                                                                    View More
-                                                                    <i class="flaticon-right-arrow"></i> 
-                                                                </button>
-                                                                
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <% }) %>
-                            
-                                        </tbody>
-                                    </table>
-                                    </div>
+                                                <table id="add-row"
+                                                    class="display table table-striped table-hover dataTable"
+                                                    role="grid" aria-describedby="add-row_info">
+                                                    <thead>
+                                                        <tr>
+                                                            <th rowspan="1" colspan="1">Name</th>
+                                                            <th rowspan="1" colspan="1">Login Count</th>
+                                                            <th rowspan="1" colspan="1">Role</th>
+                                                            <th rowspan="1" colspan="1">Email Address</th>
+                                                            <th rowspan="1" colspan="1">Last Login</th>
+                                                            <th rowspan="1" colspan="1">Status</th>
+
+                                                            <th rowspan="1" colspan="1">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th rowspan="1" colspan="1">Name</th>
+                                                            <th rowspan="1" colspan="1">Login Count</th>
+                                                            <th rowspan="1" colspan="1">Role</th>
+                                                            <th rowspan="1" colspan="1">Email Address</th>
+                                                            <th rowspan="1" colspan="1">Last Login</th>
+                                                            <th rowspan="1" colspan="1">Status</th>
+                                                            <th rowspan="1" colspan="1">Action</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                    <tbody>
+                                                        <% const role=['Admin', 'Product Manager' , 'Power User' ];
+                                                            const color=['info','primary','secondary'] %>
+                                                            <% loginReports.forEach(a=>{ %>
+                                                                <tr role="row" class="odd">
+
+                                                                    <td class="">
+                                                                        <%=a.firstName + ' ' + a.lastName %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= a.loginCount %>
+                                                                    </td>
+                                                                    <td><span class="badge badge-<%=color[a.role]%>">
+                                                                            <%= role[a.role] %>
+                                                                        </span></td>
+                                                                    <td id="email-<%=a.id %>">
+                                                                        <%=a.email %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%=a.lastLogin !==null ? a.lastLogin : 'N-A' %>
+                                                                    </td>
+                                                                    <td><span id="activeBadge-<%= a.id%>"
+                                                                            class="badge badge-<%= a.active ? 'success' : 'danger' %>">
+                                                                            <%= a.active ? 'ACTIVE' : 'INACTIVE' %>
+                                                                        </span></td>
+                                                                    <td>
+                                                                        <div class="form-button-action">
+                                                                            <button class="Kk_table_view_more"style="text-decoration: none;"
+                                                                                type="button"
+                                                                                data-target=".bd-example-modal-sm"
+                                                                                data-toggle="modal"
+                                                                                onclick="displayReport('<%=a.id%>')">
+                                                                                View More
+                                                                               
+                                                                            </button>
+
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <% }) %>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
                         <%-include('../partials/footer.ejs')%>
@@ -155,9 +162,13 @@
     </div>
     <!-- login timeline modal -->
     <div class="modal bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-         style="display: none;" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        style="display: none;" aria-hidden="true" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Login History</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
                 <div class="modal-body">
                     <table id="UserLoginReport" style="height: 80%;" class="mb-0 table table-hover scroll-area-lg">
                         <thead>
@@ -193,7 +204,7 @@
     <!-- jQuery UI -->
     <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-    
+
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
     <!-- Datatables -->

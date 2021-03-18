@@ -3,169 +3,177 @@
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Infeenity Dashboard</title>
+    <title>Inbound PMS</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
 
-<!-- CSS Files -->
-<link rel="stylesheet" href="/assets/css/bootstrap.css">
-<link rel="stylesheet" href="/assets/css/atlantis.min.css">
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/atlantis.min.css">
 
-<!-- CSS Just for demo purpose, don't include it in your project -->
-<link rel="stylesheet" href="/assets/css/demo.css">
-<link rel="stylesheet" href="/assets/css/kk_style.css">
-<link rel="stylesheet" href="/assets/css/iziToast.min.css">
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="/assets/css/demo.css">
+    <link rel="stylesheet" href="/assets/css/kk_style.css">
+    <link rel="stylesheet" href="/assets/css/iziToast.min.css">
 
-<script src="/assets/js/plugin/webfont/webfont.min.js"></script>
-<script>
-    WebFont.load({
-        google: { "families": ["Lato:300,400,700,900"] },
-        custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css'] },
-        active: function () {
-            sessionStorage.fonts = true;
-        }
-    });
-</script>
+    <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+        WebFont.load({
+            google: { "families": ["Lato:300,400,700,900"] },
+            custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css'] },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
 </head>
 
 <body>
     <div class="wrapper">
-            <%-include('../partials/config')%>
+        <%-include('../partials/config')%>
 
-        <!-- header -->
-        <%-include('../partials/header.ejs')%>
-        <!-- header end -->
+            <!-- header -->
+            <%-include('../partials/header.ejs')%>
+                <!-- header end -->
 
-        <!-- Sidebar -->
-        <%-include('../partials/sidebar.ejs')%>
-        <!-- End Sidebar -->
+                <!-- Sidebar -->
+                <%-include('../partials/sidebar.ejs')%>
+                    <!-- End Sidebar -->
 
-        <div class="main-panel">
-            <div class="content">
+                    <div class="main-panel">
+                        <div class="content">
 
-                <div class="page-inner ">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="card-title">Top Products</div>
-                                </div>
-                                <div class="card-body pb-0">
-                                    <div class="d-flex">
-                                        <div class="avatar">
-                                            <img src="/assets/img/logoproduct.svg" alt="..."
-                                                class="avatar-img rounded-circle">
-                                        </div>
-                                        <div class="flex-1 pt-1 ml-2">
-                                            <h6 class="fw-bold mb-1">CSS</h6>
-                                            <small class="text-muted">Cascading Style Sheets</small>
-                                        </div>
-                                        <div class="d-flex ml-auto align-items-center">
-                                            <h3 class="text-info fw-bold">+$17</h3>
-                                        </div>
-                                    </div>
-                                    <div class="separator-dashed"></div>
-                                    <div class="d-flex">
-                                        <div class="avatar">
-                                            <img src="/assets/img/logoproduct.svg" alt="..."
-                                                class="avatar-img rounded-circle">
-                                        </div>
-                                        <div class="flex-1 pt-1 ml-2">
-                                            <h6 class="fw-bold mb-1">J.CO Donuts</h6>
-                                            <small class="text-muted">The Best Donuts</small>
-                                        </div>
-                                        <div class="d-flex ml-auto align-items-center">
-                                            <h3 class="text-info fw-bold">+$300</h3>
-                                        </div>
-                                    </div>
-                                    <div class="separator-dashed"></div>
-                                    <div class="d-flex">
-                                        <div class="avatar">
-                                            <img src="/assets/img/logoproduct3.svg" alt="..."
-                                                class="avatar-img rounded-circle">
-                                        </div>
-                                        <div class="flex-1 pt-1 ml-2">
-                                            <h6 class="fw-bold mb-1">Ready Pro</h6>
-                                            <small class="text-muted">Bootstrap 4 Admin Dashboard</small>
-                                        </div>
-                                        <div class="d-flex ml-auto align-items-center">
-                                            <h3 class="text-info fw-bold">+$350</h3>
-                                        </div>
-                                    </div>
-                                    <div class="separator-dashed"></div>
-                                    <div class="pull-in">
-                                        <canvas id="topProductsChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="card-title fw-mediumbold">Active People</div>
-                                <% finalArr.forEach(a=>{%>
-                                    <div class="card-list">
-                                        <div class="item-list">
-                                            <div class="avatar">
-                                                <img src="/uploads/userProfile/<%=a.user.profileImageSource%>" alt="..."
-                                                    class="avatar-img rounded-circle">
+                            <div class="page-inner ">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <div class="card-title">Top Products</div>
                                             </div>
-                                            <div class="info-user ml-3">
-                                                <div class="username"><%=a.user.firstName + ' ' +a.user.lastName  %> </div>
-                                                <div class="status"><%=a.user.role%></div>
+                                            <div class="card-body pb-0">
+                                                <div class="d-flex">
+                                                    <div class="avatar">
+                                                        <img src="/assets/img/logoproduct.svg" alt="..."
+                                                            class="avatar-img rounded-circle">
+                                                    </div>
+                                                    <div class="flex-1 pt-1 ml-2">
+                                                        <h6 class="fw-bold mb-1">CSS</h6>
+                                                        <small class="text-muted">Cascading Style Sheets</small>
+                                                    </div>
+                                                    <div class="d-flex ml-auto align-items-center">
+                                                        <h3 class="text-info fw-bold">+$17</h3>
+                                                    </div>
+                                                </div>
+                                                <div class="separator-dashed"></div>
+                                                <div class="d-flex">
+                                                    <div class="avatar">
+                                                        <img src="/assets/img/logoproduct.svg" alt="..."
+                                                            class="avatar-img rounded-circle">
+                                                    </div>
+                                                    <div class="flex-1 pt-1 ml-2">
+                                                        <h6 class="fw-bold mb-1">J.CO Donuts</h6>
+                                                        <small class="text-muted">The Best Donuts</small>
+                                                    </div>
+                                                    <div class="d-flex ml-auto align-items-center">
+                                                        <h3 class="text-info fw-bold">+$300</h3>
+                                                    </div>
+                                                </div>
+                                                <div class="separator-dashed"></div>
+                                                <div class="d-flex">
+                                                    <div class="avatar">
+                                                        <img src="/assets/img/logoproduct3.svg" alt="..."
+                                                            class="avatar-img rounded-circle">
+                                                    </div>
+                                                    <div class="flex-1 pt-1 ml-2">
+                                                        <h6 class="fw-bold mb-1">Ready Pro</h6>
+                                                        <small class="text-muted">Bootstrap 4 Admin Dashboard</small>
+                                                    </div>
+                                                    <div class="d-flex ml-auto align-items-center">
+                                                        <h3 class="text-info fw-bold">+$350</h3>
+                                                    </div>
+                                                </div>
+                                                <div class="separator-dashed"></div>
+                                                <div class="pull-in">
+                                                    <canvas id="topProductsChart"></canvas>
+                                                </div>
                                             </div>
-                                            <span>
-                                                <%= formatDateMoment(new Date(a.time))  %>
-                                            </span>
                                         </div>
-                                        
                                     </div>
-                                <% }) %>
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="card-title fw-mediumbold">Active People</div>
+                                                <% finalArr.forEach(a=>{%>
+                                                    <div class="card-list">
+                                                        <div class="item-list">
+                                                            <div class="avatar">
+                                                                <img src="/uploads/userProfile/<%=a.user.profileImageSource%>"
+                                                                    alt="..." class="avatar-img rounded-circle">
+                                                            </div>
+                                                            <div class="info-user ml-3">
+                                                                <div class="username">
+                                                                    <%=a.user.firstName + ' ' +a.user.lastName %>
+                                                                </div>
+                                                                <div class="status">
+                                                                    <%=a.user.role%>
+                                                                </div>
+                                                            </div>
+                                                            <span>
+                                                                <%= formatDateMoment(new Date(a.time)) %>
+                                                            </span>
+                                                        </div>
+
+                                                    </div>
+                                                    <% }) %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card ">
+                                            <div class="card-body">
+                                                <h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Active user right now</h4>
+                                                <h1 class="mb-4 fw-bold">
+                                                    <%= finalArr.length %>
+                                                </h1>
+                                                <h4 class="mt-3 b-b1 pb-2 mb-5 fw-bold">Page view per minutes</h4>
+                                                <div id="activeUsersChart"></div>
+                                                <h4 class="mt-5 pb-3 mb-0 fw-bold">Top active pages</h4>
+                                                <ul class="list-unstyled">
+                                                    <li class="d-flex justify-content-between pb-1 pt-1">
+                                                        <small>/product/readypro/index.html</small> <span>7</span>
+                                                    </li>
+                                                    <li class="d-flex justify-content-between pb-1 pt-1">
+                                                        <small>/product/atlantis/demo.html</small> <span>10</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card ">
-                                <div class="card-body">
-                                    <h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Active user right now</h4>
-                                    <h1 class="mb-4 fw-bold"><%= finalArr.length  %> </h1>
-                                    <h4 class="mt-3 b-b1 pb-2 mb-5 fw-bold">Page view per minutes</h4>
-                                    <div id="activeUsersChart"></div>
-                                    <h4 class="mt-5 pb-3 mb-0 fw-bold">Top active pages</h4>
-                                    <ul class="list-unstyled">
-                                        <li class="d-flex justify-content-between pb-1 pt-1">
-                                            <small>/product/readypro/index.html</small> <span>7</span></li>
-                                        <li class="d-flex justify-content-between pb-1 pt-1">
-                                            <small>/product/atlantis/demo.html</small> <span>10</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        <%-include('../partials/footer.ejs')%>
                     </div>
-                </div>
-            </div>
-            <%-include('../partials/footer.ejs')%>
-        </div>
 
     </div>
-        <!--   Core JS Files   -->
-        
-        <!-- jQuery library -->
-        <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
-        <!-- Latest compiled JavaScript -->
-        <script src="/assets/js/core/bootstrap.js"></script>
-        <!-- Popper JS -->
-        <script src="/assets/js/core/popper.min.js"></script>
-        <!-- Atlantis JS -->
-        <script src="/assets/js/atlantis.min.js"></script>
-        <script src="/assets/js/iziToast.js"></script>
-        <script src="/assets/js/flashMessage.js"></script>
-        <!-- jQuery UI -->
-        <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-        <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-        
-        <!-- jQuery Scrollbar -->
-        <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <!--   Core JS Files   -->
+
+    <!-- jQuery library -->
+    <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="/assets/js/core/bootstrap.js"></script>
+    <!-- Popper JS -->
+    <script src="/assets/js/core/popper.min.js"></script>
+    <!-- Atlantis JS -->
+    <script src="/assets/js/atlantis.min.js"></script>
+    <script src="/assets/js/iziToast.js"></script>
+    <script src="/assets/js/flashMessage.js"></script>
+    <!-- jQuery UI -->
+    <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 
 </body>
 
