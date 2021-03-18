@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Infeenity Dashboard</title>
+    <title>Inbound PMS</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
 
@@ -91,7 +91,7 @@
                                                                 <th>Created By</th>
                                                                 <th>Status</th>
                                                                 <th>Field Count</th>
-                                                                                                                                                                    <th>Created At</th>
+                                                                <th>Created At</th>
                                                                 <th>Action</th>
                                                             </tr>
                                                         </thead>
@@ -107,7 +107,7 @@
                                                                             <%= _a.lname %>
                                                                     </td>
                                                                     <td>
-                                                                       
+
                                                                         <span id="activeBadge-<%= _a.id%>"
                                                                             style="background-color:<%= _a.active ? '#088e0c' : '#d20e18' %>"
                                                                             class="badge badge-<%= _a.active ? 'success' : 'danger' %>">
@@ -153,7 +153,7 @@
                                                                             </button>
                                                                         </div>
                                                                     </td>
-                                                                    
+
                                                                 </tr>
                                                                 <% }) %>
 
@@ -218,11 +218,10 @@
                                         <h4 class="modal-title">Create New Group</h4>
                                         <button type="button" class="close" data-dismiss="modal">×</button>
                                     </div>
-
+                                    <form action="/admin/inputfield/inputgroup/add" method="POST">
                                     <!-- Modal body -->
                                     <div class="modal-body">
-                                        <form action="/admin/inputfield/inputgroup/add" method="POST">
-                                            <div class="form-group">
+                                       <div class="form-group">
                                                 <label for="email2">Enter Group Name</label>
                                                 <input type="text" class="form-control" name="name" id="email2"
                                                     placeholder="Name">
@@ -233,13 +232,16 @@
                                                     rows="5"> </textarea>
                                             </div>
                                             <!-- Modal footer -->
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary">Save</button>
-                                                <button type="button" class="btn btn-danger"
-                                                    data-dismiss="modal">Cancel</button>
-                                            </div>
-                                        </form>
+                                            
+                                        
                                     </div>
+
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                    </form>
+
                                 </div>
                             </div>
 
@@ -283,7 +285,7 @@
                             select: {
                                 style: 'single'
                             },
-                            scrollY:'47vh'
+                            scrollY: '47vh'
 
                         });
                         table.off("select").on("select", function (e, dt, type, indexes) {
@@ -316,7 +318,7 @@
                                         return res.json()
                                     })
                                     .then(function (json) {
-                                        
+
                                         if (json.status == 200)
                                             showItemFields(ids)
                                         else if (json.status == 400)

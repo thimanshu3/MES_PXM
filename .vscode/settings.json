@@ -1,6 +1,7 @@
 {
     "files.autoSave": "afterDelay",
     "editor.formatOnPaste": true,
-    "editor.formatOnSave": true,
-    "editor.wordWrap": "on"
+    "editor.formatOnSave": false,
+    "editor.wordWrap": "on",
+   
 }

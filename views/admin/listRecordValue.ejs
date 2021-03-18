@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Infeenity Dashboard</title>
+    <title>Inbound PMS</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
     <!-- CSS Files -->
@@ -71,68 +71,75 @@
                                         </li>
                                     </ul>
                                 </div>
-                               
-                            <div class="row">
-                            
-                                <div class="col-6">
-                                    <div class="main-card mb-3 card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">List Record Value(s) of </h5>
-                                            <div class="table-responsive">
-                                                <table id="listrecord" class="mb-0 table table-borderless">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Label</th>
-                                                            <th>Status</th>
-                                                            
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <% listRecordv.forEach((a,index)=>{ %>
+
+                                <div class="row">
+
+                                    <div class="col-6">
+                                        <div class="main-card mb-3 card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">List Record Value(s) of </h5>
+                                                <div class="table-responsive">
+                                                    <table id="listrecord" class="mb-0 table table-borderless">
+                                                        <thead>
                                                             <tr>
-                                                                <td>
-                                                                    <%= ++index %>
-                                                                </td>
-                                                                <td>
-                                                                    <%= a.label %>
-                                                                </td>
-                                                                <td>
-                                                                    <span id="activeBadge-<%= a.id%>" style="background-color:  <%= a.active ? '#088e0c' : '#d20e18' %>" class="badge badge-<%= a.active ? 'success' : 'danger' %>">
-                                                                        <%= a.active ? 'ACTIVE' : 'INACTIVE' %>
-                                                                    </span>
-                                                                </td>
-                                                                <td class="d-flex justify-content-end">
-                                                                    <div class="form-button-action">
-                                                                        <button onclick="editValue('/admin/listrecord/value/<%=a.id%>','PATCH','<%=a.label %>')"
-                                                                                class="border-0 btn btn-primary">
-                                                                            <i class="fa fa-edit"></i>
-                                                                        </button>
-                                                                        <button id="changeStatus-<%=a.id%>" data-original-title="Change Status" data-toggle="tooltip"
-                                                                                onclick="changeStatus('<%=a.id%>')" class="border-0 btn-transition btn-link">
-                                                                            <i class="fas <%= a.active ? 'fa-toggle-on': 'fa-toggle-off' %>"></i>
-                                                                        </button>
-                                                                        <button id="changeActiveUser-"
-                                                                                onclick="removeField('<%=a.id%>')" type="button"
-                                                                                data-toggle="tooltip" title=""
-                                                                                class="btn btn-link btn-danger"
-                                                                                data-original-title="Remove">
-                                                                            <i class="fa fa-trash"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </td>
+                                                                <th>#</th>
+                                                                <th>Label</th>
+                                                                <th>Status</th>
+
+                                                                <th>Action</th>
                                                             </tr>
-                                                            <% }) %>
-                                                    
-                                                    
-                                                    </tbody>
-                                                </table>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% listRecordv.forEach((a,index)=>{ %>
+                                                                <tr>
+                                                                    <td>
+                                                                        <%= ++index %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= a.label %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span id="activeBadge-<%= a.id%>"
+                                                                            style="background-color:  <%= a.active ? '#088e0c' : '#d20e18' %>"
+                                                                            class="badge badge-<%= a.active ? 'success' : 'danger' %>">
+                                                                            <%= a.active ? 'ACTIVE' : 'INACTIVE' %>
+                                                                        </span>
+                                                                    </td>
+                                                                    <td class="d-flex justify-content-end">
+                                                                        <div class="form-button-action">
+                                                                            <button
+                                                                                onclick="editValue('/admin/listrecord/value/<%=a.id%>','PATCH','<%=a.label %>')"
+                                                                                class="border-0 btn btn-primary">
+                                                                                <i class="fa fa-edit"></i>
+                                                                            </button>
+                                                                            <button id="changeStatus-<%=a.id%>"
+                                                                                data-original-title="Change Status"
+                                                                                data-toggle="tooltip"
+                                                                                onclick="changeStatus('<%=a.id%>')"
+                                                                                class="border-0 btn-transition btn-link">
+                                                                                <i
+                                                                                    class="fas <%= a.active ? 'fa-toggle-on': 'fa-toggle-off' %>"></i>
+                                                                            </button>
+                                                                            <button id="changeActiveUser-"
+                                                                                onclick="removeField('<%=a.id%>')"
+                                                                                type="button" data-toggle="tooltip"
+                                                                                title="" class="btn btn-link btn-danger"
+                                                                                data-original-title="Remove">
+                                                                                <i class="fa fa-trash"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <% }) %>
+
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
                     </div>
@@ -217,18 +224,18 @@
     <!-- jQuery UI -->
     <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-    
+
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 
 
     <script>
-        function addListValue(){
-            addValue('/'+window.location.pathname+'/add', 'POST')
+        function addListValue() {
+            addValue('/' + window.location.pathname + '/add', 'POST')
         }
         function changeStatus(id) {
-                markStatusOrDelete(`/admin/listrecord/value/${id}`, 'DELETE', 'status', `{"id":"${id}"}`)
-            }
+            markStatusOrDelete(`/admin/listrecord/value/${id}`, 'DELETE', 'status', `{"id":"${id}"}`)
+        }
         function removeField(id) {
             markStatusOrDelete(`/admin/listrecord/value/remove/${id}`, 'DELETE')
         }
@@ -276,41 +283,41 @@
 
     </script>
 
-        <script>
-            $(document).ready(function () {
-                $('input[type="file"]').on('click', function () {
-                    $(".file_names").html("");
-                })
-                if ($('input[type="file"]')[0]) {
-                    var fileInput = document.querySelector('label[for="et_pb_contact_brand_file_request_0"]');
-                    fileInput.ondragover = function () {
-                        this.className = "et_pb_contact_form_label changed";
-                        return false;
-                    }
-                    fileInput.ondragleave = function () {
-                        this.className = "et_pb_contact_form_label";
-                        return false;
-                    }
-                    fileInput.ondrop = function (e) {
-                        e.preventDefault();
-                        var fileNames = e.dataTransfer.files;
-                        for (var x = 0; x < fileNames.length; x++) {
-                            console.log(fileNames[x].name);
-                            $ = jQuery.noConflict();
-                            $('label[for="et_pb_contact_brand_file_request_0"]').append("<div class='file_names'>" + fileNames[x].name + "</div>");
-                        }
-                    }
-                    $('#et_pb_contact_brand_file_request_0').change(function () {
-                        var fileNames = $('#et_pb_contact_brand_file_request_0')[0].files[0].name;
-                        $('label[for="et_pb_contact_brand_file_request_0"]').append("<div class='file_names'>" + fileNames + "</div>");
-                        $('label[for="et_pb_contact_brand_file_request_0"]').css('background-color', '##eee9ff');
-                    });
+    <script>
+        $(document).ready(function () {
+            $('input[type="file"]').on('click', function () {
+                $(".file_names").html("");
+            })
+            if ($('input[type="file"]')[0]) {
+                var fileInput = document.querySelector('label[for="et_pb_contact_brand_file_request_0"]');
+                fileInput.ondragover = function () {
+                    this.className = "et_pb_contact_form_label changed";
+                    return false;
                 }
-            });
+                fileInput.ondragleave = function () {
+                    this.className = "et_pb_contact_form_label";
+                    return false;
+                }
+                fileInput.ondrop = function (e) {
+                    e.preventDefault();
+                    var fileNames = e.dataTransfer.files;
+                    for (var x = 0; x < fileNames.length; x++) {
+                        console.log(fileNames[x].name);
+                        $ = jQuery.noConflict();
+                        $('label[for="et_pb_contact_brand_file_request_0"]').append("<div class='file_names'>" + fileNames[x].name + "</div>");
+                    }
+                }
+                $('#et_pb_contact_brand_file_request_0').change(function () {
+                    var fileNames = $('#et_pb_contact_brand_file_request_0')[0].files[0].name;
+                    $('label[for="et_pb_contact_brand_file_request_0"]').append("<div class='file_names'>" + fileNames + "</div>");
+                    $('label[for="et_pb_contact_brand_file_request_0"]').css('background-color', '##eee9ff');
+                });
+            }
+        });
 
 
 
-        </script>
+    </script>
 </body>
 
 </html>

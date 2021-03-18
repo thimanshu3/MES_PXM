@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Infeenity Dashboard</title>
+    <title>Inbound PMS</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
 
@@ -94,81 +94,76 @@
                                                                     <th>Created By</th>
                                                                     <th>Status</th>
                                                                     <th>Action</th>
-                                                                    
+
                                                                 </tr>
-                                                                <tbody>
-                                                                    <% inputField[0].forEach(_a=>{ %>
-                                                                        <tr>
-                                                                
-                                                                            <td data-toggle="tooltip"
-                                                                                data-placement="left"
-                                                                                title="<%= _a.description %> ">
-                                                                                <%= _a.label %>
-                                                                            </td>
-                                                                            <td>
-                                                                                <%= _a.inputType %>
-                                                                                    <%if ( _a.inputType=='list/record' ) { %>
-                                                                                        <button type="button" data-toggle="tooltip" title="" onclick="fetchListValues('<%= _a.lr %>','<%= _a.label%>')" class="btn btn-link btn-sm"
-                                                                                                data-original-title="View List/Record Values">
-                                                                                            <i class="fa fa-eye"></i>
-                                                                                            
-                                                                                        </button>
-                                                                                        <% if (_a.lr=='-' ) { %>
-                                                                                            <span class="badge badge-warning">No List Attached</span>
-                                                                                            <%}%>
-                                                                                        <% } %>
-                                                                
-                                                                            </td>
-                                                                            <td>
-                                                                                <%= _a.firstName + ' ' +
-                                                                                    _a.lastName %>
-                                                                            </td>
-                                                                            <td><span
-                                                                                      id="activeBadge-<%= _a.id%>"
-                                                                                      style="background-color: <%= _a.active ? '#088e0c' : '#d20e18' %>"
-                                                                                      class="badge badge-<%= _a.active ? 'success' : 'danger' %>">
-                                                                                    <%= _a.active ? 'ACTIVE'
-                                                                                        : 'INACTIVE' %>
-                                                                                </span>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="form-button-action">
-                                                                
+                                                            <tbody>
+                                                                <% inputField[0].forEach(_a=>{ %>
+                                                                    <tr>
+
+                                                                        <td data-toggle="tooltip" data-placement="left"
+                                                                            title="<%= _a.description %> ">
+                                                                            <%= _a.label %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= _a.inputType %>
+                                                                                <%if ( _a.inputType=='list/record' ) {
+                                                                                    %>
                                                                                     <button type="button"
-                                                                                            data-toggle="tooltip"
-                                                                                            title=""
-                                                                                            class="btn btn-link btn-lg"
-                                                                                            data-original-title="Edit Task">
-                                                                                        <i
-                                                                                           class="fa fa-edit"></i>
+                                                                                        data-toggle="tooltip" title=""
+                                                                                        onclick="fetchListValues('<%= _a.lr %>','<%= _a.label%>')"
+                                                                                        class="btn btn-link btn-sm"
+                                                                                        data-original-title="View List/Record Values">
+                                                                                        <i class="fa fa-eye"></i>
+
                                                                                     </button>
-                                                                                    <button
-                                                                                            id="changeStatus-<%=_a.id%>"
-                                                                                            onclick="changeStatus('<%=_a.id%>')"
-                                                                                            type="button"
-                                                                                            data-toggle="tooltip"
-                                                                                            title="Toggle to Change Status"
-                                                                                            class="btn btn-link btn-default"
-                                                                                            data-original-title="Remove">
-                                                                                        <i
-                                                                                           class="fas <%= _a.active ? 'fa-toggle-on': 'fa-toggle-off' %>"></i>
-                                                                                    </button>
-                                                                                    <button
-                                                                                            id="removefield-<%=_a.id%>"
-                                                                                            onclick="removeField('<%=_a.id%>')"
-                                                                                            type="button"
-                                                                                            data-toggle="tooltip"
-                                                                                            title=""
-                                                                                            class="btn btn-link btn-danger"
-                                                                                            data-original-title="Remove">
-                                                                                        <i
-                                                                                           class="fas fa-trash"></i>
-                                                                                    </button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <% }) %>
-                                                                </tbody>
+                                                                                    <% if (_a.lr=='-' ) { %>
+                                                                                        <span
+                                                                                            class="badge badge-warning">No
+                                                                                            List Attached</span>
+                                                                                        <%}%>
+                                                                                            <% } %>
+
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= _a.firstName + ' ' + _a.lastName %>
+                                                                        </td>
+                                                                        <td><span id="activeBadge-<%= _a.id%>"
+                                                                                style="background-color: <%= _a.active ? '#088e0c' : '#d20e18' %>"
+                                                                                class="badge badge-<%= _a.active ? 'success' : 'danger' %>">
+                                                                                <%= _a.active ? 'ACTIVE' : 'INACTIVE' %>
+                                                                            </span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="form-button-action">
+
+                                                                                <button type="button"
+                                                                                    data-toggle="tooltip" title=""
+                                                                                    class="btn btn-link btn-lg"
+                                                                                    data-original-title="Edit Task">
+                                                                                    <i class="fa fa-edit"></i>
+                                                                                </button>
+                                                                                <button id="changeStatus-<%=_a.id%>"
+                                                                                    onclick="changeStatus('<%=_a.id%>')"
+                                                                                    type="button" data-toggle="tooltip"
+                                                                                    title="Toggle to Change Status"
+                                                                                    class="btn btn-link btn-default"
+                                                                                    data-original-title="Remove">
+                                                                                    <i
+                                                                                        class="fas <%= _a.active ? 'fa-toggle-on': 'fa-toggle-off' %>"></i>
+                                                                                </button>
+                                                                                <button id="removefield-<%=_a.id%>"
+                                                                                    onclick="removeField('<%=_a.id%>')"
+                                                                                    type="button" data-toggle="tooltip"
+                                                                                    title=""
+                                                                                    class="btn btn-link btn-danger"
+                                                                                    data-original-title="Remove">
+                                                                                    <i class="fas fa-trash"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <% }) %>
+                                                            </tbody>
                                                             </thead>
                                                         </table>
                                                     </div>
@@ -238,7 +233,8 @@
                                             </option>
                                             <% }) %>
                                     </select>
-                                    <label for="selectFloatingLabel" class="placeholder">Select Associated List Record</label>
+                                    <label for="selectFloatingLabel" class="placeholder">Select Associated List
+                                        Record</label>
                                 </div>
                             </div>
 
@@ -281,9 +277,9 @@
                             <i class="fa fa-plus"></i>
                             Import Item Fields
                         </button>
-                    
+
                     </div>
-    
+
 
                 </div>
 
@@ -291,65 +287,66 @@
         </div>
     </div>
 
-<!-- modal to show list record values -->
-<div class="modal kk_modal_popup_form" id="kk_list_modal" style="display: none;" data-keyboard="false"
-    data-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+    <!-- modal to show list record values -->
+    <div class="modal kk_modal_popup_form" id="kk_list_modal" style="display: none;" data-keyboard="false"
+        data-backdrop="static" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 id="demo" class="modal-title">List/Record Values of <strong  style="color: blue;" id="nameV"></strong> </h4>
-                
-                <button type="button" class="close" data-dismiss="modal">×</button>
-            </div>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 id="demo" class="modal-title">List/Record Values of <strong style="color: blue;"
+                            id="nameV"></strong> </h4>
 
-            <!-- Modal body -->
-            <div class="modal-body">
-                <div class="scroll-area-sm">
-                    <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
-                        <ol id="lrValues" class="custom-counter">
-                          
-                        </ol>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="scroll-area-sm">
+                        <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
+                            <ol id="lrValues" class="custom-counter">
+
+                            </ol>
+                        </div>
+
                     </div>
 
                 </div>
-
-            </div>
-            <!-- <div class="modal-footer">
+                <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-primary">Import</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div> -->
-        </div>
-    </div>
-</div>
-
-<div class="modal fade kk_modal_popup_form " id="myModal" data-keyboard="false" data-backdrop="static">
-    <div class="modal-dialog ">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Import User</h4>
-                <button type="button" class="close" data-dismiss="modal">×</button>
             </div>
-            <form action="/admin/inputField/import" method="POST" enctype="multipart/form-data">
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <p class="text-danger">Supported extensions .XLSX</p>
-                    <button type="button" class="btn btn-primary mb-5">Download Template</button>
-                    <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Import</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
+
+    <div class="modal fade kk_modal_popup_form " id="myModal" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Import User</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <form action="/admin/inputField/import" method="POST" enctype="multipart/form-data">
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <p class="text-danger">Supported extensions .XLSX</p>
+                        <button type="button" class="btn btn-primary mb-5">Download Template</button>
+                        <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Import</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!-- jQuery library -->
     <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
     <!-- Latest compiled JavaScript -->
@@ -372,7 +369,7 @@
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
     <script>
         $('#add-row').DataTable({
-           
+
         });
         $(document).on('show.bs.modal', '.modal', function () {
             var zIndex = 1040 + (10 * $('.modal:visible').length);
@@ -386,10 +383,9 @@
             $("#selectFloatingLabel").on('change', () => {
                 if ($('option:selected', '#selectFloatingLabel').text().replace(/\s+/g, ' ').trim() === 'list/record') {
                     $('#listDiv').show()
-                    $('#listOptions').prop('required',true)
+                    $('#listOptions').prop('required', true)
                 }
-                else
-                {
+                else {
                     $('#listDiv').hide()
                     $('#listOptions').prop('required', false)
                 }
@@ -403,73 +399,73 @@
             markStatusOrDelete(`/admin/inputfield/remove/${id}`, 'DELETE')
         }
 
-        function fetchListValues(id,label) {
+        function fetchListValues(id, label) {
             fetch(`/admin/inputfield/lrValue/${id}`)
-            .then(res => res.json())
-            .then(json=>{
-                if(json.listRecordv){
-                    $('#lrValues').empty()
-                    let data = ''
-                    if(json.listRecordv.length){
-                        json.listRecordv.forEach(a => {
-                            data += `<li>${a.label}</li>`
+                .then(res => res.json())
+                .then(json => {
+                    if (json.listRecordv) {
+                        $('#lrValues').empty()
+                        let data = ''
+                        if (json.listRecordv.length) {
+                            json.listRecordv.forEach(a => {
+                                data += `<li>${a.label}</li>`
+                            })
+                            console.log(data);
+                        }
+                        else {
+                            data = '<center><h2>No Values in List!!</h2></center>'
+                        }
+                        $('#nameV').text(label)
+                        $('#lrValues').append(data)
+                        $('#kk_list_modal').modal('show');
+                    }
+                    if (json.status == 404) {
+                        iziToast.warning({
+                            message: json.message
                         })
-                        console.log(data);
                     }
-                    else{
-                        data = '<center><h2>No Values in List!!</h2></center>'
-                    }
-                    $('#nameV').text(label)
-                    $('#lrValues').append(data)
-                    $('#kk_list_modal').modal('show');
-                }
-                if(json.status == 404){
-                    iziToast.warning({
-                        message: json.message
-                    })
-                }
-            })
-            .catch(err => console.log(err))
-           
+                })
+                .catch(err => console.log(err))
+
         }
 
     </script>
 
-        <script>
-            $(document).ready(function () {
-                $('input[type="file"]').on('click', function () {
-                    $(".file_names").html("");
-                })
-                if ($('input[type="file"]')[0]) {
-                    var fileInput = document.querySelector('label[for="et_pb_contact_brand_file_request_0"]');
-                    fileInput.ondragover = function () {
-                        this.className = "et_pb_contact_form_label changed";
-                        return false;
-                    }
-                    fileInput.ondragleave = function () {
-                        this.className = "et_pb_contact_form_label";
-                        return false;
-                    }
-                    fileInput.ondrop = function (e) {
-                        e.preventDefault();
-                        var fileNames = e.dataTransfer.files;
-                        for (var x = 0; x < fileNames.length; x++) {
-                            console.log(fileNames[x].name);
-                            $ = jQuery.noConflict();
-                            $('label[for="et_pb_contact_brand_file_request_0"]').append("<div class='file_names'>" + fileNames[x].name + "</div>");
-                        }
-                    }
-                    $('#et_pb_contact_brand_file_request_0').change(function () {
-                        var fileNames = $('#et_pb_contact_brand_file_request_0')[0].files[0].name;
-                        $('label[for="et_pb_contact_brand_file_request_0"]').append("<div class='file_names'>" + fileNames + "</div>");
-                        $('label[for="et_pb_contact_brand_file_request_0"]').css('background-color', '##eee9ff');
-                    });
+    <script>
+        $(document).ready(function () {
+            $('input[type="file"]').on('click', function () {
+                $(".file_names").html("");
+            })
+            if ($('input[type="file"]')[0]) {
+                var fileInput = document.querySelector('label[for="et_pb_contact_brand_file_request_0"]');
+                fileInput.ondragover = function () {
+                    this.className = "et_pb_contact_form_label changed";
+                    return false;
                 }
-            });
+                fileInput.ondragleave = function () {
+                    this.className = "et_pb_contact_form_label";
+                    return false;
+                }
+                fileInput.ondrop = function (e) {
+                    e.preventDefault();
+                    var fileNames = e.dataTransfer.files;
+                    for (var x = 0; x < fileNames.length; x++) {
+                        console.log(fileNames[x].name);
+                        $ = jQuery.noConflict();
+                        $('label[for="et_pb_contact_brand_file_request_0"]').append("<div class='file_names'>" + fileNames[x].name + "</div>");
+                    }
+                }
+                $('#et_pb_contact_brand_file_request_0').change(function () {
+                    var fileNames = $('#et_pb_contact_brand_file_request_0')[0].files[0].name;
+                    $('label[for="et_pb_contact_brand_file_request_0"]').append("<div class='file_names'>" + fileNames + "</div>");
+                    $('label[for="et_pb_contact_brand_file_request_0"]').css('background-color', '##eee9ff');
+                });
+            }
+        });
 
 
 
-        </script>
+    </script>
 </body>
 
 </html>

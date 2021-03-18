@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Infeenity Dashboard</title>
+    <title>Inbound PMS</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
         integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
         crossorigin="anonymous" />
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 
     <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
@@ -33,128 +33,147 @@
 
     <style>
         .progress {
-    height: 3px;
-}
-.step-wizard {
-  display: inline-block;
-  position: relative;
-  width: 85%;
-}
-.step-wizard .progress {
-     position: absolute;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 75%;
-}
-.step-wizard .progressbar {
-  position: absolute;
-  background-color: #3b5343;
-  opacity: 1;
-  height: 3px;
-  width: 0%;
-  -webkit-transition: width 0.6s ease;
-  -o-transition: width 0.6s ease;
-  transition: width 0.6s ease;
-}
-.step-wizard .progressbar.empty {
-  opacity: 1;
-  width: 100%;
-  background-color: #d0d0d0;
-}
-.step-wizard ul {
-    width: 100%;
-    list-style-type: none;
-    padding: 0;
-    justify-content: space-between;
-    display: flex;
-}
-.step-wizard li {
-  display: inline-block;
-  text-align: center;
-  width: 24%;
-}
-.step-wizard li .step {
-  text-align: center;
-  display: inline-block;
-  font-size: 18px;
-  font-weight: bold;
-  line-height: 30px;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 3px solid;
-  border-color: #d0d0d0;
-  background: #ffffff;
-  -webkit-transition: background-color 0.6s ease, border-color 0.6s ease;
-  -o-transition: background-color 0.6s ease, border-color 0.6s ease;
-  transition: background-color 0.6s ease, border-color 0.6s ease;
-}
-.step-wizard li .title {
-  text-decoration: underline;
-  width: 100%;
-  padding-top: 10px;
-  color: #767676;
-  -webkit-transition: color 0.6s ease;
-  -o-transition: color 0.6s ease;
-  transition: color 0.6s ease;
-}
-.step-wizard li.active .step {
-  border-color: #3b5343;
-  color: #3b5343;
-}
-.step-wizard li.active .title {
-  text-decoration: none;
-  color: #3b5343;
-  font-weight: bold;
-}
-.step-wizard li.done .title {
-  color: #3b5343;
-}
-.step-wizard li.done .title:hover {
-  color: #3b5343;
-}
-.step-wizard li.done .step {
-  color: white;
-  background-color: #3b5343;
-  border-color: #3b5343;
-}
-.step-wizard li > button {
-  background: none;
-  border: none;
-  display: block;
-  width: 100%;
-  color: #777;
-  position: relative;
-  text-align: center;
-}
-.step-wizard li > button:hover .step {
-  border-color: #3b5343;
-  background: #eee;
-  color: #3b5343;
-}
-.step-wizard li > button:hover .title {
-  color: #3b5343;
-}
-@media only screen and (max-width: 1200px) {
-  .step-wizard li {
-    width: 24%;
-  }
-}
-@media only screen and (max-width: 375px) {
-  .step-wizard li {
-    width: 22%;
-  }
-}
-li.done button div.step {
-  font-size: 0;
-}
-li.done button div.step::before {
-  content: "\2713 ";
-  font-size: 18px;
-}
+            height: 3px;
+        }
 
-        </style>
+        .step-wizard {
+            display: inline-block;
+            position: relative;
+            width: 85%;
+        }
+
+        .step-wizard .progress {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 75%;
+        }
+
+        .step-wizard .progressbar {
+            position: absolute;
+            background-color: #3b5343;
+            opacity: 1;
+            height: 3px;
+            width: 0%;
+            -webkit-transition: width 0.6s ease;
+            -o-transition: width 0.6s ease;
+            transition: width 0.6s ease;
+        }
+
+        .step-wizard .progressbar.empty {
+            opacity: 1;
+            width: 100%;
+            background-color: #d0d0d0;
+        }
+
+        .step-wizard ul {
+            width: 100%;
+            list-style-type: none;
+            padding: 0;
+            justify-content: space-between;
+            display: flex;
+        }
+
+        .step-wizard li {
+            display: inline-block;
+            text-align: center;
+            width: 24%;
+        }
+
+        .step-wizard li .step {
+            text-align: center;
+            display: inline-block;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 30px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 3px solid;
+            border-color: #d0d0d0;
+            background: #ffffff;
+            -webkit-transition: background-color 0.6s ease, border-color 0.6s ease;
+            -o-transition: background-color 0.6s ease, border-color 0.6s ease;
+            transition: background-color 0.6s ease, border-color 0.6s ease;
+        }
+
+        .step-wizard li .title {
+            text-decoration: underline;
+            width: 100%;
+            padding-top: 10px;
+            color: #767676;
+            -webkit-transition: color 0.6s ease;
+            -o-transition: color 0.6s ease;
+            transition: color 0.6s ease;
+        }
+
+        .step-wizard li.active .step {
+            border-color: #3b5343;
+            color: #3b5343;
+        }
+
+        .step-wizard li.active .title {
+            text-decoration: none;
+            color: #3b5343;
+            font-weight: bold;
+        }
+
+        .step-wizard li.done .title {
+            color: #3b5343;
+        }
+
+        .step-wizard li.done .title:hover {
+            color: #3b5343;
+        }
+
+        .step-wizard li.done .step {
+            color: white;
+            background-color: #3b5343;
+            border-color: #3b5343;
+        }
+
+        .step-wizard li>button {
+            background: none;
+            border: none;
+            display: block;
+            width: 100%;
+            color: #777;
+            position: relative;
+            text-align: center;
+        }
+
+        .step-wizard li>button:hover .step {
+            border-color: #3b5343;
+            background: #eee;
+            color: #3b5343;
+        }
+
+        .step-wizard li>button:hover .title {
+            color: #3b5343;
+        }
+
+        @media only screen and (max-width: 1200px) {
+            .step-wizard li {
+                width: 24%;
+            }
+        }
+
+        @media only screen and (max-width: 375px) {
+            .step-wizard li {
+                width: 22%;
+            }
+        }
+
+        li.done button div.step {
+            font-size: 0;
+        }
+
+        li.done button div.step::before {
+            content: "\2713 ";
+            font-size: 18px;
+        }
+    </style>
 
 </head>
 
@@ -207,10 +226,10 @@ li.done button div.step::before {
                                     <div class="row">
                                         <div class="col-md-12">
 
-                                            
-                                            <div class="card kk_full_form" >
+
+                                            <div class="card kk_full_form">
                                                 <div class="card-header text-center">
-                                                        <div class="step-wizard" role="navigation">
+                                                    <div class="step-wizard m-2" role="navigation">
                                                         <div class="progress">
                                                             <div class="progressbar empty"></div>
                                                             <div id="prog" class="progressbar"></div>
@@ -219,101 +238,121 @@ li.done button div.step::before {
                                                             <li id="1" class="active">
                                                                 <button id="step1">
                                                                     <div class="step">1</div>
-                                                                
+
                                                                 </button>
                                                             </li>
                                                             <li id="2" class="">
                                                                 <button id="step2">
                                                                     <div class="step">2</div>
-                                                                    
+
                                                                 </button>
                                                             </li>
                                                             <li id="3" class="">
                                                                 <button id="step3">
                                                                     <div class="step">3</div>
-                                                                    
+
                                                                 </button>
                                                             </li>
-                                            
+
                                                         </ul>
                                                     </div>
-                                                        
 
-                                                   
+
+
                                                 </div>
                                                 <form>
-                                            
+
                                                     <div class="card-body">
-                                                           
+
                                                         <div class="row" style="height: 60vh;">
-                                            
+
                                                             <div class="col-4 ">
-                                                            <div class="form-group w-100">
-                                                                <label for="productname">Product Name</label>
-                                                                <input type="text" name="name" class="form-control" id="productname" placeholder="Product Name">
-                                                            </div>
-                                                            <div class="form-group w-100">
-                                                                <label for="exampleFormControlSelect1">Select Form</label>
-                                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                                    <option value="" selected disabled>please select form</option>
-                                                                <% forms.forEach(element => { %> 
-                                                        
-                                                                    <option value="<%=element.id  %>" <%= element.name == 'master'? 'selected' : '' %> ><%=element.name %></option>
-                                                                 <% }); %> 
-                                                                </select>   
+                                                                <div class="form-group w-100">
+                                                                    <label for="productname">Product Name</label>
+                                                                    <input type="text" name="name" class="form-control"
+                                                                        id="productname" placeholder="Product Name">
+                                                                </div>
+                                                                <div class="form-group w-100">
+                                                                    <label for="exampleFormControlSelect1">Select
+                                                                        Form</label>
+                                                                    <select class="form-control"
+                                                                        id="exampleFormControlSelect1">
+                                                                        <option value="" selected disabled>please select
+                                                                            form</option>
+                                                                        <% forms.forEach(element=> { %>
+
+                                                                            <option value="<%=element.id  %>"
+                                                                                <%=element.name=='master' ? 'selected'
+                                                                                : '' %> ><%=element.name %>
+                                                                            </option>
+                                                                            <% }); %>
+                                                                    </select>
+                                                                </div>
+
+
+
                                                             </div>
 
-                                                            
-                                              
-                                                            </div>
+                                                            <div class="col-4 "
+                                                                style="border-left:1px solid lightgrey;border-right:1px solid lightgrey">
+                                                                <div class="form-group w-100">
+                                                                    <label for="cataloghierarchy">Assign Product to
+                                                                        Catalog</label>
+                                                                    <select class="form-control" id="cataloghierarchy"
+                                                                        disabled>
+                                                                        <option value="" selected disabled>please select
+                                                                            catalog</option>
+                                                                        <% catalogues.forEach(element=> { %>
 
-                                                            <div class="col-4 " style="border-left:1px solid lightgrey;border-right:1px solid lightgrey">
-                                                            <div class="form-group w-100">
-                                                                <label for="cataloghierarchy">Assign Product to Catalog</label>
-                                                                <select class="form-control" id="cataloghierarchy" disabled>
-                                                                     <option value="" selected disabled>please select catalog</option> 
-                                                                    <% catalogues.forEach(element=> { %>
-                                                                    
-                                                                        <option value="<%=element.id  %>" ><%=element.name %>
-                                                                        </option>
-                                                                        <% }); %>
-                                                                </select>
-                                                            </div>
-                                                                <div id="files" class="jstree jstree-1 jstree-default" role="tree" aria-multiselectable="true" tabindex="0"
+                                                                            <option value="<%=element.id  %>">
+                                                                                <%=element.name %>
+                                                                            </option>
+                                                                            <% }); %>
+                                                                    </select>
+                                                                </div>
+                                                                <div id="files" class="jstree jstree-1 jstree-default"
+                                                                    role="tree" aria-multiselectable="true" tabindex="0"
                                                                     aria-activedescendant="j1_5" aria-busy="false">
-                                                                
+
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-4 ">
-                                                            <div class="form-group w-100">
-                                                                <label class="form-label d-block">Choose Product Type</label>
-                                                                <div class="selectgroup selectgroup-pills">
-                                                                    <label class="selectgroup-item">
-                                                                        <input type="radio" name="type" value="HTML" class="selectgroup-input" disabled>
-                                                                        <span class="selectgroup-button">Part</span>
-                                                                    </label>
-                                                                    <label class="selectgroup-item">
-                                                                        <input type="radio" name="type" value="CSS" class="selectgroup-input" disabled>
-                                                                        <span class="selectgroup-button">Matirx Product</span>
-                                                                    </label>
-                                                                    <label class="selectgroup-item">
-                                                                        <input type="radio" name="type" value="CSS" class="selectgroup-input" disabled>
-                                                                        <span class="selectgroup-button">Single line item</span>
-                                                                    </label>
-                                                                    
-                                                                 
+                                                                <div class="form-group w-100">
+                                                                    <label class="form-label d-block">Choose Product
+                                                                        Type</label>
+                                                                    <div class="selectgroup selectgroup-pills">
+                                                                        <label class="selectgroup-item">
+                                                                            <input type="radio" name="type" value="HTML"
+                                                                                class="selectgroup-input" disabled>
+                                                                            <span class="selectgroup-button">Part</span>
+                                                                        </label>
+                                                                        <label class="selectgroup-item">
+                                                                            <input type="radio" name="type" value="CSS"
+                                                                                class="selectgroup-input" disabled>
+                                                                            <span class="selectgroup-button">Matirx
+                                                                                Product</span>
+                                                                        </label>
+                                                                        <label class="selectgroup-item">
+                                                                            <input type="radio" name="type" value="CSS"
+                                                                                class="selectgroup-input" disabled>
+                                                                            <span class="selectgroup-button">Single line
+                                                                                item</span>
+                                                                        </label>
+
+
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            
+
                                                             </div>
                                                         </div>
-                                                        <div class="card-footer d-flex justify-content-end">
-                                                            <button id="submitBtn" type="button" disabled class="btn  mr-3">Submit</button>
-                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="card-footer d-flex justify-content-end">
+                                                        <button id="submitBtn" type="button" disabled class="btn  mr-3">Submit</button>
                                                     </div>
                                                 </form>
-                                            
+
                                             </div>
                                         </div>
                                     </div>
@@ -348,144 +387,144 @@ li.done button div.step::before {
 
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-    
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 
-<script>
-    const list_to_tree = (list) => {
-        var map = {}, node = {}, roots = [], i;
-        for (i = 0; i < list.length; i += 1) {
-            map[list[i].id] = i;
-            list[i].children = [];
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+
+    <script>
+        const list_to_tree = (list) => {
+            var map = {}, node = {}, roots = [], i;
+            for (i = 0; i < list.length; i += 1) {
+                map[list[i].id] = i;
+                list[i].children = [];
+            }
+
+            for (i = 0; i < list.length; i += 1) {
+                node = list[i];
+                node.type = 'folder'
+                node.data = {}
+                if (node.parentId !== "0") {
+                    list[map[node.parentId]].children.push(node);
+                } else {
+                    roots.push(node);
+                }
+            }
+            return roots;
         }
 
-        for (i = 0; i < list.length; i += 1) {
-            node = list[i];
-            node.type = 'folder'
-            node.data = {}
-            if (node.parentId !== "0") {
-                list[map[node.parentId]].children.push(node);
-            } else {
-                roots.push(node);
-            }
+        $(function () {
+            $('#cataloghierarchy').select2();
+        });
+
+    </script>
+    <script>
+        let formId, productType, CatalogueHierarchy, Catalogue, name;
+
+        const initializeCatalog = (data) => {
+            $('#files').jstree({
+                'core': {
+                    data,
+                    check_callback: true,
+                    themes: {
+                        dots: false,
+                        'name': 'proton',
+                        'responsive': true
+                    },
+                },
+
+                "types": {
+                    "folder": {
+                        "icon": "ti-folder text-warning",
+                    },
+                    "file": {
+                        "icon": "ti-file",
+                    }
+                },
+                plugins: ["types", 'checkbox']
+            }).on(
+                "select_node.jstree", function (evt, data) {
+                    Catalogue = data.selected[0]
+                    $("input[type=radio]").attr('disabled', false);
+                    $('#2').addClass('active')
+                    document.getElementById('prog').style.width = '100%'
+                    $('#submitBtn').attr('disabled', false)
+                }
+            );
         }
-        return roots;
-    }
 
-    $(function () {
-        $('#cataloghierarchy').select2();
-    });
+        $('#cataloghierarchy').on('select2:select', function (e) {
+            var id = e.params.data.id;
+            CatalogueHierarchy = id
+            fetch(`/admin/catalog/${id}`)
+                .then(res => res.json())
+                .then(json => {
+                    if (json.status == 200) {
+                        const data = list_to_tree(json.catalog)
+                        initializeCatalog(data)
+                    }
+                    else {
+                        iziToast.error({
+                            message: json.message || 'Something Went Wrong!'
+                        })
+                    }
 
-</script>
-<script>
-    let formId , productType, CatalogueHierarchy , Catalogue, name;
+                })
+        });
 
-    const initializeCatalog = (data) => {
-        $('#files').jstree({
-            'core': {
-                data,
-                check_callback: true,
-                themes: {
-                    dots: false,
-                    'name': 'proton',
-                    'responsive': true
-                },
-            },
+        $('#exampleFormControlSelect1').on('change', function () {
+            formId = $('#exampleFormControlSelect1').find(":selected").val()
+            name = $('#productname').val()
+            document.getElementById('prog').style.width = '50%'
+            $('#cataloghierarchy').attr('disabled', false)
 
-            "types": {
-                "folder": {
-                    "icon": "ti-folder text-warning",
-                },
-                "file": {
-                    "icon": "ti-file",
-                }
-            },
-            plugins: ["types", 'checkbox']
-        }).on(
-            "select_node.jstree", function (evt, data) {
-                Catalogue = data.selected[0] 
-                $("input[type=radio]").attr('disabled', false);
-                $('#2').addClass('active')
-                document.getElementById('prog').style.width = '100%'
-                $('#submitBtn').attr('disabled' , false)
-            }
-        );
-    }
-
-    $('#cataloghierarchy').on('select2:select', function (e) {
-        var id = e.params.data.id;
-        CatalogueHierarchy = id
-        fetch(`/admin/catalog/${id}`)
-            .then(res => res.json())
-            .then(json => {
-                if (json.status == 200) {
-                    const data = list_to_tree(json.catalog)
-                    initializeCatalog(data)
-                }
-                else {
-                    iziToast.error({
-                        message: json.message || 'Something Went Wrong!'
-                    })
-                }
-
-            })
-    });
-
-    $('#exampleFormControlSelect1').on('change' , function(){
-       formId =  $('#exampleFormControlSelect1').find(":selected").val()
-       name = $('#productname').val()
-       document.getElementById('prog').style.width = '50%'
-       $('#cataloghierarchy').attr('disabled' , false)
-       
-    })
-    $('input[type=radio][name=type]').change(function () {
-            productType = this.value  
-    });
-
-    document.getElementById('submitBtn').addEventListener('click' , ()=>{
-        if (Catalogue != ' ' && CatalogueHierarchy != ' ' && formId != ' ' && productType != ' ' && name != '' ) {
-
-        fetch('/admin/metainfo', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                CatalogueHierarchy,
-                productType,
-                formId,
-                Catalogue,
-                name
-            })
         })
-            .then(function (res) {
-                return res.json()
-            })
-            .then(function (json) {
-                console.log(json)
-                if (json.status == 200){
-                    iziToast.success({message: 'added succesfully'})
-                    location.href = `${json.href}`
-                }
-                else if (json.status == 400)
-                    iziToast.error({
-                        title: '!',
-                        message: json.message
+        $('input[type=radio][name=type]').change(function () {
+            productType = this.value
+        });
+
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            if (Catalogue != ' ' && CatalogueHierarchy != ' ' && formId != ' ' && productType != ' ' && name != '') {
+
+                fetch('/admin/metainfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        CatalogueHierarchy,
+                        productType,
+                        formId,
+                        Catalogue,
+                        name
                     })
-                else
-                    iziToast.error({
-                        message: json.message
+                })
+                    .then(function (res) {
+                        return res.json()
                     })
-            })
-            .catch(err => console.log(err))
-        }
-        else{
-            iziToast.error({
-                message: 'Please select all the fields'
-            })
-        }
-    })
-</script>
+                    .then(function (json) {
+                        console.log(json)
+                        if (json.status == 200) {
+                            iziToast.success({ message: 'added succesfully' })
+                            location.href = `${json.href}`
+                        }
+                        else if (json.status == 400)
+                            iziToast.error({
+                                title: '!',
+                                message: json.message
+                            })
+                        else
+                            iziToast.error({
+                                message: json.message
+                            })
+                    })
+                    .catch(err => console.log(err))
+            }
+            else {
+                iziToast.error({
+                    message: 'Please select all the fields'
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>

@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Infeenity Dashboard</title>
+    <title>Inbound PMS</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
 
@@ -16,11 +16,11 @@
     <link rel="stylesheet" href="/assets/css/kk_style.css">
     <!-- <link rel="stylesheet" href="/assets/css/iziToast.min.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css"
-          integrity="sha512-DIW4FkYTOxjCqRt7oS9BFO+nVOwDL4bzukDyDtMO7crjUZhwpyrWBFroq+IqRe6VnJkTpRAS6nhDvf0w+wHmxg=="
-          crossorigin="anonymous" />
+        integrity="sha512-DIW4FkYTOxjCqRt7oS9BFO+nVOwDL4bzukDyDtMO7crjUZhwpyrWBFroq+IqRe6VnJkTpRAS6nhDvf0w+wHmxg=="
+        crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nestable2/1.6.0/jquery.nestable.min.css"
-          integrity="sha512-yOW3WV01iPnrQrlHYlpnfVooIAQl/hujmnCmiM3+u8F/6cCgA3BdFjqQfu8XaOtPilD/yYBJR3Io4PO8QUQKWA=="
-          crossorigin="anonymous" />
+        integrity="sha512-yOW3WV01iPnrQrlHYlpnfVooIAQl/hujmnCmiM3+u8F/6cCgA3BdFjqQfu8XaOtPilD/yYBJR3Io4PO8QUQKWA=="
+        crossorigin="anonymous" />
 
     <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
@@ -85,38 +85,66 @@
                                                             <%data.formData.componets.forEach((component,i)=> { %>
                                                                 <li class="dd-item mb-5" data-id="<%= i  %>">
                                                                     <div class="dd-handle">
-                                                                       
+
                                                                         <%=++i %>.&nbsp;&nbsp;<%= component.name %>
-                                                                                <span class="badge badge-pill badge-dark" style="float: right;">
+                                                                                <span
+                                                                                    class="badge badge-pill badge-dark"
+                                                                                    style="float: right;">
                                                                                     <%= component.type %>
                                                                                 </span>
                                                                     </div>
                                                                     <% if(component.subComponents.length){ %>
                                                                         <ol class="dd-list">
-                                                                            <%component.subComponents.forEach(subComponent=>{ %>
+                                                                            <%component.subComponents.forEach(subComponent=>
+                                                                                { %>
                                                                                 <% if(subComponent.type=='tab' ){ %>
                                                                                     <li class="dd-item" data-id="5">
                                                                                         <div class="dd-handle">
-                                                                                            <input name="component" class="form-check-input mr-2" type="radio" id="<%=subComponent.type %>-<%=subComponent.order %>" value="<%=subComponent._id %> ">
+                                                                                            <input name="component"
+                                                                                                class="form-check-input mr-2"
+                                                                                                type="radio"
+                                                                                                id="<%=subComponent.type %>-<%=subComponent.order %>"
+                                                                                                value="<%=subComponent._id %> ">
 
-                                                                                            <%=subComponent.name%> <span class="badge badge-pill badge-info"
-                                                                                                      style="float: right;">
-                                                                                                    <%= subComponent.type %>
+                                                                                            <%=subComponent.name%> <span
+                                                                                                    class="badge badge-pill badge-info"
+                                                                                                    style="float: right;">
+                                                                                                    <%= subComponent.type
+                                                                                                        %>
                                                                                                 </span>
                                                                                         </div>
                                                                                         <ol class="dd-list">
-                                                                                            <%subComponent.tabComponents.forEach(tabComponent=>{ %> <li class="dd-item" data-id="6">
-                                                                                                    <div class="dd-handle">
-                                                                                                         <input name="component" class="form-check-input mr-2" type="radio" id="<%=tabComponent.type %>-<%=tabComponent.order %>" value="<%=tabComponent._id %> ">
+                                                                                            <%subComponent.tabComponents.forEach(tabComponent=>
+                                                                                                { %> <li class="dd-item"
+                                                                                                    data-id="6">
+                                                                                                    <div
+                                                                                                        class="dd-handle">
+                                                                                                        <input
+                                                                                                            name="component"
+                                                                                                            class="form-check-input mr-2"
+                                                                                                            type="radio"
+                                                                                                            id="<%=tabComponent.type %>-<%=tabComponent.order %>"
+                                                                                                            value="<%=tabComponent._id %> ">
                                                                                                         <%=tabComponent.name%>
                                                                                                     </div>
 
-                                                                                                    <% if(tabComponent.pageContent) {%>
-                                                                                                        <ol class="dd-list">
-                                                                                                            <% tabComponent.pageContent.forEach(page=>{ %>
-                                                                                                                <li class="dd-item" data-id="6">
-                                                                                                                    <div class="dd-handle">
-                                                                                                                        <input name="component" class="form-check-input mr-2" type="radio" id="sec-<%=page.order %>" value="<%=page._id %> ">
+                                                                                                    <% if(tabComponent.pageContent)
+                                                                                                        {%>
+                                                                                                        <ol
+                                                                                                            class="dd-list">
+                                                                                                            <%
+                                                                                                                tabComponent.pageContent.forEach(page=>
+                                                                                                                { %>
+                                                                                                                <li class="dd-item"
+                                                                                                                    data-id="6">
+                                                                                                                    <div
+                                                                                                                        class="dd-handle">
+                                                                                                                        <input
+                                                                                                                            name="component"
+                                                                                                                            class="form-check-input mr-2"
+                                                                                                                            type="radio"
+                                                                                                                            id="sec-<%=page.order %>"
+                                                                                                                            value="<%=page._id %> ">
                                                                                                                         <%=page.name%>
                                                                                                                     </div>
                                                                                                                 </li>
@@ -130,15 +158,23 @@
                                                                                     <% }else{ %>
                                                                                         <li class="dd-item" data-id="6">
                                                                                             <div class="dd-handle">
-                                                                                                <input name="component" class="form-check-input mr-2" type="radio" id="<%=subComponent.type %>-<%=subComponent.order %>" value="<%=subComponent._id %> ">
+                                                                                                <input name="component"
+                                                                                                    class="form-check-input mr-2"
+                                                                                                    type="radio"
+                                                                                                    id="<%=subComponent.type %>-<%=subComponent.order %>"
+                                                                                                    value="<%=subComponent._id %> ">
                                                                                                 <%=subComponent.name%>
-                                                                                                    <span class="badge badge-pill badge-secondary" style="float: right;">
-                                                                                                        <%= subComponent.type == 'sec' ? 'sub-section' : ''%>
+                                                                                                    <span
+                                                                                                        class="badge badge-pill badge-secondary"
+                                                                                                        style="float: right;">
+                                                                                                        <%= subComponent.type=='sec'
+                                                                                                            ? 'sub-section'
+                                                                                                            : '' %>
                                                                                                     </span>
                                                                                             </div>
                                                                                         </li>
                                                                                         <% } %>
-                                                                             <% }) %>
+                                                                                            <% }) %>
                                                                         </ol>
                                                                         <% } %>
                                                                 </li>
@@ -157,18 +193,20 @@
                                                     <button id="assignSelectedGroup" class="btn btn-sm btn-primary">
                                                         Assign Group
                                                     </button>
-                                            </div>
+                                                </div>
                                                 <div class="card-body">
-                                                
+
                                                     <% data.itemGroups.forEach(group=> { %>
                                                         <label class="selectgroup-item m-2">
-                                                            <input type="radio" name="itemgroups" id="<%=group._id %>" value="<%=group.fieldIds %>" class="selectgroup-input fclass">
+                                                            <input type="radio" name="itemgroups" id="<%=group._id %>"
+                                                                value="<%=group.fieldIds %>"
+                                                                class="selectgroup-input fclass">
                                                             <span class="selectgroup-button">
                                                                 <%=group.name %>
                                                             </span>
                                                         </label>
                                                         <% }); %>
-                                        
+
                                                 </div>
                                             </div>
                                             <div class="card">
@@ -183,10 +221,16 @@
                                                 <div class="card-body">
                                                     <div class="selectgroup selectgroup-pills">
                                                         <div class="scroll-area-lg">
-                                                            <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
+                                                            <div id="fieldListArea"
+                                                                class="scrollbar-container ps--active-y ps">
                                                                 <% data.itemFields.forEach((item,i)=> { %>
                                                                     <label class="selectgroup-item m-2">
-                                                                        <input type="checkbox" name="itemfields" id="field-<%=item.id %>" value="<%=item.id %>" class="selectgroup-input fclass" <%= data.formData.allFields.includes(item.id) ? 'checked disabled' : '' %> >
+                                                                        <input type="checkbox" name="itemfields"
+                                                                            id="field-<%=item.id %>"
+                                                                            value="<%=item.id %>"
+                                                                            class="selectgroup-input fclass"
+                                                                            <%=data.formData.allFields.includes(item.id)
+                                                                            ? 'checked disabled' : '' %> >
                                                                         <span class="selectgroup-button">
                                                                             <%=item.label %>
                                                                         </span>
@@ -223,54 +267,54 @@
     <!-- jQuery UI -->
     <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-    
+
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
     <script>
         const form = '<%- JSON.stringify(data.formData) %>'
         const parseForm = JSON.parse(form)
-       
+
         function getValues(obj, key, value, data) {
             for (var i in obj) {
                 if (!obj.hasOwnProperty(i)) continue;
                 if (typeof obj[i] == 'object') {
                     getValues(obj[i], key, value, data)
                 }
-                else if (i==key && obj[i].toString().trim() == value.trim()) {
-                    data.forEach(element => 
-                        obj.AssignedFields.push({ fieldId: element})                        
+                else if (i == key && obj[i].toString().trim() == value.trim()) {
+                    data.forEach(element =>
+                        obj.AssignedFields.push({ fieldId: element })
                     )
                 }
             }
             return obj
-            
+
         }
 
         document.getElementById("assignSelectedGroup").addEventListener("click", function () {
-                let component = $("input[name='component']:checked").val()
-                let data = $("input[name='itemgroups']:checked").val().split(',')
-                assignFieldsAndGroups(component, data)
+            let component = $("input[name='component']:checked").val()
+            let data = $("input[name='itemgroups']:checked").val().split(',')
+            assignFieldsAndGroups(component, data)
         });
 
         document.getElementById("assignSelectedFields").addEventListener("click", function () {
-                let component = $("input[name='component']:checked").val()
-                let data = []
-                
-                $('input[name="itemfields"]:checked').each(function () {
-                    if(!this.disabled){
-                        data.push(this.value)
-                    }
-                });
-                assignFieldsAndGroups(component, data)
+            let component = $("input[name='component']:checked").val()
+            let data = []
+
+            $('input[name="itemfields"]:checked').each(function () {
+                if (!this.disabled) {
+                    data.push(this.value)
+                }
+            });
+            assignFieldsAndGroups(component, data)
         });
 
 
-        const assignFieldsAndGroups = (componentId, fields) =>{
+        const assignFieldsAndGroups = (componentId, fields) => {
             var value = componentId
             let data = fields
             const newForm = getValues(parseForm, '_id', value, data)
             newForm.allFields.push(...fields)
-            console.log("New Form: ",newForm);
+            console.log("New Form: ", newForm);
             fetch(`/admin/customform/${parseForm.formId}/fieldmap/assign`, {
                 method: 'POST',
                 headers: {

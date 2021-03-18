@@ -1258,3 +1258,65 @@ table.dataTable thead .sorting_asc:before{
   border: 1px solid #4d7393;
 }
 
+.logo-header .logo{
+  max-width: 60%;
+}
+
+@media(max-width:992px){
+.icon-options-vertical:before {
+    content: "\e602" !important;
+}
+.topbar-toggler.more{
+  margin-top: 10px;
+}
+.navbar-header .breadcrumbs{
+  display: none;
+}
+
+.main-header .navbar-header {
+    background: #4d7393 !important;
+    
+}
+}
+
+.nav-link .fas.fa-layer-group{
+  color: #5394ca !important;
+}
+
+.dropdown-toggle.profile-pic .avatar-sm{
+  width: 30px;
+  height: 30px;
+}
+
+.modal .modal-content {
+    border: initial !important;
+    border-radius: 0px !important;
+}
+
+.kk_file_tree  .col-md-3 .select2{
+  width: 120px !important;
+}
+
+.nav-pills.nav-secondary .nav-link.active {
+    background: #5394ca;
+    border: 1px solid #5394ca;
+}
+
+.jstree-default .jstree-clicked {
+    background-color: initial !important;
+    color: initial !important;
+    box-shadow: none !important;
+}
+
+.Kk_table_view_more {
+      text-decoration: none;
+    border: none;
+    background: transparent;
+    color:  #5394ca;
+    transition: transform .2s;
+}
+
+.Kk_table_view_more:hover{
+  transform: scale(1.2);
+
+}
