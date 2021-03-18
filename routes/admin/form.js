@@ -33,7 +33,7 @@ router.get('/:formId/product/:productId', async (req, res) => {
                 }
             }))
         }))
-        res.render('admin/addProductFrom', { User: req.user, layout, productId: req.params.productId })
+        res.render('admin/addProductFrom', { User: req.user, layout, productId: req.params.productId, formId: req.params.formId})
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         req.flash('error', 'Something Went Wrong!')
@@ -44,12 +44,18 @@ router.get('/:formId/product/:productId', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
+        console.log(req.body);
        const formdata = req.body
+       const formId = formdata.formId
+       delete formdata.formId
+       const pid = formdata.productId
+       delete formdata.productId
        Promise.all([
         Object.keys(formdata).forEach(async a=>{
-            await productData.create({ fieldId: a, fieldValue: formdata[a] , createdBy: req.user.id , productId: req.body.productId })
+            await productData.create({ fieldId: a, fieldValue: formdata[a] , createdBy: req.user.id , productId: pid })
         })
        ])
+       res.redirect(`/admin/product/${formId}/p/${pid}`)
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         if (err.name === 'SequelizeUniqueConstraintError')

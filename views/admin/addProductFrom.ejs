@@ -47,8 +47,10 @@
                             <div class="page-inner">
 
                                 <div class="container-fluid ">
-                                    <form action="/admin/form" method="POST">
+                                    <form id="pData" action="/admin/form" method="POST">
                                         <input type="hidden" name="productId" value="<%=productId %>">
+                                        <input type="hidden" name="formId" value="<%=formId %>">
+                                        
                                         <% const inputs=['text' , 'number' , 'email' , 'tel' ] %>
                                             <% layout.componets.forEach(component=>{ %>
                                                 <% if(component.type=='sec' ){ %>
@@ -78,11 +80,12 @@
                                                                                             <div class="form-check">
                                                                                                 <label
                                                                                                     class="form-check-label">
-                                                                                                    <input
+                                                                                                    <input  
                                                                                                         class="form-check-input"
-                                                                                                        type="checkbox"
-                                                                                                        name="<%= _a.field.id%>"
+                                                                                                        type="checkbox" 
+                                                                                                        value="<%= _a.field.id%>"
                                                                                                         >
+                                                                                                        
                                                                                                     <span
                                                                                                         class="form-check-sign">
                                                                                                         <%= _a.field.label
@@ -90,6 +93,7 @@
                                                                                                     </span>
                                                                                                 </label>
                                                                                             </div>
+                                                                                            <input type="hidden" id="<%= _a.field.id %>" value="off" name="<%= _a.field.id%>">
                                                                                         </div>
                                                                                         <% } %>
                                                                                             <% if(inputs.includes(_a.field.inputType)){
@@ -183,7 +187,8 @@
                                                                                                                                 <input
                                                                                                                                     class="form-check-input"
                                                                                                                                     type="checkbox"
-                                                                                                                                     name="<%= _a.field.id%>">
+                                                                                                                                     value="<%= _a.field.id%>">
+                                                                                                                                      
                                                                                                                                 <span
                                                                                                                                     class="form-check-sign">
                                                                                                                                     <%= _a.field.label
@@ -191,6 +196,7 @@
                                                                                                                                 </span>
                                                                                                                             </label>
                                                                                                                         </div>
+                                                                                                                        <input type="hidden" id="<%= _a.field.id%>" value="off" name="<%= _a.field.id%>">
                                                                                                                     </div>
                                                                                                                     <% }
                                                                                                                         %>
@@ -282,8 +288,7 @@
                     </div>
 
     </div>
-    <!--   Core JS Files   -->
-
+    
     <!-- jQuery library -->
     <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
     <!-- Latest compiled JavaScript -->
@@ -302,7 +307,18 @@
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 
+    <!--   Core JS Files   -->
+    <script>
+        $("#pData").submit(() => {
+            var inputs = document.querySelectorAll('.form-check-input');
+            inputs.forEach(i => {
+                if (i.checked == true) {
+                    document.getElementById(i.value).value = "on"
+                }
+            })
 
+        })
+    </script>
 </body>
 
 </html>

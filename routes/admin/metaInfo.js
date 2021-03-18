@@ -34,7 +34,7 @@ router.post('/', async (req, res) => {
     try {
         const result = await productMetaData.create({ id: Math.floor(100000 + Math.random() * 90000000), formId, Catalogue, CatalogueHierarchy, productType, createdBy: req.user.id, name })
         if (result)
-            res.json({ status: 200, message: 'Added Successfully', href: `/admin/form/${formId}/product/${result.id}` })
+            res.json({ status: 200, message: 'Added Successfully', href: `/admin/form/${formId}/product/${result.id}`, formId:formId })
         else
             res.json({ status: 500, message: 'something went wrong please try again after some time' })
     } catch (err) {
