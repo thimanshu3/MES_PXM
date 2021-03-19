@@ -67,47 +67,32 @@
                                                                 <div class="row mt-3">
                                                                     <% if(subComponent.AssignedFields.length==0){ %>
                                                                         <div class="text-center">
-                                                                            <img
-                                                                                src="/assets/img/no_field_assigned.svg">
+                                                                            <img src="/assets/img/no_field_assigned.svg">
                                                                         </div>
-                                                                        <% }else{ %>
-                                                                            <% subComponent.AssignedFields.forEach(_a=>
-                                                                                {%>
-                                                                                <% if(_a.field.inputType=='checkbox' ){
-                                                                                    %>
-                                                                                    <div class="col-md-3 mb-3">
-                                                                                        <div class="form-check">
-                                                                                            <label
-                                                                                                class="form-check-label">
-                                                                                                <input
-                                                                                                    class="form-check-input"
-                                                                                                    type="checkbox"
-                                                                                                    value="">
-                                                                                                <span
-                                                                                                    class="form-check-sign">
-                                                                                                    <%= _a.field.label
-                                                                                                        %>
-                                                                                                </span>
-                                                                                            </label>
-                                                                                        </div>
+                                                                    <% }else{ %>
+                                                                        <% subComponent.AssignedFields.forEach(_a=> {%>
+                                                                            <% if(_a.field.inputType=='checkbox' ){ %>
+                                                                                <div class="col-md-3 mb-3">
+                                                                                    <div class="form-check">
+                                                                                        <label class="form-check-label">
+                                                                                            <input class="form-check-input" type="checkbox" value="">
+                                                                                            <span class="form-check-sign">
+                                                                                                <%= _a.field.label %>
+                                                                                            </span>
+                                                                                        </label>
                                                                                     </div>
-                                                                                    <% } %>
-                                                                                        <% if(inputs.includes(_a.field.inputType)){
-                                                                                            %>
-                                                                                            <div class="col-md-3 mb-3">
-                                                                                                <div class="form-group">
-                                                                                                    <label for="email2">
-                                                                                                        <%= _a.field.label
-                                                                                                            %>
-                                                                                                    </label>
-                                                                                                    <input
-                                                                                                        type="<%=_a.field.inputType %>"
-                                                                                                        class="form-control"
-                                                                                                        id="email2">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <% } %>
-                                                                                                <%})} %>
+                                                                                </div>
+                                                                                <% } %>
+                                                                            <% if(inputs.includes(_a.field.inputType)){ %>
+                                                                                <div class="col-md-3 mb-3">
+                                                                                    <div class="form-group">
+                                                                                        <label for="email2"><%= _a.field.label %>
+                                                                                        </label>
+                                                                                        <input type="<%=_a.field.inputType %>"  class="form-control" id="email2">
+                                                                                    </div>
+                                                                                </div>
+                                                                            <% } %>
+                                                                    <%})} %>
                                                                 </div>
                                                             </section>
                                                             <% }else{ %>
@@ -116,72 +101,39 @@
                                                                         <%= subComponent.name %>
                                                                     </div>
                                                                     <div class="card-body">
-                                                                        <ul class="nav nav-pills nav-secondary"
-                                                                            id="pills-tab" role="tablist">
-                                                                            <% subComponent.tabComponents.forEach(tab=>{
-                                                                                %>
+                                                                        <ul class="nav nav-pills nav-secondary"  id="pills-tab" role="tablist">
+                                                                            <% subComponent.tabComponents.forEach(tab=>{  %>
                                                                                 <li class="nav-item submenu">
-                                                                                    <a class="nav-link"
-                                                                                        id="pills-home-tab"
-                                                                                        data-toggle="pill"
-                                                                                        href="#pills-<%=tab.name %>"
-                                                                                        role="tab"
-                                                                                        aria-controls="pills-home"
-                                                                                        aria-selected="false">
-                                                                                        <%=tab.name %>
-                                                                                    </a>
+                                                                                    <a class="nav-link" id="pills-home-tab"  data-toggle="pill" href="#pills-<%=tab.name %>" role="tab" aria-controls="pills-home"
+                                                                                        aria-selected="false"> <%=tab.name %></a>
                                                                                 </li>
-                                                                                <%}) %>
+                                                                            <%}) %>
                                                                         </ul>
-                                                                        <div class="tab-content mt-2 mb-3"
-                                                                            id="pills-tabContent">
-
-                                                                            <% subComponent.tabComponents.forEach(tab=>{
-                                                                                %>
-                                                                                <div class="tab-pane fade"
-                                                                                    id="pills-<%=tab.name %>"
-                                                                                    role="tabpanel"
-                                                                                    aria-labelledby="pills-home-tab">
-                                                                                    <% tab.pageContent.forEach(page=>{
-                                                                                        %>
+                                                                        <div class="tab-content mt-2 mb-3" id="pills-tabContent">
+                                                                            <% subComponent.tabComponents.forEach(tab=>{ %>
+                                                                                <div class="tab-pane fade"  id="pills-<%=tab.name %>" role="tabpanel" aria-labelledby="pills-home-tab">
+                                                                                    <% tab.pageContent.forEach(page=>{ %>
                                                                                         <section class="pad-40">
                                                                                             <div class="level_2_header">
                                                                                                 <%= page.name %>
                                                                                             </div>
                                                                                             <div class="row mt-3">
-                                                                                                <% if(subComponent.AssignedFields.length==0){
-                                                                                                    %>
-                                                                                                    <div
-                                                                                                        class="mx-auto Kk_no_assigned">
-                                                                                                        <img class="img-responsive"
-                                                                                                            src="/assets/img/no_field_assigned.png">
-                                                                                                        <h4>No Fields
-                                                                                                            Assigned
+                                                                                                <% if(subComponent.AssignedFields.length==0){ %>
+                                                                                                    <div class="mx-auto Kk_no_assigned">
+                                                                                                        <img class="img-responsive" src="/assets/img/no_field_assigned.png">
+                                                                                                        <h4>No Fields Assigned
                                                                                                         </h4>
-                                                                                                        <h6>Please
-                                                                                                            assign some
-                                                                                                            fields</h6>
+                                                                                                        <h6>Please assign some fields</h6>
                                                                                                     </div>
                                                                                                     <% }else{ %>
-                                                                                                        <%
-                                                                                                            page.AssignedFields.forEach(_a=>
-                                                                                                            {%>
-                                                                                                            <% if(_a.field.inputType=='checkbox'
-                                                                                                                ){ %>
-                                                                                                                <div
-                                                                                                                    class="col-md-3 mb-3">
-                                                                                                                    <div
-                                                                                                                        class="form-check">
-                                                                                                                        <label
-                                                                                                                            class="form-check-label">
-                                                                                                                            <input
-                                                                                                                                class="form-check-input"
-                                                                                                                                type="checkbox"
-                                                                                                                                value="">
-                                                                                                                            <span
-                                                                                                                                class="form-check-sign">
-                                                                                                                                <%= _a.field.label
-                                                                                                                                    %>
+                                                                                                        <% page.AssignedFields.forEach(_a=> {%>
+                                                                                                            <% if(_a.field.inputType=='checkbox'){ %>
+                                                                                                                <div class="col-md-3 mb-3">
+                                                                                                                    <div class="form-check">
+                                                                                                                        <label class="form-check-label">
+                                                                                                                            <input class="form-check-input" type="checkbox" value="">
+                                                                                                                            <span class="form-check-sign">
+                                                                                                                                <%= _a.field.label %>
                                                                                                                             </span>
                                                                                                                         </label>
                                                                                                                     </div>
@@ -189,75 +141,96 @@
                                                                                                                 <% } %>
                                                                                                                     <% if(inputs.includes(_a.field.inputType)){
                                                                                                                         %>
-                                                                                                                        <div
-                                                                                                                            class="col-md-3 mb-3">
-                                                                                                                            <div
-                                                                                                                                class="form-group">
-                                                                                                                                <label
-                                                                                                                                    for="email2">
-                                                                                                                                    <%= _a.field.label
-                                                                                                                                        %>
+                                                                                                                        <div class="col-md-3 mb-3">
+                                                                                                                            <div class="form-group">
+                                                                                                                                <label for="email2"> <%= _a.field.label %>
                                                                                                                                 </label>
                                                                                                                                 <input
-                                                                                                                                    type="<%=_a.field.inputType %>"
-                                                                                                                                    class="form-control"
-                                                                                                                                    id="email2">
+                                                                                                                                    type="<%=_a.field.inputType %>" class="form-control" id="email2">
                                                                                                                             </div>
                                                                                                                         </div>
-                                                                                                                        <% }
-                                                                                                                            %>
-                                                                                                                            <%})%>
-                                                                                                                                <%}%>
+                                                                                                             <% } %>
+                                                                                                         <%})%>
+                                                                                                    <%}%>
                                                                                             </div>
                                                                                         </section>
-                                                                                        <% }) %>
+                                                                                     <% }) %>
                                                                                 </div>
-                                                                                <%}) %>
+                                                                            <%}) %>
 
                                                                         </div>
                                                                     </div>
                                                                 </section>
-                                                                <% } %>
-
-                                                                    <% }) %>
+                                                            <% } %>
+                                                    <%}) %>
                                                 </section>
                                                 <% } %>
-                                                    <% if(component.type=='tab' ){ %>
-                                                        <section class="pad-40">
-                                                            <div class="level_1_header">
-                                                                <%=component.name %>
+                                                <% if(component.type=='tab' ){ %>
+                                                    <section class="pad-40">
+                                                        <div class="level_1_header">
+                                                            <%=component.name %>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
+                                                                <% component.subComponents.forEach(tab=>{ %>
+                                                                    <li class="nav-item submenu">
+                                                                        <a class="nav-link" id="pills-home-tab"  data-toggle="pill"  href="#pills-<%=tab.name %>" role="tab" aria-controls="pills-home"
+                                                                            aria-selected="false"> <%=tab.name %> </a>
+                                                                    </li>
+                                                                <%}) %>
+                                                            </ul>
+                                                            <div class="tab-content mt-2 mb-3"  id="pills-tabContent">
+                                                                <% component.subComponents.forEach(subComponent=>{ %>
+                                                                    <div class="tab-pane fade" id="pills-<%=subComponent.name %>" role="tabpanel" aria-labelledby="pills-home-tab">
+                                                                    <% subComponent.tabComponents.forEach(tabComponent=>{ %>
+                                                                        <section class="pad-40">
+                                                                            <div class="level_2_header">
+                                                                                <%= tabComponent.name %>
+                                                                            </div>
+                                                                            <div class="row mt-3">
+                                                                                <% if(tabComponent.AssignedFields.length==0){ %>
+                                                                                    <div class="mx-auto Kk_no_assigned">
+                                                                                        <img class="img-responsive" src="/assets/img/no_field_assigned.png">
+                                                                                        <h4>No Fields Assigned
+                                                                                        </h4>
+                                                                                        <h6>Please assign some fields</h6>
+                                                                                    </div>
+                                                                                    <% }else{ %>
+                                                                                    <% tabComponent.AssignedFields.forEach(_a=> {%>
+                                                                                        <% if(_a.field.inputType=='checkbox' ){ %>
+                                                                                            <div class="col-md-3 mb-3">
+                                                                                                <div class="form-check">
+                                                                                                    <label class="form-check-label">
+                                                                                                        <input class="form-check-input" type="checkbox" value="">
+                                                                                                        <span class="form-check-sign">
+                                                                                                            <%= _a.field.label %>
+                                                                                                        </span>
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <% } %>
+                                                                                            <% if(inputs.includes(_a.field.inputType)){ %>
+                                                                                                <div class="col-md-3 mb-3">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="email2">
+                                                                                                            <%= _a.field.label %>
+                                                                                                        </label>
+                                                                                                        <input type="<%=_a.field.inputType %>" class="form-control" id="email2">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            <% } %>
+                                                                                    <%})%>
+                                                                              <%}%>
+                                                                            </div>
+                                                                        </section>
+                                                                        <% }) %>
+                                                                    </div>
+                                                                <%}) %>
                                                             </div>
-                                                            <div class="card-body">
-                                                                <ul class="nav nav-pills nav-secondary" id="pills-tab"
-                                                                    role="tablist">
-                                                                    <% component.subComponents.forEach(tab=>{ %>
-                                                                        <li class="nav-item submenu">
-                                                                            <a class="nav-link" id="pills-home-tab"
-                                                                                data-toggle="pill"
-                                                                                href="#pills-<%=tab.name %>" role="tab"
-                                                                                aria-controls="pills-home"
-                                                                                aria-selected="false">
-                                                                                <%=tab.name %>
-                                                                            </a>
-                                                                        </li>
-                                                                        <%}) %>
-                                                                </ul>
-                                                                <div class="tab-content mt-2 mb-3"
-                                                                    id="pills-tabContent">
-
-                                                                    <% component.subComponents.forEach(tab=>{ %>
-                                                                        <div class="tab-pane fade"
-                                                                            id="pills-<%=tab.name %>" role="tabpanel"
-                                                                            aria-labelledby="pills-home-tab">
-
-                                                                        </div>
-                                                                        <%}) %>
-
-                                                                </div>
-                                                            </div>
-                                                        </section>
-                                                        <% } %>
-                                                            <% }) %>
+                                                        </div>
+                                                    </section>
+                                                <% } %>
+                                    <% }) %>
                                 </div>
                             </div>
 

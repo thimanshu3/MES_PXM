@@ -13,25 +13,38 @@ router.get('/:formId/product/:productId', async (req, res) => {
         layout = layout.toObject()
 
         await Promise.all(layout.componets.map(async component => {
-            await Promise.all(component.subComponents.map(async subComponent => {
-                if (subComponent.type == 'sec') {
-                    await Promise.all(subComponent.AssignedFields.map(async a => {
-                        const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
-                        delete a.fieldId
-                        a.field = fields[0][0]
-                    }))
-                } else {
-                    await Promise.all(subComponent.tabComponents.map(async tabComponent => {
-                        await Promise.all(tabComponent.pageContent.map(async page => {
-                            await Promise.all(page.AssignedFields.map(async a => {
-                                const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
-                                delete a.fieldId
-                                a.field = fields[0][0]
+            if (component.type == 'sec') {
+                await Promise.all(component.subComponents.map(async subComponent => {
+                    if (subComponent.type == 'sec') {
+                        await Promise.all(subComponent.AssignedFields.map(async a => {
+                            const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
+                            delete a.fieldId
+                            a.field = fields[0][0]
+                        }))
+                    } else {
+                        await Promise.all(subComponent.tabComponents.map(async tabComponent => {
+                            await Promise.all(tabComponent.pageContent.map(async page => {
+                                await Promise.all(page.AssignedFields.map(async a => {
+                                    const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
+                                    delete a.fieldId
+                                    a.field = fields[0][0]
+                                }))
                             }))
                         }))
+                    }
+                }))
+            }
+            else {
+                await Promise.all(component.subComponents.map(async subComponent => {
+                    await Promise.all(subComponent.tabComponents.map(async tabComponent => {
+                        await Promise.all(tabComponent.AssignedFields.map(async a => {
+                            const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
+                            delete a.fieldId
+                            a.field = fields[0][0]
+                        }))
                     }))
-                }
-            }))
+                }))
+            }
         }))
         res.render('admin/addProductFrom', { User: req.user, layout, productId: req.params.productId, formId: req.params.formId})
     } catch (err) {
@@ -44,12 +57,13 @@ router.get('/:formId/product/:productId', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        console.log(req.body);
        const formdata = req.body
        const formId = formdata.formId
        delete formdata.formId
        const pid = formdata.productId
        delete formdata.productId
+
+       console.log(req.body);
        Promise.all([
         Object.keys(formdata).forEach(async a=>{
             await productData.create({ fieldId: a, fieldValue: formdata[a] , createdBy: req.user.id , productId: pid })

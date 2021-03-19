@@ -23,30 +23,41 @@ router.get('/:formId/p/:productId', async (req, res) => {
     try {
         let layout = await FormDesign.findOne({ formId: req.params.formId })
         layout = layout.toObject()
-        console.log(layout.componets[0].subComponents[0].AssignedFields);
         await Promise.all(layout.componets.map(async component => {
-            await Promise.all(component.subComponents.map(async subComponent => {
-                if (subComponent.type == 'sec') {
-                    await Promise.all(subComponent.AssignedFields.map(async a => {
-                        const fields = await MySql.query('select inputFields.id as id, inputFields.active as active, inputFields.label as label, inputFields.description as description, inputFields.associatedList as lr, inputTypes.inputType as inputType, productData.productId as pid, productData.fieldValue as pfv from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField INNER join productData on productData.fieldId = inputFields.id where inputFields.id = ? and productData.productId = ?', { replacements: [a.fieldId , req.params.productId] })
-                        delete a.fieldId
-                        a.field = fields[0][0]
-                        
-                    }))
-                } else {
-                    await Promise.all(subComponent.tabComponents.map(async tabComponent => {
-                        await Promise.all(tabComponent.pageContent.map(async page => {
-                            await Promise.all(page.AssignedFields.map(async a => {
-                                const fields = await MySql.query('select inputFields.id as id, inputFields.active as active, inputFields.label as label, inputFields.description as description, inputFields.associatedList as lr, inputTypes.inputType as inputType, productData.productId as pid, productData.fieldValue as pfv from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField INNER join productData on productData.fieldId = inputFields.id where inputFields.id = ? and productData.productId = ?', { replacements: [a.fieldId, req.params.productId] })
-                                delete a.fieldId
-                                a.field = fields[0][0]
+            if (component.type == 'sec') {
+                await Promise.all(component.subComponents.map(async subComponent => {
+                    if (subComponent.type == 'sec') {
+                        await Promise.all(subComponent.AssignedFields.map(async a => {
+                            const fields = await MySql.query('select inputFields.id as id, inputFields.active as active, inputFields.label as label, inputFields.description as description, inputFields.associatedList as lr, inputTypes.inputType as inputType, productData.productId as pid, productData.fieldValue as pfv from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField INNER join productData on productData.fieldId = inputFields.id where inputFields.id = ? and productData.productId = ?', { replacements: [a.fieldId, req.params.productId] })
+                            delete a.fieldId
+                            a.field = fields[0][0]
+                        }))
+                    } else {
+                        await Promise.all(subComponent.tabComponents.map(async tabComponent => {
+                            await Promise.all(tabComponent.pageContent.map(async page => {
+                                await Promise.all(page.AssignedFields.map(async a => {
+                                    const fields = await MySql.query('select inputFields.id as id, inputFields.active as active, inputFields.label as label, inputFields.description as description, inputFields.associatedList as lr, inputTypes.inputType as inputType, productData.productId as pid, productData.fieldValue as pfv from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField INNER join productData on productData.fieldId = inputFields.id where inputFields.id = ? and productData.productId = ?', { replacements: [a.fieldId, req.params.productId] })
+                                    delete a.fieldId
+                                    a.field = fields[0][0]
+                                }))
                             }))
                         }))
+                    }
+                }))
+            }
+            else {
+                await Promise.all(component.subComponents.map(async subComponent => {
+                    await Promise.all(subComponent.tabComponents.map(async tabComponent => {
+                        await Promise.all(tabComponent.AssignedFields.map(async a => {
+                            const fields = await MySql.query('select inputFields.id as id, inputFields.active as active, inputFields.label as label, inputFields.description as description, inputFields.associatedList as lr, inputTypes.inputType as inputType, productData.productId as pid, productData.fieldValue as pfv from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField INNER join productData on productData.fieldId = inputFields.id where inputFields.id = ? and productData.productId = ?', { replacements: [a.fieldId, req.params.productId] })
+                            delete a.fieldId
+                            a.field = fields[0][0]
+                           
+                        }))
                     }))
-                }
-            }))
+                }))
+            }
         }))
-        console.log(layout.componets[0].subComponents[0].AssignedFields);
         const meta = await productMetaData.findOne({where:{id: req.params.productId}})
         res.render('admin/kktest2', { User: req.user, layout, productId: req.params.productId , meta })
     } catch (err) {
