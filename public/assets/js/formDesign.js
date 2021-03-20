@@ -122,7 +122,7 @@ const addComponent = (type, where) => {
         orderObject[where] = ++orderObject[where];
         orderObject[`ctabc-${str1}-${orderObject[where]}-list`] = 1;
         orderObject[`ctabc-sec-${order}-${orderObject[where]}`] = 0;
-        console.log(`ctabc-${str1}-${orderObject[where]}`);
+        console.log(`home -> ctabc-sec-${order}-${orderObject[where]}`);
         $(`#${where}`).append(`
             <div class="m-3" id="${str1}-tab-${orderObject[where]}">
                 <div class="card">
@@ -149,12 +149,12 @@ const addComponent = (type, where) => {
                             <div class="tab-pane fade" id="ctabc-${str1}-${orderObject[where]}-1-content_item" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
                                <div class="d-flex justify-content-between">
                                 <p>default tab</p>
-                                <button onclick="addComponent(3,'ctabc-sec-${order}-${orderObject[where]}')" class="btn btn-link">
+                                <button onclick="addComponent(3,'ctabc-sec-${order}-${orderObject[where]}-1')" class="btn btn-link">
                                 Add new sub section
                                 </button>
                                 
                                 </div>
-                                 <div id="ctabc-sec-${order}-${orderObject[where]}">
+                                 <div id="ctabc-sec-${order}-${orderObject[where]}-1">
                                 
                             </div>
                             </div>
@@ -188,10 +188,11 @@ const addTab = (val) => {
                                 Add new sub section
                                 </button>
                                 </div>
+                               
                                 <div id="${val}-sec-${orderObject[path]}">
                             </div>
         
-        </div> `).show('slow');
+        </div> `).show('slow'); //console.log(`addTab-> ${val} - sec - ${orderObject[path]}`);
         extName = ''
         scrollDown(`${path}`)
     }

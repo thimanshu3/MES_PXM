@@ -111,28 +111,12 @@
                                                                                 <th rowspan="1" colspan="1">Contact
                                                                                     Number
                                                                                 </th>
-                                                                                <th rowspan="1" colspan="1">Contact
-                                                                                    Number
+                                                                                <th rowspan="1" colspan="1">Status
                                                                                 </th>
                                                                                 <th rowspan="1" colspan="1">Action</th>
                                                                             </tr>
                                                                         </thead>
-                                                                        <tfoot>
-                                                                            <tr>
-                                                                                <th rowspan="1" colspan="1">Name</th>
-                                                                                <th rowspan="1" colspan="1">Role</th>
-                                                                                <th rowspan="1" colspan="1">Email
-                                                                                    Address
-                                                                                </th>
-                                                                                <th rowspan="1" colspan="1">Contact
-                                                                                    Number
-                                                                                </th>
-                                                                                <th rowspan="1" colspan="1">Contact
-                                                                                    Number
-                                                                                </th>
-                                                                                <th rowspan="1" colspan="1">Action</th>
-                                                                            </tr>
-                                                                        </tfoot>
+                                                                       
                                                                         <tbody>
                                                                             <% const role=['Admin', 'Product Manager'
                                                                                 , 'Power User' ]; const
@@ -145,7 +129,7 @@
                                                                                                 a.lastName %>
                                                                                         </td>
                                                                                         <td><span
-                                                                                                class="badge badge-<%=color[a.role]%>">
+                                                                                                class="">
                                                                                                 <%= role[a.role] %>
                                                                                             </span></td>
                                                                                         <td>
