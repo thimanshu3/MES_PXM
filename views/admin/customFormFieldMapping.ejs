@@ -224,18 +224,30 @@
                                                             <div id="fieldListArea"
                                                                 class="scrollbar-container ps--active-y ps">
                                                                 <% data.itemFields.forEach((item,i)=> { %>
-                                                                    <label class="selectgroup-item m-2">
-                                                                        <input type="checkbox" name="itemfields"
-                                                                            id="field-<%=item.id %>"
-                                                                            value="<%=item.id %>"
-                                                                            class="selectgroup-input fclass"
-                                                                            <%=data.formData.allFields.includes(item.id)
-                                                                            ? 'checked disabled' : '' %> >
-                                                                        <span class="selectgroup-button">
-                                                                            <%=item.label %>
-                                                                        </span>
-                                                                    </label>
-                                                                    <% }); %>
+                                                                    <%=item.type=='list/record' {%>
+                                                                        <% if (item.lr != '-' ) { %>
+                                                                            <label class="selectgroup-item m-2">
+                                                                                <input type="checkbox" name="itemfields" id="field-<%=item.id %>" value="<%=item.id %>"
+                                                                                    class="selectgroup-input fclass" <%=data.formData.allFields.includes(item.id) ? 'checked disabled' : '' %> >
+                                                                                <span class="selectgroup-button">
+                                                                                    <%=item.label %>
+                                                                                </span>
+                                                                            </label>
+                                                                        <%}%>
+                                                                    <% }else{%>    
+                                                                        <label class="selectgroup-item m-2">
+                                                                            <input type="checkbox" name="itemfields"
+                                                                                id="field-<%=item.id %>"
+                                                                                value="<%=item.id %>"
+                                                                                class="selectgroup-input fclass"
+                                                                                <%=data.formData.allFields.includes(item.id)
+                                                                                ? 'checked disabled' : '' %> >
+                                                                            <span class="selectgroup-button">
+                                                                                <%=item.label %>
+                                                                            </span>
+                                                                        </label>
+                                                                    <%}%>
+                                                                <% }); %>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -14,6 +14,10 @@ const form = MySql.define('form', {
         unique: true,
         allowNull: false
     },
+    stage:{
+        type: DataTypes.TINYINT,
+        defaultValue: 1
+    },
     description: {
         type: DataTypes.STRING(500),
         allowNull: true
