@@ -50,6 +50,7 @@ router.get('/:formId/p/:productId', async (req, res) => {
                     await Promise.all(subComponent.tabComponents.map(async tabComponent => {
                         await Promise.all(tabComponent.AssignedFields.map(async a => {
                             const fields = await MySql.query('select inputFields.id as id, inputFields.active as active, inputFields.label as label, inputFields.description as description, inputFields.associatedList as lr, inputTypes.inputType as inputType, productData.productId as pid, productData.fieldValue as pfv from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField INNER join productData on productData.fieldId = inputFields.id where inputFields.id = ? and productData.productId = ?', { replacements: [a.fieldId, req.params.productId] })
+                            console.log(fields)
                             delete a.fieldId
                             a.field = fields[0][0]
                            
