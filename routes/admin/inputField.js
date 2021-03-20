@@ -47,6 +47,37 @@ router.get('/', async (req, res) => {
     }
 })
 
+// Edit an item Field
+router.patch('/:id', async (req, res) => {
+    const { newValue } = req.body
+    try {
+        await AttributeSet.update({
+            name: newValue,
+            updatedBy: req.params.id
+        }, {
+            where: { id: req.params.id },
+            returning: true,
+            plain: true
+        })
+
+        await ActivityLog.create({
+            id: req.params.id,
+            name: 'AttributeSet',
+            type: 'Update',
+            user: req.user.id,
+            timestamp: new Date()
+        })
+        req.flash('success', `Successfully Updated to ${newValue}!!`)
+        res.json({ status: 200 })
+    }
+    catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        req.flash('error', err.toString() || 'Something Went Wrong!')
+        res.redirect('/admin/AttributeSet')
+    }
+})
+
+
 // Import Input Fields File
 router.post('/import', excelUpload.single('file'), async (req, res) => {
     if (req.fileValidationError) {
@@ -252,10 +283,8 @@ router.post('/inputgroup/add', async (req, res) => {
 router.get('/inputgroup/:id', async (req, res) => {
     try {
 
-        const [itemFields, assignedItemFields] = await async.parallel([
-            async () => await inputFields.findAll({where:{
-                active:true
-            }}),
+        const [[itemFields], assignedItemFields] = await async.parallel([
+            async () => await MySql.query('select inf.id as id, inf.label as label, inf.associatedList as lr, it.inputType as type from inputFields inf inner join inputTypes it on inf.typeofField = it.id where inf.active=true'),
             async () => await fieldsAssignedToGroup.findAll({
                 where: {
                     groupId: req.params.id,
@@ -267,7 +296,9 @@ router.get('/inputgroup/:id', async (req, res) => {
             s.push({
                 id: itemField.id,
                 name: itemField.label,
-                isAssigned: assignedItemFields.find(s => s.fieldId === itemField.id) ? true : false
+                isAssigned: assignedItemFields.find(s => s.fieldId === itemField.id) ? true : false,
+                type: itemField.type,
+                lr: itemField.lr
             })
         })
         console.log(s)

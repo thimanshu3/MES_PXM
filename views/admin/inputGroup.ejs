@@ -363,10 +363,21 @@
 
                                         json.data.itemFields.sort((a, b) => { if (a.isAssigned) return -1; if (!a.isAssigned) return 1; return 0; }).forEach(b => {
                                             let checked = b.isAssigned ? 'checked' : '';
-                                            itemFields += ` <label class="selectgroup-item">
+                                            if(b.type=='list/record'){
+                                                if(b.lr!='-'){
+                                                itemFields += ` <label class="selectgroup-item">
+                                                            <input type="checkbox" name="field" id="f-${b.id}" value="${b.id}"class="selectgroup-input fclass" ${checked}>
+                                                            <span class="selectgroup-button">${b.name}</span>
+                                                        </label>`
+                                                }
+                                            }
+                                            else{
+                                                itemFields += ` <label class="selectgroup-item">
                                                                 <input type="checkbox" name="field" id="f-${b.id}" value="${b.id}"class="selectgroup-input fclass" ${checked}>
                                                                 <span class="selectgroup-button">${b.name}</span>
                                                             </label>`
+
+                                            }
                                         })
                                         $("#preloader").remove();
                                         $('#fieldListArea').append(itemFields)

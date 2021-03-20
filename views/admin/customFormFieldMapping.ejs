@@ -224,7 +224,8 @@
                                                             <div id="fieldListArea"
                                                                 class="scrollbar-container ps--active-y ps">
                                                                 <% data.itemFields.forEach((item,i)=> { %>
-                                                                    <%=item.type=='list/record' {%>
+                                                                    
+                                                                    <% if(item.type=='list/record') {%>
                                                                         <% if (item.lr != '-' ) { %>
                                                                             <label class="selectgroup-item m-2">
                                                                                 <input type="checkbox" name="itemfields" id="field-<%=item.id %>" value="<%=item.id %>"
