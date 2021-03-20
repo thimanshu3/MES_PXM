@@ -60,6 +60,7 @@ router.post('/layout', async (req, res) => {
     try {
 
         const result = await FormDesign.create({ formId, componets: content })
+        await form.update({ stage:2},{ where:{ id:formId } })
         if (result) {
             res.json({ status: 200, href: `/admin/customform/${formId}/fieldmap` })
         } else {
@@ -107,7 +108,8 @@ router.get('/:id/fieldmap', async (req, res) => {
             res.redirect('/customform')
         }
         const [itemFields, itemGroups, formData] = await async.parallel([
-            async () => await inputFields.findAll({ attributes: ['id', 'label'], where: { active: true } }),
+            async () => { await MySql.query(`select inf.id as id, inf.label as label,inf.associatedList as lr, it.inputType as type from inputFields inf inner join inputTypes it on inf.typeofField = it.id`)},
+            //async () => await inputFields.findAll({ attributes: ['id', 'label','typeofField'], where: { active: true } }),
             async () => await MySql.query('select fatg.groupId as groupId, fg.name, group_concat(fatg.fieldId Separator "," ) as fieldIds from fieldsAssignedToGroups fatg inner join fieldGroups fg on groupId = fg.id inner join inputFields ipf on fatg.fieldId =  ipf.id  where ipf.active="1" group by fatg.groupid'),
             async () => await FormDesign.findOne({ formId: customForm.id })
         ])

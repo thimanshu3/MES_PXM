@@ -88,6 +88,7 @@
                                                             <th>Name</th>
                                                             <th>Created By</th>
                                                             <th>Created At</th>
+                                                            <th>Stage</th>
                                                             <th>Status</th>
                                                             <th>Action</th>
                                                         </tr>
@@ -99,9 +100,16 @@
                                                                 <td>
                                                                     <%= _a.name %>
                                                                 </td>
-                                                                <td>System Architect</td>
+                                                                <td><%= _a.createdBy%></td>
                                                                 <td>
                                                                     <%= formatDateMoment(_a.createdAt) %>
+                                                                </td>
+                                                                <td>
+                                                                    <%if(_a.stage==1){ %>
+                                                                        Layout Not Designed
+                                                                    <%}else{%>
+                                                                        Form Design Complete
+                                                                    <%}%>
                                                                 </td>
                                                                 <td><span id="activeBadge-<%= _a.id%>"
                                                                         class="badge badge-<%= _a.active ? 'success' : 'danger' %>">
@@ -125,6 +133,7 @@
                                                                             data-original-title="Remove">
                                                                             <i class="fas fa-trash"></i>
                                                                         </button>
+                                                                        <% if(_a.stage!=1) { %>
                                                                         <a style="text-decoration: none;"
                                                                             href="/admin/customform/<%=_a.id %>/form"
                                                                             type="button" data-toggle="tooltip" title=""
@@ -133,6 +142,13 @@
                                                                             View Form
                                                                             <i class="flaticon-right-arrow"></i>
                                                                         </a>
+                                                                        <% }else{ %>
+                                                                            <a style="text-decoration: none;" href="/admin/customform/<%= _a.id %>" type="button" data-toggle="tooltip" title=""
+                                                                                class="btn btn-link" data-original-title="Edit Task">
+                                                                                Complete Form Layout
+                                                                                <i class="flaticon-right-arrow"></i>
+                                                                            </a>
+                                                                        <% } %>
                                                                     </div>
                                                                 </td>
                                                             </tr>

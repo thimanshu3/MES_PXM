@@ -1320,3 +1320,56 @@ table.dataTable thead .sorting_asc:before{
   transform: scale(1.2);
 
 }
+
+
+table.dataTable thead .sorting_desc:before{
+  display: none;
+}
+
+table.dataTable thead .sorting_desc::after{
+  display: none;
+}
+
+table.dataTable thead .sorting_asc:before{
+  display: none;
+}
+
+table.dataTable thead .sorting_asc::after{
+  display: none;
+}
+
+table.dataTable thead .sorting:after{
+  display: none
+}
+
+table.dataTable thead .sorting:before{
+  display: none
+}
+
+.logo-header .logo .navbar-brand{
+ filter: contrast(150%);
+}
+
+
+@media screen and (min-width: 991px){
+.sidebar_minimize .logo-header .nav-toggle {
+   left: 42%;
+    height: initial; 
+   top: 6px;
+}
+
+
+.sidebar_minimize .logo-header .nav-toggle:hover .icon-options-vertical:before {
+   filter: contrast(150%);
+}
+
+
+}
+
+.icon-options-vertical:before {
+   filter: contrast(150%);
+}
+
+.sidebar_minimize_hover .icon-options-vertical:before {
+    content: none !important;
+}
