@@ -83,6 +83,20 @@
                                                                                     </div>
                                                                                 </div>
                                                                                 <% } %>
+                                                                                <% if(_a.field.inputType=='list/record' ){ %>
+                                                                                <div class="col-md-3">
+                                                                                    <div class="form-group">
+                                                                                        <label for="smallSelect" style="width: 100%"><%= _a.field.label%></label>
+                                                                                        <select name="<%= _a.field.id%>" class="form-control form-control-sm" id="smallSelect">
+                                                                                            <option>1</option>
+                                                                                            <option>2</option>
+                                                                                            <option>3</option>
+                                                                                            <option>4</option>
+                                                                                            <option>5</option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <%}%>
                                                                             <% if(inputs.includes(_a.field.inputType)){ %>
                                                                                 <div class="col-md-3 mb-3">
                                                                                     <div class="form-group">
@@ -197,6 +211,7 @@
                                                                                     </div>
                                                                                     <% }else{ %>
                                                                                     <% tabComponent.AssignedFields.forEach(_a=> {%>
+                                                                                        
                                                                                         <% if(_a.field.inputType=='checkbox' ){ %>
                                                                                             <div class="col-md-3 mb-3">
                                                                                                 <div class="form-check">
@@ -209,6 +224,20 @@
                                                                                                 </div>
                                                                                             </div>
                                                                                             <% } %>
+                                                                                            <% if(_a.field.inputType=='list/record' ){ %>
+                                                                                            <div class="col-md-3">
+                                                                                                <div class="form-group">
+                                                                                                    <label for="smallSelect" style="width: 100%"><%= _a.field.label%></label>
+                                                                                                    <select name="<%= _a.field.id%>" class="form-control form-control-sm" id="smallSelect">
+                                                                                                        <option>1</option>
+                                                                                                        <option>2</option>
+                                                                                                        <option>3</option>
+                                                                                                        <option>4</option>
+                                                                                                        <option>5</option>
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <%}%>
                                                                                             <% if(inputs.includes(_a.field.inputType)){ %>
                                                                                                 <div class="col-md-3 mb-3">
                                                                                                     <div class="form-group">
