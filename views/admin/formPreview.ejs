@@ -88,11 +88,11 @@
                                                                                     <div class="form-group">
                                                                                         <label for="smallSelect" style="width: 100%"><%= _a.field.label%></label>
                                                                                         <select name="<%= _a.field.id%>" class="form-control form-control-sm" id="smallSelect">
-                                                                                            <option>1</option>
-                                                                                            <option>2</option>
-                                                                                            <option>3</option>
-                                                                                            <option>4</option>
-                                                                                            <option>5</option>
+                                                                                            <option> </option>
+                                                                                            <% if(_a.field.list != 'no value') { _a.field.list.split('----').forEach(b=>{%>
+                                                                                                <option value=<%= b %>><%= b %></option>
+                                                                                            <%})}%>
+                                                                                            
                                                                                         </select>
                                                                                     </div>
                                                                                 </div>

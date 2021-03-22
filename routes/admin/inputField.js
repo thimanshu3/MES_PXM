@@ -182,7 +182,7 @@ router.post('/add', async (req, res) => {
         res.redirect('/admin/inputfield')
         return
     }
-    catch {
+    catch(err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         if (err.name === 'SequelizeUniqueConstraintError')
             req.flash('error', `${err.errors[0].message} '${err.errors[0].value}' already exists!`)
@@ -192,6 +192,37 @@ router.post('/add', async (req, res) => {
     }
 })
 
+//Attach List to a list record
+router.post('/attachList',async (req, res) => {
+    const  { listrecord, fieldId } = req.body
+    try {
+        await inputFields.update({
+            associatedList: listrecord,
+            updatedBy: req.user.id
+        }, {
+            where: { id: fieldId },
+            returning: true,
+            plain: true
+        })
+
+        await ActivityLog.create({
+            id: fieldId,
+            name: 'InputField',
+            type: 'Update',
+            user: req.user.id,
+            timestamp: new Date()
+        })
+        res.redirect('/admin/inputField')
+        req.flash('success', `Successfully Updated!!`)
+        
+    }
+    catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        req.flash('error', err.toString() || 'Something Went Wrong!')
+        res.redirect('/admin/inputField')
+    }
+
+})
 // Activate/Deactivate an Item Field
 router.delete('/:id', async (req, res) => {
     const foundField = await inputFields.findOne({
