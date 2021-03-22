@@ -114,13 +114,18 @@
                                                                                         class="btn btn-link btn-sm"
                                                                                         data-original-title="View List/Record Values">
                                                                                         <i class="fa fa-eye"></i>
-
+                                                                                        
                                                                                     </button>
                                                                                     <% if (_a.lr=='-' ) { %>
                                                                                         <button class="btn btn-link" data-toggle="modal" data-target="#ListModal" onclick="setFieldId('<%=_a.id%>')">
                                                                                             <span class="badge">Attach a List</span>
                                                                                         </button>
-                                                                                        <%}%>
+                                                                                        
+                                                                                        <%}else{%>
+                                                                                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#ListModal"
+                                                                                                onclick="setFieldId('<%=_a.id%>')" data-original-title="Edit Task"><i class="fas fa-external-link-square-alt"></i>
+                                                                                            </button>
+                                                                                            <%}%>
                                                                                             <% } %>
 
                                                                         </td>
@@ -135,8 +140,8 @@
                                                                         </td>
                                                                         <td>
                                                                             <div class="form-button-action">
-
-                                                                                <button type="button" onclick="editValue('/admin/inputfield/<%=_a.id%>','PATCH','<%=_a.name %>')"
+                                                                                
+                                                                                <button type="button" onclick="editValue('/admin/inputfield/<%=_a.id%>','PATCH','<%=_a.label %>')"
                                                                                     data-toggle="tooltip" title=""
                                                                                     class="btn btn-link btn-lg"
                                                                                     data-original-title="Edit Task">

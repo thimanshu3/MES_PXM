@@ -51,8 +51,8 @@ router.get('/', async (req, res) => {
 router.patch('/:id', async (req, res) => {
     const { newValue } = req.body
     try {
-        await AttributeSet.update({
-            name: newValue,
+        await inputFields.update({
+            label: newValue,
             updatedBy: req.params.id
         }, {
             where: { id: req.params.id },
@@ -62,7 +62,7 @@ router.patch('/:id', async (req, res) => {
 
         await ActivityLog.create({
             id: req.params.id,
-            name: 'AttributeSet',
+            name: 'inputField',
             type: 'Update',
             user: req.user.id,
             timestamp: new Date()
@@ -73,7 +73,7 @@ router.patch('/:id', async (req, res) => {
     catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         req.flash('error', err.toString() || 'Something Went Wrong!')
-        res.redirect('/admin/AttributeSet')
+        res.redirect('/admin/inputField')
     }
 })
 
@@ -178,7 +178,7 @@ router.post('/add', async (req, res) => {
             user: req.user.id,
             timestamp: new Date()
         })
-        req.flash('success', `${inputField.name} Added Successfully!`)
+        req.flash('success', `${inputField.label} Added Successfully!`)
         res.redirect('/admin/inputfield')
         return
     }
@@ -223,6 +223,7 @@ router.post('/attachList',async (req, res) => {
     }
 
 })
+
 // Activate/Deactivate an Item Field
 router.delete('/:id', async (req, res) => {
     const foundField = await inputFields.findOne({
@@ -365,6 +366,35 @@ router.get('/lrValue/:id', async (req, res) => {
     }
 })
 
+//Edit Group Name
+router.patch('/inputgroup/:id', async (req, res) => {
+    const { newValue } = req.body
+    try {
+        await fieldGroups.update({
+            name: newValue,
+            updatedBy: req.params.id
+        }, {
+            where: { id: req.params.id },
+            returning: true,
+            plain: true
+        })
+
+        await ActivityLog.create({
+            id: req.params.id,
+            name: 'inputGroup',
+            type: 'Update',
+            user: req.user.id,
+            timestamp: new Date()
+        })
+        req.flash('success', `Successfully Updated to ${newValue}!!`)
+        res.json({ status: 200 })
+    }
+    catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        req.flash('error', err.toString() || 'Something Went Wrong!')
+        res.redirect('/admin/inputField')
+    }
+})
 
 // Assign Item Fields To a Particular Group
 router.post('/inputgroup', async (req, res) => {
@@ -398,10 +428,6 @@ router.post('/inputgroup', async (req, res) => {
 
             })))
         }
-
-
-
-
         res.json({ status: 200, message: 'Grouped Successfully!' })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
@@ -441,8 +467,25 @@ router.delete('/inputgroup/remove/:id', async (req, res) => {
     if (!foundGroup)
         return res.status(404).json({ message: 'Group Not Found!' })
     try {
+        await async.parallel([
+            async () =>
+                await fieldGroups.destroy({
+                    where: {
+                        id: req.params.id
+                    }
+                }),
+            async () =>
+                await fieldsAssignedToGroup.destroy({
+                    where: {
+                        groupId: req.params.id
+                    }
+                })
+        ])
+        req.flash('success', `Deleted Successfully`)
+        res.json({ status: 200, message: 'Deleted Successfully' })
+        //res.redirect('/admin/inputfield/inputgroup')
         //foundGroup.destroy();
-        res.json({ status: 200, message: `DELETE QUERY NEED TO BE WRITTEN` })
+        //res.json({ status: 200, message: `DELETE QUERY NEED TO BE WRITTEN` })
         //res.r('/admin/inputField')
     }
     catch (err) {
