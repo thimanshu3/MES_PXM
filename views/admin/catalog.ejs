@@ -82,12 +82,12 @@
                                         <div class="row" style="height: 60vH;">
                                             <div class="col-md-3" style="border-right: 1px solid lightgrey;">
 
-                                                <div class="form-group">
+                                                <div class="form-group" style="width: 100%;">
                                                     <select name="catalogs" id="cataloghierarchy">
+                                                        <option selected disabled>select catalog </option> 
                                                         <% catalogues.forEach(element=> { %>
 
-                                                            <option value="<%=element.id  %>" <%=element.name=='master'
-                                                                ? 'selected' : '' %> ><%=element.name %>
+                                                            <option value="<%=element.id  %>" ><%=element.name %>
                                                             </option>
                                                             <% }); %>
                                                     </select>
@@ -254,28 +254,26 @@
 
     <script>
         const list_to_tree = (list) => {
-            var map = {}, node = {}, roots = [], i;
-            for (i = 0; i < list.length; i += 1) {
-                map[list[i].id] = i;
-                list[i].children = [];
-            }
-
-            for (i = 0; i < list.length; i += 1) {
-                node = list[i];
-                node.type = 'folder'
-                node.data = {}
-                if (node.parentId !== "0") {
-                    list[map[node.parentId]].children.push(node);
-                } else {
-                    roots.push(node);
+                var map = {}, node = {}, roots = [], i;
+                for (i = 0; i < list.length; i += 1) {
+                    map[list[i].id] = i;
+                    list[i].children = [];
                 }
+                for (i = 0; i < list.length; i += 1) {
+                    node = list[i];
+                    node.type = 'folder'
+                    node.data = {}
+                    if (node.parentId !== "0") {
+                        list[map[node.parentId]].children.push(node);
+                    } else {
+                        roots.push(node);
+                    }
+                }
+                return roots;
             }
-            return roots;
-        }
-
-        $(function () {
-            $('#cataloghierarchy').select2();
-        });
+            $(function () {
+                $('#cataloghierarchy').select2();
+            });
 
     </script>
     <script>
@@ -310,17 +308,17 @@
                         "icon": "ti-file",
                     }
                 },
-                plugins: ["types", 'state', 'contextmenu', 'checkbox']
+                plugins: ["types", 'state', 'contextmenu', 'checkbox','wholerow']
             })
-                .on("create_node.jstree", function (event, data) {
-                    console.log(data, 'create vala');
-                    fetch(`/admin/catalog`, {
+
+                .bind("create_node.jstree", function (event, data) {
+                     fetch(`/admin/catalog`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            text: data.node.text,
+                            text: `new-node-${data.node.parent}`,
                             parentId: data.node.parent,
                             catalogueHierarchy: $('#cataloghierarchy').find(":selected").val()
 
@@ -340,7 +338,6 @@
                         }).catch(err => console.log(err))
                 })
                 .on('rename_node.jstree', function (e, data) {
-                    console.log('update vala ', data);
                     fetch(`/admin/catalog/update/${data.node.id}`, {
                         method: 'PATCH',
                         headers: {

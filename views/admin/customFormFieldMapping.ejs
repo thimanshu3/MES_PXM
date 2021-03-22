@@ -80,8 +80,10 @@
                                                     Form Layout
                                                 </div>
                                                 <div class="card-body">
+                                                    <div class="scroll-area-lg"  style="height: 78vh;">
+                                                        <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
                                                     <div class="dd" id="nestable">
-                                                        <ol class="dd-list">
+                                                        <ol class="dd-list-d">
                                                             <%data.formData.componets.forEach((component,i)=> { %>
                                                                 <li class="dd-item mb-5" data-id="<%= i  %>">
                                                                     <div class="dd-handle">
@@ -180,6 +182,8 @@
                                                                 </li>
                                                                 <% }) %>
                                                         </ol>
+                                                    </div>
+                                                    </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -280,13 +284,14 @@
     <!-- jQuery UI -->
     <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nestable2/1.6.0/jquery.nestable.min.js"
+        integrity="sha512-7bS2beHr26eBtIOb/82sgllyFc1qMsDcOOkGK3NLrZ34yTbZX8uJi5sE0NNDYFNflwx1TtnDKkEq+k2DCGfb5w=="
+        crossorigin="anonymous"></script>   
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
     <script>
         const form = '<%- JSON.stringify(data.formData) %>'
         const parseForm = JSON.parse(form)
-
         function getValues(obj, key, value, data) {
             for (var i in obj) {
                 if (!obj.hasOwnProperty(i)) continue;
@@ -357,6 +362,8 @@
                 })
                 .catch(err => console.log(err))
         }
+
+            
     </script>
 </body>
 
