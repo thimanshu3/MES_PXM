@@ -196,4 +196,49 @@ router.get('/:id/form', async (req, res) => {
     }
 })
 
+
+router.delete('/:id', async (req, res) => {
+    const foundForm = await form.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+
+    if (!foundForm)
+        return res.status(404).json({ message: 'Form Not Found!' })
+
+    // if (foundAttributeSet.role === 0)
+    //     return res.status(400).json({ message: 'Cannot Deactive Admin' })
+
+    foundForm.active = !foundForm.active
+    await foundForm.save()
+
+    res.json({ status: 200, message: `Form ${foundForm.active ? 'Activated' : 'Deactivated'} Successfully!`, active: foundForm.active })
+})
+
+// router.delete('/remove/:id', async (req, res) => {
+//     try {
+//         await async.parallel([
+//             async () =>
+//                 await AttributeSet.destroy({
+//                     where: {
+//                         id: req.params.id
+//                     }
+//                 }),
+//             async () =>
+//                 await AttributeValueSets.destroy({
+//                     where: {
+//                         parentAttributeId: req.params.id
+//                     }
+//                 })
+//         ])
+//         req.flash('success', `Deleted Successfully`)
+//         res.json({ status: 200, message: 'Deleted Successfully' })
+//         res.redirect('/admin/listrecord')
+//     } catch (err) {
+//         console.error('\x1b[31m%s\x1b[0m', err)
+//         res.status(500).json({ status: 500, message: err.toString() })
+//     }
+// })
+
 module.exports = router
