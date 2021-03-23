@@ -863,10 +863,11 @@ position: relative;
     position: absolute;
     bottom: 0px;
 }
-
+/*
 .kk_product_page{
     background: #fff;
 }
+*/
 
 .kk_product_page .card-header{
     background: transparent;
@@ -1379,15 +1380,68 @@ table.dataTable thead .sorting:before{
     content: none !important;
 }
 
-.kk_product_page .pad-40 #pills-tab{
+ .pad-40 #pills-tab{
   display: flex;
   justify-content: space-evenly;
 }
 
-.kk_product_page .pad-40{
-border: 1px solid #eee
-}
 
 .progress-bar{
   background-color: #5394ca;
+}
+
+
+
+.kk_product_page .card-header .progress{
+  height: 22px;
+}
+
+.kk_product_page .card-header{
+      margin-left: 30px;
+    border: 0px !important;
+    padding-bottom: 0px !important;
+    margin-bottom: 0px;
+}
+
+.kk_product_page .level_1_header {
+  background: transparent;
+   padding: 5px 0px;
+    color: #4d7393;
+    font-size: 20px;
+    text-transform: uppercase;
+    border-bottom: 2px solid darkgrey;
+}
+
+.kk_product_page .level_2_header {
+  background: transparent;
+   padding: 5px 0px;
+    color: #4d7393;
+    font-size: 20px;
+    text-transform: uppercase;
+    border-bottom: 2px solid darkgrey;
+}
+
+.kk_product_page .card-body{
+        padding-left: 30px !important;
+}
+
+.kk_product_page .card-body .container-fluid {
+      padding-left: 0px;
+}
+
+.kk_product_page .card-body .pad-40{
+        margin: 15px 0px !important;
+}
+
+.kk_full_form .card-body .form-group {
+    width: 100%;
+    padding: 0px !important;
+}
+
+.Kk_delete_tab {
+    position: absolute;
+    margin-left: 24px;
+    margin-top: -18px;
+    padding: 0px;
+    color: #000;
 }
