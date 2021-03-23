@@ -58,17 +58,29 @@
                                                     <div class="level_1_header">
                                                         <%=component.name %>
                                                     </div>
+                                                    <% if(component.subComponents.length==0){ %>
+                                                    <div class="mx-auto Kk_no_assigned">
+                                                        <img class="img-responsive" src="/assets/img/no_field_assigned.png">
+                                                        <h4>No Component Created
+                                                        </h4>
+                                                        <h6>Please Create some components</h6>
+                                                    </div>
+                                                    <% } %>
                                                     <% component.subComponents.forEach(subComponent=>{ %>
+                                                       
                                                         <% if(subComponent.type=='sec' ){ %>
                                                             <section class="pad-40">
                                                                 <div class="level_2_header">
                                                                     <%= subComponent.name %>
                                                                 </div>
                                                                 <div class="row mt-3">
-                                                                    <% if(subComponent.AssignedFields.length==0){ %>
-                                                                        <div class="text-center">
-                                                                            <img src="/assets/img/no_field_assigned.svg">
-                                                                        </div>
+                                                                    <% if(tabComponent.AssignedFields.length==0){ %>
+                                                                    <div class="mx-auto Kk_no_assigned">
+                                                                        <img class="img-responsive" src="/assets/img/no_field_assigned.png">
+                                                                        <h4>No Fields Assigned
+                                                                        </h4>
+                                                                        <h6>Please assign some fields</h6>
+                                                                    </div>
                                                                     <% }else{ %>
                                                                         <% subComponent.AssignedFields.forEach(_a=> {%>
                                                                             <% if(_a.field.inputType=='checkbox' ){ %>
@@ -126,13 +138,22 @@
                                                                         <div class="tab-content mt-2 mb-3" id="pills-tabContent">
                                                                             <% subComponent.tabComponents.forEach(tab=>{ %>
                                                                                 <div class="tab-pane fade"  id="pills-<%=tab.name %>" role="tabpanel" aria-labelledby="pills-home-tab">
+                                                                                    <% if(tab.pageContent.length==0){ %>
+                                                                                    <div class="mx-auto Kk_no_assigned">
+                                                                                        <img class="img-responsive" src="/assets/img/no_field_assigned.png">
+                                                                                        <h4>No Component Created
+                                                                                        </h4>
+                                                                                        <h6>Please Create some components</h6>
+                                                                                    </div>
+                                                                                    <% } %>
                                                                                     <% tab.pageContent.forEach(page=>{ %>
+                                                                                        
                                                                                         <section class="pad-40">
                                                                                             <div class="level_2_header">
                                                                                                 <%= page.name %>
                                                                                             </div>
                                                                                             <div class="row mt-3">
-                                                                                                <% if(subComponent.AssignedFields.length==0){ %>
+                                                                                                <% if(page.AssignedFields.length==0){ %>
                                                                                                     <div class="mx-auto Kk_no_assigned">
                                                                                                         <img class="img-responsive" src="/assets/img/no_field_assigned.png">
                                                                                                         <h4>No Fields Assigned
@@ -194,13 +215,16 @@
                                                                 <%}) %>
                                                             </ul>
                                                             <div class="tab-content mt-2 mb-3"  id="pills-tabContent">
+                                                               
                                                                 <% component.subComponents.forEach(subComponent=>{ %>
                                                                     <div class="tab-pane fade" id="pills-<%=subComponent.name %>" role="tabpanel" aria-labelledby="pills-home-tab">
+                                                                        
                                                                     <% subComponent.tabComponents.forEach(tabComponent=>{ %>
                                                                         <section class="pad-40">
                                                                             <div class="level_2_header">
                                                                                 <%= tabComponent.name %>
                                                                             </div>
+                                                                            
                                                                             <div class="row mt-3">
                                                                                 <% if(tabComponent.AssignedFields.length==0){ %>
                                                                                     <div class="mx-auto Kk_no_assigned">

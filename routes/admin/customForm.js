@@ -81,6 +81,35 @@ router.post('/layout', async (req, res) => {
 })
 
 
+router.patch('/:id', async (req, res) => {
+    const { newValue } = req.body
+    try {
+        await form.update({
+            name: newValue,
+            updatedBy: req.params.id
+        }, {
+            where: { id: req.params.id },
+            returning: true,
+            plain: true
+        })
+
+        await ActivityLog.create({
+            id: req.params.id,
+            name: 'Form',
+            type: 'Update',
+            user: req.user.id,
+            timestamp: new Date()
+        })
+        req.flash('success', `Successfully Updated to ${newValue}!!`)
+        res.json({ status: 200 })
+    }
+    catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        req.flash('error', err.toString() || 'Something Went Wrong!')
+        res.redirect('/admin/customform')
+    }
+})
+
 router.get('/:id', async (req, res) => {
     try {
         const formPart = await formParts.findAll()
@@ -216,29 +245,25 @@ router.delete('/:id', async (req, res) => {
     res.json({ status: 200, message: `Form ${foundForm.active ? 'Activated' : 'Deactivated'} Successfully!`, active: foundForm.active })
 })
 
-// router.delete('/remove/:id', async (req, res) => {
-//     try {
-//         await async.parallel([
-//             async () =>
-//                 await AttributeSet.destroy({
-//                     where: {
-//                         id: req.params.id
-//                     }
-//                 }),
-//             async () =>
-//                 await AttributeValueSets.destroy({
-//                     where: {
-//                         parentAttributeId: req.params.id
-//                     }
-//                 })
-//         ])
-//         req.flash('success', `Deleted Successfully`)
-//         res.json({ status: 200, message: 'Deleted Successfully' })
-//         res.redirect('/admin/listrecord')
-//     } catch (err) {
-//         console.error('\x1b[31m%s\x1b[0m', err)
-//         res.status(500).json({ status: 500, message: err.toString() })
-//     }
-// })
+router.delete('/remove/:id', async (req, res) => {
+    try {
+        await async.parallel([
+            async () =>
+                await form.destroy({
+                    where: {
+                        id: req.params.id
+                    }
+                }),
+            async () =>
+                console.log(await FormDesign.findOneAndDelete({ formId: req.params.id }))
+        ])
+        req.flash('success', `Form Deleted Successfully`)
+        res.json({ status: 200, message: 'Form Deleted Successfully' })
+        res.redirect('/admin/listrecord')
+    } catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        res.status(500).json({ status: 500, message: err.toString() })
+    }
+})
 
 module.exports = router

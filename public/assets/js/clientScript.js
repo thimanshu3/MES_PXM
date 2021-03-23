@@ -31,7 +31,6 @@ const markStatusOrDelete = (uri,method,type,data) =>{
                                     }
                                 }
                                 else{
-                                    
                                     location.reload();
                                 }
                             } else {
@@ -148,10 +147,6 @@ const editValue = (uri, method, value) => {
                                 iziToast.info({
                                     message: json.message
                                 })
-                                // document.querySelector(`#activeBadge-${data.id}`).classList.remove('badge-success')
-                                // document.querySelector(`#activeBadge-${data.id}`).classList.remove('badge-danger')
-                                // document.querySelector(`#activeBadge-${data.id}`).classList.add(json.active ? 'badge-success' : 'badge-danger')
-                                // document.querySelector(`#activeBadge-${data.id}`).style.backgroundColor = (json.active ? '#088e0c' : "#d20e18")
                             } else {
                                 iziToast.error({
                                     message: json.message

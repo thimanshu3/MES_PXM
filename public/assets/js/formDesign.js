@@ -78,7 +78,7 @@ const addComponent = (type, where) => {
             </div>
         `).show('slow');
 
-        scrollDown(`tab-${order}`)
+          
 
     }
     if (type == 3) {

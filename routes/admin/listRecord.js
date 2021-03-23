@@ -1,10 +1,37 @@
-const express = require('express')
 const { Op } = require('sequelize')
+const express = require('express')
+const bcrypt = require('bcryptjs')
 const async = require('async')
+const multer = require('multer')
+const path = require('path')
+const fs = require('fs')
+const readXlsxFile = require('read-excel-file/node')
+const { random } = require('../../util')
+const { formatDateMoment } = require('../../util')
+
 const { MySql } = require('../../db')
-const { listRecord, listRecordValues, ActivityLog } = require('../../models')
+const { ActivityLog, listRecord, listRecordValues } = require('../../models')
+const { addInputFieldSchema } = require('../../validation')
+const { Router } = require('express')
 const router = express.Router()
 
+const uploadStorage = multer.diskStorage({
+    destination: (req, file, next) => next(null, 'uploads'),
+    filename: (req, file, next) => next(null, `${random(16).toLowerCase()}-${Date.now()}${path.extname(file.originalname)}`)
+})
+
+const excelFilter = (req, file, next) => {
+    if (!file.originalname.match(/\.(xlsx)$/)) {
+        req.fileValidationError = 'Invalid File Type!'
+        return next(null, false)
+    }
+    next(null, true)
+}
+
+const excelUpload = multer({
+    storage: uploadStorage,
+    fileFilter: excelFilter
+})
 
 router.get('/', async (req, res) => {
     const data = await listRecord.findAll()
@@ -266,4 +293,62 @@ router.patch('/value/:id', async (req, res) => {
     }
 })
 
+
+// Import Input list record File
+router.post('/import', excelUpload.single('file'), async (req, res) => {
+    if (req.fileValidationError) {
+        req.flash('error', req.fileValidationError)
+        res.redirect('/admin/listrecord')
+        return
+    }
+    const excelData = await readXlsxFile(`uploads/${req.file.filename}`)
+    fs.unlink(`uploads/${req.file.filename}`, err => err ? console.error('\x1b[31m%s\x1b[0m', err) : undefined)
+  
+
+    if (excelData.length === 0) {
+        req.flash('error', 'No List record to Add!')
+        res.redirect('/admin/listrecord')
+        return
+    }
+    const data =[];
+    Promise
+        .all(excelData.map(async (row, index) => {
+            try {
+                const list = await listRecord.create({ name:row[0].toString(), createdBy: req.user.id , })
+                row.map(async a=>{ 
+                    if(a != null ){
+                        console.log(a);
+                        data.push({parentListId: list.id , createdBy: req.user.id , label: a})
+                    }
+                })
+            } catch (err) {
+                throw new Error(err.toString() + ` at Sr. No. ${++index}`)
+            }
+        }))
+        .then(async () => {
+            let transaction
+            try {
+                transaction = await MySql.transaction()
+                await listRecordValues.bulkCreate(data, { transaction })
+                await transaction.commit()
+                req.flash('success', 'list record Import Completed!')
+                res.redirect(`/admin/listrecord`)
+            } catch (err) {
+                console.log(err)
+                if (transaction)
+                    await transaction.rollback()
+                if (err.name === 'SequelizeUniqueConstraintError')
+                    req.flash('error', `${err.errors[0].message} '${err.errors[0].value}' already exists!`)
+                else
+                    req.flash('error', err.toString())
+                res.redirect(`/admin/listrecord`)
+            }
+        })
+
+        .catch(err => {
+            console.log(err)
+            req.flash('error', err.toString() || 'Validation Error!')
+            res.redirect('/admin/listrecord')
+        })
+})
 module.exports = router
