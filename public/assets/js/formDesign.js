@@ -56,20 +56,23 @@ const addComponent = (type, where) => {
                     <div class="card-body">
                         <ul  class="nav nav-pills nav-secondary nav-pills-no-bd" id="ctabc-${order}-list" role="tablist">
                             <li class="nav-item submenu" id="ctabc-${order}-1-item">
-                                <a class="nav-link"  data-toggle="pill" href="#ctabc-${order}-1-content_item" role="tab" aria-controls="pills-home-nobd" aria-selected="false">Home</a>
+                            
+                                <a class="nav-link"  data-toggle="pill" href="#ctabc-${order}-1-content_item" role="tab" aria-controls="pills-home-nobd" aria-selected="false">Home<button onclick="deleteComponent('ctabc-${order}-1-item');deleteComponent('ctabc-${order}-1-content_item')" class="btn btn-link Kk_delete_tab"><i class="  fas fa-times-circle" ></i></button></a>
+                                
+                                
                             </li>
                         </ul>
                         <div id="ctabc-${order}" class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
                         <div class="tab-pane fade" id="ctabc-${order}-1-content_item" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
                                 <div class="d-flex justify-content-between">
                                 <p>default tab</p>
-                                <button onclick="addComponent(3,'ctabc-sec-${order}')" class="btn btn-link">
-                                Add new sub section
-                                </button>
+                                
                                 
                                 </div>
                                  <div id="ctabc-sec-${order}">
-                            </div>
+                                </div> <button onclick="addComponent(3,'ctabc-sec-${order}')" class="btn btn-link">
+                                Add new sub section
+                                </button>
                             </div>
                            
                         </div>
@@ -142,21 +145,21 @@ const addComponent = (type, where) => {
                     <div class="card-body">
                         <ul  class="nav nav-pills nav-secondary nav-pills-no-bd" id="ctabc-${str1}-${orderObject[where]}-list" role="tablist">
                             <li class="nav-item submenu" id="ctabc-${str1}-${orderObject[where]}-1-item">
-                                <a class="nav-link"  data-toggle="pill" href="#ctabc-${str1}-${orderObject[where]}-1-content_item" role="tab" aria-controls="pills-home-nobd" aria-selected="false">Home</a>
+                                <a class="nav-link"  data-toggle="pill" href="#ctabc-${str1}-${orderObject[where]}-1-content_item" role="tab" aria-controls="pills-home-nobd" aria-selected="false">Home<button onclick="deleteComponent('ctabc-${str1}-${orderObject[where]}-1-item');deleteComponent('ctabc-${str1}-${orderObject[where]}-1-content_item')" class="btn btn-link Kk_delete_tab"><i class="  fas fa-times-circle" ></i></button></a>
                             </li>
                         </ul>
                         <div id="ctabc-${str1}-${orderObject[where]}" class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
                             <div class="tab-pane fade" id="ctabc-${str1}-${orderObject[where]}-1-content_item" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
                                <div class="d-flex justify-content-between">
                                 <p>default tab</p>
-                                <button onclick="addComponent(3,'ctabc-sec-${order}-${orderObject[where]}-1')" class="btn btn-link">
-                                Add new sub section
-                                </button>
+                                
                                 
                                 </div>
                                  <div id="ctabc-sec-${order}-${orderObject[where]}-1">
                                 
-                            </div>
+                            </div><button onclick="addComponent(3,'ctabc-sec-${order}-${orderObject[where]}-1')" class="btn btn-link">
+                                Add new sub section
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -178,19 +181,19 @@ const addTab = (val) => {
 
         orderObject[`${val}-sec-${orderObject[path]}`] = 0;
 
-        $(`#${path}`).append(`<li class="nav-item submenu" id="${val}-${orderObject[path]}-item"> <a class="nav-link"  data-toggle="pill" href="#${val}-${orderObject[path]}-content_item" role= "tab" aria-controls="pills-home-nobd" aria-selected="false"> ${extName} </a > </li >`);
+        $(`#${path}`).append(`<li class="nav-item submenu" id="${val}-${orderObject[path]}-item"> <a class="nav-link"  data-toggle="pill" href="#${val}-${orderObject[path]}-content_item" role= "tab" aria-controls="pills-home-nobd" aria-selected="false"> ${extName} <button onclick="deleteComponent('${val}-${orderObject[path]}-item');deleteComponent('${val}-${orderObject[path]}-content_item')" class="btn btn-link Kk_delete_tab"><i class="  fas fa-times-circle" ></i></button></a > </li >`);
         $(`#${val}`).append(` <div class="tab-pane fade" 
                         id='${val}-${orderObject[path]}-content_item' role="tabpanel" aria-labelledby="pills-home-tab-nobd">
         
          <div class="d-flex justify-content-between">
                                 <p>default tab${val}-sec-${orderObject[path]}</p>
-                                <button onclick="addComponent(3,'${val}-sec-${orderObject[path]}')" class="btn btn-link">
-                                Add new sub section
-                                </button>
+                               
                                 </div>
                                
                                 <div id="${val}-sec-${orderObject[path]}">
-                            </div>
+                            </div> <button onclick="addComponent(3,'${val}-sec-${orderObject[path]}')" class="btn btn-link">
+                                Add new sub section
+                                </button>
         
         </div> `).show('slow'); //console.log(`addTab-> ${val} - sec - ${orderObject[path]}`);
         extName = ''
