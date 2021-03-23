@@ -66,13 +66,13 @@ const addComponent = (type, where) => {
                         <div class="tab-pane fade" id="ctabc-${order}-1-content_item" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
                                 <div class="d-flex justify-content-between">
                                 <p>default tab</p>
-                                <button onclick="addComponent(3,'ctabc-sec-${order}')" class="btn btn-link">
-                                Add new sub section
-                                </button>
+                                
                                 
                                 </div>
                                  <div id="ctabc-sec-${order}">
-                            </div>
+                                </div> <button onclick="addComponent(3,'ctabc-sec-${order}')" class="btn btn-link">
+                                Add new sub section
+                                </button>
                             </div>
                            
                         </div>
