@@ -152,14 +152,14 @@ const addComponent = (type, where) => {
                             <div class="tab-pane fade" id="ctabc-${str1}-${orderObject[where]}-1-content_item" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
                                <div class="d-flex justify-content-between">
                                 <p>default tab</p>
-                                <button onclick="addComponent(3,'ctabc-sec-${order}-${orderObject[where]}-1')" class="btn btn-link">
-                                Add new sub section
-                                </button>
+                                
                                 
                                 </div>
                                  <div id="ctabc-sec-${order}-${orderObject[where]}-1">
                                 
-                            </div>
+                            </div><button onclick="addComponent(3,'ctabc-sec-${order}-${orderObject[where]}-1')" class="btn btn-link">
+                                Add new sub section
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -187,13 +187,13 @@ const addTab = (val) => {
         
          <div class="d-flex justify-content-between">
                                 <p>default tab${val}-sec-${orderObject[path]}</p>
-                                <button onclick="addComponent(3,'${val}-sec-${orderObject[path]}')" class="btn btn-link">
-                                Add new sub section
-                                </button>
+                               
                                 </div>
                                
                                 <div id="${val}-sec-${orderObject[path]}">
-                            </div>
+                            </div> <button onclick="addComponent(3,'${val}-sec-${orderObject[path]}')" class="btn btn-link">
+                                Add new sub section
+                                </button>
         
         </div> `).show('slow'); //console.log(`addTab-> ${val} - sec - ${orderObject[path]}`);
         extName = ''
