@@ -57,14 +57,14 @@
                             <div class="col-md-12">
 
 
-                                <div>
+                                <div class="card kk_full_form">
                                     <div class="card-header">
                                         <div class="row">
-                                            <div class="col-md-2">
+                                            <div class="col-md-1">
                                                 <img class="img-fluid"
                                                     src="https://www.medicaleshop.com/core/media/media.nl?id=669592&c=3635909&h=aeec525357b80053c9e3">
                                             </div>
-                                            <div class="col-md-8">
+                                            <div class="col-md-9">
                                                 <h5 class="product_id">
                                                     <%-productId%>
                                                 </h5>
@@ -113,7 +113,7 @@
                                                             <% }else{ %>
                                                             <%subComponent.AssignedFields.forEach(_a=>{%>
                                                             <% if(_a.field.inputType=='checkbox'){ %>
-                                                            <div class="col-md-3 mb-3">
+                                                            <div class="col-md-3">
                                                                 <div class="form-check">
                                                                     <label class="form-check-label">
                                                                         <input class="form-check-input" type="checkbox"
@@ -128,7 +128,7 @@
                                                             <% } %>
                                                             <% if(inputs.includes(_a.field.inputType)){
                                                                                                                     %>
-                                                            <div class="col-md-3 mb-3">
+                                                            <div class="col-md-3 ">
                                                                 <div class="form-group">
                                                                     <label for="email2">
                                                                         <%= _a.field.label
@@ -181,7 +181,7 @@
                                                                             <% }else{ %>
                                                                             <% page.AssignedFields.forEach(_a=> {%>
                                                                             <% if(_a.field.inputType=='checkbox' ){ %>
-                                                                            <div class="col-md-3 mb-3">
+                                                                            <div class="col-md-3">
                                                                                 <div class="form-check">
                                                                                     <label class="form-check-label">
                                                                                         <input class="form-check-input"
@@ -198,7 +198,7 @@
                                                                                                                                             %>
                                                                             <% if(inputs.includes(_a.field.inputType)){
                                                                                                                                                 %>
-                                                                            <div class="col-md-3 mb-3">
+                                                                            <div class="col-md-3 "">
                                                                                 <div class="form-group">
                                                                                     <label for="email2">
                                                                                         <%= _a.field.label
@@ -254,7 +254,7 @@
                                                                     <div class="level_2_header">
                                                                         <%= tabComponent.name %>
                                                                     </div>
-                                                                    <div class="row mt-3">
+                                                                    <div class="row m-3">
                                                                         <% if(tabComponent.AssignedFields.length==0){ %>
                                                                         <div class="mx-auto Kk_no_assigned">
                                                                             <img class="img-responsive"

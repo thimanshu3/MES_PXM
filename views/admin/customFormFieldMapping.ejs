@@ -218,6 +218,9 @@
                                                     <div class="title">
                                                         Field Items
                                                     </div>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" name="searchColumn" id="searchColumn">
+                                                        </div>
                                                     <button id="assignSelectedFields" class="btn btn-sm btn-primary">
                                                         Assign Fields
                                                     </button>
@@ -237,6 +240,7 @@
                                                                                 <span class="selectgroup-button">
                                                                                     <%=item.label %>
                                                                                 </span>
+                                                                                </input>
                                                                             </label>
                                                                         <%}%>
                                                                     <% }else{%>    
@@ -364,6 +368,67 @@
         }
 
             
+    </script>
+    <script>
+             
+            $('#searchColumn').on('change', function(){
+                var v = $(this).val();
+              highlight(v);
+            })
+            function visibleTextNodes() {
+                    var walker = document.createTreeWalker(
+                        document.body,
+                        NodeFilter.SHOW_ALL,
+                        function (node) {
+                            if (node.nodeType == 3) {
+                                return NodeFilter.FILTER_ACCEPT;
+                            } else if (node.offsetWidth && node.offsetHeight && node.style.visibility != 'hidden') {
+                                return NodeFilter.FILTER_SKIP;
+                            } else {
+                                return NodeFilter.FILTER_REJECT;
+                            }
+                        },
+                        false
+                    );
+
+                    for (var nodes = []; walker.nextNode();) {
+                        nodes.push(walker.currentNode);
+                    }
+                    return nodes;
+                }
+
+                
+                function highlight(needle) {
+                    needle = needle.replace(/\s/g, '').toLowerCase();
+
+                    var textNodes = visibleTextNodes();
+
+                    for (var i = 0, texts = []; i < textNodes.length; i++) {
+                        texts.push(textNodes[i].nodeValue.replace(/\s/g, '').toLowerCase());
+                    }
+
+                    var matchStart = texts.join('').indexOf(needle);
+                    if (matchStart < 0) {
+                        return false;
+                    }
+
+                    var nodeAndOffsetAtPosition = function (position) {
+                        for (var i = 0, consumed = 0; consumed + texts[i].length < position; i++) {
+                            consumed += texts[i].length;
+                        }
+                        var whitespacePrefix = textNodes[i].nodeValue.match(/^\s*/)[0];
+                        return [textNodes[i], position - consumed + whitespacePrefix.length];
+                    };
+
+                    var range = document.createRange();
+                    range.setStart.apply(range, nodeAndOffsetAtPosition(matchStart));
+                    range.setEnd.apply(range, nodeAndOffsetAtPosition(matchStart + needle.length));
+                    window.getSelection().removeAllRanges();
+                    window.getSelection().addRange(range);
+                    range.startContainer.parentNode.scrollIntoView();
+                }
+
+                
     </script>
 </body>
 
