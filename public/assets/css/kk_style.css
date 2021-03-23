@@ -756,7 +756,7 @@ body {
 }
 
 .kk_list_grid .grid .result {
-    padding: 25px;
+    padding: 15px 25px;
     background: transparent;
     border: 0px solid #ccd1d8;
 
@@ -788,8 +788,7 @@ right: 20px;
   }
 
 .kk_list_grid .grid .result {  
-  padding: 0px;
-    position: relative;
+position: relative;
     background-color: rgb(255, 255, 255);
 }
 
@@ -801,6 +800,7 @@ right: 20px;
 .kk_list_grid .grid .result.three .form-button-action {
   opacity: 0;
   transition: opacity .35s ease;
+  margin-top: 10px;
 }
 
 
@@ -808,6 +808,8 @@ right: 20px;
 .kk_list_grid .grid .result.three:hover .form-button-action {
   opacity: 1;
 }
+
+/* 
 
 .kk_list_grid .grid .result.three .checkbox {
   opacity: 0;
@@ -820,7 +822,7 @@ right: 20px;
   opacity: 1;
 }
 
-
+*/
 
 .kk_list_grid .grid  .form-button-action .btn {
     padding: 0px 8px !important;
@@ -861,10 +863,11 @@ right: 20px;
     position: absolute;
     bottom: 0px;
 }
-
+/*
 .kk_product_page{
     background: #fff;
 }
+*/
 
 .kk_product_page .card-header{
     background: transparent;
@@ -912,34 +915,34 @@ right: 20px;
  background-color: #fff;
 }
 
-.kk_form_page .level_1_header {
+.level_1_header {
     background: #4d7393;
     padding: 5px 30px;
     color: #fff;
 }
 
-.kk_form_page .level_2_header {
+.level_2_header {
     background: #5394ca ;
     padding: 5px 30px;
     color: #fff;
 }
 
-.kk_form_page .level_3_header {
+.level_3_header {
     background: #83bae7 ;
     padding: 5px 30px;
     color: #fff;
 }
 
-.kk_form_page .level_4_header {
+.level_4_header {
     background: #b7dfff ;
     padding: 5px 30px;
     color: #fff;
 }
 
 .pad-40{
-  padding: 10px 0px 10px 40px;
-    border: 1px solid #ccd1d8;
-    margin: 15px;
+  /* padding: 10px 0px 10px 40px;
+  border: 1px solid #ccd1d8; */
+    margin: 15px 20px !important;
 }
 .dd-handle {
     display: flex !important;
@@ -1119,10 +1122,13 @@ a:not(.active.list-group-item),a:not(.btn):hover,a:not(.btn):active,a:not(.btn):
   height: max-content;
 }
 
+/*
 .kK_custom_form .pad-40{ padding: 0px  !important;
     border: 1px solid #ccd1d8;
     margin: 15px 0px 15px 25px;
 }
+
+*/
 
 .footer{
   bottom: -120px;
@@ -1372,4 +1378,74 @@ table.dataTable thead .sorting:before{
 
 .sidebar_minimize_hover .icon-options-vertical:before {
     content: none !important;
+}
+
+ .pad-40 #pills-tab{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+
+.progress-bar{
+  background-color: #5394ca;
+}
+
+
+
+.kk_product_page .card-header .progress{
+  height: 22px;
+}
+
+.kk_product_page .card-header{
+      margin-left: 30px;
+    border: 0px !important;
+    padding-bottom: 0px !important;
+    margin-bottom: 0px;
+}
+
+.kk_product_page .level_1_header {
+  background: transparent;
+   padding: 5px 0px;
+    color: #4d7393;
+    font-size: 20px;
+    text-transform: uppercase;
+    border-bottom: 2px solid darkgrey;
+}
+
+.kk_product_page .level_2_header {
+  background: transparent;
+   padding: 5px 0px;
+    color: #4d7393;
+    font-size: 20px;
+    text-transform: uppercase;
+    border-bottom: 2px solid darkgrey;
+}
+
+.kk_product_page .card-body{
+        padding-left: 30px !important;
+}
+
+.kk_product_page .card-body .container-fluid {
+      padding-left: 0px;
+}
+
+.kk_product_page .card-body .pad-40{
+        margin: 15px 0px !important;
+}
+
+.kk_product_page .card-body .form-group {
+    width: 100%;
+    padding: 10px 0px 0px !important;
+}
+
+.Kk_delete_tab {
+    position: absolute;
+    margin-left: 24px;
+    margin-top: -18px;
+    padding: 0px;
+    color: #000;
+}
+
+.kk_product_page  .form-control{
+  border-color: darkgrey !important;
 }

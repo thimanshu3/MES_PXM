@@ -51,7 +51,7 @@
                                         <a href="/admin/customform/<%= layout.formId%>/fieldmap"
                                             class="btn btn-info">Edit Fieldset</a>
                                     </div>
-                                    <% const inputs=['text' , 'number' , 'email' , 'tel' ] %>
+                                    <% const inputs=['text' , 'number' , 'email' , 'tel','inline html' ] %>
                                         <% layout.componets.forEach(component=>{ %>
                                             <% if(component.type=='sec' ){ %>
                                                 <section class="pad-40">
@@ -73,7 +73,7 @@
                                                                 <div class="level_2_header">
                                                                     <%= subComponent.name %>
                                                                 </div>
-                                                                <div class="row mt-3">
+                                                                <div class="row m-3">
                                                                     <% if(tabComponent.AssignedFields.length==0){ %>
                                                                     <div class="mx-auto Kk_no_assigned">
                                                                         <img class="img-responsive" src="/assets/img/no_field_assigned.png">
@@ -101,9 +101,10 @@
                                                                                         <label for="smallSelect" style="width: 100%"><%= _a.field.label%></label>
                                                                                         <select name="<%= _a.field.id%>" class="form-control form-control-sm" id="smallSelect">
                                                                                             <option> </option>
-                                                                                            <% if(_a.field.list != 'no value') { _a.field.list.split('----').forEach(b=>{%>
+                                                                                            <% if(_a.field.list != null){ %> 
+                                                                                            <% if(_a.field.list != null) { _a.field.list.split('----').forEach(b=>{%>
                                                                                                 <option value=<%= b %>><%= b %></option>
-                                                                                            <%})}%>
+                                                                                            <%})}}%>
                                                                                             
                                                                                         </select>
                                                                                     </div>
@@ -152,7 +153,7 @@
                                                                                             <div class="level_2_header">
                                                                                                 <%= page.name %>
                                                                                             </div>
-                                                                                            <div class="row mt-3">
+                                                                                            <div class="row m-3">
                                                                                                 <% if(page.AssignedFields.length==0){ %>
                                                                                                     <div class="mx-auto Kk_no_assigned">
                                                                                                         <img class="img-responsive" src="/assets/img/no_field_assigned.png">
@@ -220,12 +221,13 @@
                                                                     <div class="tab-pane fade" id="pills-<%=subComponent.name %>" role="tabpanel" aria-labelledby="pills-home-tab">
                                                                         
                                                                     <% subComponent.tabComponents.forEach(tabComponent=>{ %>
+                                                                     
                                                                         <section class="pad-40">
                                                                             <div class="level_2_header">
                                                                                 <%= tabComponent.name %>
                                                                             </div>
                                                                             
-                                                                            <div class="row mt-3">
+                                                                            <div class="row m-3">
                                                                                 <% if(tabComponent.AssignedFields.length==0){ %>
                                                                                     <div class="mx-auto Kk_no_assigned">
                                                                                         <img class="img-responsive" src="/assets/img/no_field_assigned.png">

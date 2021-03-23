@@ -33,13 +33,5 @@ module.exports = CatalogueHierarchy
 // CatalogueHierarchy
 //     .sync({ force: process.env.NODE_ENV === 'production' ? false : true })
 //     .then(() => {
-//        CatalogueHierarchy.bulkCreate([{
-//             name: 'master',
-//             createdBy: 'admin'
-//         },
-//         {
-//             name: 'online',
-//             createdBy: 'admin'
-//         },
-//        ])
+//       
 //     })
