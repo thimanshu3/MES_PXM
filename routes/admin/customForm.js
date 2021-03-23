@@ -61,23 +61,54 @@ router.post('/layout', async (req, res) => {
 
         const result = await FormDesign.create({ formId, componets: content })
         await form.update({ stage:2},{ where:{ id:formId } })
+        
         if (result) {
             res.json({ status: 200, href: `/admin/customform/${formId}/fieldmap` })
+            req.flash('success',"Form Layout Design Saved")
         } else {
-            req.flash('error', `Something Went Wrong`)
-            res.redirect('/admin/customform')
+            res.json({status: 404, message: "Something Went Wrong"})
+            
         }
 
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         if (err.name === 'SequelizeUniqueConstraintError')
-            req.flash('error', `${err.errors[0].message} '${err.errors[0].value}' already exists!`)
+            res.json({ status: 404, message: `${err.errors[0].message} '${err.errors[0].value}' already exists!` })
         else
-            req.flash('error', err.toString() || 'Something Went Wrong!')
+            res.json({ status: 404, message: err.toString() || 'Something Went Wrong!' })
         res.redirect('/admin/customform')
     }
 })
 
+
+router.patch('/:id', async (req, res) => {
+    const { newValue } = req.body
+    try {
+        await form.update({
+            name: newValue,
+            updatedBy: req.params.id
+        }, {
+            where: { id: req.params.id },
+            returning: true,
+            plain: true
+        })
+
+        await ActivityLog.create({
+            id: req.params.id,
+            name: 'Form',
+            type: 'Update',
+            user: req.user.id,
+            timestamp: new Date()
+        })
+        req.flash('success', `Successfully Updated to ${newValue}!!`)
+        res.json({ status: 200 })
+    }
+    catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        req.flash('error', err.toString() || 'Something Went Wrong!')
+        res.redirect('/admin/customform')
+    }
+})
 
 router.get('/:id', async (req, res) => {
     try {
@@ -156,7 +187,7 @@ router.get('/:id/form', async (req, res) => {
                 await Promise.all(component.subComponents.map(async subComponent => {
                     if (subComponent.type == 'sec') {
                         await Promise.all(subComponent.AssignedFields.map(async a => {
-                            const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
+                            const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,Case when inputFields.associatedList != "-"  then (select group_concat(label SEPARATOR "----") from listRecordValues where parentListId = inputFields.associatedList) else "no value"  END as list,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
                             delete a.fieldId
                             a.field = fields[0][0]
                         }))
@@ -191,6 +222,47 @@ router.get('/:id/form', async (req, res) => {
         console.error('\x1b[31m%s\x1b[0m', err)
         req.flash('error', 'Something Went Wrong!')
         res.redirect('/')
+    }
+})
+
+
+router.delete('/:id', async (req, res) => {
+    const foundForm = await form.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+
+    if (!foundForm)
+        return res.status(404).json({ message: 'Form Not Found!' })
+
+    // if (foundAttributeSet.role === 0)
+    //     return res.status(400).json({ message: 'Cannot Deactive Admin' })
+
+    foundForm.active = !foundForm.active
+    await foundForm.save()
+
+    res.json({ status: 200, message: `Form ${foundForm.active ? 'Activated' : 'Deactivated'} Successfully!`, active: foundForm.active })
+})
+
+router.delete('/remove/:id', async (req, res) => {
+    try {
+        await async.parallel([
+            async () =>
+                await form.destroy({
+                    where: {
+                        id: req.params.id
+                    }
+                }),
+            async () =>
+                console.log(await FormDesign.findOneAndDelete({ formId: req.params.id }))
+        ])
+        req.flash('success', `Form Deleted Successfully`)
+        res.json({ status: 200, message: 'Form Deleted Successfully' })
+        res.redirect('/admin/listrecord')
+    } catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        res.status(500).json({ status: 500, message: err.toString() })
     }
 })
 

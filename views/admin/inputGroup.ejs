@@ -130,13 +130,13 @@
                                                                     </td>
                                                                     <td>
                                                                         <div class="form-button-action">
-                                                                            <button type="button" data-toggle="tooltip"
+                                                                            <button type="button" data-toggle="tooltip" onclick="editValue('/admin/inputfield/inputGroup/<%=_a.id%>','PATCH','<%=_a.name %>')"
                                                                                 title="" class="btn btn-link btn-lg"
                                                                                 data-original-title="Edit Task">
                                                                                 <i class="fa fa-edit"></i>
                                                                             </button>
-                                                                            <button id="changeFieldStatus-<%=_a.id%>"
-                                                                                onclick="changeFieldStatus('<%=_a.id%>')"
+                                                                            <button id="changeStatus-<%=_a.id%>"
+                                                                                onclick="changeStatus('<%=_a.id%>')"
                                                                                 type="button" data-toggle="tooltip"
                                                                                 title="Toggle to Change Status"
                                                                                 class="btn btn-link btn-default"
@@ -273,7 +273,7 @@
                     <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
                     <script>
 
-                        function changeFieldStatus(id) {
+                        function changeStatus(id) {
                             markStatusOrDelete(`/admin/inputfield/inputgroup/${id}`, 'DELETE', 'status', `{"id":"${id}"}`)
                         }
                         function removeField(id) {
@@ -320,7 +320,8 @@
                                     .then(function (json) {
 
                                         if (json.status == 200)
-                                            showItemFields(ids)
+                                            //showItemFields(ids)
+                                            location.reload()
                                         else if (json.status == 400)
                                             iziToast.error({
                                                 title: json.message,

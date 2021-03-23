@@ -24,8 +24,7 @@ router.get('/:id', async (req, res) => {
         res.json({ status: 200, catalog})
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
-        req.flash('error', 'Something Went Wrong!')
-        res.redirect('/')
+        res.status(500).json({ status: 500, message: err.toString() })
     }
 })
 
@@ -36,28 +35,24 @@ router.post('/', async (req,res) =>{
     try{
         const { text, parentId, catalogueHierarchy } = req.body
         if(!text){
-            req.flash('error', 'Name is required!')
-            res.redirect('/admin/catalog')
+            res.status(400).json({ status: 400, message: 'Node Name not provided' })
             return
         }
         if(!parentId){
-            req.flash('error', 'Parent Node not Selected!')
-            res.redirect('/admin/catalog')
+            res.status(400).json({ status: 400, message: 'Please provide ParentId' })
             return
         }
         if(!catalogueHierarchy){
-            req.flash('error', 'Please Select the Root Catalog')
-            res.redirect('/admin/catalog')
+            res.status(400).json({ status: 400, message: 'Catalog Hierarchy not selected' })
             return
         }
-        await Catalogue.create({ catalogueHierarchy, text, parentId, createdBy: req.user.id })
-        req.flash('success', `Added Successfully!`)
-        res.redirect('/admin/catalog')
+       const result = await Catalogue.create({ catalogueHierarchy, text, parentId, createdBy: req.user.id })
+        req.flash('success', `Added Successfully`)
+        res.status(200).json({ status: 200, message: 'Added Successfully' ,result })
     }
     catch(err){
         console.error('\x1b[31m%s\x1b[0m', err)
-        req.flash('error', 'Something Went Wrong!')
-        res.redirect('/admin/catalog')
+        res.status(500).json({ status: 500, message: err.toString() })
     }
 })
 

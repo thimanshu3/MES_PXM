@@ -111,20 +111,24 @@
                                                                         Form Design Complete
                                                                     <%}%>
                                                                 </td>
-                                                                <td><span id="activeBadge-<%= _a.id%>"
+                                                                <td><span id="activeBadge-<%= _a.id%>" style="background-color: <%= _a.active ? '#088e0c' : '#d20e18' %>"
                                                                         class="badge badge-<%= _a.active ? 'success' : 'danger' %>">
                                                                         <%= _a.active ? 'ACTIVE' : 'INACTIVE' %>
                                                                     </span></td>
                                                                 <td>
                                                                     <div class="form-button-action">
-                                                                        <button id="changeFieldStatus-<%=_a.id%>"
-                                                                            onclick="changeFieldStatus('<%=_a.id%>')"
+                                                                        <button type="button" data-toggle="tooltip"
+                                                                            onclick="editValue('/admin/customform/<%=_a.id%>','PATCH','<%=_a.name %>')" title=""
+                                                                            class="btn btn-link btn-lg" data-original-title="Edit Task">
+                                                                            <i class="fa fa-edit"></i>
+                                                                        </button>
+                                                                        <button id="changeStatus-<%=_a.id%>"
+                                                                            onclick="changeStatus('<%=_a.id%>')"
                                                                             type="button" data-toggle="tooltip"
                                                                             title="Toggle to Change Status"
                                                                             class="btn btn-link btn-default"
                                                                             data-original-title="Remove">
-                                                                            <i
-                                                                                class="fas <%= _a.active ? 'fa-toggle-on': 'fa-toggle-off' %>"></i>
+                                                                            <i class="fas <%= _a.active ? 'fa-toggle-on': 'fa-toggle-off' %>"></i>
                                                                         </button>
                                                                         <button id="removefield-<%=_a.id%>"
                                                                             onclick="removeField('<%=_a.id%>')"
@@ -205,7 +209,7 @@
     </div>
 
     <!--   Core JS Files   -->
-
+    <script src="/assets/js/clientScript.js"></script>
     <!-- jQuery library -->
     <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
     <!-- Latest compiled JavaScript -->
@@ -229,6 +233,13 @@
                 style: 'single'
             },
         });
+        function changeStatus(id) {
+                markStatusOrDelete(`/admin/customform/${id}`, 'DELETE', 'status', `{"id":"${id}"}`)
+            }
+        function removeField(id) {
+                markStatusOrDelete(`/admin/customform/remove/${id}`, 'DELETE')
+
+            }
     </script>
 </body>
 

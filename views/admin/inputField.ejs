@@ -114,13 +114,18 @@
                                                                                         class="btn btn-link btn-sm"
                                                                                         data-original-title="View List/Record Values">
                                                                                         <i class="fa fa-eye"></i>
-
+                                                                                        
                                                                                     </button>
                                                                                     <% if (_a.lr=='-' ) { %>
-                                                                                        <span
-                                                                                            class="badge badge-warning">No
-                                                                                            List Attached</span>
-                                                                                        <%}%>
+                                                                                        <button class="btn btn-link" data-toggle="modal" data-target="#ListModal" onclick="setFieldId('<%=_a.id%>')">
+                                                                                            <span class="badge">Attach a List</span>
+                                                                                        </button>
+                                                                                        
+                                                                                        <%}else{%>
+                                                                                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#ListModal"
+                                                                                                onclick="setFieldId('<%=_a.id%>')" data-original-title="Edit Task"><i class="fas fa-external-link-square-alt"></i>
+                                                                                            </button>
+                                                                                            <%}%>
                                                                                             <% } %>
 
                                                                         </td>
@@ -135,8 +140,8 @@
                                                                         </td>
                                                                         <td>
                                                                             <div class="form-button-action">
-
-                                                                                <button type="button" onclick="editValue('/admin/inputfield/<%=_a.id%>','PATCH','<%=_a.name %>')"
+                                                                                
+                                                                                <button type="button" onclick="editValue('/admin/inputfield/<%=_a.id%>','PATCH','<%=_a.label %>')"
                                                                                     data-toggle="tooltip" title=""
                                                                                     class="btn btn-link btn-lg"
                                                                                     data-original-title="Edit Task">
@@ -182,7 +187,55 @@
                     </div>
 
     </div>
-    <!--   Core JS Files   -->
+    
+    <div class="modal kk_modal_popup_form" id="ListModal" data-keyboard="false" data-backdrop="static" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 id="demo" class="modal-title">Select List/Record<strong style="color: blue;"
+                            id="nameV"></strong> </h4>
+    
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+    
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="scroll-area-sm">
+                        <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
+                            <form action="/admin/inputField/attachList" method="POST">
+                                <input id="fieldId" type="hidden" name="fieldId" value="">
+                                <div class="col-sm-6 mt-4" id="listDiv2">
+                                    <div class="form-group form-floating-label">
+                                        <select name="listrecord" class="form-control input-border-bottom" id="listOptions">
+                                            <option id="listValues" value="">&nbsp;</option>
+                                            <% listRecordResult.forEach( _b=> { %>
+                                                <option value="<%= _b.id %>">
+                                                    <%= _b.name %>
+                                                </option>
+                                                <% }) %>
+                                        </select>
+                                        <label for="selectFloatingLabel" class="placeholder">Select Associated List
+                                            Record</label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </form>
+                            
+                        </div>
+    
+                    </div>
+    
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Import</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false"
         data-backdrop="static">
         <div class="modal-dialog modal-lg" role="document">
@@ -399,6 +452,10 @@
         }
         function removeField(id) {
             markStatusOrDelete(`/admin/inputfield/remove/${id}`, 'DELETE')
+        }
+
+        function setFieldId(id){
+            $('#fieldId').val(id)
         }
 
         function fetchListValues(id, label) {

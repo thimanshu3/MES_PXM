@@ -17,7 +17,13 @@ const addInputFieldSchema = Joi.object({
 
 })
 
+const addListRecordSchema = Joi.object({
+    name: Joi.string().min(1).required(),
+    value: Joi.string().min(1).required()
+})
+
 module.exports = {
     addUserSchema,
-    addInputFieldSchema
+    addInputFieldSchema,
+    addListRecordSchema
 }
