@@ -1433,7 +1433,7 @@ table.dataTable thead .sorting:before{
         margin: 15px 0px !important;
 }
 
-.kk_product_page.card-body .form-group {
+.kk_product_page .card-body .form-group {
     width: 100%;
     padding: 10px 0px 0px !important;
 }
@@ -1446,6 +1446,6 @@ table.dataTable thead .sorting:before{
     color: #000;
 }
 
-.form-control{
+.kk_product_page  .form-control{
   border-color: darkgrey !important;
 }
