@@ -1433,9 +1433,9 @@ table.dataTable thead .sorting:before{
         margin: 15px 0px !important;
 }
 
-.kk_full_form .card-body .form-group {
+.kk_product_page.card-body .form-group {
     width: 100%;
-    padding: 0px !important;
+    padding: 10px 0px 0px !important;
 }
 
 .Kk_delete_tab {
@@ -1444,4 +1444,8 @@ table.dataTable thead .sorting:before{
     margin-top: -18px;
     padding: 0px;
     color: #000;
+}
+
+.form-control{
+  border-color: darkgrey !important;
 }
