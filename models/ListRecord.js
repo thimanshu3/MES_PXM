@@ -29,12 +29,8 @@ const listRecord = MySql.define('listRecord', {
 
 module.exports = listRecord
 
-// Role
+// listRecord
 //     .sync({ force: process.env.NODE_ENV === 'production' ? false : true })
 //     .then(() => {
-//         Role.bulkCreate([{
-//             id: 0,
-//             name: 'admin'
-//         },
-//        ])
+//       console.log('done')
 //     })
