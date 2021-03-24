@@ -1449,3 +1449,31 @@ table.dataTable thead .sorting:before{
 .kk_product_page  .form-control{
   border-color: darkgrey !important;
 }
+
+#nestable3{
+      max-width: 94%;
+    margin: auto;
+}
+
+.dd-handle {
+ border: 1px solid #4d7393 !important;
+    background: #ffffff !important;
+ 
+}
+
+#nestable3 .badge{
+  width:68px
+}
+
+#nestable3 .badge-dark {
+    color: #fff;
+    background-color: #4d7393;
+}
+
+#nestable3 .badge-info {
+    background: #5394ca !important;
+}
+
+#nestable3 .badge-primary {
+    background: #5cb3fb !important;
+}
