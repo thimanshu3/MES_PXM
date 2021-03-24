@@ -1464,3 +1464,16 @@ table.dataTable thead .sorting:before{
 .color_secondary{
   color: #5394ca !important;
 }
+
+.kkay_field_map_link{
+      display: flex;
+    align-items: center;
+ border-bottom: 1px solid lightgrey;
+    padding: 8px 2px;
+}
+
+
+.kkay_field_map_link .k_field{
+  width: 46%;
+  text-align: center;
+}
