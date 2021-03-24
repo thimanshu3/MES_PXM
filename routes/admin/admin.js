@@ -64,4 +64,7 @@ router.use('/usersettings', async (req, res) => {
     res.render('admin/usersettings', { User: req.user })
 })
 
+router.use('/importassistant', async (req, res) => {
+    res.render('admin/importAssistant', { User: req.user })
+})
 module.exports = router
