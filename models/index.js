@@ -24,6 +24,9 @@ module.exports = {
     formConfig: require('./formConfig'),
     productMetaData: require('./productMeta'),
     productData: require('./productData'),
+    productTable: require('./productTable'),
+    tableFieldGroup: require('./tableFieldGroup'),
+    productSpecificTableData: require('./productSpecificTableData'),
     //mongo Models
     ActivityLog: require('./ActivityLogModel'),
     FormDesign:require('./FormDataModel')
