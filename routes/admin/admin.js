@@ -40,6 +40,8 @@ router.use('/form', require('./form'))
 
 router.use('/product', require('./product'))
 
+router.use('/importassistant', require('./importAssistant'))
+
 router.use('/kktest',async (req, res) => {
 res.render('admin/kktest', { User: req.user })
 })
@@ -48,16 +50,8 @@ router.use('/kktest2', async (req, res) => {
     res.render('admin/kktest2', { User: req.user })
 })
 
-router.use('/kktest4', async (req, res) => {
-    res.render('admin/kktest4', { User: req.user })
-})
-
 router.use('/kktest5', async (req, res) => {
     res.render('admin/kktest5', { User: req.user })
-})
-
-router.use('/kktest6', async (req, res) => {
-    res.render('admin/kktest6', { User: req.user })
 })
 
 router.use('/usersettings', async (req, res) => {
