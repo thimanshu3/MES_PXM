@@ -290,23 +290,8 @@ input[type=radio]:before {
                                         </div>
 
                                         <div class="col-md-6">
-                                            <ul style="    max-width: 80%;margin: 30px auto;">
-                                                <li class="kkay_field_map_link">
-                                                    <div class="k_field">
-                                                        Kartik Kumawat
-                                                    </div>
-                                                    <i class="fas fa-arrows-alt-h"></i>
-                                                    <div class="k_field"> 
-                                                        Techno India NJR
-                                                    </div>
-                                                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fas fa-times-circle"></i></a>
-                                                </li>
-                                                <li class="kkay_field_map_link">
-                                                    <div class="k_field"></div>
-                                                    <i class="fas fa-arrows-alt-h"></i>
-                                                    <div class="k_field"> </div>
-                                                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fas fa-times-circle"></i></a>
-                                                </li>
+                                            <ul id="fieldLinkPreview" style="max-width: 80%;margin: 30px auto;">
+                                                
                                             </ul>
                                         </div>
                                         
@@ -343,8 +328,8 @@ input[type=radio]:before {
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 
 <script>
-   var fieldLinks;
-    var inputOri;
+   let fieldLinks;
+    let inputOri;
     $(document).ready(function () {
         inputOri = {
             "localization": {
@@ -393,7 +378,7 @@ input[type=radio]:before {
                     ]
                 }
             ],
-            "existingLinks": [{ "from": "lastName", "to": "last_name" }, { "from": "firstName", "to": "first_name" }, { "from": "role", "to": "jobTitle" }]
+            "existingLinks": [{ "from": "lastName", "to": "email_adress" },{ "from": "lastName", "to": "last_name" }, { "from": "firstName", "to": "first_name" }, { "from": "role", "to": "jobTitle" }]
         };
 
 
@@ -405,6 +390,7 @@ input[type=radio]:before {
 
         fieldLinks = $("#original").fieldsLinker("init", inputOri);
 
+        previewMapped()
     });
 
 
@@ -441,6 +427,24 @@ input[type=radio]:before {
         fieldLinks = $("#original").fieldsLinker("init", inputOri);
 
     });
+
+    const previewMapped = () =>{
+        let data =  fieldLinks.fieldsLinker("getLinks");
+        let liItems = '';
+        if(data.error) return iziToast.error({message: data.errorMessage})
+        if(data.links.length){
+            data.links.forEach(link=>{
+                liItems+= ` <li class="kkay_field_map_link">
+                                <div class="k_field">${link.from}</div>
+                                <i class="fas fa-arrows-alt-h"></i>
+                                <div class="k_field">${link.to} </div>
+                                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fas fa-times-circle"></i></a>
+                            </li>`
+            })
+            $('#fieldLinkPreview').append(liItems)
+        }
+        
+    }
 </script>
 
 </body>
