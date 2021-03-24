@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Inbound PMS</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/atlantis.min.css">
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="/assets/css/demo.css">
+    <link rel="stylesheet" href="/assets/css/kk_style.css">
+    <link rel="stylesheet" href="/assets/css/iziToast.min.css">
+
+    <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+        WebFont.load({
+            google: {
+                "families": ["Lato:300,400,700,900"]
+            },
+            custom: {
+                "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"],
+                urls: ['/assets/css/fonts.min.css']
+            },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+
+    <style>
+        .Kk_drop {
+            width: 49%;
+            height: 50px;
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+        }
+      
+    </style>
+
+    <style>
+   .wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.wrapper .box {
+  border: 1px solid black;
+  width: 45%;
+}
+.wrapper .box ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.wrapper .box ul li {
+  padding: 10px;
+  cursor: pointer;
+}
+.wrapper .box ul li:hover {
+  background-color: #dde2e2;
+}
+    </style>
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <%-include('../partials/config')%>
+
+            <!-- header -->
+            <%-include('../partials/header.ejs')%>
+                <!-- header end -->
+
+                <!-- Sidebar -->
+                <%-include('../partials/sidebar.ejs')%>
+                    <!-- End Sidebar -->
+
+                    <div class="main-panel">
+                        <div class="content">
+                            <div class="page-inner bg-white">
+                                <div class="page-header">
+
+                                    <ul class="breadcrumbs">
+                                        <li class="nav-home">
+                                            <a href="/admin/dashboard">
+                                                <i class="flaticon-home"></i>
+                                            </a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">System</a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">User Managment</a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">Users</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+ <!--                         
+<div class="container">
+<div class="row">
+    <div class="col-md-3" style="border-right:1px solid lightgrey">
+        <ul>
+            <li> Level 1
+                <ul>
+                    <li  draggable="true" ondragstart="drag(event)">Part 1</li>
+                    <li   draggable="true" ondragstart="drag(event)">Part 2</li>
+                    <li  draggable="true" ondragstart="drag(event)">Part 3</li>
+                </ul>
+            </li>
+            <li>Level 2
+                <ul>
+                    <li>Part 1</li>
+                    <li>Part 2</li>
+                    <li>Part 3</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <ul>
+            <li class="d-flex">
+                <div class="Kk_drop" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div class="Kk_drop"  ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            </li>
+            <li class="d-flex">
+                <div class="Kk_drop"  ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                <div class="Kk_drop"  ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            </li>
+        </ul>
+
+    </div>
+    <div class="col-md-3" style="border-left:1px solid lightgrey">
+
+        <ul>
+            <li draggable="true" ondragstart="drag(event)"> Level 1 </li>
+            <li  draggable="true" ondragstart="drag(event)"> Level 2  </li>
+            <li> Level 3  </li>
+            <li> Level 4</li>
+        </ul>
+    </div>
+</div>
+</div>
+-->
+<div class="container">
+<div class="wrapper">
+    <div class="box source">
+        <ul class="source-list">
+            <li draggable="true" ondragstart="dragstart(event)">Soap</li>
+            <li draggable="true" ondragstart="dragstart(event)">Candy</li>
+            <li draggable="true" ondragstart="dragstart(event)">Fruits</li>
+            <li draggable="true" ondragstart="dragstart(event)">Cereals</li>
+        </ul>
+    </div>
+    <div class="box destination" ondrop="drop(event)" ondragover="dragover(event)">
+        <ul class="dest-list">
+           
+        </ul>
+    </div>
+
+    <div class="box source">
+        <ul class="source-list">
+            <li draggable="true" ondragstart="dragstart(event)">Soap</li>
+            <li draggable="true" ondragstart="dragstart(event)">Candy</li>
+            <li draggable="true" ondragstart="dragstart(event)">Fruits</li>
+            <li draggable="true" ondragstart="dragstart(event)">Cereals</li>
+        </ul>
+    </div>
+</div>
+</div>
+                               
+                            </div>
+                        </div>
+                        <%-include('../partials/footer.ejs')%>
+                    </div>
+
+    </div>
+    <!--   Core JS Files   -->
+
+    <!-- jQuery library -->
+    <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="/assets/js/core/bootstrap.js"></script>
+    <!-- Popper JS -->
+    <script src="/assets/js/core/popper.min.js"></script>
+    <!-- Atlantis JS -->
+    <script src="/assets/js/atlantis.min.js"></script>
+    <script src="/assets/js/iziToast.js"></script>
+    <script src="/assets/js/flashMessage.js"></script>
+    <!-- jQuery UI -->
+    <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+    <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<!-- 
+<script>
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        ev.target.appendChild(document.getElementById(data));
+    }
+</script>
+-->
+<script>
+ const dragstart = event => {
+        let text = event.srcElement.textContent;
+        event.dataTransfer.setData("text", text);
+        console.log(text);
+    };
+
+    const drop = event => {
+        event.preventDefault();
+        let text = event.dataTransfer.getData('text');
+        let destList = document.querySelector('.dest-list');
+        if (destList) {
+            let item = document.createElement('li');
+            item.textContent = text;
+            destList.appendChild(item);
+        }
+    };
+
+    const dragover = event => {
+        event.preventDefault();
+    };
+</script>
+
+</body>
+
+</html>

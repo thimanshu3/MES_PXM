@@ -700,18 +700,18 @@ table.dataTable {
      background-color: rgba(0,0,0,.03);
 }
 
-.dataTable .form-button-action .btn{
+.form-button-action .btn{
   padding: 0px 8px !important;
   background: transparent  !important;
   border: 0px !important;
 }
 
-.dataTable .form-button-action .btn i {
+.form-button-action .btn i {
     color: #5394ca9c;
     transition: transform .2s;
 }
 
-.dataTable .form-button-action .btn i:hover{
+.form-button-action .btn i:hover{
       transform: scale(1.3);
 }
 
@@ -1461,19 +1461,6 @@ table.dataTable thead .sorting:before{
  
 }
 
-#nestable3 .badge{
-  width:68px
-}
-
-#nestable3 .badge-dark {
-    color: #fff;
-    background-color: #4d7393;
-}
-
-#nestable3 .badge-info {
-    background: #5394ca !important;
-}
-
-#nestable3 .badge-primary {
-    background: #5cb3fb !important;
+.color_secondary{
+  color: #5394ca !important;
 }
