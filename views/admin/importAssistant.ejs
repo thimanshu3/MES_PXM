@@ -33,36 +33,202 @@
     </script>
 
     <style>
-        .Kk_drop {
-            width: 49%;
-            height: 50px;
-            padding: 10px;
-            border: 1px solid #aaaaaa;
-        }
-      
-    </style>
+ .fieldsLinker div {
+    font-weight: bold;
+}
 
-    <style>
-   .wrapper {
-  display: flex;
-  justify-content: space-between;
+.fieldsLinker ul {
+    list-style: none;
+    margin-left: 0px;
+    padding-left: 0px;
+    font-weight: normal;
 }
-.wrapper .box {
-  border: 1px solid black;
-  width: 45%;
+
+tr td  {
+    padding-left: 10px;
 }
-.wrapper .box ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+
+tr td:not(:last-child)  {
+    border-right: 1px solid grey;
 }
-.wrapper .box ul li {
-  padding: 10px;
-  cursor: pointer;
+
+.fieldsLinker li {
+    border: solid 1px grey;
+    padding: 5px 2px 5px 8px;
+    margin-top: 7px;
+    margin-bottom: 8px;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    cursor: pointer;
+    background-color: #fff;
+    background: linear-gradient(#ffffff, #e9e9e9);
+    color: black;
+    border-radius: 0px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
-.wrapper .box ul li:hover {
-  background-color: #dde2e2;
+
+.fieldsLinker li.selected {
+    -webkit-filter: invert(100%);
+    filter: invert(100%);    
 }
+
+.fieldsLinker li[data-mandatory='true'] {
+    background-color: #D7504C;
+    background: linear-gradient(#D7504C, #C12F2B);
+    color: white;
+}
+
+.fieldsLinker li.inactive {
+    opacity: 0.5;
+}
+
+.fieldsLinker li.linkOver {
+    border: solid 2px transparent; /*plus 1px*/
+    padding: 4px 1px 4px 7px; /* minus 1px*/
+}
+
+
+	
+	/* ---------- */
+	
+	label{
+		font-weight:300;
+		display:inline-block;
+	}
+	
+	label input[type='radio']{
+		vertical-align: top;
+	}
+	
+	label.active{
+		font-weight:600;
+		color: #2e44b9;
+	}
+	
+	
+	.bonds{
+		min-width:700px;
+		width : 50%;
+		min-height:410px;
+	}
+	 
+	.radio-zone{
+		padding: 0px 8px 0px 8px;
+		border-radius:2px;
+		min-width:300px;
+	}
+	.presentation{
+		line-height : 14px;
+		font-size : 12px;
+	}
+	
+	hr{
+		margin-bottom : 10px;
+		margin-top:10px;
+	}
+	
+	.fieldLinkerSave {
+		display:inline-block;
+	}
+	
+	
+input[type=radio] {
+	font-size: 11px;
+	cursor: pointer;
+}
+
+input[type=checkbox]::before{
+  content: "";
+  display: inline-block;
+  font-size: inherit;
+  float:left;
+  font-weight:bold;
+  margin-left:0;
+  margin-right:2px;
+  border: 2px solid #337ab7;
+  border-radius : 3px;
+  padding : 5px;
+  margin-top:0px;
+  color:black;
+  background: white;
+}
+
+input[type=checkbox].active::after {
+    content: "";
+    display: inline-block;
+    font-size: inherit;
+    float: left;
+	transform: rotate(45deg);
+    margin-left: 6px;
+    margin-top:-13px;
+	height: 10px;
+	width:  5px;
+    color: #337ab7;
+	border-bottom: 2px solid #337ab7;
+	border-right:  2px solid #337ab7;
+}
+
+div.action-check.off {
+    color: silver;
+}
+
+div.action-check {
+    color: black;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+input[type=radio]:before {
+	background: white;
+	border: 2px solid #337ab7;
+	border-radius: 50%;
+	margin-top: -2px;
+	margin-right: 6px;
+	display: inline-block;
+	vertical-align: middle;
+	content: '';
+	width: 14px;
+	height: 14px;
+}
+
+	input[type=radio]:checked:before {
+		background: #337ab7;
+		border-color: #337ab7;
+		box-shadow: inset 0px 0px 0px 2px #fff;
+	}
+	.choices{
+		display:inline-block;
+		margin-right:40px;
+	}
+	
+	.choices label{
+		margin-left:4px;
+		margin-right:4px;
+		vertical-align:8%;
+	}
+	
+	.choices label.group{
+		font-weight:bold;
+	}
+	
+	.nice-group{
+		width:680px;
+		line-height: 16px;
+		padding:10px;
+		border:1px solid #ccc;
+		background-color:#fff;
+		border-radius:5px;
+	}
+	.nice-group legend {
+		color: #337ab7;
+		width:120px;
+		font-size:14px !important;
+		border-bottom:none;
+		
+	}
     </style>
 
 
@@ -113,78 +279,18 @@
                                     </ul>
                                 </div>
 
- <!--                         
-<div class="container">
-<div class="row">
-    <div class="col-md-3" style="border-right:1px solid lightgrey">
-        <ul>
-            <li> Level 1
-                <ul>
-                    <li  draggable="true" ondragstart="drag(event)">Part 1</li>
-                    <li   draggable="true" ondragstart="drag(event)">Part 2</li>
-                    <li  draggable="true" ondragstart="drag(event)">Part 3</li>
-                </ul>
-            </li>
-            <li>Level 2
-                <ul>
-                    <li>Part 1</li>
-                    <li>Part 2</li>
-                    <li>Part 3</li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    <div class="col-md-6">
-        <ul>
-            <li class="d-flex">
-                <div class="Kk_drop" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-                <div class="Kk_drop"  ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-            </li>
-            <li class="d-flex">
-                <div class="Kk_drop"  ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-                <div class="Kk_drop"  ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-            </li>
-        </ul>
-
-    </div>
-    <div class="col-md-3" style="border-left:1px solid lightgrey">
-
-        <ul>
-            <li draggable="true" ondragstart="drag(event)"> Level 1 </li>
-            <li  draggable="true" ondragstart="drag(event)"> Level 2  </li>
-            <li> Level 3  </li>
-            <li> Level 4</li>
-        </ul>
-    </div>
-</div>
-</div>
--->
-<div class="container">
-<div class="wrapper">
-    <div class="box source">
-        <ul class="source-list">
-            <li draggable="true" ondragstart="dragstart(event)">Soap</li>
-            <li draggable="true" ondragstart="dragstart(event)">Candy</li>
-            <li draggable="true" ondragstart="dragstart(event)">Fruits</li>
-            <li draggable="true" ondragstart="dragstart(event)">Cereals</li>
-        </ul>
-    </div>
-    <div class="box destination" ondrop="drop(event)" ondragover="dragover(event)">
-        <ul class="dest-list">
-           
-        </ul>
-    </div>
-
-    <div class="box source">
-        <ul class="source-list">
-            <li draggable="true" ondragstart="dragstart(event)">Soap</li>
-            <li draggable="true" ondragstart="dragstart(event)">Candy</li>
-            <li draggable="true" ondragstart="dragstart(event)">Fruits</li>
-            <li draggable="true" ondragstart="dragstart(event)">Cereals</li>
-        </ul>
-    </div>
-</div>
-</div>
+                                <div class="container-fluid">
+                                  
+                                    <div id="container" class="row">
+                                        <div class="col-md-6">
+                                            <div class="bonds" id="original" style="display:block;">
+                                            
+                                            </div>
+                                        </div>
+                                        
+                                    
+                                    </div>
+                                </div>
                                
                             </div>
                         </div>
@@ -196,11 +302,13 @@
 
     <!-- jQuery library -->
     <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
+
+   
+    <!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Atlantis JS -->
     <!-- Latest compiled JavaScript -->
     <script src="/assets/js/core/bootstrap.js"></script>
-    <!-- Popper JS -->
-    <script src="/assets/js/core/popper.min.js"></script>
-    <!-- Atlantis JS -->
     <script src="/assets/js/atlantis.min.js"></script>
     <script src="/assets/js/iziToast.js"></script>
     <script src="/assets/js/flashMessage.js"></script>
@@ -208,47 +316,109 @@
     <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
     <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
-
+    <script src="/assets/js/fieldLinker.js"></script>
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-<!-- 
+
 <script>
-    function allowDrop(ev) {
-        ev.preventDefault();
-    }
+   var fieldLinks;
+    var inputOri;
+    $(document).ready(function () {
+        inputOri = {
+            "localization": {
+            },
+            "options": {
+                "associationMode": "manyToMany", // oneToOne,manyToMany
+                "lineStyle": "square-ends",
+                "buttonErase": "Erase Links",
+                "displayMode": "original",
+                "whiteSpace": 'normal',
+                "mobileClickIt": false
+            },
+            "Lists": [
+                {
+                    "name": "Columns in files",
+                    "list": [
+                        "firstName",
+                        "lastName",
+                        "phone",
+                        "email",
+                        "role",
+                        "Birthday",
+                        "Adress",
+                        "[Main-stats][Global-sales-stats][European-region][France]",
+                        "City"
+                    ]
+                },
+                {
+                    "name": "Available Fields",
+                    "list": [
+                        "Company",
+                        "jobTitle",
+                        "adress",
+                        "adress",
+                        "adress",
+                        "first_name",
+                        "last_name",
+                        "email_adress",
+                        "Phone number",
+                        "Pourcentage of france in the global market",
 
-    function drag(ev) {
-        ev.dataTransfer.setData("text", ev.target.id);
-    }
+                    ],
+                    "mandatories": [
+                        "last_name",
+                        "email_adress"
+                    ]
+                }
+            ],
+            "existingLinks": [{ "from": "lastName", "to": "last_name" }, { "from": "firstName", "to": "first_name" }, { "from": "role", "to": "jobTitle" }]
+        };
 
-    function drop(ev) {
-        ev.preventDefault();
-        var data = ev.dataTransfer.getData("text");
-        ev.target.appendChild(document.getElementById(data));
-    }
-</script>
--->
-<script>
- const dragstart = event => {
-        let text = event.srcElement.textContent;
-        event.dataTransfer.setData("text", text);
-        console.log(text);
-    };
 
-    const drop = event => {
-        event.preventDefault();
-        let text = event.dataTransfer.getData('text');
-        let destList = document.querySelector('.dest-list');
-        if (destList) {
-            let item = document.createElement('li');
-            item.textContent = text;
-            destList.appendChild(item);
-        }
-    };
+        $(".fieldLinkerSave").on("click", function () {
+            var results = fieldLinks.fieldsLinker("getLinks");
+            $("#output").html("output => " + JSON.stringify(results));
+        });
 
-    const dragover = event => {
-        event.preventDefault();
-    };
+
+        fieldLinks = $("#original").fieldsLinker("init", inputOri);
+
+    });
+
+
+    $("input[name='associationMode']").on("click", function () {
+        let choice = $(this).val();
+        fieldLinks.fieldsLinker("changeParameters", { "associationMode": choice });
+    });
+
+    $("input[name='enable']").on("click", function () {
+        let choice = $(this).val();
+
+        fieldLinks.fieldsLinker(choice);
+    });
+
+    $("input[name='lineStyle']").on("click", function () {
+        let choice = $(this).val();
+        fieldLinks.fieldsLinker("changeParameters", { "lineStyle": choice });
+    });
+
+    $("input[name='whiteSpace']").on("click", function () {
+        let choice = $(this).val();
+        fieldLinks.fieldsLinker("changeParameters", { "whiteSpace": choice });
+    });
+
+    $("input[name='mobileClickIt']").on("click", function () {
+        let isCheck = $(this).prop("checked");
+        if (isCheck)
+            $(this).addClass("active");
+        else
+            $(this).removeClass("active");
+
+        $("#original").html = "";
+        inputOri.options.mobileClickIt = isCheck;
+        fieldLinks = $("#original").fieldsLinker("init", inputOri);
+
+    });
 </script>
 
 </body>
