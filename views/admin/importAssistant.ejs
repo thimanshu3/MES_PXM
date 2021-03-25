@@ -33,202 +33,207 @@
     </script>
 
     <style>
- .fieldsLinker div {
-    font-weight: bold;
-}
+        .fieldsLinker div {
+            font-weight: bold;
+        }
 
-.fieldsLinker ul {
-    list-style: none;
-    margin-left: 0px;
-    padding-left: 0px;
-    font-weight: normal;
-}
+        .fieldsLinker ul {
+            list-style: none;
+            margin-left: 0px;
+            padding-left: 0px;
+            font-weight: normal;
+        }
 
-tr td  {
-    padding-left: 10px;
-}
+        tr td {
+            padding-left: 10px;
+        }
 
-tr td:not(:last-child)  {
-    border-right: 1px solid grey;
-}
+        tr td:not(:last-child) {
+            border-right: 1px solid grey;
+        }
 
-.fieldsLinker li {
-    border: solid 1px grey;
-    padding: 5px 2px 5px 8px;
-    margin-top: 7px;
-    margin-bottom: 8px;
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    cursor: pointer;
-    background-color: #fff;
-    background: linear-gradient(#ffffff, #e9e9e9);
-    color: black;
-    border-radius: 0px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
+        .fieldsLinker li {
+            border: solid 1px grey;
+            padding: 5px 2px 5px 8px;
+            margin-top: 7px;
+            margin-bottom: 8px;
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            cursor: pointer;
+            background-color: #fff;
+            background: linear-gradient(#ffffff, #e9e9e9);
+            color: black;
+            border-radius: 0px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
 
-.fieldsLinker li.selected {
-    -webkit-filter: invert(100%);
-    filter: invert(100%);    
-}
+        .fieldsLinker li.selected {
+            -webkit-filter: invert(100%);
+            filter: invert(100%);
+        }
 
-.fieldsLinker li[data-mandatory='true'] {
-    background-color: #D7504C;
-    background: linear-gradient(#D7504C, #C12F2B);
-    color: white;
-}
+        .fieldsLinker li[data-mandatory='true'] {
+            background-color: #D7504C;
+            background: linear-gradient(#D7504C, #C12F2B);
+            color: white;
+        }
 
-.fieldsLinker li.inactive {
-    opacity: 0.5;
-}
+        .fieldsLinker li.inactive {
+            opacity: 0.5;
+        }
 
-.fieldsLinker li.linkOver {
-    border: solid 2px transparent; /*plus 1px*/
-    padding: 4px 1px 4px 7px; /* minus 1px*/
-}
+        .fieldsLinker li.linkOver {
+            border: solid 2px transparent;
+            /*plus 1px*/
+            padding: 4px 1px 4px 7px;
+            /* minus 1px*/
+        }
 
 
-	
-	/* ---------- */
-	
-	label{
-		font-weight:300;
-		display:inline-block;
-	}
-	
-	label input[type='radio']{
-		vertical-align: top;
-	}
-	
-	label.active{
-		font-weight:600;
-		color: #2e44b9;
-	}
-	
-	
-	.bonds{
-		min-width:700px;
-		width : 50%;
-		min-height:410px;
-	}
-	 
-	.radio-zone{
-		padding: 0px 8px 0px 8px;
-		border-radius:2px;
-		min-width:300px;
-	}
-	.presentation{
-		line-height : 14px;
-		font-size : 12px;
-	}
-	
-	hr{
-		margin-bottom : 10px;
-		margin-top:10px;
-	}
-	
-	.fieldLinkerSave {
-		display:inline-block;
-	}
-	
-	
-input[type=radio] {
-	font-size: 11px;
-	cursor: pointer;
-}
 
-input[type=checkbox]::before{
-  content: "";
-  display: inline-block;
-  font-size: inherit;
-  float:left;
-  font-weight:bold;
-  margin-left:0;
-  margin-right:2px;
-  border: 2px solid #337ab7;
-  border-radius : 3px;
-  padding : 5px;
-  margin-top:0px;
-  color:black;
-  background: white;
-}
+        /* ---------- */
 
-input[type=checkbox].active::after {
-    content: "";
-    display: inline-block;
-    font-size: inherit;
-    float: left;
-	transform: rotate(45deg);
-    margin-left: 6px;
-    margin-top:-13px;
-	height: 10px;
-	width:  5px;
-    color: #337ab7;
-	border-bottom: 2px solid #337ab7;
-	border-right:  2px solid #337ab7;
-}
+        label {
+            font-weight: 300;
+            display: inline-block;
+        }
 
-div.action-check.off {
-    color: silver;
-}
+        label input[type='radio'] {
+            vertical-align: top;
+        }
 
-div.action-check {
-    color: black;
-    cursor: pointer;
-    font-size: 18px;
-}
+        label.active {
+            font-weight: 600;
+            color: #2e44b9;
+        }
 
-input[type=radio]:before {
-	background: white;
-	border: 2px solid #337ab7;
-	border-radius: 50%;
-	margin-top: -2px;
-	margin-right: 6px;
-	display: inline-block;
-	vertical-align: middle;
-	content: '';
-	width: 14px;
-	height: 14px;
-}
 
-	input[type=radio]:checked:before {
-		background: #337ab7;
-		border-color: #337ab7;
-		box-shadow: inset 0px 0px 0px 2px #fff;
-	}
-	.choices{
-		display:inline-block;
-		margin-right:40px;
-	}
-	
-	.choices label{
-		margin-left:4px;
-		margin-right:4px;
-		vertical-align:8%;
-	}
-	
-	.choices label.group{
-		font-weight:bold;
-	}
-	
-	.nice-group{
-		width:680px;
-		line-height: 16px;
-		padding:10px;
-		border:1px solid #ccc;
-		background-color:#fff;
-		border-radius:5px;
-	}
-	.nice-group legend {
-		color: #337ab7;
-		width:120px;
-		font-size:14px !important;
-		border-bottom:none;
-		
-	}
+        .bonds {
+            min-width: 700px;
+            width: 50%;
+            min-height: 410px;
+        }
+
+        .radio-zone {
+            padding: 0px 8px 0px 8px;
+            border-radius: 2px;
+            min-width: 300px;
+        }
+
+        .presentation {
+            line-height: 14px;
+            font-size: 12px;
+        }
+
+        hr {
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        .fieldLinkerSave {
+            display: inline-block;
+        }
+
+
+        input[type=radio] {
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        input[type=checkbox]::before {
+            content: "";
+            display: inline-block;
+            font-size: inherit;
+            float: left;
+            font-weight: bold;
+            margin-left: 0;
+            margin-right: 2px;
+            border: 2px solid #337ab7;
+            border-radius: 3px;
+            padding: 5px;
+            margin-top: 0px;
+            color: black;
+            background: white;
+        }
+
+        input[type=checkbox].active::after {
+            content: "";
+            display: inline-block;
+            font-size: inherit;
+            float: left;
+            transform: rotate(45deg);
+            margin-left: 6px;
+            margin-top: -13px;
+            height: 10px;
+            width: 5px;
+            color: #337ab7;
+            border-bottom: 2px solid #337ab7;
+            border-right: 2px solid #337ab7;
+        }
+
+        div.action-check.off {
+            color: silver;
+        }
+
+        div.action-check {
+            color: black;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        input[type=radio]:before {
+            background: white;
+            border: 2px solid #337ab7;
+            border-radius: 50%;
+            margin-top: -2px;
+            margin-right: 6px;
+            display: inline-block;
+            vertical-align: middle;
+            content: '';
+            width: 14px;
+            height: 14px;
+        }
+
+        input[type=radio]:checked:before {
+            background: #337ab7;
+            border-color: #337ab7;
+            box-shadow: inset 0px 0px 0px 2px #fff;
+        }
+
+        .choices {
+            display: inline-block;
+            margin-right: 40px;
+        }
+
+        .choices label {
+            margin-left: 4px;
+            margin-right: 4px;
+            vertical-align: 8%;
+        }
+
+        .choices label.group {
+            font-weight: bold;
+        }
+
+        .nice-group {
+            width: 680px;
+            line-height: 16px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        .nice-group legend {
+            color: #337ab7;
+            width: 120px;
+            font-size: 14px !important;
+            border-bottom: none;
+
+        }
     </style>
 
 
@@ -238,215 +243,189 @@ input[type=radio]:before {
     <div class="wrapper">
         <%-include('../partials/config')%>
 
-            <!-- header -->
-            <%-include('../partials/header.ejs')%>
-                <!-- header end -->
+        <!-- header -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header end -->
 
-                <!-- Sidebar -->
-                <%-include('../partials/sidebar.ejs')%>
-                    <!-- End Sidebar -->
+        <!-- Sidebar -->
+        <%-include('../partials/sidebar.ejs')%>
+        <!-- End Sidebar -->
 
-                    <div class="main-panel">
-                        <div class="content">
-                            <div class="page-inner ">
-                                <div class="page-header">
+        <div class="main-panel">
+            <div class="content">
+                <div class="page-inner ">
+                    <div class="page-header">
 
-                                    <ul class="breadcrumbs">
-                                        <li class="nav-home">
-                                            <a href="/admin/dashboard">
-                                                <i class="flaticon-home"></i>
-                                            </a>
-                                        </li>
-                                        <li class="separator">
-                                            <i class="flaticon-right-arrow"></i>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#">System</a>
-                                        </li>
-                                        <li class="separator">
-                                            <i class="flaticon-right-arrow"></i>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#">User Managment</a>
-                                        </li>
-                                        <li class="separator">
-                                            <i class="flaticon-right-arrow"></i>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#">Users</a>
-                                        </li>
+                        <ul class="breadcrumbs">
+                            <li class="nav-home">
+                                <a href="/admin/dashboard">
+                                    <i class="flaticon-home"></i>
+                                </a>
+                            </li>
+                            <li class="separator">
+                                <i class="flaticon-right-arrow"></i>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#">System</a>
+                            </li>
+                            <li class="separator">
+                                <i class="flaticon-right-arrow"></i>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#">User Managment</a>
+                            </li>
+                            <li class="separator">
+                                <i class="flaticon-right-arrow"></i>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#">Users</a>
+                            </li>
 
+                        </ul>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card kk_full_form kk_user_form">
+                                <div class="card-header">
+                                    <div class="d-flex align-items-center">
+                                        <h4 class="card-title">Map Fields</h4>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="bonds" id="original" style="display:block; margin: 30px auto">
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-end">
+                                    <button id="previewBtn" class="btn btn-primary">Preview</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="card kk_full_form kk_user_form">
+                                <div class="card-header">
+                                    <div class="d-flex align-items-center">
+                                        <h4 class="card-title">Preview</h4>
+
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <ul id="fieldLinkPreview" style="max-width: 80%;margin: 30px auto;">
+                                    
                                     </ul>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                            <div class="card kk_full_form kk_user_form">
-<div class="card-header">
-    <div class="d-flex align-items-center">
-        <h4 class="card-title">Map Fields</h4>
-    </div>
-</div>
-
-<div class="card-body">
-<div class="bonds" id="original" style="display:block; margin: 30px auto">
-</div>
-</div>
-                                            </div>
-
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="d-flex align-items-center">
+                                        <h4 class="card-title">Add Row</h4>
+                                        <button class="btn btn-primary btn-round ml-auto" data-toggle="modal"
+                                            data-target="#addRowModal">
+                                            <i class="fa fa-plus"></i>
+                                            Add Row
+                                        </button>
                                     </div>
-                                    <div class="col-md-6">
+                                </div>
 
-                                        <div class="card kk_full_form kk_user_form">
-                                            <div class="card-header">
-                                                <div class="d-flex align-items-center">
-                                                    <h4 class="card-title">Preview</h4>
-                                                   
+                                <div class="card-body">
+
+                                    <div class="modal fade " id="addRowModal" tabindex="-1" role="dialog">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header no-bd">
+                                                    <h5 class="modal-title">
+                                                        <span class="fw-mediumbold">
+                                                            New</span>
+                                                        <span class="fw-light">
+                                                            Row
+                                                        </span>
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p class="small">Create a new row using this form, make sure you
+                                                        fill them all</p>
+                                                    <form>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group form-group-default">
+                                                                    <label>Name</label>
+                                                                    <input id="addName" type="text" class="form-control"
+                                                                        placeholder="fill name">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 pr-0">
+                                                                <div class="form-group form-group-default">
+                                                                    <label>Position</label>
+                                                                    <input id="addPosition" type="text"
+                                                                        class="form-control"
+                                                                        placeholder="fill position">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group form-group-default">
+                                                                    <label>Office</label>
+                                                                    <input id="addOffice" type="text"
+                                                                        class="form-control" placeholder="fill office">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer no-bd">
+                                                    <button type="button" id="addRowButton"
+                                                        class="btn btn-primary">Add</button>
+                                                    <button type="button" class="btn btn-danger"
+                                                        data-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
-<div class="card-body">
-<ul style=" margin: 30px auto;">
-    <li class="kkay_field_map_link">
-        <div class="k_field">
-            Kartik Kumawat
-        </div>
-        <i class="fas fa-arrows-alt-h"></i>
-        <div class="k_field">
-            Techno India NJR
-        </div>
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fas fa-times-circle"></i></a>
-    </li>
-    <li class="kkay_field_map_link">
-        <div class="k_field"></div>
-        <i class="fas fa-arrows-alt-h"></i>
-        <div class="k_field"> </div>
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fas fa-times-circle"></i></a>
-    </li>
-</ul>
-</div>
                                         </div>
                                     </div>
+
+
+                                    <table id="add-row" class="display table table-striped table-hover dataTable"
+                                        role="grid" aria-describedby="add-row_info">
+                                        <thead>
+                                            <tr>
+                                                <th rowspan="1" colspan="1">Name</th>
+                                                <th rowspan="1" colspan="1">Position</th>
+                                                <th rowspan="1" colspan="1">Office</th>
+                                                <th rowspan="1" colspan="1">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+
+                                            </td>
+
+                                        </tr>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
                                 </div>
-
-<div class="row">
-    <div class="col-sm-12">
-        <div class="card">
-            <div class="card-header">
-                <div class="d-flex align-items-center">
-                    <h4 class="card-title">Add Row</h4>
-                    <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
-                        <i class="fa fa-plus"></i>
-                        Add Row
-                    </button>
-                </div>
-            </div>
-
-            <div class="card-body">
-
-                <div class="modal fade " id="addRowModal" tabindex="-1" role="dialog" >
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header no-bd">
-                                <h5 class="modal-title">
-                                    <span class="fw-mediumbold">
-                                        New</span>
-                                    <span class="fw-light">
-                                        Row
-                                    </span>
-                                </h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p class="small">Create a new row using this form, make sure you fill them all</p>
-                                <form>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group form-group-default">
-                                                <label>Name</label>
-                                                <input id="addName" type="text" class="form-control" placeholder="fill name">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 pr-0">
-                                            <div class="form-group form-group-default">
-                                                <label>Position</label>
-                                                <input id="addPosition" type="text" class="form-control" placeholder="fill position">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group form-group-default">
-                                                <label>Office</label>
-                                                <input id="addOffice" type="text" class="form-control" placeholder="fill office">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer no-bd">
-                                <button type="button" id="addRowButton" class="btn btn-primary">Add</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
+
                 </div>
-
-
-                <table id="add-row" class="display table table-striped table-hover dataTable" role="grid"
-                    aria-describedby="add-row_info">
-                    <thead>
-                        <tr>
-                            <th rowspan="1" colspan="1">Name</th>
-                            <th rowspan="1" colspan="1">Position</th>
-                            <th rowspan="1" colspan="1">Office</th>
-                            <th rowspan="1" colspan="1">Action</th>
-                        </tr>
-                    </thead>
-                   <tr>
-                       <td></td>
-                       <td></td>
-                       <td></td>
-                       <td>
-                       
-                       </td>
-                    
-                   </tr>
-                    <tbody>
-
-                    </tbody>
-                </table>
             </div>
+            <%-include('../partials/footer.ejs')%>
         </div>
-    </div>
-</div>
-
-
-
-<!--
-                                <div class="container-fluid">
-                                  
-                                    <div id="container" class="row">
-
-                                        <div class="col-md-6">
-                                            <div class="bonds" id="original" style="display:block; margin: 30px auto">
-                                            
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <ul id="fieldLinkPreview" style="max-width: 80%;margin: 30px auto;">
-                                                
-                                            </ul>
-                                        </div>
-                                        
-                                    
-                                    </div>
-                                </div>
-                            -->
-                            </div>
-                        </div>
-                        <%-include('../partials/footer.ejs')%>
-                    </div>
 
     </div>
     <!--   Core JS Files   -->
@@ -454,9 +433,9 @@ input[type=radio]:before {
     <!-- jQuery library -->
     <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
 
-   
+
     <!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <!-- Atlantis JS -->
     <!-- Latest compiled JavaScript -->
     <script src="/assets/js/core/bootstrap.js"></script>
@@ -471,174 +450,184 @@ input[type=radio]:before {
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 
-<script>
-   let fieldLinks;
-    let inputOri;
-    $(document).ready(function () {
-        inputOri = {
-            "localization": {
-            },
-            "options": {
-                "associationMode": "manyToMany", // oneToOne,manyToMany
-                "lineStyle": "square-ends",
-                "buttonErase": "Erase Links",
-                "displayMode": "original",
-                "whiteSpace": 'normal',
-                "mobileClickIt": false
-            },
-            "Lists": [
-                {
-                    "name": "Columns in files",
-                    "list": [
-                        "firstName",
-                        "lastName",
-                        "phone",
-                        "email",
-                        "role",
-                        "Birthday",
-                        "Adress",
-                        "[Main-stats][Global-sales-stats][European-region][France]",
-                        "City"
-                    ]
+    <script>
+        let fieldLinks;
+        let inputOri;
+        $(document).ready(function () {
+            inputOri = {
+                "localization": {
                 },
-                {
-                    "name": "Available Fields",
-                    "list": [
-                        "Company",
-                        "jobTitle",
-                        "adress",
-                        "adress",
-                        "adress",
-                        "first_name",
-                        "last_name",
-                        "email_adress",
-                        "Phone number",
-                        "Pourcentage of france in the global market",
+                "options": {
+                    "associationMode": "manyToMany", // oneToOne,manyToMany
+                    "lineStyle": "square-ends",
+                    "buttonErase": "Erase Links",
+                    "displayMode": "original",
+                    "whiteSpace": 'normal',
+                    "mobileClickIt": false
+                },
+                "Lists": [
+                    {
+                        "name": "Columns in files",
+                        "list": [
+                            "firstName",
+                            "lastName",
+                            "phone",
+                            "email",
+                            "role",
+                            "Birthday",
+                            "Adress",
+                            "[Main-stats][Global-sales-stats][European-region][France]",
+                            "City"
+                        ]
+                    },
+                    {
+                        "name": "Available Fields",
+                        "list": [
+                            "Company",
+                            "jobTitle",
+                            "adress",
+                            "adress",
+                            "adress",
+                            "first_name",
+                            "last_name",
+                            "email_adress",
+                            "Phone number",
+                            "Pourcentage of france in the global market",
 
-                    ],
-                    "mandatories": [
-                        "last_name",
-                        "email_adress"
-                    ]
-                }
-            ],
-            "existingLinks": [{ "from": "lastName", "to": "email_adress" },{ "from": "lastName", "to": "last_name" }, { "from": "firstName", "to": "first_name" }, { "from": "role", "to": "jobTitle" }]
-        };
+                        ],
+                        "mandatories": [
+                            "last_name",
+                            "email_adress"
+                        ]
+                    }
+                ],
+                "existingLinks": [{ "from": "lastName", "to": "email_adress" }, { "from": "lastName", "to": "last_name" }, { "from": "firstName", "to": "first_name" }, { "from": "role", "to": "jobTitle" }]
+            };
 
 
-        $(".fieldLinkerSave").on("click", function () {
-            var results = fieldLinks.fieldsLinker("getLinks");
-            $("#output").html("output => " + JSON.stringify(results));
+            $(".fieldLinkerSave").on("click", function () {
+                var results = fieldLinks.fieldsLinker("getLinks");
+                $("#output").html("output => " + JSON.stringify(results));
+            });
+
+
+            fieldLinks = $("#original").fieldsLinker("init", inputOri);
+
+            previewMapped()
         });
 
 
-        fieldLinks = $("#original").fieldsLinker("init", inputOri);
+        $("input[name='associationMode']").on("click", function () {
+            let choice = $(this).val();
+            fieldLinks.fieldsLinker("changeParameters", { "associationMode": choice });
+        });
 
-        previewMapped()
-    });
+        $("input[name='enable']").on("click", function () {
+            let choice = $(this).val();
 
+            fieldLinks.fieldsLinker(choice);
+        });
 
-    $("input[name='associationMode']").on("click", function () {
-        let choice = $(this).val();
-        fieldLinks.fieldsLinker("changeParameters", { "associationMode": choice });
-    });
+        $("input[name='lineStyle']").on("click", function () {
+            let choice = $(this).val();
+            fieldLinks.fieldsLinker("changeParameters", { "lineStyle": choice });
+        });
 
-    $("input[name='enable']").on("click", function () {
-        let choice = $(this).val();
+        $("input[name='whiteSpace']").on("click", function () {
+            let choice = $(this).val();
+            fieldLinks.fieldsLinker("changeParameters", { "whiteSpace": choice });
+        });
 
-        fieldLinks.fieldsLinker(choice);
-    });
+        $("input[name='mobileClickIt']").on("click", function () {
+            let isCheck = $(this).prop("checked");
+            if (isCheck)
+                $(this).addClass("active");
+            else
+                $(this).removeClass("active");
 
-    $("input[name='lineStyle']").on("click", function () {
-        let choice = $(this).val();
-        fieldLinks.fieldsLinker("changeParameters", { "lineStyle": choice });
-    });
+            $("#original").html = "";
+            inputOri.options.mobileClickIt = isCheck;
+            fieldLinks = $("#original").fieldsLinker("init", inputOri);
 
-    $("input[name='whiteSpace']").on("click", function () {
-        let choice = $(this).val();
-        fieldLinks.fieldsLinker("changeParameters", { "whiteSpace": choice });
-    });
+        });
 
-    $("input[name='mobileClickIt']").on("click", function () {
-        let isCheck = $(this).prop("checked");
-        if (isCheck)
-            $(this).addClass("active");
-        else
-            $(this).removeClass("active");
-
-        $("#original").html = "";
-        inputOri.options.mobileClickIt = isCheck;
-        fieldLinks = $("#original").fieldsLinker("init", inputOri);
-
-    });
-
-    const previewMapped = () =>{
-        let data =  fieldLinks.fieldsLinker("getLinks");
-        let liItems = '';
-        if(data.error) return iziToast.error({message: data.errorMessage})
-        if(data.links.length){
-            data.links.forEach(link=>{
-                liItems+= ` <li class="kkay_field_map_link">
+        const previewMapped = () => {
+             $('#fieldLinkPreview').empty();
+            let data = fieldLinks.fieldsLinker("getLinks");
+            let liItems = '';
+            if (data.error) return iziToast.error({ message: data.errorMessage })
+            if (data.links.length) {
+                data.links.sort(function (a, b) {
+                    var textA = a.from.toUpperCase();
+                    var textB = b.from.toUpperCase();
+                    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+                }).forEach(link => {
+                    liItems += ` <li class="kkay_field_map_link">
                                 <div class="k_field">${link.from}</div>
                                 <i class="fas fa-arrows-alt-h"></i>
                                 <div class="k_field">${link.to} </div>
                                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fas fa-times-circle"></i></a>
                             </li>`
-            })
-            $('#fieldLinkPreview').append(liItems)
-        }
-        
-    }
-</script>
-
-<script>
-    $(document).ready(function () {
-        $('#basic-datatables').DataTable({
-        });
-
-        $('#multi-filter-select').DataTable({
-            "pageLength": 5,
-            initComplete: function () {
-                this.api().columns().every(function () {
-                    var column = this;
-                    var select = $('<select class="form-control"><option value=""></option></select>')
-                        .appendTo($(column.footer()).empty())
-                        .on('change', function () {
-                            var val = $.fn.dataTable.util.escapeRegex(
-                                $(this).val()
-                            );
-
-                            column
-                                .search(val ? '^' + val + '$' : '', true, false)
-                                .draw();
-                        });
-
-                    column.data().unique().sort().each(function (d, j) {
-                        select.append('<option value="' + d + '">' + d + '</option>')
-                    });
-                });
+                })
+            
+                $('#fieldLinkPreview').append(liItems)
             }
+
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#basic-datatables').DataTable({
+            });
+
+            $('#multi-filter-select').DataTable({
+                "pageLength": 5,
+                initComplete: function () {
+                    this.api().columns().every(function () {
+                        var column = this;
+                        var select = $('<select class="form-control"><option value=""></option></select>')
+                            .appendTo($(column.footer()).empty())
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                }
+            });
+
+            // Add Row
+            $('#add-row').DataTable({
+                "pageLength": 5,
+            });
+
+            var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
+
+            $('#addRowButton').click(function () {
+                $('#add-row').dataTable().fnAddData([
+                    $("#addName").val(),
+                    $("#addPosition").val(),
+                    $("#addOffice").val(),
+                    action
+                ]);
+                $('#addRowModal').modal('hide');
+
+            });
         });
 
-        // Add Row
-        $('#add-row').DataTable({
-            "pageLength": 5,
-        });
-
-        var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
-
-        $('#addRowButton').click(function () {
-            $('#add-row').dataTable().fnAddData([
-                $("#addName").val(),
-                $("#addPosition").val(),
-                $("#addOffice").val(),
-                action
-            ]);
-            $('#addRowModal').modal('hide');
-
-        });
-    });
-</script>
+        $('#previewBtn').on('click',() => {
+            previewMapped()
+        })
+    </script>
 
 </body>
 
