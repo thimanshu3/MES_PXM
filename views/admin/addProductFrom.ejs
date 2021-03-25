@@ -32,14 +32,14 @@
 
 <body>
     <div class="wrapper">
-        <%-include('../partials/config')%>
+        <%-include('.. /partials/config')%>
 
             <!-- header -->
-            <%-include('../partials/header.ejs')%>
+            <%-include('.. /partials/header.ejs')%>
                 <!-- header end -->
 
                 <!-- Sidebar -->
-                <%-include('../partials/sidebar.ejs')%>
+                <%-include('.. /partials/sidebar.ejs')%>
                     <!-- End Sidebar -->
 
                     <div class="main-panel kk_form_page bg-white kK_custom_form">
@@ -50,7 +50,7 @@
                                     <form id="pData" action="/admin/form" method="POST">
                                         <input type="hidden" name="productId" value="<%=productId %>">
                                         <input type="hidden" name="formId" value="<%=formId %>">
-
+                                        
                                         <% const inputs=['text' , 'number' , 'email' , 'tel' ] %>
                                             <% layout.componets.forEach(component=>{ %>
                                                 <% if(component.type=='sec' ){ %>
@@ -117,10 +117,11 @@
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <% } %>
-                                                                                                <% if(_a.field.inputType == 'list/record'){%>
-                                                                                                    something
-                                                                                                    <%}%>
-                                                                                                    <%})} %>
+                                                                                                    <% if(_a.field.inputType=='list/record'
+                                                                                                        ){%>
+                                                                                                        something
+                                                                                                        <%}%>
+                                                                                                            <%})} %>
                                                                     </div>
                                                                 </section>
                                                                 <% }else{ %>
@@ -180,7 +181,7 @@
                                                                                                             <%
                                                                                                                 page.AssignedFields.forEach(_a=>
                                                                                                                 {%>
-                                                                                                                   
+
                                                                                                                 <% if(_a.field.inputType=='checkbox'
                                                                                                                     ){
                                                                                                                     %>
@@ -208,31 +209,71 @@
                                                                                                                             value="off"
                                                                                                                             name="<%= _a.field.id%>">
                                                                                                                     </div>
-                                                                                                                    <% }
+                                                                                                                    <% } <%
+                                                                                                                        if(_a.field.inputType=='list/record'
+                                                                                                                        ){
                                                                                                                         %>
-                                                                                                                        <% if(inputs.includes(_a.field.inputType)){
-                                                                                                                            %>
+                                                                                                                        <div
+                                                                                                                            class="col-md-3">
                                                                                                                             <div
-                                                                                                                                class="col-md-3 mb-3">
-                                                                                                                                <div
-                                                                                                                                    class="form-group">
-                                                                                                                                    <label
-                                                                                                                                        for="email2">
-                                                                                                                                        <%= _a.field.label
-                                                                                                                                            %>
-                                                                                                                                    </label>
-                                                                                                                                    <input
-                                                                                                                                        type="<%=_a.field.inputType %>"
-                                                                                                                                        class="form-control"
-                                                                                                                                        id="email2"
-                                                                                                                                        name="<%= _a.field.id%>">
-                                                                                                                                </div>
+                                                                                                                                class="form-group">
+                                                                                                                                <label
+                                                                                                                                    for="smallSelect"
+                                                                                                                                    style="width: 100%">
+                                                                                                                                    <%=
+                                                                                                                                        _a.field.label%>
+                                                                                                                                </label>
+                                                                                                                                <select
+                                                                                                                                    name="<%= _a.field.id%>"
+                                                                                                                                    class="form-control form-control-sm"
+                                                                                                                                    id="smallSelect">
+                                                                                                                                    <option>
+                                                                                                                                    </option>
+                                                                                                                                    <% if(_a.field.list
+                                                                                                                                        !=null){
+                                                                                                                                        %>
+                                                                                                                                        <% if(_a.field.list
+                                                                                                                                            !=null)
+                                                                                                                                            {
+                                                                                                                                            _a.field.list.split('----').forEach(b=>
+                                                                                                                                            {%>
+                                                                                                                                            <option
+                                                                                                                                                value=<%=b
+                                                                                                                                                %>
+                                                                                                                                                >
+                                                                                                                                                <%= b
+                                                                                                                                                    %>
+                                                                                                                                            </option>
+                                                                                                                                            <%})}}%>
+
+                                                                                                                                </select>
                                                                                                                             </div>
-                                                                                                                            <% }
+                                                                                                                        </div>
+                                                                                                                        <%}%>
+                                                                                                                            %>
+                                                                                                                            <% if(inputs.includes(_a.field.inputType)){
                                                                                                                                 %>
-                                                                                                                               
-                                                                                                                                <%})%>
-                                                                                                                                    <%}%>
+                                                                                                                                <div
+                                                                                                                                    class="col-md-3 mb-3">
+                                                                                                                                    <div
+                                                                                                                                        class="form-group">
+                                                                                                                                        <label
+                                                                                                                                            for="email2">
+                                                                                                                                            <%= _a.field.label
+                                                                                                                                                %>
+                                                                                                                                        </label>
+                                                                                                                                        <input
+                                                                                                                                            type="<%=_a.field.inputType %>"
+                                                                                                                                            class="form-control"
+                                                                                                                                            id="email2"
+                                                                                                                                            name="<%= _a.field.id%>">
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                                <% }
+                                                                                                                                    %>
+
+                                                                                                                                    <%})%>
+                                                                                                                                        <%}%>
                                                                                                 </div>
                                                                                             </section>
                                                                                             <% }) %>
@@ -302,46 +343,92 @@
                                                                                                     <%
                                                                                                         tabComponent.AssignedFields.forEach(_a=>
                                                                                                         {%>
-                                                                                                            <% if(_a.field.inputType=='list/record' ){ %>
-                                                                                                                <div class="col-md-3">
-                                                                                                                <div class="form-group">
-                                                                                                                    <label for="smallSelect" style="width: 100%"><%= _a.field.label%></label>
-                                                                                                                    <select name="<%= _a.field.id%>" class="form-control form-control-sm" id="smallSelect">
-                                                                                                                        <option>1</option>
-                                                                                                                        <option>2</option>
-                                                                                                                        <option>3</option>
-                                                                                                                        <option>4</option>
-                                                                                                                        <option>5</option>
+                                                                                                        <% if(_a.field.inputType=='list/record'
+                                                                                                            ){ %>
+                                                                                                            <div
+                                                                                                                class="col-md-3">
+                                                                                                                <div
+                                                                                                                    class="form-group">
+                                                                                                                    <label
+                                                                                                                        for="smallSelect"
+                                                                                                                        style="width: 100%">
+                                                                                                                        <%=
+                                                                                                                            _a.field.label%>
+                                                                                                                    </label>
+                                                                                                                    <select
+                                                                                                                        name="<%= _a.field.id%>"
+                                                                                                                        class="form-control form-control-sm"
+                                                                                                                        id="smallSelect">
+                                                                                                                        <option>
+                                                                                                                            1
+                                                                                                                        </option>
+                                                                                                                        <option>
+                                                                                                                            2
+                                                                                                                        </option>
+                                                                                                                        <option>
+                                                                                                                            3
+                                                                                                                        </option>
+                                                                                                                        <option>
+                                                                                                                            4
+                                                                                                                        </option>
+                                                                                                                        <option>
+                                                                                                                            5
+                                                                                                                        </option>
                                                                                                                     </select>
                                                                                                                 </div>
-                                                                                                                </div>
-                                                                                                                <%}%>
-                                                                                                    <% if(_a.field.inputType=='checkbox' ){ %>
-                                                                                                        <div class="col-md-3 mb-3">
-                                                                                                            <div class="form-check">
-                                                                                                                <label class="form-check-label">
-                                                                                                                    <input class="form-check-input" type="checkbox" value="<%= _a.field.id%>">
-                                                                                                    
-                                                                                                                    <span class="form-check-sign">
-                                                                                                                        <%= _a.field.label %>
-                                                                                                                    </span>
-                                                                                                                </label>
                                                                                                             </div>
-                                                                                                            <input type="hidden" id="<%= _a.field.id%>" value="off" name="<%= _a.field.id%>">
-                                                                                                        </div>
-                                                                                                        <% } %>
-                                                                                                            <% if(inputs.includes(_a.field.inputType)){ %>
-                                                                                                                <div class="col-md-3 mb-3">
-                                                                                                                    <div class="form-group">
-                                                                                                                        <label for="email2">
-                                                                                                                            <%= _a.field.label %>
-                                                                                                                        </label>
-                                                                                                                        <input type="<%=_a.field.inputType %>" class="form-control" id="email2" name="<%= _a.field.id%>">
+                                                                                                            <%}%>
+                                                                                                                <% if(_a.field.inputType=='checkbox'
+                                                                                                                    ){
+                                                                                                                    %>
+                                                                                                                    <div
+                                                                                                                        class="col-md-3 mb-3">
+                                                                                                                        <div
+                                                                                                                            class="form-check">
+                                                                                                                            <label
+                                                                                                                                class="form-check-label">
+                                                                                                                                <input
+                                                                                                                                    class="form-check-input"
+                                                                                                                                    type="checkbox"
+                                                                                                                                    value="<%= _a.field.id%>">
+
+                                                                                                                                <span
+                                                                                                                                    class="form-check-sign">
+                                                                                                                                    <%= _a.field.label
+                                                                                                                                        %>
+                                                                                                                                </span>
+                                                                                                                            </label>
+                                                                                                                        </div>
+                                                                                                                        <input
+                                                                                                                            type="hidden"
+                                                                                                                            id="<%= _a.field.id%>"
+                                                                                                                            value="off"
+                                                                                                                            name="<%= _a.field.id%>">
                                                                                                                     </div>
-                                                                                                                </div>
-                                                                                                                <% } %>
-                                                                                                                        <%})%>
-                                                                                                                            <%}%>
+                                                                                                                    <% }
+                                                                                                                        %>
+                                                                                                                        <% if(inputs.includes(_a.field.inputType)){
+                                                                                                                            %>
+                                                                                                                            <div
+                                                                                                                                class="col-md-3 mb-3">
+                                                                                                                                <div
+                                                                                                                                    class="form-group">
+                                                                                                                                    <label
+                                                                                                                                        for="email2">
+                                                                                                                                        <%= _a.field.label
+                                                                                                                                            %>
+                                                                                                                                    </label>
+                                                                                                                                    <input
+                                                                                                                                        type="<%=_a.field.inputType %>"
+                                                                                                                                        class="form-control"
+                                                                                                                                        id="email2"
+                                                                                                                                        name="<%= _a.field.id%>">
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                            <% }
+                                                                                                                                %>
+                                                                                                                                <%})%>
+                                                                                                                                    <%}%>
                                                                                         </div>
                                                                                     </section>
                                                                                     <% }) %>
@@ -351,18 +438,18 @@
                                                                 </div>
                                                             </section>
                                                             <% } %>
-                                                    <% }) %>
-                                                        <div class="card-footer d-flex justify-content-end">
-                                                            <button class="btn btn-primary"
-                                                                type="submit">Save Product</button>
-                                                        </div>
+                                                                <% }) %>
+                                                                    <div class="card-footer d-flex justify-content-end">
+                                                                        <button class="btn btn-primary"
+                                                                            type="submit">Save Product</button>
+                                                                    </div>
                                     </form>
                                 </div>
                             </div>
 
 
                         </div>
-                        <%-include('../partials/footer.ejs')%>
+                        <%-include('.. /partials/footer.ejs')%>
                     </div>
 
     </div>
