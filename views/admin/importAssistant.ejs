@@ -292,7 +292,6 @@
                                         <h4 class="card-title">Map Fields</h4>
                                     </div>
                                 </div>
-
                                 <div class="card-body">
                                     <div class="bonds" id="original" style="display:block; margin: 30px auto">
                                     </div>
@@ -453,6 +452,10 @@
     <script>
         let fieldLinks;
         let inputOri;
+        let allFields = <%- JSON.stringify(fields) %>;
+        let allFieldsArray = []
+        allFields.forEach(a => {allFieldsArray.push(a.label)})
+        console.log(allFieldsArray);
         $(document).ready(function () {
             inputOri = {
                 "localization": {
@@ -482,26 +485,14 @@
                     },
                     {
                         "name": "Available Fields",
-                        "list": [
-                            "Company",
-                            "jobTitle",
-                            "adress",
-                            "adress",
-                            "adress",
-                            "first_name",
-                            "last_name",
-                            "email_adress",
-                            "Phone number",
-                            "Pourcentage of france in the global market",
-
-                        ],
+                        "list": allFieldsArray,
                         "mandatories": [
                             "last_name",
                             "email_adress"
                         ]
                     }
                 ],
-                "existingLinks": [{ "from": "lastName", "to": "email_adress" }, { "from": "lastName", "to": "last_name" }, { "from": "firstName", "to": "first_name" }, { "from": "role", "to": "jobTitle" }]
+                "existingLinks": []
             };
 
 
@@ -554,6 +545,7 @@
         const previewMapped = () => {
              $('#fieldLinkPreview').empty();
             let data = fieldLinks.fieldsLinker("getLinks");
+            //console.log(allFields.find(element => element.label=='Promotion ID (Mes-Brand)').id);
             let liItems = '';
             if (data.error) return iziToast.error({ message: data.errorMessage })
             if (data.links.length) {
@@ -562,14 +554,16 @@
                     var textB = b.from.toUpperCase();
                     return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
                 }).forEach(link => {
-                    liItems += ` <li class="kkay_field_map_link">
+                    let elem = allFields.find(element => element.label == link.to)
+                    console.log(elem);
+                    liItems += ` <li id="" class="kkay_field_map_link">
                                 <div class="k_field">${link.from}</div>
                                 <i class="fas fa-arrows-alt-h"></i>
                                 <div class="k_field">${link.to} </div>
                                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fas fa-times-circle"></i></a>
                             </li>`
                 })
-            
+             
                 $('#fieldLinkPreview').append(liItems)
             }
 
