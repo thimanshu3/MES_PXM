@@ -257,6 +257,7 @@
                     <div class="page-header">
 
                         <ul class="breadcrumbs">
+                            
                             <li class="nav-home">
                                 <a href="/admin/dashboard">
                                     <i class="flaticon-home"></i>
@@ -425,6 +426,89 @@
                 </div>
             </div>
             <%-include('../partials/footer.ejs')%>
+            <div class="modal fade kk_modal_popup_form" id="myModal" style="display: none;" aria-hidden="true" data-keyboard="false"
+                data-backdrop="static">
+                <div class="modal-dialog ">
+                    <div class="modal-content">
+            
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Default Value</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <form action="/admin/addUser/import" method="POST" enctype="multipart/form-data">
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                        <div class="form-group">
+                                            <label class="form-label">Choose a value to assign in this field</label>
+                                          
+                                        </div>
+
+                                <div class="form-group">
+                                    <div class="selectgroup w-100">
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="value" value="50" class="selectgroup-input" checked="">
+                                            <span class="selectgroup-button">Provide default value</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="value" value="100" class="selectgroup-input">
+                                            <span class="selectgroup-button">Set value to null</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                
+                                 
+
+
+<div class="form-group text-center">
+    <div class="selectgroup selectgroup-pills">
+        <label class="selectgroup-item">
+            <input type="radio" name="transportation" value="2" class="selectgroup-input">
+            <span class="selectgroup-button selectgroup-button-icon">Yes</span>
+        </label>
+        <label class="selectgroup-item">
+            <input type="radio" name="transportation" value="1" class="selectgroup-input">
+            <span class="selectgroup-button selectgroup-button-icon">No</span>
+        </label>
+       
+    </div>
+</div>
+
+
+<div class="form-group">
+    <select class="form-control form-control" id="defaultSelect">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+    </select>
+</div>
+
+
+<div class="form-group">
+     <select multiple="" class="form-control" id="exampleFormControlSelect2">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+    </select>
+</div>
+
+
+                            </div>
+            
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -563,12 +647,16 @@
                     return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
                 }).forEach(link => {
                     liItems += ` <li class="kkay_field_map_link">
+                        
+                
+                                <a data-toggle="modal" href="#myModal"><i class="fas fa-marker"></i></a>
                                 <div class="k_field">${link.from}</div>
                                 <i class="fas fa-arrows-alt-h"></i>
                                 <div class="k_field">${link.to} </div>
                                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fas fa-times-circle"></i></a>
                             </li>`
                 })
+
             
                 $('#fieldLinkPreview').append(liItems)
             }
