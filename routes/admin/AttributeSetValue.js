@@ -6,7 +6,7 @@ const async = require('async')
 const { MySql } = require('../../db')
 const { AttributeValueSets, AttributeSet,ActivityLog } = require('../../models')
 const router = express.Router()
-
+//Adding Values to the Respective Attribute set
 router.get('/:id', async (req, res) => {
     try {
         const foundAttribute = await AttributeSet.findOne({
@@ -38,7 +38,7 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ status: 500, message: 'Something Went Wrong!', error: err.toString() })
     }
 })
-
+//Duplicate Value Identification
 router.post('/:id/add', async (req, res) => {
     const name = req.body.label
     const parentAttributeId = req.params.id
@@ -73,7 +73,7 @@ router.post('/:id/add', async (req, res) => {
         res.redirect(`/admin/attributsetValue/${parentAttributeId}`)
     }
 })
-
+//Deleting an AtrributeValue
 router.delete('/remove/:id', async (req, res) => {
     try {
         const attribute = await AttributeValueSets.destroy({

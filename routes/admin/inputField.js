@@ -153,16 +153,16 @@ router.post('/import', excelUpload.single('file'), async (req, res) => {
 //Add an Item Field
 router.post('/add', async (req, res) => {
     const { label, type, listrecord, description } = req.body
-    console.log(req.body);
+    // console.log(req.body);
     if (!label || !type || !description) {
         req.flash('error', 'Fill All Required Fields')
         res.redirect('/admin/inputfield')
         return
     }
-    console.log(listrecord);
+    // console.log(listrecord);
     let queryFields = {}
     if (listrecord) {
-        console.log("list detected");
+        // console.log("list detected");
         queryFields = { label, createdBy: req.user.id, description, typeOfField: type, associatedList: listrecord }
     }
     else {
@@ -333,7 +333,7 @@ router.get('/inputgroup/:id', async (req, res) => {
                 lr: itemField.lr
             })
         })
-        console.log(s)
+        // console.log(s)
         res.json({ status: 200, data: { itemFields: s } })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
@@ -357,7 +357,7 @@ router.get('/lrValue/:id', async (req, res) => {
                 parentListId: foundList.id
             },
         })
-        console.log(listRecordv);
+        // console.log(listRecordv);
         res.json({ listRecordv })
     }
     catch(err) {

@@ -30,12 +30,12 @@ const excelUpload = multer({
 })
 
 const router = express.Router()
-
+//Fetching Users 
 router.get('/', async (req, res) => {
     const users = await User.findAll()
     res.render('admin/addUser', { User: req.user , users})
 })
-
+//Add user directly
 router.post('/', (req, res) => {
     addUserSchema
         .validateAsync(req.body)
@@ -95,7 +95,7 @@ router.post('/', (req, res) => {
             res.redirect('/admin/addUser')
         })
 })
-
+//Add user through excel import functionality
 router.post('/import', excelUpload.single('file'), async (req, res) => {
     if (req.fileValidationError) {
         req.flash('error', req.fileValidationError)

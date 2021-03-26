@@ -31,7 +31,7 @@ setInterval(() => {
         }
     }
 }, cleanupFrequency);
-
+//Logs of active users
 router.get('/', async (req, res) => {
     try {
         const data = Array.from(userAccessMap)

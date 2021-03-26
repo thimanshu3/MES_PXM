@@ -6,6 +6,7 @@ const { formatDateMoment } = require('../../util')
 
 const router = express.Router()
 
+//Fetch CatelogueHierarchy
 
 router.get('/', async (req, res) => {
     try {
@@ -29,7 +30,7 @@ router.get('/:id', async (req, res) => {
 })
 
 
-
+//create nodes in a Catalogue hierarchy 
 
 router.post('/', async (req,res) =>{
     try{
@@ -55,7 +56,7 @@ router.post('/', async (req,res) =>{
         res.status(500).json({ status: 500, message: err.toString() })
     }
 })
-
+//update the Nodes Created
 router.patch('/update/:id', async (req, res) => {
     try {
         await Catalogue.update({
@@ -73,7 +74,7 @@ router.patch('/update/:id', async (req, res) => {
         res.status(500).json({ status: 500, message: err.toString() })
     }
 })
-
+//Delete The created nodes
 router.delete('/remove/:id', async (req, res) => {
     try {
         await Catalogue.destroy({

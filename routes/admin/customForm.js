@@ -6,7 +6,7 @@ const { ActivityLog, FormDesign, formParts, form, inputFields, fieldGroups, fiel
 const { formatDateMoment } = require('../../util')
 const router = express.Router()
 
-
+//Fetch All the Forms Created
 router.get('/', async (req, res) => {
     try {
         const customForm = await form.findAll()
@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
         res.redirect('/')
     }
 })
-
+//Creating New Form
 router.post('/', async (req, res) => {
     const { name, description } = req.body
     if (!name) {
@@ -52,7 +52,7 @@ router.post('/', async (req, res) => {
     }
 })
 
-
+//saving the form
 router.post('/layout', async (req, res) => {
     const { formId, content } = req.body
     if (!content) return res.status(400).json({ status: 400, message: 'content is required!' })
@@ -80,7 +80,7 @@ router.post('/layout', async (req, res) => {
     }
 })
 
-
+//Update Form Name
 router.patch('/:id', async (req, res) => {
     const { newValue } = req.body
     try {
@@ -109,7 +109,7 @@ router.patch('/:id', async (req, res) => {
         res.redirect('/admin/customform')
     }
 })
-
+//Design the form layout
 router.get('/:id', async (req, res) => {
     try {
         const formPart = await formParts.findAll()
@@ -126,7 +126,7 @@ router.get('/:id', async (req, res) => {
         res.redirect('/')
     }
 })
-
+//Mapping Fields within the Sections
 router.get('/:id/fieldmap', async (req, res) => {
     try {
         const customForm = await form.findOne({
@@ -152,7 +152,7 @@ router.get('/:id/fieldmap', async (req, res) => {
         res.redirect('/')
     }
 })
-
+//Assigning the Mapped Fields
 router.post('/:id/fieldmap/assign', async (req, res) => {
     const { newForm } = req.body
     try {
@@ -176,7 +176,7 @@ router.post('/:id/fieldmap/assign', async (req, res) => {
         res.redirect('/admin/customform')
     }
 })
-
+//Preview Form
 router.get('/:id/form', async (req, res) => {
     try {
         let layout = await FormDesign.findOne({ formId: req.params.id })
@@ -226,7 +226,7 @@ router.get('/:id/form', async (req, res) => {
     }
 })
 
-
+//Active Inactive Functionality of a Form
 router.delete('/:id', async (req, res) => {
     const foundForm = await form.findOne({
         where: {
@@ -245,7 +245,7 @@ router.delete('/:id', async (req, res) => {
 
     res.json({ status: 200, message: `Form ${foundForm.active ? 'Activated' : 'Deactivated'} Successfully!`, active: foundForm.active })
 })
-
+//Deleting a Form
 router.delete('/remove/:id', async (req, res) => {
     try {
         await async.parallel([

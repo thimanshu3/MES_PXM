@@ -5,14 +5,14 @@ const { MySql } = require('../../db')
 const { AttributeSet, AttributeValueSets, ActivityLog } = require('../../models')
 const router = express.Router()
 
-
+//Fetching all the Existing Attribute Sets
 router.get('/', async (req, res) => {
     const data = await AttributeSet.findAll()
 
     res.render('admin/AttributeSet', { User: req.user, attr: data })
 })
 
-
+//Creating new AtrributeSets
 router.post('/add', async (req, res) => {
     const { name, tagValues } = req.body
     const values = tagValues.split(',')
@@ -48,7 +48,7 @@ router.post('/add', async (req, res) => {
             user: req.user.id,
             timestamp: new Date()
         })
-        console.log(values);
+        // console.log(values);
         req.flash('success', `${attribute.name} Added Successfully!`)
         res.redirect('/admin/AttributeSet')
     } catch (err) {
@@ -60,7 +60,7 @@ router.post('/add', async (req, res) => {
         res.redirect('/admin/AttributeSet')
     }
 })
-
+//Adding Values to an existing Attribute Sets
 router.post('/:id/add', async (req, res) => {
     const { name } = req.body
     const parentAttribute = await AttributeSet.findOne({
@@ -93,7 +93,7 @@ router.post('/:id/add', async (req, res) => {
         res.redirect('/admin/AttributeSetValue')
     }
 })
-
+//Update any Attribute Set
 router.patch('/:id', async (req, res) => {
     const { newValue } = req.body
     try {
@@ -122,7 +122,7 @@ router.patch('/:id', async (req, res) => {
         res.redirect('/admin/AttributeSet')
     }
 })
-
+//Active and Inactive
 router.delete('/:id', async (req, res) => {
     const foundAttributeSet = await AttributeSet.findOne({
         where: {
@@ -141,7 +141,7 @@ router.delete('/:id', async (req, res) => {
 
     res.json({ status: 200, message: `AttributeSet ${foundAttributeSet.active ? 'Activated' : 'Deactivated'} Successfully!`, active: foundAttributeSet.active })
 })
-
+//Permanent Deletion of an Atrribute Set
 router.delete('/remove/:id', async (req, res) => {
     try {
         await async.parallel([

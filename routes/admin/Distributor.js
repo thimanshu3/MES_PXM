@@ -3,12 +3,12 @@ const express = require('express')
 const { Distributor, ActivityLog } = require('../../models')
 
 const router = express.Router()
-
+//Fetch all the distributor list
 router.get('/', async (req, res) => {
     const Distributors = await Distributor.findAll()
     res.render('admin/distributor', { User: req.user, attr: Distributors })
 })
-
+//Create a New Distributor
 router.post('/add', async (req, res) => {
     const { name } = req.body
     if (!name) {
@@ -29,7 +29,7 @@ router.post('/add', async (req, res) => {
         res.redirect('/admin/Distributor')
     }
 })
-
+//Update Distributor
 router.patch('/:id', async (req, res) => {
     const { newValue } = req.body
     try {
@@ -60,7 +60,7 @@ router.patch('/:id', async (req, res) => {
     }
 
 })
-
+//Active /Inactive Distributor
 router.delete('/:id', async (req, res) => {
     const found = await Distributor.findOne({
         where: {
@@ -79,7 +79,7 @@ router.delete('/:id', async (req, res) => {
 
     res.json({ status: 200, message: `${found.active ? 'Activated' : 'Deactivated'} Successfully!`, active: found.active })
 })
-
+//Delete Distributor
 router.delete('/remove/:id', async (req, res) => {
     try {
         const distributor = await Distributor.findOne({
