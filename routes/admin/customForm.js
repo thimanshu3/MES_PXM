@@ -138,13 +138,13 @@ router.get('/:id/fieldmap', async (req, res) => {
             req.flash('error', 'Form Not Found')
             res.redirect('/customform')
         }
-        const [[itemFields], itemGroups, formData] = await async.parallel([
+        const [[itemFields], [itemGroups], formData, [tableData]] = await async.parallel([
             async () => await MySql.query(`select inf.id as id, inf.label as label,inf.associatedList as lr, it.inputType as type from inputFields inf inner join inputTypes it on inf.typeofField = it.id where inf.active=true`),
             async () => await MySql.query('select fatg.groupId as groupId, fg.name, group_concat(fatg.fieldId Separator "," ) as fieldIds from fieldsAssignedToGroups fatg inner join fieldGroups fg on groupId = fg.id inner join inputFields ipf on fatg.fieldId =  ipf.id  where ipf.active="1" group by fatg.groupid'),
-            async () => await FormDesign.findOne({ formId: customForm.id })
+            async () => await FormDesign.findOne({ formId: customForm.id }),
+            async () => await MySql.query('select * from productTables')
         ])
-        console.log(itemFields);
-        res.render('admin/customFormFieldMapping', { User: req.user, data: { itemFields, itemGroups: itemGroups[0], formData: formData.toObject() } })
+        res.render('admin/customFormFieldMapping', { User: req.user, data: { itemFields, itemGroups, formData: formData.toObject(),tableData } })
 
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
@@ -216,7 +216,7 @@ router.get('/:id/form', async (req, res) => {
                 }))
             }
         }))
-        console.log(layout.componets[1].subComponents[0].tabComponents[1].pageContent[0].AssignedFields);
+        //console.log(layout.componets[1].subComponets[0].tabComponents[1].pageContent[0].AssignedFields);
         res.render('admin/formPreview', { User: req.user, layout })
 
     } catch (err) {

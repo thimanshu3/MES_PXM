@@ -207,6 +207,29 @@
                                 <div class="card">
                                     <div class="card-header d-flex justify-content-between">
                                         <div class="title">
+                                            Table
+                                        </div>
+                                        <button id="assignSelectedGroup" class="btn btn-sm btn-primary">
+                                            Assign Table
+                                        </button>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <% data.tableData.forEach(table=> { %>
+                                        <label class="selectgroup-item m-2">
+                                            <input type="radio" name="itemgroups" id="<%=table.id %>"
+                                                value="<%=table.fields %>" class="selectgroup-input fclass">
+                                            <span class="selectgroup-button">
+                                                <%=table.name %>
+                                            </span>
+                                        </label>
+                                        <% }); %>
+
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between">
+                                        <div class="title">
                                             Field Groups
                                         </div>
                                         <button id="assignSelectedGroup" class="btn btn-sm btn-primary">
@@ -214,17 +237,17 @@
                                         </button>
                                     </div>
                                     <div class="card-body">
-
+                                
                                         <% data.itemGroups.forEach(group=> { %>
-                                        <label class="selectgroup-item m-2">
-                                            <input type="radio" name="itemgroups" id="<%=group._id %>"
-                                                value="<%=group.fieldIds %>" class="selectgroup-input fclass">
-                                            <span class="selectgroup-button">
-                                                <%=group.name %>
-                                            </span>
-                                        </label>
-                                        <% }); %>
-
+                                            <label class="selectgroup-item m-2">
+                                                <input type="radio" name="itemgroups" id="<%=group._id %>" value="<%=group.fieldIds %>"
+                                                    class="selectgroup-input fclass">
+                                                <span class="selectgroup-button">
+                                                    <%=group.name %>
+                                                </span>
+                                            </label>
+                                            <% }); %>
+                                
                                     </div>
                                 </div>
                                 <div class="card">
