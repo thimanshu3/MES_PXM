@@ -2,7 +2,7 @@ const express = require('express')
 const { Op } = require('sequelize')
 const async = require('async')
 const { MySql } = require('../../db')
-const { ActivityLog, FormDesign, formParts, form, inputFields, fieldGroups, fieldsAssignedToGroup } = require('../../models')
+const { ActivityLog, FormDesign, formParts, form, productTable } = require('../../models')
 const { formatDateMoment } = require('../../util')
 const router = express.Router()
 
@@ -77,7 +77,7 @@ router.post('/layout', async (req, res) => {
         else
             res.json({ status: 404, message: err.toString() || 'Something Went Wrong!' })
         res.redirect('/admin/customform')
-    }
+    } 
 })
 
 //Update Form Name
@@ -194,10 +194,15 @@ router.get('/:id/form', async (req, res) => {
                     } else {
                         await Promise.all(subComponent.tabComponents.map(async tabComponent => {
                             await Promise.all(tabComponent.pageContent.map(async page => {
+                                if (page.AssignedTable !== undefined) {
+                                    const table = await productTable.findOne({ where: { id : page.AssignedTable}})
+                                    page.table = table
+                                }
                                 await Promise.all(page.AssignedFields.map(async a => {
                                     const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,Case when inputFields.associatedList != "-"  then (select group_concat(label SEPARATOR "----") from listRecordValues where parentListId = inputFields.associatedList) else null  END as list,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
                                     delete a.fieldId
                                     a.field = fields[0][0]
+
                                 }))
                             }))
                         }))
