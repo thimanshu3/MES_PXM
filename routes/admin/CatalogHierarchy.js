@@ -5,9 +5,9 @@ const { User, CatalogueHierarchy, Catalogue } = require('../../models')
 const { formatDateMoment } = require('../../util')
 
 const router = express.Router()
-
+//Create Catalogue
 router.post('/', async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const { name } = req.body
     if (!name) {
         req.flash('error', 'name is required!')

@@ -286,7 +286,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
             let allChild = Array.from(child)
 
             allChild.forEach((b, index) => {
-                let childObj = { tabComponents: [] };
+                let childObj = { tabComponentS: [] };
                 let id = b.getAttribute('id');
                 id = id.split('-');
                 let sub = Array.from(allTabSec[index].getElementsByTagName("div")[1].children);

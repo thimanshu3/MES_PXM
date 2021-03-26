@@ -18,6 +18,7 @@ router.get('/', async (req, res) => {
         res.redirect('/')
     }
 })
+//
 router.get('/:id', async (req, res) => {
     try {
         const catalog = await Catalogue.findAll({ where: { CatalogueHierarchy: req.params.id } })
@@ -27,7 +28,7 @@ router.get('/:id', async (req, res) => {
         res.json({ message: err.toString() || 'Something went wrong', status: 500 })
     }
 })
-
+//
 router.post('/', async (req, res) => {
     const { CatalogueHierarchy, productType, Catalogue, formId, name } = req.body
 
