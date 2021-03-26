@@ -261,6 +261,8 @@
                                         class="form-control input-border-bottom" required>
                                     <label for="inputFloatingLabel" class="placeholder">Label</label>
                                 </div>
+
+                                
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group form-floating-label">
@@ -299,42 +301,36 @@
                                 </div>
                             </div>
 
-                            <!-- <div class="col-sm-6 mt-3">
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" name="isItemField" type="checkbox">
-                                        <span class="form-check-sign">Related To Product</span>
-                                    </label>
-                                </div>
-                            </div> -->
-
-
-                            <!-- <div class="col-12">
-                                <p class="text-danger d-flex justify-content-center">Or add by import</p>
-                                <button class="btn btn-primary btn-round ml-auto" data-toggle="modal"
-                                    data-target="#myModal">
-                                    <i class="fa fa-plus"></i>
-                                    Import Item Fields
-                                </button>
-
-                            </div> -->
                         </div>
-                        <div class="modal-footer no-bd">
-                            <button type="submit" id="addRowButton" class="btn btn-primary">Add</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        </div>
-                    </form>
-                    <div class="col-12">
-                        <p class="text-danger d-flex justify-content-center">Or add by import</p>
-                        <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#myModal">
-                            <i class="fa fa-plus"></i>
-                            Import Item Fields
-                        </button>
+                  
+             <div class="row" style="    margin: 30px;
+    justify-content: center;
+    color: #4d7393;
+    font-weight: bold;">
+                 <span>OR</span>
+             </div>
 
+                 <div class="form-group">
+                        <label class="form-label">Upload File</label>
+                        <br>
+                        <label for="et_pb_contact_brand_file_request_0" class="et_pb_contact_form_label"></label>
+                        <input type="file" name="file" id="et_pb_contact_brand_file_request_0" class="file-upload">
                     </div>
+                    <div class="form-group kk_down_temp">
+                        <p class="text-danger">Supported extensions .XLSX</p>
+                        <button type="button" class="btn btn-primary mb-5">Download
+                            Template</button>
+                    </div>
+          
 
 
                 </div>
+
+                    <div class="modal-footer no-bd">
+                        <button type="submit" id="addRowButton" class="btn btn-primary">Add<i class="fa fa-spinner fa-spin ml-3"></i></button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                        </form>
 
             </div>
         </div>
