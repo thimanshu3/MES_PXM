@@ -14,7 +14,10 @@ const PageContentSchema = new mongoose.Schema({
     order: {
         type: Number,
     },
-    AssignedFields: [AssignedFieldSchema]
+    AssignedFields: [AssignedFieldSchema],
+    AssignedTable: {
+        type: String
+    }
 })
 
 
@@ -28,7 +31,10 @@ const TabComponentSchema = new mongoose.Schema({
     },
     type: String ,
     pageContent: [PageContentSchema],
-    AssignedFields: [AssignedFieldSchema]
+    AssignedFields: [AssignedFieldSchema],
+    AssignedTable: {
+        type: String
+    }
 })
 
 const SubComponentSchema = new mongoose.Schema({
@@ -44,7 +50,10 @@ const SubComponentSchema = new mongoose.Schema({
         type: Number,
     },
     tabComponents: [TabComponentSchema],
-    AssignedFields: [AssignedFieldSchema]
+    AssignedFields: [AssignedFieldSchema],
+    AssignedTable: {
+        type: String
+    }
 })
 
 const ComponentSchema = new mongoose.Schema({
@@ -59,7 +68,7 @@ const ComponentSchema = new mongoose.Schema({
     order:{
         type: Number,
     },
-    subComponents: [SubComponentSchema],
+    subComponents: [SubComponentSchema]
 })
 
 const FormSchema = new mongoose.Schema({

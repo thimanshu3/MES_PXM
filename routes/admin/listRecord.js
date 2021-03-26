@@ -32,12 +32,12 @@ const excelUpload = multer({
     storage: uploadStorage,
     fileFilter: excelFilter
 })
-
+//Fetching all the existing List Records
 router.get('/', async (req, res) => {
     const data = await listRecord.findAll()
     res.render('admin/listRecord', { User: req.user, attr: data })
 })
-
+//Getting records for a specific list
 router.get('/:id', async (req, res) => {
     try {
         const foundList = await listRecord.findOne({
@@ -63,7 +63,7 @@ router.get('/:id', async (req, res) => {
             user: req.user.id,
             timestamp: new Date()
         })
-        console.log(listRecordv)
+        // console.log(listRecordv)
         res.render('admin/listRecordValue', { User: req.user, listRecordv, foundList })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
@@ -71,7 +71,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-
+//Adding values to a ListRecord
 router.post('/add', async (req, res) => {
     const { name, tagValues } = req.body
     const values = tagValues.split(',')
@@ -128,6 +128,7 @@ router.post('/add', async (req, res) => {
     }
 })
 
+//Adding Values of a particular List
 router.post('/:id/add', async (req, res) => {
     const { label } = req.body
     const parentListRecord = await listRecord.findOne({
@@ -161,7 +162,7 @@ router.post('/:id/add', async (req, res) => {
         res.redirect(`/admin/${req.params.id}/listRecordValue`)
     }
 })
-
+// Active/Inactive List
 router.delete('/:id', async (req, res) => {
     const foundList = await listRecord.findOne({
         where: {
@@ -177,7 +178,7 @@ router.delete('/:id', async (req, res) => {
 
     res.json({ status: 200, message: `List/Record ${foundList.active ? 'Activated' : 'Deactivated'} Successfully!`, active: foundList.active })
 })
-
+// Delete listRecord Permanently
 router.delete('/remove/:id', async (req, res) => {
     try {
         await async.parallel([
@@ -202,7 +203,7 @@ router.delete('/remove/:id', async (req, res) => {
         res.status(500).json({ status: 500, message: err.toString() })
     }
 })
-
+// Active/Inactive Values Of a ListRecord
 router.delete('/value/:id', async (req, res) => {
     const foundListValue = await listRecordValues.findOne({
         where: {
@@ -218,6 +219,7 @@ router.delete('/value/:id', async (req, res) => {
 
     res.json({ status: 200, message: `Value ${foundListValue.active ? 'Activated' : 'Deactivated'} Successfully!`, active: foundListValue.active })
 })
+// Delete Values Of a ListRecord Permanently
 router.delete('/value/remove/:id', async (req, res) => {
     try {
         const listRecordValue = await listRecordValues.destroy({
@@ -233,7 +235,7 @@ router.delete('/value/remove/:id', async (req, res) => {
         res.status(500).json({ status: 500, message: err.toString() })
     }
 })
-
+// Updating Names of ListRecord
 router.patch('/:id', async (req, res) => {
     const { newValue } = req.body
     try {
@@ -263,7 +265,7 @@ router.patch('/:id', async (req, res) => {
     }
 })
 
-
+//Updating Values of a List Record
 router.patch('/value/:id', async (req, res) => {
     const { newValue } = req.body
     try {

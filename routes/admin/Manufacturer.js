@@ -3,12 +3,12 @@ const express = require('express')
 const { Manufacturer, ActivityLog } = require('../../models')
 
 const router = express.Router()
-
+//Fetching Existing Manufacturers
 router.get('/', async (req, res) => {
     const manufacturer = await Manufacturer.findAll()
     res.render('admin/manufacturer', { User: req.user, attr: manufacturer })
 })
-
+//Create Manufacturer
 router.post('/add', async (req, res) => {
     const { name } = req.body
     if (!name) {
@@ -29,7 +29,7 @@ router.post('/add', async (req, res) => {
         res.redirect('/admin/Manufacturer')
     }
 })
-
+//Update Manufacturer Name
 router.patch('/:id',async(req,res) => {
     const {newValue} = req.body
     try{
@@ -59,7 +59,7 @@ router.patch('/:id',async(req,res) => {
     }
 
 })
-
+// Active/Inactive Status Manufacturer
 router.delete('/:id', async (req, res) => {
     const found = await Manufacturer.findOne({
         where: {
@@ -79,7 +79,7 @@ router.delete('/:id', async (req, res) => {
     res.json({ status: 200, message: `${found.active ? 'Activated' : 'Deactivated'} Successfully!`, active: found.active })
 })
 
-
+//Delete Manufacturer Name
 router.delete('/remove/:id', async (req, res) => {
     try {
         const manufacturer = await Manufacturer.findOne({

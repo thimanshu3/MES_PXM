@@ -207,6 +207,29 @@
                                 <div class="card">
                                     <div class="card-header d-flex justify-content-between">
                                         <div class="title">
+                                            Table
+                                        </div>
+                                        <button id="assignSelectedTable" class="btn btn-sm btn-primary">
+                                            Assign Table
+                                        </button>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <% data.tableData.forEach(table=> { %>
+                                        <label class="selectgroup-item m-2">
+                                            <input type="radio" name="itemtable" id="<%=table.id %>"
+                                                value="<%=table.fields %>" class="selectgroup-input fclass">
+                                            <span class="selectgroup-button">
+                                                <%=table.name %>
+                                            </span>
+                                        </label>
+                                        <% }); %>
+
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between">
+                                        <div class="title">
                                             Field Groups
                                         </div>
                                         <button id="assignSelectedGroup" class="btn btn-sm btn-primary">
@@ -214,17 +237,17 @@
                                         </button>
                                     </div>
                                     <div class="card-body">
-
+                                
                                         <% data.itemGroups.forEach(group=> { %>
-                                        <label class="selectgroup-item m-2">
-                                            <input type="radio" name="itemgroups" id="<%=group._id %>"
-                                                value="<%=group.fieldIds %>" class="selectgroup-input fclass">
-                                            <span class="selectgroup-button">
-                                                <%=group.name %>
-                                            </span>
-                                        </label>
-                                        <% }); %>
-
+                                            <label class="selectgroup-item m-2">
+                                                <input type="radio" name="itemgroups" id="<%=group._id %>" value="<%=group.fieldIds %>"
+                                                    class="selectgroup-input fclass">
+                                                <span class="selectgroup-button">
+                                                    <%=group.name %>
+                                                </span>
+                                            </label>
+                                            <% }); %>
+                                
                                     </div>
                                 </div>
                                 <div class="card">
@@ -308,26 +331,35 @@
     <script>
         const form = '<%- JSON.stringify(data.formData) %>'
         const parseForm = JSON.parse(form)
-        function getValues(obj, key, value, data) {
+        function getValues(obj, key, value, data,assignTo) {
             for (var i in obj) {
                 if (!obj.hasOwnProperty(i)) continue;
                 if (typeof obj[i] == 'object') {
-                    getValues(obj[i], key, value, data)
+                    getValues(obj[i], key, value, data,assignTo)
                 }
                 else if (i == key && obj[i].toString().trim() == value.trim()) {
-                    data.forEach(element =>
-                        obj.AssignedFields.push({ fieldId: element })
-                    )
+                    if(assignTo=='table') obj.AssignedTable = data
+                    else if(assignTo=='fields'){
+                        data.forEach(element =>
+                            obj.AssignedFields.push({ fieldId: element })
+                        )
+                    }
                 }
             }
             return obj
 
         }
 
+        document.getElementById("assignSelectedTable").addEventListener("click", function () {
+            let component = $("input[name='component']:checked").val()
+            let data = $("input[name='itemtable']:checked").attr('id')
+            console.log(data);
+            assignFieldsAndGroups(component, data,'table')
+        });
         document.getElementById("assignSelectedGroup").addEventListener("click", function () {
             let component = $("input[name='component']:checked").val()
             let data = $("input[name='itemgroups']:checked").val().split(',')
-            assignFieldsAndGroups(component, data)
+            assignFieldsAndGroups(component, data,'field')
         });
 
         document.getElementById("assignSelectedFields").addEventListener("click", function () {
@@ -339,14 +371,14 @@
                     data.push(this.value)
                 }
             });
-            assignFieldsAndGroups(component, data)
+            assignFieldsAndGroups(component, data,'field')
         });
 
 
-        const assignFieldsAndGroups = (componentId, fields) => {
+        const assignFieldsAndGroups = (componentId, fields,type) => {
             var value = componentId
             let data = fields
-            const newForm = getValues(parseForm, '_id', value, data)
+            const newForm = getValues(parseForm, '_id', value, data, type)
             newForm.allFields.push(...fields)
             console.log("New Form: ", newForm);
             fetch(`/admin/customform/${parseForm.formId}/fieldmap/assign`, {

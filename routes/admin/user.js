@@ -5,7 +5,7 @@ const { User } = require('../../models')
 const { sendMail, random, genNewUserWelcomeTemplate } = require('../../util')
 
 const router = express.Router()
-
+//Fetch User by Userid
 router.patch('/:id', async (req, res) => {    
     const user = await User.findOne({
         where: {
@@ -55,7 +55,7 @@ router.patch('/:id', async (req, res) => {
         return res.status(500).json({ message: err.toString() || 'Somthing Went Wrong!' })
     }
 })
-
+// Active/Inactive User
 router.delete('/:id', async (req, res) => {
     const foundUser = await User.findOne({
         where: {

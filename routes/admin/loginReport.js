@@ -5,7 +5,7 @@ const { User, LoginReport } = require('../../models')
 const { formatDateMoment } = require('../../util')
 
 const router = express.Router()
-
+//generate Login Reports
 router.get('/', async (req, res) => {
     try {
         const [result] = await MySql.query('SELECT users.id AS id, count(loginReports.id) AS loginCount, loginReports.createdAt AS lastLogin, users.email AS email, users.firstName AS firstName, users.lastName AS lastName, users.active AS active, users.role AS role FROM users LEFT JOIN (SELECT * FROM loginReports ORDER BY createdAt DESC) loginReports ON users.id = loginReports.user GROUP BY users.id')
@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
         res.redirect('/')
     }
 })
-
+//Status of the user
 router.get('/:id', async (req, res) => {
     try {
         const foundUser = await User.findOne({

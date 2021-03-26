@@ -6,7 +6,7 @@ const { formatDateMoment } = require('../../util')
 
 const router = express.Router()
 
-
+//Add Product to a Form
 router.get('/:formId/product/:productId', async (req, res) => {
     try {
         let layout = await FormDesign.findOne({ formId: req.params.formId })
@@ -53,7 +53,6 @@ router.get('/:formId/product/:productId', async (req, res) => {
         res.redirect('/')
     }
 })
-
 
 router.post('/', async (req, res) => {
     try {
