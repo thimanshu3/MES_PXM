@@ -112,6 +112,29 @@
                                                             </div>
                                                             <% }else{ %>
                                                             <%subComponent.AssignedFields.forEach(_a=>{%>
+                                                            <%if(typeof _a.field != 'undefined' ){%>
+                                                                <% if(_a.field.inputType=='list/record' ){ %>
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-group">
+                                                                            <label for="smallSelect" style="width: 100%">
+                                                                                <%= _a.field.label%>
+                                                                            </label>
+                                                                            <select name="<%= _a.field.id%>" class="form-control form-control-sm" id="smallSelect">
+                                                                                <option>
+                                                                                </option>
+                                                                                <% if(_a.field.list !=null){ %>
+                                                                                    <% if(_a.field.list !=null) { _a.field.list.split('----').forEach(b=>
+                                                                                        {%>
+                                                                                        <option value=<%=b %>
+                                                                                            >
+                                                                                            <%= b %>
+                                                                                        </option>
+                                                                                        <%})}}%>
+                                                                
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <%}%>
                                                             <% if(_a.field.inputType=='checkbox'){ %>
                                                             <div class="col-md-3">
                                                                 <div class="form-check">
@@ -140,6 +163,7 @@
                                                                 </div>
                                                             </div>
                                                             <% }  %>
+                                                            <%}%>
                                                             <%})} %>
                                                         </div>
                                                     </section>
