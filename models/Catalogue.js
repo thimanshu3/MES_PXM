@@ -5,7 +5,6 @@ const { MySql } = require('../db')
 const Catalogue = MySql.define('Catalogue', {
     id: {
         type: Sequelize.INTEGER,
-        unique: true,
         autoIncrement:true,
         primaryKey: true,
     },

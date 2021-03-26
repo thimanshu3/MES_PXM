@@ -17,7 +17,7 @@ router.get('/:formId/product/:productId', async (req, res) => {
                 await Promise.all(component.subComponents.map(async subComponent => {
                     if (subComponent.type == 'sec') {
                         await Promise.all(subComponent.AssignedFields.map(async a => {
-                            const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
+                            const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,Case when inputFields.associatedList != "-"  then (select group_concat(label SEPARATOR "----") from listRecordValues where parentListId = inputFields.associatedList) else null  END as list,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
                             delete a.fieldId
                             a.field = fields[0][0]
                         }))
@@ -25,7 +25,7 @@ router.get('/:formId/product/:productId', async (req, res) => {
                         await Promise.all(subComponent.tabComponents.map(async tabComponent => {
                             await Promise.all(tabComponent.pageContent.map(async page => {
                                 await Promise.all(page.AssignedFields.map(async a => {
-                                    const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
+                                    const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,Case when inputFields.associatedList != "-"  then (select group_concat(label SEPARATOR "----") from listRecordValues where parentListId = inputFields.associatedList) else null  END as list,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
                                     delete a.fieldId
                                     a.field = fields[0][0]
                                 }))
@@ -38,7 +38,7 @@ router.get('/:formId/product/:productId', async (req, res) => {
                 await Promise.all(component.subComponents.map(async subComponent => {
                     await Promise.all(subComponent.tabComponents.map(async tabComponent => {
                         await Promise.all(tabComponent.AssignedFields.map(async a => {
-                            const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
+                            const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,Case when inputFields.associatedList != "-"  then (select group_concat(label SEPARATOR "----") from listRecordValues where parentListId = inputFields.associatedList) else null  END as list,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
                             delete a.fieldId
                             a.field = fields[0][0]
                         }))

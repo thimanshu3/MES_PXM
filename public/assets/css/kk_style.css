@@ -700,18 +700,18 @@ table.dataTable {
      background-color: rgba(0,0,0,.03);
 }
 
-.dataTable .form-button-action .btn{
+.form-button-action .btn{
   padding: 0px 8px !important;
   background: transparent  !important;
   border: 0px !important;
 }
 
-.dataTable .form-button-action .btn i {
+.form-button-action .btn i {
     color: #5394ca9c;
     transition: transform .2s;
 }
 
-.dataTable .form-button-action .btn i:hover{
+.form-button-action .btn i:hover{
       transform: scale(1.3);
 }
 
@@ -1433,9 +1433,9 @@ table.dataTable thead .sorting:before{
         margin: 15px 0px !important;
 }
 
-.kk_full_form .card-body .form-group {
+.kk_product_page .card-body .form-group {
     width: 100%;
-    padding: 0px !important;
+    padding: 10px 0px 0px !important;
 }
 
 .Kk_delete_tab {
@@ -1444,4 +1444,36 @@ table.dataTable thead .sorting:before{
     margin-top: -18px;
     padding: 0px;
     color: #000;
+}
+
+.kk_product_page  .form-control{
+  border-color: darkgrey !important;
+}
+
+#nestable3{
+      max-width: 94%;
+    margin: auto;
+}
+
+.dd-handle {
+ border: 1px solid #4d7393 !important;
+    background: #ffffff !important;
+ 
+}
+
+.color_secondary{
+  color: #5394ca !important;
+}
+
+.kkay_field_map_link{
+      display: flex;
+    align-items: center;
+ border-bottom: 1px solid lightgrey;
+    padding: 8px 2px;
+}
+
+
+.kkay_field_map_link .k_field{
+  width: 46%;
+  text-align: center;
 }

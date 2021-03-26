@@ -289,6 +289,8 @@
         };
 
         const initializeCatalog = (data) => {
+                                   
+
             $('#files').jstree({
                 'core': {
                     data,
@@ -376,6 +378,8 @@
 
                         }).catch(err => console.log(err))
                 });
+            $('#files').jstree("refresh");
+
         }
 
         $('#cataloghierarchy').on('select2:select', function (e) {

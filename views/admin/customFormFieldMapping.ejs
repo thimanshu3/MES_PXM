@@ -39,227 +39,238 @@
     <div class="wrapper">
         <%-include('../partials/config')%>
 
-            <!-- header -->
-            <%-include('../partials/header.ejs')%>
-                <!-- header end -->
+        <!-- header -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header end -->
 
-                <!-- Sidebar -->
-                <%-include('../partials/sidebar.ejs')%>
-                    <!-- End Sidebar -->
+        <!-- Sidebar -->
+        <%-include('../partials/sidebar.ejs')%>
+        <!-- End Sidebar -->
 
-                    <div class="main-panel">
-                        <div class="content">
-                            <div class="page-inner">
-                                <div class="page-header">
+        <div class="main-panel">
+            <div class="content">
+                <div class="page-inner">
+                    <div class="page-header">
 
-                                    <ul class="breadcrumbs">
-                                        <li class="nav-home">
-                                            <a href="/admin/dashboard">
-                                                <i class="flaticon-home"></i>
-                                            </a>
-                                        </li>
-                                        <li class="separator">
-                                            <i class="flaticon-right-arrow"></i>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#">Product Data</a>
-                                        </li>
-                                        <li class="separator">
-                                            <i class="flaticon-right-arrow"></i>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#">All Custom Forms</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div id="forms" class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    Form Layout
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="scroll-area-lg"  style="height: 78vh;">
-                                                        <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
-                                                    <div class="dd" id="nestable">
-                                                        <ol class="dd-list-d">
-                                                            <%data.formData.componets.forEach((component,i)=> { %>
-                                                                <li class="dd-item mb-5" data-id="<%= i  %>">
+                        <ul class="breadcrumbs">
+                            <li class="nav-home">
+                                <a href="/admin/dashboard">
+                                    <i class="flaticon-home"></i>
+                                </a>
+                            </li>
+                            <li class="separator">
+                                <i class="flaticon-right-arrow"></i>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#">Product Data</a>
+                            </li>
+                            <li class="separator">
+                                <i class="flaticon-right-arrow"></i>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#">All Custom Forms</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <% function search(nameKey, myArray){
+                        for (var i=0; i < myArray.length; i++) {
+                            if (myArray[i].id === nameKey) {
+                                return myArray[i].label;
+                            }
+                        }
+                    } %>
+                    <div id="forms" class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Form Layout
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="scroll-area-lg" style="height: 78vh;">
+                                            <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
+                                                <div class="dd" id="nestable3">
+                                                    <ol class="dd-list">
+                                                        <%data.formData.componets.forEach((component,i)=> { %>
+                                                        <li class="dd-item mb-5" data-id="<%= i++  %>">
+                                                            <div class="dd-handle">
+
+                                                                <%=++i %>.&nbsp;&nbsp;<%= component.name %>
+                                                                <span class="badge badge-pill badge-dark"
+                                                                    style="float: right;">
+                                                                    <%= component.type == 'sec' ? 'section' : 'Tab' %>
+                                                                </span>
+                                                            </div>
+                                                            <% if(component.subComponents.length){ %>
+                                                            <ol class="dd-list">
+                                                                <%component.subComponents.forEach((subComponent,j)=>  { %>
+                                                                <% if(subComponent.type=='tab' ){ %>
+                                                                <li class="dd-item" data-id="<%= j++ %>">
                                                                     <div class="dd-handle">
-
-                                                                        <%=++i %>.&nbsp;&nbsp;<%= component.name %>
-                                                                                <span
-                                                                                    class="badge badge-pill badge-dark"
-                                                                                    style="float: right;">
-                                                                                    <%= component.type %>
-                                                                                </span>
+                                                                        <%=subComponent.name%> <span
+                                                                            class="badge badge-pill badge-info"
+                                                                            style="float: right;">
+                                                                            <%= subComponent.type == 'sec' ? 'section' : 'Sub-Tab' %>
+                                                                        </span>
                                                                     </div>
-                                                                    <% if(component.subComponents.length){ %>
-                                                                        <ol class="dd-list">
-                                                                            <%component.subComponents.forEach(subComponent=>
-                                                                                { %>
-                                                                                <% if(subComponent.type=='tab' ){ %>
-                                                                                    <li class="dd-item" data-id="5">
-                                                                                        <div class="dd-handle">
-                                                                                            <input name="component"
-                                                                                                class="form-check-input mr-2"
-                                                                                                type="radio"
-                                                                                                id="<%=subComponent.type %>-<%=subComponent.order %>"
-                                                                                                value="<%=subComponent._id %> ">
+                                                                    <ol class="dd-list">
+                                                                        <%subComponent.tabComponents.forEach(tabComponent=> { %> 
+                                                                            <li class="dd-item" data-id="6">
+                                                                            <div class="dd-handle">
+                                                                                <%=tabComponent.name%>
+                                                                                <%=subComponent.name%> <span class="badge badge-pill badge-primary" style="float: right;">
+                                                                                    <%= tabComponent.type == 'sec' ? 'sub-section' : 'Tab-Page' %>
+                                                                                </span>
+                                                                            </div>
 
-                                                                                            <%=subComponent.name%> <span
-                                                                                                    class="badge badge-pill badge-info"
-                                                                                                    style="float: right;">
-                                                                                                    <%= subComponent.type
-                                                                                                        %>
-                                                                                                </span>
-                                                                                        </div>
-                                                                                        <ol class="dd-list">
-                                                                                            <%subComponent.tabComponents.forEach(tabComponent=>
-                                                                                                { %> <li class="dd-item"
-                                                                                                    data-id="6">
-                                                                                                    <div
-                                                                                                        class="dd-handle">
-                                                                                                        <input
-                                                                                                            name="component"
-                                                                                                            class="form-check-input mr-2"
-                                                                                                            type="radio"
-                                                                                                            id="<%=tabComponent.type %>-<%=tabComponent.order %>"
-                                                                                                            value="<%=tabComponent._id %> ">
-                                                                                                        <%=tabComponent.name%>
+                                                                            <% if(tabComponent.pageContent) {%>
+                                                                            <ol class="dd-list">
+                                                                                <%tabComponent.pageContent.forEach(page=> { %>
+                                                                                <li class="dd-item" data-id="6">
+                                                                                    <div class="dd-handle">
+                                                                                        <input name="component"
+                                                                                            class="form-check-input mr-2"
+                                                                                            type="radio"
+                                                                                            id="sec-<%=page.order %>"
+                                                                                            value="<%=page._id %> ">
+                                                                                        <%=page.name%>
+                                                                                        <a class="btn btn-light badge btn-sm" data-toggle="collapse" href="#multi-<%=page._id%>" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" style="float: right;">
+                                                                                            <%= page.AssignedFields.length == 0 ? 'N-A' : page.AssignedFields.length + '  Fields' %>  
+                                                                                        </a>
+                                                                                    </div>
+                                                                                   
+                                                                                    <div class="col">
+                                                                                        <div class="collapse multi-collapse" id="multi-<%=page._id%>">
+                                                                                            <div class="card card-body">
+                                                                                                <div class="scroll-area-lg" style="height:300px">
+                                                                                                    <div class="scrollbar-container ps--active-y ps">
+                                                                                                        <% if(page.AssignedFields.length==0){ %>
+                                                                                                            <div class="mx-auto Kk_no_assigned">
+                                                                                                                <img class="img-responsive" src="/assets/img/no_field_assigned.png">
+                                                                                                                <h4>No Field Assigned
+                                                                                                                </h4>
+                                                                                                                <h6>Please Assign some Fields</h6>
+                                                                                                            </div>
+                                                                                                       <% } %> 
+                                                                                                        <%page.AssignedFields.forEach(a=>{ %>
+                                                                                                            <label class="selectgroup-item m-2">
+                                                                                                                <input type="select" 
+                                                                                                                    class="selectgroup-input fclass" >
+                                                                                                                <span class="selectgroup-button">
+                                                                                                                   <%= search(a.fieldId,data.itemFields)  %> 
+                                                                                                                </span>
+                                                                                                                </input>
+                                                                                                            </label>
+                                                                                                       <% })  %>  
+                                                                                                        
                                                                                                     </div>
-
-                                                                                                    <% if(tabComponent.pageContent)
-                                                                                                        {%>
-                                                                                                        <ol
-                                                                                                            class="dd-list">
-                                                                                                            <%
-                                                                                                                tabComponent.pageContent.forEach(page=>
-                                                                                                                { %>
-                                                                                                                <li class="dd-item"
-                                                                                                                    data-id="6">
-                                                                                                                    <div
-                                                                                                                        class="dd-handle">
-                                                                                                                        <input
-                                                                                                                            name="component"
-                                                                                                                            class="form-check-input mr-2"
-                                                                                                                            type="radio"
-                                                                                                                            id="sec-<%=page.order %>"
-                                                                                                                            value="<%=page._id %> ">
-                                                                                                                        <%=page.name%>
-                                                                                                                    </div>
-                                                                                                                </li>
-                                                                                                                <% }) %>
-                                                                                                        </ol>
-                                                                                                        <% } %>
-                                                                                                </li>
-                                                                                                <% }) %>
-                                                                                        </ol>
-                                                                                    </li>
-                                                                                    <% }else{ %>
-                                                                                        <li class="dd-item" data-id="6">
-                                                                                            <div class="dd-handle">
-                                                                                                <input name="component"
-                                                                                                    class="form-check-input mr-2"
-                                                                                                    type="radio"
-                                                                                                    id="<%=subComponent.type %>-<%=subComponent.order %>"
-                                                                                                    value="<%=subComponent._id %> ">
-                                                                                                <%=subComponent.name%>
-                                                                                                    <span
-                                                                                                        class="badge badge-pill badge-secondary"
-                                                                                                        style="float: right;">
-                                                                                                        <%= subComponent.type=='sec'
-                                                                                                            ? 'sub-section'
-                                                                                                            : '' %>
-                                                                                                    </span>
+                                                                                                </div>
                                                                                             </div>
-                                                                                        </li>
-                                                                                        <% } %>
-                                                                                            <% }) %>
-                                                                        </ol>
-                                                                        <% } %>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                                <% }) %>
+                                                                            </ol>
+                                                                            <% } %>
+                                                                        </li>
+                                                                        <% }) %>
+                                                                    </ol>
                                                                 </li>
+                                                                <% }else{ %>
+                                                                <li class="dd-item" data-id="6">
+                                                                    <div class="dd-handle">
+                                                                        <input name="component"
+                                                                            class="form-check-input mr-2" type="radio"
+                                                                            id="<%=subComponent.type %>-<%=subComponent.order %>"
+                                                                            value="<%=subComponent._id %> ">
+                                                                        <%=subComponent.name%>
+                                                                        <span class="badge badge-pill badge-secondary"
+                                                                            style="float: right;">
+                                                                            <%= subComponent.type=='sec' ? 'sub-section' : '' %>
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <% } %>
                                                                 <% }) %>
-                                                        </ol>
-                                                    </div>
-                                                    </div>
-                                                    </div>
+                                                            </ol>
+                                                            <% } %>
+                                                        </li>
+                                                        <% }) %>
+                                                    </ol>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-7">
-                                            <div class="card">
-                                                <div class="card-header d-flex justify-content-between">
-                                                    <div class="title">
-                                                        Field Groups
-                                                    </div>
-                                                    <button id="assignSelectedGroup" class="btn btn-sm btn-primary">
-                                                        Assign Group
-                                                    </button>
-                                                </div>
-                                                <div class="card-body">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between">
+                                        <div class="title">
+                                            Field Groups
+                                        </div>
+                                        <button id="assignSelectedGroup" class="btn btn-sm btn-primary">
+                                            Assign Group
+                                        </button>
+                                    </div>
+                                    <div class="card-body">
 
-                                                    <% data.itemGroups.forEach(group=> { %>
-                                                        <label class="selectgroup-item m-2">
-                                                            <input type="radio" name="itemgroups" id="<%=group._id %>"
-                                                                value="<%=group.fieldIds %>"
-                                                                class="selectgroup-input fclass">
-                                                            <span class="selectgroup-button">
-                                                                <%=group.name %>
-                                                            </span>
-                                                        </label>
-                                                        <% }); %>
+                                        <% data.itemGroups.forEach(group=> { %>
+                                        <label class="selectgroup-item m-2">
+                                            <input type="radio" name="itemgroups" id="<%=group._id %>"
+                                                value="<%=group.fieldIds %>" class="selectgroup-input fclass">
+                                            <span class="selectgroup-button">
+                                                <%=group.name %>
+                                            </span>
+                                        </label>
+                                        <% }); %>
 
-                                                </div>
-                                            </div>
-                                            <div class="card">
-                                                <div class="card-header d-flex justify-content-between">
-                                                    <div class="title">
-                                                        Field Items
-                                                    </div>
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control" name="searchColumn" id="searchColumn">
-                                                        </div>
-                                                    <button id="assignSelectedFields" class="btn btn-sm btn-primary">
-                                                        Assign Fields
-                                                    </button>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="selectgroup selectgroup-pills">
-                                                        <div class="scroll-area-lg">
-                                                            <div id="fieldListArea"
-                                                                class="scrollbar-container ps--active-y ps">
-                                                                <% data.itemFields.forEach((item,i)=> { %>
-                                                                    
-                                                                    <% if(item.type=='list/record') {%>
-                                                                        <% if (item.lr != '-' ) { %>
-                                                                            <label class="selectgroup-item m-2">
-                                                                                <input type="checkbox" name="itemfields" id="field-<%=item.id %>" value="<%=item.id %>"
-                                                                                    class="selectgroup-input fclass" <%=data.formData.allFields.includes(item.id) ? 'checked disabled' : '' %> >
-                                                                                <span class="selectgroup-button">
-                                                                                    <%=item.label %>
-                                                                                </span>
-                                                                                </input>
-                                                                            </label>
-                                                                        <%}%>
-                                                                    <% }else{%>    
-                                                                        <label class="selectgroup-item m-2">
-                                                                            <input type="checkbox" name="itemfields"
-                                                                                id="field-<%=item.id %>"
-                                                                                value="<%=item.id %>"
-                                                                                class="selectgroup-input fclass"
-                                                                                <%=data.formData.allFields.includes(item.id)
-                                                                                ? 'checked disabled' : '' %> >
-                                                                            <span class="selectgroup-button">
-                                                                                <%=item.label %>
-                                                                            </span>
-                                                                        </label>
-                                                                    <%}%>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between">
+                                        <div class="title">
+                                            Field Items
+                                        </div>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="searchColumn"
+                                                id="searchColumn">
+                                        </div>
+                                        <button id="assignSelectedFields" class="btn btn-sm btn-primary">
+                                            Assign Fields
+                                        </button>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="selectgroup selectgroup-pills">
+                                            <div class="scroll-area-lg">
+                                                <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
+                                                    <% data.itemFields.forEach((item,i)=> { %>
+
+                                                    <% if(item.type=='list/record') {%>
+                                                    <% if (item.lr != '-' ) { %>
+                                                    <label class="selectgroup-item m-2">
+                                                        <input type="checkbox" name="itemfields"
+                                                            id="field-<%=item.id %>" value="<%=item.id %>"
+                                                            class="selectgroup-input fclass"
+                                                            <%=data.formData.allFields.includes(item.id) ? 'checked disabled' : '' %>>
+                                                        <span class="selectgroup-button">
+                                                            <%=item.label %>
+                                                        </span>
+                                                        </input>
+                                                    </label>
+                                                    <%}%>
+                                                                    <% }else{%>
+                                                    <label class="selectgroup-item m-2">
+                                                        <input type="checkbox" name="itemfields"
+                                                            id="field-<%=item.id %>" value="<%=item.id %>"
+                                                            class="selectgroup-input fclass" <%=data.formData.allFields.includes(item.id)
+                                                                                ? 'checked disabled' : '' %>>
+                                                        <span class="selectgroup-button">
+                                                            <%=item.label %>
+                                                        </span>
+                                                    </label>
+                                                    <%}%>
                                                                 <% }); %>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -267,8 +278,11 @@
                                 </div>
                             </div>
                         </div>
-                        <%-include('../partials/footer.ejs')%>
                     </div>
+                </div>
+            </div>
+            <%-include('../partials/footer.ejs')%>
+        </div>
 
     </div>
 
@@ -288,9 +302,7 @@
     <!-- jQuery UI -->
     <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/nestable2/1.6.0/jquery.nestable.min.js"
-        integrity="sha512-7bS2beHr26eBtIOb/82sgllyFc1qMsDcOOkGK3NLrZ34yTbZX8uJi5sE0NNDYFNflwx1TtnDKkEq+k2DCGfb5w=="
-        crossorigin="anonymous"></script>   
+ 
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
     <script>
@@ -367,68 +379,67 @@
                 .catch(err => console.log(err))
         }
 
-            
     </script>
     <script>
-             
-            $('#searchColumn').on('change', function(){
-                var v = $(this).val();
-              highlight(v);
-            })
-            function visibleTextNodes() {
-                    var walker = document.createTreeWalker(
-                        document.body,
-                        NodeFilter.SHOW_ALL,
-                        function (node) {
-                            if (node.nodeType == 3) {
-                                return NodeFilter.FILTER_ACCEPT;
-                            } else if (node.offsetWidth && node.offsetHeight && node.style.visibility != 'hidden') {
-                                return NodeFilter.FILTER_SKIP;
-                            } else {
-                                return NodeFilter.FILTER_REJECT;
-                            }
-                        },
-                        false
-                    );
 
-                    for (var nodes = []; walker.nextNode();) {
-                        nodes.push(walker.currentNode);
+        $('#searchColumn').on('change', function () {
+            var v = $(this).val();
+            highlight(v);
+        })
+        function visibleTextNodes() {
+            var walker = document.createTreeWalker(
+                document.body,
+                NodeFilter.SHOW_ALL,
+                function (node) {
+                    if (node.nodeType == 3) {
+                        return NodeFilter.FILTER_ACCEPT;
+                    } else if (node.offsetWidth && node.offsetHeight && node.style.visibility != 'hidden') {
+                        return NodeFilter.FILTER_SKIP;
+                    } else {
+                        return NodeFilter.FILTER_REJECT;
                     }
-                    return nodes;
+                },
+                false
+            );
+
+            for (var nodes = []; walker.nextNode();) {
+                nodes.push(walker.currentNode);
+            }
+            return nodes;
+        }
+
+
+        function highlight(needle) {
+            needle = needle.replace(/\s/g, '').toLowerCase();
+
+            var textNodes = visibleTextNodes();
+
+            for (var i = 0, texts = []; i < textNodes.length; i++) {
+                texts.push(textNodes[i].nodeValue.replace(/\s/g, '').toLowerCase());
+            }
+
+            var matchStart = texts.join('').indexOf(needle);
+            if (matchStart < 0) {
+                return false;
+            }
+
+            var nodeAndOffsetAtPosition = function (position) {
+                for (var i = 0, consumed = 0; consumed + texts[i].length < position; i++) {
+                    consumed += texts[i].length;
                 }
+                var whitespacePrefix = textNodes[i].nodeValue.match(/^\s*/)[0];
+                return [textNodes[i], position - consumed + whitespacePrefix.length];
+            };
 
-                
-                function highlight(needle) {
-                    needle = needle.replace(/\s/g, '').toLowerCase();
+            var range = document.createRange();
+            range.setStart.apply(range, nodeAndOffsetAtPosition(matchStart));
+            range.setEnd.apply(range, nodeAndOffsetAtPosition(matchStart + needle.length));
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            range.startContainer.parentNode.scrollIntoView();
+        }
 
-                    var textNodes = visibleTextNodes();
 
-                    for (var i = 0, texts = []; i < textNodes.length; i++) {
-                        texts.push(textNodes[i].nodeValue.replace(/\s/g, '').toLowerCase());
-                    }
-
-                    var matchStart = texts.join('').indexOf(needle);
-                    if (matchStart < 0) {
-                        return false;
-                    }
-
-                    var nodeAndOffsetAtPosition = function (position) {
-                        for (var i = 0, consumed = 0; consumed + texts[i].length < position; i++) {
-                            consumed += texts[i].length;
-                        }
-                        var whitespacePrefix = textNodes[i].nodeValue.match(/^\s*/)[0];
-                        return [textNodes[i], position - consumed + whitespacePrefix.length];
-                    };
-
-                    var range = document.createRange();
-                    range.setStart.apply(range, nodeAndOffsetAtPosition(matchStart));
-                    range.setEnd.apply(range, nodeAndOffsetAtPosition(matchStart + needle.length));
-                    window.getSelection().removeAllRanges();
-                    window.getSelection().addRange(range);
-                    range.startContainer.parentNode.scrollIntoView();
-                }
-
-                
     </script>
 </body>
 

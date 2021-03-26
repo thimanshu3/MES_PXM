@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
     }
     try {
         const cataloghierarchy = await CatalogueHierarchy.create({ name, createdBy: req.user.id })
-        await Catalogue.create({ id: 1, catalogueHierarchy: cataloghierarchy.id, text: name, parentId: 0, createdBy: req.user.id })
+        await Catalogue.create({ catalogueHierarchy: cataloghierarchy.id, text: name, parentId: 0, createdBy: req.user.id })
         req.flash('success', `${cataloghierarchy.name} Added Successfully!`)
         res.redirect(`/admin/catalog`)
     } catch (err) {

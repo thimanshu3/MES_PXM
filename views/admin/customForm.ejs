@@ -90,7 +90,9 @@
                                                             <th>Created At</th>
                                                             <th>Stage</th>
                                                             <th>Status</th>
+                                                            <th>Stage</th>
                                                             <th>Action</th>
+                                                            
                                                         </tr>
                                                     </thead>
 
@@ -115,7 +117,24 @@
                                                                         class="badge badge-<%= _a.active ? 'success' : 'danger' %>">
                                                                         <%= _a.active ? 'ACTIVE' : 'INACTIVE' %>
                                                                     </span></td>
+                                                                    <td>
+                                                                        <% if(_a.stage!=1) { %>
+                                                                            <a style="text-decoration: none;" href="/admin/customform/<%=_a.id %>/form" type="button" data-toggle="tooltip"
+                                                                                title="" class="color_secondary" data-original-title="Edit Task">
+                                                                                View Form
+                                                                             
+                                                                            </a>
+                                                                            <% }else{ %>
+                                                                                <a style="text-decoration: none;" href="/admin/customform/<%= _a.id %>" type="button" data-toggle="tooltip"
+                                                                                    title="" class="color_secondary" data-original-title="Edit Task">
+                                                                                    Complete Form Layout
+                                                                                    
+                                                                                </a>
+                                                                                <% } %>
+                                                                    </td>
                                                                 <td>
+
+                                                                    
                                                                     <div class="form-button-action">
                                                                         <button type="button" data-toggle="tooltip"
                                                                             onclick="editValue('/admin/customform/<%=_a.id%>','PATCH','<%=_a.name %>')" title=""
@@ -137,22 +156,7 @@
                                                                             data-original-title="Remove">
                                                                             <i class="fas fa-trash"></i>
                                                                         </button>
-                                                                        <% if(_a.stage!=1) { %>
-                                                                        <a style="text-decoration: none;"
-                                                                            href="/admin/customform/<%=_a.id %>/form"
-                                                                            type="button" data-toggle="tooltip" title=""
-                                                                            class="btn btn-link"
-                                                                            data-original-title="Edit Task">
-                                                                            View Form
-                                                                            <i class="flaticon-right-arrow"></i>
-                                                                        </a>
-                                                                        <% }else{ %>
-                                                                            <a style="text-decoration: none;" href="/admin/customform/<%= _a.id %>" type="button" data-toggle="tooltip" title=""
-                                                                                class="btn btn-link" data-original-title="Edit Task">
-                                                                                Complete Form Layout
-                                                                                <i class="flaticon-right-arrow"></i>
-                                                                            </a>
-                                                                        <% } %>
+                                                                      
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -171,7 +175,7 @@
                     </div>
 
     </div>
-    <div class="modal kk_modal_popup_form" id="kk_create_group" style="display: none;" aria-hidden="true">
+    <div class="modal kk_modal_popup_form" id="kk_create_group" style="display: none;" aria-hidden="true" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
 
@@ -227,6 +231,8 @@
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
     <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+        <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+
     <script>
         var table = $('#add-row').DataTable({
             select: {
