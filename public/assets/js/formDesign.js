@@ -124,7 +124,7 @@ const addComponent = (type, where) => {
         let str1 = str[1] + '-' + str[2];
         orderObject[where] = ++orderObject[where];
         orderObject[`ctabc-${str1}-${orderObject[where]}-list`] = 1;
-        orderObject[`ctabc-sec-${order}-${orderObject[where]}`] = 0;
+        orderObject[`ctabc-sec-${order}-${orderObject[where]}-1`] = 0;
         console.log(`home -> ctabc-sec-${order}-${orderObject[where]}`);
         $(`#${where}`).append(`
             <div class="m-3" id="${str1}-tab-${orderObject[where]}">
@@ -145,7 +145,7 @@ const addComponent = (type, where) => {
                     <div class="card-body">
                         <ul  class="nav nav-pills nav-secondary nav-pills-no-bd" id="ctabc-${str1}-${orderObject[where]}-list" role="tablist">
                             <li class="nav-item submenu" id="ctabc-${str1}-${orderObject[where]}-1-item">
-                                <a class="nav-link"  data-toggle="pill" href="#ctabc-${str1}-${orderObject[where]}-1-content_item" role="tab" aria-controls="pills-home-nobd" aria-selected="false">Home<button onclick="deleteComponent('ctabc-${str1}-${orderObject[where]}-1-item');deleteComponent('ctabc-${str1}-${orderObject[where]}-1-content_item')" class="btn btn-link Kk_delete_tab"><i class="  fas fa-times-circle" ></i></button></a>
+                                <a class="nav-link"  data-toggle="pill" href="#ctabc-${str1}-${orderObject[where]}-1-content_item" role="tab" aria-controls="pills-home-nobd" aria-selected="false"> Home <button onclick="deleteComponent('ctabc-${str1}-${orderObject[where]}-1-item');deleteComponent('ctabc-${str1}-${orderObject[where]}-1-content_item')" class="btn btn-link Kk_delete_tab"><i class="  fas fa-times-circle" ></i></button></a>
                             </li>
                         </ul>
                         <div id="ctabc-${str1}-${orderObject[where]}" class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
