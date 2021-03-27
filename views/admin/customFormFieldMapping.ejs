@@ -331,15 +331,15 @@
     <script>
         const form = '<%- JSON.stringify(data.formData) %>'
         const parseForm = JSON.parse(form)
-        function getValues(obj, key, value, data,assignTo) {
+        function getValues(obj, key, value, data,type) {
             for (var i in obj) {
                 if (!obj.hasOwnProperty(i)) continue;
                 if (typeof obj[i] == 'object') {
-                    getValues(obj[i], key, value, data,assignTo)
+                    getValues(obj[i], key, value, data,type)
                 }
                 else if (i == key && obj[i].toString().trim() == value.trim()) {
-                    if(assignTo=='table') obj.AssignedTable = data
-                    else if(assignTo=='fields'){
+                    if(type=='table') obj.AssignedTable = data
+                    else if(type=='field'){
                         data.forEach(element =>
                             obj.AssignedFields.push({ fieldId: element })
                         )

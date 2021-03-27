@@ -1477,3 +1477,94 @@ table.dataTable thead .sorting:before{
   width: 46%;
   text-align: center;
 }
+
+
+.kk_newacc .accordion .card>.card-header>.span-mode {
+    margin-left: 5px;
+}
+
+.kk_newacc .accordion .card>.card-header>.span-title {
+    margin-left: 15px;
+    margin-right: auto;
+    text-transform: uppercase;
+    color: #4d7393;
+}
+
+.kk_newacc .accordion .kK_accordian_list{
+    text-align: left;
+    margin: 0px 35px;
+
+}
+
+
+.kk_newacc .accordion .kK_accordian_list li{
+ margin: 6px 0px;
+ font-size: 16px;
+
+}
+
+.kk_newacc .accordion .kK_accordian_list li:before{
+    content: "\f105";
+    font-family: 'Font Awesome 5 Solid';
+    font-weight: 900;
+    margin-right: 10px;
+    /* padding-left: 15px; */
+    color: #ffffff;
+    background: #5394ca;
+    padding: 3px 5px;
+    margin-left: 11px;
+    font-size: 10px;
+    border-radius: 2px
+}
+
+.kk_newacc .accordion .card > .card-header {
+    background: white;
+}
+
+.kk_newacc  .accordion .card .card-body {
+border: 1px solid white;
+}
+
+.kk_newacc .accordion .kK_accordian_list li.acc_collapse:before {
+    content: none;
+}
+
+.kk_newacc  .accordion .card>.card-header.collapsed>.span-mode:before {
+        color: #ffffff;
+    background: #5394ca;
+    padding: 3px 4px;
+    font-size: 10px;
+    border-radius: 2px
+}
+
+.kk_newacc  .accordion .card>.card-header>.span-mode:before {
+         color: #ffffff;
+    background: #5394ca;
+    padding: 3px 4px;
+    font-size: 10px;
+    border-radius: 2px;
+}
+
+.form-control {
+   border-color: #b7b7b7 !important;
+}
+
+.bootstrap-tagsinput {
+ border-color: #b7b7b7 !important;
+}
+
+.selectgroup-button {
+border-color: #b7b7b7 !important;
+}
+
+
+.kk_file_tree  .col-md-3 .select2 {
+    width: 160px !important;
+}
+
+.icon-menu:before {
+  content: "\f205" !important;
+    font-family: 'Font Awesome 5 Solid';
+    font-weight: 900;
+}
+

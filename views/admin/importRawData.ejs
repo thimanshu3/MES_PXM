@@ -79,26 +79,31 @@
                               <form role="form" action="" method="post" class="f1">
                                 <div class="f1-steps">
                                   <div class="f1-progress">
-                                    <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3"
-                                      style="width: 16.66%"></div>
+                                    <div class="f1-progress-line" data-now-value="0" data-number-of-steps="1"
+                                      style="width: 0%"></div>
                                   </div>
                                   <div class="f1-step active">
-                                    <div class="f1-step-icon"><i class="fa fa-user"></i></div>
-                                    <p>Step 1</p>
+                                    <div class="f1-step-icon">1</div>
+                                  
                                   </div>
                                   <div class="f1-step">
-                                    <div class="f1-step-icon"><i class="fa fa-key"></i></div>
-                                    <p>Step 2</p>
+                                    <div class="f1-step-icon">2</div>
+                                   
                                   </div>
                                 </div>
 
+                            
+                                
                                 <fieldset id="tablediv">
                                   <h4>INPUT RAW DATA</h4>
-                                  <div class="form-group form-floating-label">
-                                    <input id="inputFloatingLabel" type="text" class="form-control input-border-bottom"
-                                      required="" />
-                                    <label for="inputFloatingLabel" class="placeholder">File Name</label>
+
+                              
+                                  <div class="form-group">
+                                    <label for="largeInput">File Name</label>
+                                    <input type="text" class="form-control form-control" id="defaultInput" placeholder="Default Input">
                                   </div>
+
+
 
                                   <div class="form-group">
                                     <label class="form-label">File Type</label>
@@ -115,13 +120,14 @@
                                     </div>
                                   </div>
 
-                                  <div class="form-group form-floating-label mt-3 w-100">
-                                    <textarea id="inputFloatingLabel" type="text"
-                                      class="form-control input-border-bottom" required="" rows="5"> </textarea>
-                                    <label for="inputFloatingLabel" class="placeholder">File Description</label>
+                                  <div class="form-group w-100">
+                                    <label for="comment">File Description</label>
+                                    <textarea class="form-control" id="comment" rows="5">
+                                  												</textarea>
                                   </div>
 
-                                  <div class="form-group">
+                                 
+                                  <div class="form-group ">
                                     <label class="form-label">Upload File</label>
                                     <br>
                                     <label for="et_pb_contact_brand_file_request_0"
@@ -131,14 +137,16 @@
                                   </div>
 
                                   <div class="f1-buttons">
-                                    <button type="button" class="btn btn-next">Next</button>
+                                    <button type="button" class="btn btn-next">Next<i class="fa fa-spinner fa-spin ml-3"></i></button>
                                   </div>
                                 </fieldset>
 
                                 <fieldset id="tableField">
-                                  <div id="preloader">
+                                <!--  <div id="preloader">
                                     <div id="loader"></div>
                                   </div>
+
+                                  -->
                                   <div class="table-responsive">
                                     <h4>PREVIEW RAW DATA</h4>
                                     <div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">

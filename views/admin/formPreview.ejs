@@ -76,7 +76,7 @@
                                                                             <%= subComponent.name %>
                                                                         </div>
                                                                         <div class="row m-3">
-                                                                            <% if(tabComponent.AssignedFields.length==0){
+                                                                            <% if(subComponent.AssignedFields.length==0){
                                                                                 %>
                                                                                 <div class="mx-auto Kk_no_assigned">
                                                                                     <img class="img-responsive"
@@ -150,7 +150,7 @@
                                                                                                     <%}%>
                                                                                                         <% if(inputs.includes(_a.field.inputType)){
                                                                                                             %>
-                                                                                                            <%= _a %>
+                                                                                                            
                                                                                                                 <div
                                                                                                                     class="col-md-3 mb-3">
                                                                                                                     <div
@@ -167,8 +167,7 @@
                                                                                                                     </div>
                                                                                                                 </div>
                                                                                                                 <% } %>
-                                                                                                                    <%})}
-                                                                                                                        %>
+                                                                                                                    <%})}  %>
                                                                         </div>
                                                                     </section>
                                                                     <% }else{ %>

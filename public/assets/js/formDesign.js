@@ -257,7 +257,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
                             // console.log(name)
                             subid = subid.split('-')
                             obj.type = 'sec'
-                            obj.order = subid[3]
+                            obj.order = "5";
                             obj.name = name;
                             if (name == '') {
 
@@ -268,7 +268,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
                         });
                         id = id.split('-');
                         tab.type = "tablist";
-                        tab.order = id[4];
+                        tab.order = "5";
                         tab.name = b.innerText || b.nodeValue
                         childObj.tabComponents.push(tab)
                     })

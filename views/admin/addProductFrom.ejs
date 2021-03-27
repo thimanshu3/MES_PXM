@@ -32,14 +32,14 @@
 
 <body>
     <div class="wrapper">
-        <%-include('.. /partials/config')%>
+        <%-include('../partials/config')%>
 
             <!-- header -->
-            <%-include('.. /partials/header.ejs')%>
+            <%-include('../partials/header.ejs')%>
                 <!-- header end -->
 
                 <!-- Sidebar -->
-                <%-include('.. /partials/sidebar.ejs')%>
+                <%-include('../partials/sidebar.ejs')%>
                     <!-- End Sidebar -->
 
                     <div class="main-panel kk_form_page bg-white kK_custom_form">
@@ -117,9 +117,27 @@
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <% } %>
-                                                                                                    <% if(_a.field.inputType=='list/record'
-                                                                                                        ){%>
-                                                                                                        something
+                                                                                                    <% if(_a.field.inputType=='list/record' ){ %>
+                                                                                                        <div class="col-md-3">
+                                                                                                            <div class="form-group">
+                                                                                                                <label for="smallSelect" style="width: 100%">
+                                                                                                                    <%= _a.field.label%>
+                                                                                                                </label>
+                                                                                                                <select name="<%= _a.field.id%>" class="form-control form-control-sm" id="smallSelect">
+                                                                                                                    <option>
+                                                                                                                    </option>
+                                                                                                                    <% if(_a.field.list !=null){ %>
+                                                                                                                        <% if(_a.field.list !=null) { _a.field.list.split('----').forEach(b=>
+                                                                                                                            {%>
+                                                                                                                            <option value=<%=b %>
+                                                                                                                                >
+                                                                                                                                <%= b %>
+                                                                                                                            </option>
+                                                                                                                            <%})}}%>
+                                                                                                    
+                                                                                                                </select>
+                                                                                                            </div>
+                                                                                                        </div>
                                                                                                         <%}%>
                                                                                                             <%})} %>
                                                                     </div>
@@ -209,7 +227,7 @@
                                                                                                                             value="off"
                                                                                                                             name="<%= _a.field.id%>">
                                                                                                                     </div>
-                                                                                                                    <% } <%
+                                                                                                                    <% }%> <%
                                                                                                                         if(_a.field.inputType=='list/record'
                                                                                                                         ){
                                                                                                                         %>
@@ -449,7 +467,7 @@
 
 
                         </div>
-                        <%-include('.. /partials/footer.ejs')%>
+                        <%-include('../partials/footer.ejs')%>
                     </div>
 
     </div>
