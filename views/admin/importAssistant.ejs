@@ -95,7 +95,7 @@
                             <div class="card kk_full_form kk_user_form">
                                 <div class="card-header">
                                     <div class="d-flex align-items-center">
-                                        <h4 class="card-title">Map Fields</h4>
+                                        <h4 class="card-title">Fields From Excel</h4>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -122,40 +122,144 @@
                                 </div>
                                 <div class="card-body">
                                     <ul id="fieldLinkPreview" style="max-width: 80%;margin: 30px auto;">
-                                        <li class="kkay_field_map_link">
-                                            <div class="k_field">
-                                                Kartik Kumawat
-                                            </div>
-                                            <i class="fas fa-arrows-alt-h"></i>
-                                            <div class="k_field">
-                                                Techno India NJR
-                                            </div>
-                                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fas fa-times-circle"></i></a>
-                                        </li>
+                                        
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="card kk_full_form kk_user_form">
-                                <div class="card-header">
-                                    <div class="d-flex align-items-center">
-                                        <h4 class="card-title">Map Fields</h4>
+                        <div class="card kk_full_form card-pricing  kk_attribute_set_card kk_newacc ">
+                            <div class="card-header">
+                                System Fields
+                            </div>
+                            <div class="card-body">
+                        
+                                <div class="accordion accordion-secondary">
+                                    <div class="card">
+                                        <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne"
+                                            aria-expanded="true" aria-controls="collapseOne">
+                                            <div class="span-mode"></div>
+                                            <div class="span-title">
+                                                Item
+                                            </div>
+                        
+                                        </div>
+                        
+                                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <ul id="system-fields" class="selectable kK_accordian_list">
+                                                    <% fields.forEach(function(field) { %>
+                                                    <li class="ui-widget-content mb-3 p-1 h-100" id="<%=field.id %>"><%=field.label %> </li>
+                                                    <% }) %>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header collapsed d-flex justify-content-between">
+                                            <div class="span-mode"></div>
+                                            <div class="span-title" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo"
+                                            aria-expanded="false" aria-controls="collapseTwo">
+                                                Item Pricing
+                                            </div>
+                                            <a id="addPriceBtn" class="btn btn-light btn-sm p-1"><i style="font-size:12px" class="fa fa-plus"></i></a>
+
+                                        </div>
+                                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <ul class="kK_accordian_list">
+                                                    <li class="acc_collapse">
+                                                        <div class="accordion accordion-secondary" id="addPrice">
+                                                            <div class="card">
+                                                                <div class="card-header d-flex justify-content-between" id="headingOne" data-toggle="collapse"
+                                                                    data-target="#collapseOne.2" aria-expanded="false"
+                                                                    aria-controls="collapseOne">
+                                                                    <div class="span-mode"></div>
+                                                                    <div class="span-title">
+                                                                        Item price 1
+                                                                    </div>
+                                                                </div>
+                                                                <div id="collapseOne.2" class="collapse" aria-labelledby="headingOne"
+                                                                    data-parent="#accordion">
+                                                                    <div class="card-body">
+                                                                        <ul class="kK_accordian_list">
+                                                                            <li>One</li>
+                                                                            <li>Two</li>
+                                                                            <li>Three</li>
+                                                                            <li>Four</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            
+                                                        </div>
+                        
+                        
+                        
+                                                    </li>
+                                                    
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header collapsed d-flex justify-content-between">
+                                            <div class="span-mode"></div>
+                                            <div class="span-title" id="headingTwo" data-toggle="collapse" data-target="#collapseVTwo" aria-expanded="false"
+                                                aria-controls="collapseVTwo">
+                                                Item Vendors
+                                            </div>
+                                            <a id="addVendorBtn" class="btn btn-light btn-sm p-1"><i style="font-size:12px" class="fa fa-plus"></i></a>
+                                    
+                                        </div>
+                                        <div id="collapseVTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <ul class="kK_accordian_list">
+                                                    <li class="acc_collapse">
+                                                        <div class="accordion accordion-secondary" id="addVendor">
+                                                            <div class="card">
+                                                                <div class="card-header d-flex justify-content-between" id="headingOne"
+                                                                    data-toggle="collapse" data-target="#collapseOne.2v" aria-expanded="false"
+                                                                    aria-controls="collapseOne">
+                                                                    <div class="span-mode"></div>
+                                                                    <div class="span-title">
+                                                                        Item Vendor 1
+                                                                    </div>
+                                                                </div>
+                                                                <div id="collapseOne.2v" class="collapse" aria-labelledby="headingOne"
+                                                                    data-parent="#accordion">
+                                                                    <div class="card-body">
+                                                                        <ul class="kK_accordian_list">
+                                                                            <li>One</li>
+                                                                            <li>Two</li>
+                                                                            <li>Three</li>
+                                                                            <li>Four</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                    
+                                    
+                                                        </div>
+                                    
+                                    
+                                    
+                                                    </li>
+                                    
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="card-body">
-                                    <ul class="selectable" id="system-fields">
-                                        <% fields.forEach(function(field) { %>
-                                        <li class="ui-widget-content mb-3 p-1 h-100" id="<%=field.id %>"><%=field.label %> </li>
-                                        <% }) %>
-                                    </ul>
-                                </div>
-                                <div class="card-footer d-flex justify-content-end">
-                                    <button id="previewBtn" class="btn btn-primary">Preview</button>
-                                </div>
+                        
+                        
                             </div>
                         
                         </div>
+                        
+                        </div>
+                        
                     </div>
 
                     <!-- <div class="row">
@@ -391,6 +495,16 @@
             });
             
         $(document).ready(function () {
+            if($('#fieldLinkPreview').children().length == 0){
+                $('#fieldLinkPreview').append(`
+                     <div id="nofield" class="mx-auto Kk_no_assigned">
+                        <img class="img-responsive"
+                            src="/assets/img/no_field_assigned.png">
+                        <h4>No Fields Mapped</h4>
+                        <h6>Please Map some fields to continue</h6>
+                    </div>
+                `)
+            }
             $('#basic-datatables').DataTable();
 
             $('#multi-filter-select').DataTable({
@@ -457,7 +571,7 @@ var prev;
 // var RightName = '';
 // var LiftName='';
         const previewMapped = (li,type) =>{
-                
+            $('#nofield').hide(); 
             if(prev!=type){
             if(flag){                                              //$(`#${id}`).remove()
                 counter++;
@@ -505,7 +619,53 @@ var prev;
 
                     
 }
-               
+    $('#addPriceBtn').on('click', function(){
+        $('#addPrice').append(`
+        <div class="card">
+            <div class="card-header d-flex justify-content-between" id="headingOne" data-toggle="collapse"
+                data-target="#collapseOne.2-${$('#addPrice').children().length + 1}" aria-expanded="false" aria-controls="collapseOne">
+                <div class="span-mode"></div>
+                <div class="span-title">
+                    Item price ${$('#addPrice').children().length + 1}
+                </div>
+            </div>
+            <div id="collapseOne.2-${$('#addPrice').children().length + 1}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <ul class="kK_accordian_list">
+                        <li>One</li>
+                        <li>Two</li>
+                        <li>Three</li>
+                        <li>Four</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        `)
+    })
+    
+    $('#addVendorBtn').on('click', function () {
+            $('#addVendor').append(`
+        <div class="card">
+            <div class="card-header d-flex justify-content-between" id="headingOne" data-toggle="collapse"
+                data-target="#collapseOne.2-v${$('#addVendor').children().length + 1}" aria-expanded="false" aria-controls="collapseOne">
+                <div class="span-mode"></div>
+                <div class="span-title">
+                    Item Vendor ${$('#addVendor').children().length + 1}
+                </div>
+            </div>
+            <div id="collapseOne.2-v${$('#addVendor').children().length + 1}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <ul class="kK_accordian_list">
+                        <li>One</li>
+                        <li>Two</li>
+                        <li>Three</li>
+                        <li>Four</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        `)
+        })
         
     </script>
 
