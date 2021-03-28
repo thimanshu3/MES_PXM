@@ -184,10 +184,38 @@
                                                                             id="<%=subComponent.type %>-<%=subComponent.order %>"
                                                                             value="<%=subComponent._id %> ">
                                                                         <%=subComponent.name%>
-                                                                        <span class="badge badge-pill badge-secondary"
-                                                                            style="float: right;">
-                                                                            <%= subComponent.type=='sec' ? 'sub-section' : '' %>
-                                                                        </span>
+                                                                        <a class="btn btn-light badge btn-sm" data-toggle="collapse" href="#multi-<%=subComponent._id%>" role="button"
+                                                                            aria-expanded="false" aria-controls="multiCollapseExample1" style="float: right;">
+                                                                            <%= subComponent.AssignedFields.length == 0 ? 'N-A' : subComponent.AssignedFields.length + '  Fields' %>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <div class="collapse multi-collapse" id="multi-<%=subComponent._id%>">
+                                                                            <div class="card card-body">
+                                                                                <div class="scroll-area-lg" style="height:300px">
+                                                                                    <div class="scrollbar-container ps--active-y ps">
+                                                                                        <% if(subComponent.AssignedFields.length==0){ %>
+                                                                                        <div class="mx-auto Kk_no_assigned">
+                                                                                            <img class="img-responsive" src="/assets/img/no_field_assigned.png">
+                                                                                            <h4>No Field Assigned
+                                                                                            </h4>
+                                                                                            <h6>Please Assign some Fields</h6>
+                                                                                        </div>
+                                                                                        <% } %>
+                                                                                        <%subComponent.AssignedFields.forEach(a=>{ %>
+                                                                                        <label class="selectgroup-item m-2">
+                                                                                            <input type="select" class="selectgroup-input fclass">
+                                                                                            <span class="selectgroup-button">
+                                                                                                <%= search(a.fieldId,data.itemFields)  %>
+                                                                                            </span>
+                                                                                            </input>
+                                                                                        </label>
+                                                                                        <% })  %>
+                                                                    
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </li>
                                                                 <% } %>
@@ -282,7 +310,7 @@
                                                         </input>
                                                     </label>
                                                     <%}%>
-                                                                    <% }else{%>
+                                                   <% }else{%>
                                                     <label class="selectgroup-item m-2">
                                                         <input type="checkbox" name="itemfields"
                                                             id="field-<%=item.id %>" value="<%=item.id %>"
@@ -293,7 +321,7 @@
                                                         </span>
                                                     </label>
                                                     <%}%>
-                                                                <% }); %>
+                                                <% }); %>
                                                 </div>
                                             </div>
                                         </div>
