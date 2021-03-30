@@ -1547,6 +1547,7 @@ border: 1px solid white;
 
 .form-control {
    border-color: #b7b7b7 !important;
+       padding: 3px;
 }
 
 .bootstrap-tagsinput {

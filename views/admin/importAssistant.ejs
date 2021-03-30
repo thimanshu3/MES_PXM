@@ -34,11 +34,30 @@
     </script>
 
     <style>
-        #feedback { font-size: 1.4em; }
-  .selectable .ui-selecting { background: #FECA40; }
-  .selectable .ui-selected { background: #F39814; color: white; }
-  .selectable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
-  .selectable li { margin: 3px; padding: 0.4em;  }
+        #feedback {
+            font-size: 1.4em;
+        }
+
+        .selectable .ui-selecting {
+            background: #FECA40;
+        }
+
+        .selectable .ui-selected {
+            background: #F39814;
+            color: white;
+        }
+
+        .selectable {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        .selectable li {
+            margin: 3px;
+            padding: 0.4em;
+        }
     </style>
 
 
@@ -92,24 +111,21 @@
 
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="card kk_full_form kk_user_form">
+                            <div class="kk_full_form kk_user_form">
                                 <div class="card-header">
                                     <div class="d-flex align-items-center">
-                                        <h4 class="card-title">Map Fields</h4>
+                                        <h4 class="card-title">Fields From Excel</h4>
                                     </div>
                                 </div>
-                                <div class="card-body">
-                                    <ul class="selectable" id="excelFields" >
+                                <div class="card-body scroll-area-lg">
+                                    <ul class="selectable scrollbar-container ps--active-y ps" id="excelFields">
                                         <% fields.forEach(function(field) { %>
-                                            <li class="ui-widget-content mb-3" data-type="<%=field.inputType %>" id="<%=field.id %>"><%=field.label %> </li>
-                                       <% }) %> 
+                                        <li class="" data-type="<%=field.inputType %>"
+                                            id="<%=field.id %>"><%=field.label %> </li>
+                                        <% }) %>
                                     </ul>
                                 </div>
-                                <div class="card-footer d-flex justify-content-end">
-                                    <button id="previewBtn" class="btn btn-primary">Preview</button>
-                                </div>
                             </div>
-
                         </div>
                         <div class="col-md-6">
 
@@ -122,40 +138,153 @@
                                 </div>
                                 <div class="card-body">
                                     <ul id="fieldLinkPreview" style="max-width: 80%;margin: 30px auto;">
-                                        <li class="kkay_field_map_link">
-                                            <div class="k_field">
-                                                Kartik Kumawat
-                                            </div>
-                                            <i class="fas fa-arrows-alt-h"></i>
-                                            <div class="k_field">
-                                                Techno India NJR
-                                            </div>
-                                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fas fa-times-circle"></i></a>
-                                        </li>
+
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="card kk_full_form kk_user_form">
+                            <div class="card kk_full_form card-pricing  kk_attribute_set_card kk_newacc ">
                                 <div class="card-header">
-                                    <div class="d-flex align-items-center">
-                                        <h4 class="card-title">Map Fields</h4>
-                                    </div>
+                                    System Fields
                                 </div>
                                 <div class="card-body">
-                                    <ul class="selectable" id="system-fields">
-                                        <% fields.forEach(function(field) { %>
-                                        <li class="ui-widget-content mb-3 p-1 h-100" id="<%=field.id %>"><%=field.label %> </li>
-                                        <% }) %>
-                                    </ul>
+
+                                    <div class="accordion accordion-secondary">
+                                        <div class="card">
+                                            <div class="card-header" id="headingOne" data-toggle="collapse"
+                                                data-target="#collapseOne" aria-expanded="true"
+                                                aria-controls="collapseOne">
+                                                <div class="span-mode"></div>
+                                                <div class="span-title">
+                                                    Item
+                                                </div>
+
+                                            </div>
+
+                                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                                                data-parent="#accordion">
+                                                <div class="card-body scroll-area-lg">
+                                                    <ul id="system-fields" class="selectable kK_accordian_list scrollbar-container ps--active-y ps">
+                                                        <% fields.forEach(function(field) { %>
+                                                        <li class="ui-widget-content mb-3 p-1 h-100"
+                                                            id="<%=field.id %>"><%=field.label %> </li>
+                                                        <% }) %>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-header collapsed d-flex justify-content-between">
+                                                <div class="span-mode"></div>
+                                                <div class="span-title" id="headingTwo" data-toggle="collapse"
+                                                    data-target="#collapseTwo" aria-expanded="false"
+                                                    aria-controls="collapseTwo">
+                                                    Item Pricing
+                                                </div>
+                                                <a id="addPriceBtn" class="btn btn-light btn-sm p-1"><i
+                                                        style="font-size:12px" class="fa fa-plus"></i></a>
+
+                                            </div>
+                                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                                data-parent="#accordion">
+                                                <div class="card-body">
+                                                    <ul class="kK_accordian_list">
+                                                        <li class="acc_collapse">
+                                                            <div class="accordion accordion-secondary" id="addPrice">
+                                                                <div class="card">
+                                                                    <div class="card-header d-flex justify-content-between"
+                                                                        id="headingOne" data-toggle="collapse"
+                                                                        data-target="#collapseOne.2"
+                                                                        aria-expanded="false"
+                                                                        aria-controls="collapseOne">
+                                                                        <div class="span-mode"></div>
+                                                                        <div class="span-title">
+                                                                            Item price 1
+                                                                        </div>
+                                                                    </div>
+                                                                    <div id="collapseOne.2" class="collapse"
+                                                                        aria-labelledby="headingOne"
+                                                                        data-parent="#accordion">
+                                                                        <div class="card-body">
+                                                                            <ul class="kK_accordian_list">
+                                                                                <li>One</li>
+                                                                                <li>Two</li>
+                                                                                <li>Three</li>
+                                                                                <li>Four</li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-header collapsed d-flex justify-content-between">
+                                                <div class="span-mode"></div>
+                                                <div class="span-title" id="headingTwo" data-toggle="collapse"
+                                                    data-target="#collapseVTwo" aria-expanded="false"
+                                                    aria-controls="collapseVTwo">
+                                                    Item Vendors
+                                                </div>
+                                                <a id="addVendorBtn" class="btn btn-light btn-sm p-1"><i
+                                                        style="font-size:12px" class="fa fa-plus"></i></a>
+
+                                            </div>
+                                            <div id="collapseVTwo" class="collapse" aria-labelledby="headingTwo"
+                                                data-parent="#accordion">
+                                                <div class="card-body">
+                                                    <ul class="kK_accordian_list">
+                                                        <li class="acc_collapse">
+                                                            <div class="accordion accordion-secondary" id="addVendor">
+                                                                <div class="card">
+                                                                    <div class="card-header d-flex justify-content-between"
+                                                                        id="headingOne" data-toggle="collapse"
+                                                                        data-target="#collapseOne.2v"
+                                                                        aria-expanded="false"
+                                                                        aria-controls="collapseOne">
+                                                                        <div class="span-mode"></div>
+                                                                        <div class="span-title">
+                                                                            Item Vendor 1
+                                                                        </div>
+                                                                    </div>
+                                                                    <div id="collapseOne.2v" class="collapse"
+                                                                        aria-labelledby="headingOne"
+                                                                        data-parent="#accordion">
+                                                                        <div class="card-body">
+                                                                            <ul class="kK_accordian_list">
+                                                                                <li>One</li>
+                                                                                <li>Two</li>
+                                                                                <li>Three</li>
+                                                                                <li>Four</li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+
+
+
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </div>
-                                <div class="card-footer d-flex justify-content-end">
-                                    <button id="previewBtn" class="btn btn-primary">Preview</button>
-                                </div>
+
                             </div>
-                        
+
                         </div>
+
                     </div>
 
                     <!-- <div class="row">
@@ -293,11 +422,6 @@
                                         </label>
                                     </div>
                                 </div>
-
-
-
-
-
                                 <div class="form-group text-center">
                                     <div class="selectgroup selectgroup-pills">
                                         <label class="selectgroup-item">
@@ -366,31 +490,41 @@
     <script src="/assets/js/iziToast.js"></script>
     <script src="/assets/js/flashMessage.js"></script>
     <!-- jQuery UI -->
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-      
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-   
+
+
     <script>
         let counter = 0;
         $(function () {
-                // right
-                $("#system-fields").selectable({
-                    selected: function (event, ui) {
-                        previewMapped(ui,false)
-                    }
-                });
-
-                // left
-                $("#excelFields").selectable({
+            // right
+            $("#system-fields").selectable({
                 selected: function (event, ui) {
-                    console.log(event, ui);
-                    previewMapped(ui,true)
+                    previewMapped(ui, false)
                 }
             });
+
+            // left
+            $("#excelFields").selectable({
+                selected: function (event, ui) {
+                    console.log(event, ui);
+                    previewMapped(ui, true)
+                }
             });
-            
+        });
+
         $(document).ready(function () {
+            if ($('#fieldLinkPreview').children().length == 0) {
+                $('#fieldLinkPreview').append(`
+                     <div id="nofield" class="mx-auto Kk_no_assigned">
+                        <img class="img-responsive"
+                            src="/assets/img/no_field_assigned.png">
+                        <h4>No Fields Mapped</h4>
+                        <h6>Please Map some fields to continue</h6>
+                    </div>
+                `)
+            }
             $('#basic-datatables').DataTable();
 
             $('#multi-filter-select').DataTable({
@@ -405,7 +539,7 @@
                                     $(this).val()
                                 );
 
-                                column 
+                                column
                                     .search(val ? '^' + val + '$' : '', true, false)
                                     .draw();
                             });
@@ -436,77 +570,122 @@
             });
         });
 
-        // function createLi(){
-        //     counter++;
-        //     $('#fieldLinkPreview').append(`
-        //         <li id="preview-${counter}" class="kkay_field_map_link">
-        //             <div id='left-${counter}'></div>
-        //              <i class="fas fa-arrows-alt-h"></i>
-        //             <div id='right-${counter}'></div>
-        //             </li>
-            
-        //     `)
-        // }
-var flag=true;
-var left=false;
-var right=true;
-var prev;
-   function closeNav(id){
-    $(`#${id}`).remove();
-   }
-// var RightName = '';
-// var LiftName='';
-        const previewMapped = (li,type) =>{
-                
-            if(prev!=type){
-            if(flag){                                              //$(`#${id}`).remove()
-                counter++;
-            if(type){
-                $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
+
+        var flag = true;
+        var left = false;
+        var right = true;
+        var prev;
+
+        function closeNav(id) {
+            $(`#${id}`).remove();
+             if ($('#fieldLinkPreview').children().length == 1) {
+                $('#fieldLinkPreview').append(`
+                     <div id="nofield" class="mx-auto Kk_no_assigned">
+                        <img class="img-responsive"
+                            src="/assets/img/no_field_assigned.png">
+                        <h4>No Fields Mapped</h4>
+                        <h6>Please Map some fields to continue</h6>
+                    </div>
+                `)
+             }
+        }
+
+        const previewMapped = (li, type) => {
+            $('#nofield').hide();
+            if (prev != type) {
+                if (flag) {
+                    counter++;
+                    if (type) {
+                        $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
                 <div class="k_field" id='left-${counter}'> ${li.selected.innerText || li.selected.innerHTML}</div>
                  <i class="fas fa-arrows-alt-h"></i>
                  <div id='right-${counter}' class="k_field"> </div>
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
                  </li>`)
-                 right=type;
-            }
-            else{
-                 $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
+                        right = type;
+                    }
+                    else {
+                        $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
                 <div class="k_field" id='left-${counter}'> </div>
                  <i class="fas fa-arrows-alt-h"></i>
                  <div id='right-${counter}' class="k_field">${li.selected.innerText || li.selected.innerHTML} </div>
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
                  </li>`)
-                 right=type;
-            }
-            flag=false;
-        }
-        else{
-                if(right){
+                        right = type;
+                    }
+                    flag = false;
+                }
+                else {
+                    if (right) {
                         document.getElementById(`right-${counter}`).innerText = li.selected.innerText;
-                        
-                }
-                else{
-                    document.getElementById(`left-${counter}`).innerText = li.selected.innerText;
-                }
-                flag=true;
 
-                // prev=!type;
-                // prev='';
+                    }
+                    else {
+                        document.getElementById(`left-${counter}`).innerText = li.selected.innerText;
+                    }
+                    flag = true;
+
+
+                }
+
+                prev = type;
+                if (flag) {
+                    prev = undefined;
+                }
+
+
+            }
+
+
         }
-     
-             prev = type;
-             if(flag){
-                 prev=undefined;
-             }
-        
-       
-    }
+        $('#addPriceBtn').on('click', function () {
+            $('#addPrice').append(`
+        <div class="card">
+            <div class="card-header d-flex justify-content-between" id="headingOne" data-toggle="collapse"
+                data-target="#collapseOne.2-${$('#addPrice').children().length + 1}" aria-expanded="false" aria-controls="collapseOne">
+                <div class="span-mode"></div>
+                <div class="span-title">
+                    Item price ${$('#addPrice').children().length + 1}
+                </div>
+            </div>
+            <div id="collapseOne.2-${$('#addPrice').children().length + 1}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <ul class="kK_accordian_list">
+                        <li>One</li>
+                        <li>Two</li>
+                        <li>Three</li>
+                        <li>Four</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        `)
+        })
 
-                    
-}
-               
-        
+        $('#addVendorBtn').on('click', function () {
+            $('#addVendor').append(`
+        <div class="card">
+            <div class="card-header d-flex justify-content-between" id="headingOne" data-toggle="collapse"
+                data-target="#collapseOne.2-v${$('#addVendor').children().length + 1}" aria-expanded="false" aria-controls="collapseOne">
+                <div class="span-mode"></div>
+                <div class="span-title">
+                    Item Vendor ${$('#addVendor').children().length + 1}
+                </div>
+            </div>
+            <div id="collapseOne.2-v${$('#addVendor').children().length + 1}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <ul class="kK_accordian_list">
+                        <li>One</li>
+                        <li>Two</li>
+                        <li>Three</li>
+                        <li>Four</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        `)
+        })
+
     </script>
 
 </body>
