@@ -32,71 +32,7 @@
         });
     </script>
 
-    <style>
-        .table-head,
-        div,
-        a,
-        p,
-        span {
-            box-sizing: border-box !important;
-        }
-
-        .columns,
-        .column {
-            float: left;
-            position: relative;
-        }
-
-        .h-100 {
-            min-height: 110px;
-        }
-
-        .three {
-            width: 20%;
-        }
-
-
-        .settings,
-        .link {
-            display: none;
-        }
-
-        .grid {
-            overflow: auto;
-        }
-
-        .grid .result {
-            padding: 2%;
-            background: #e9e9e9;
-            border: 0px solid #333;
-        }
-
-        .grid .result:first-child {
-            display: none;
-        }
-
-        .grid .result .title,
-        .grid.result .row,
-        .grid .result .link {
-            position: relative;
-            float: left;
-            width: 100%;
-        }
-
-        .grid .result .title {
-            border-bottom: 1px solid yellow;
-            padding-bottom: 2px;
-            margin-bottom: 2px;
-            color: #282828;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .grid .result .row {
-            color: #666;
-            font-size: 10px;
-        }
-    </style>
+   
 </head>
 
 <body>
@@ -151,16 +87,7 @@
                                     <div class="card-header">
                                         <div class="d-flex align-items-center">
                                             <h4 class="card-title">Products</h4>
-                                            <div class="kk_table_grid_head">
-                                                <a class="btn   button-table"
-                                                   data-target="table">
-                                                    <i class="fa fa-list"></i>
-                                                </a>
-                                                <a class="btn   button-grid"
-                                                   data-target="grid">
-                                                    <i class="fa fa-th"></i>
-                                                </a>
-                                            </div>
+                                       
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -169,7 +96,7 @@
 
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <table id="add-row" class="display table table-striped table-hover dataTable " role="grid"
+                                                        <table id="add-row" class="display table table-striped table-hover dataTable " 
                                                                aria-describedby="add-row_info">
                                                             <thead>
                                                                 <tr>
@@ -285,22 +212,7 @@
             location.reload(true)
         });
 
-        $('.button-grid').click(function () {
-            $('table').replaceWith(function () {
-                var html = '';
-                $('tr', this).each(function () {
-                    html += '<div class="result three columns h-100">';
-                    $('th', this).each(function () {
-                        html += '<div>' + $(this).html() + '</div>';
-                    });
-                    $('td', this).each(function () {
-                        html += '<div>' + $(this).html() + '</div>';
-                    });
-                    html += '</div>';
-                });
-                return '<div class="grid">' + html + '</div>';
-            });
-        });
+   
     </script>
 
 

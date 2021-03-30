@@ -1568,3 +1568,8 @@ border-color: #b7b7b7 !important;
     font-weight: 900;
 }
 
+
+.kk_product_page .form-check {
+    bottom: 0px;
+    position: absolute;
+}
