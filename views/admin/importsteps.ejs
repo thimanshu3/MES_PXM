@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Inbound PMS</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/atlantis.min.css">
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="/assets/css/demo.css">
+    <link rel="stylesheet" href="/assets/css/kk_style.css">
+    <link rel="stylesheet" href="/assets/css/iziToast.min.css">
+    <!-- Fonts and icons -->
+    <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+        WebFont.load({
+            google: { "families": ["Lato:300,400,700,900"] },
+            custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css'] },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+
+    <style>
+    
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <%-include('../partials/config')%>
+
+            <!-- header -->
+            <%-include('../partials/header.ejs')%>
+                <!-- header end -->
+
+                <!-- Sidebar -->
+                <%-include('../partials/sidebar.ejs')%>
+                    <!-- End Sidebar -->
+                    <div class="main-panel">
+
+                        <div class="content">
+                            <div class="page-inner">
+                                <div class="page-header">
+
+                                    <ul class="breadcrumbs">
+                                        <li class="nav-home">
+                                            <a href="/admin/dashboard">
+                                                <i class="flaticon-home"></i>
+                                            </a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">Users</a>
+                                        </li>
+                                        <li class="separator">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#">Add New User</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card kk_full_form">
+                                            <div class="card-header">
+                                                <div class="d-flex align-items-center">
+                                                    <h4 class="card-title">Add User</h4>
+                                                    <button class="btn btn-primary btn-round ml-auto"
+                                                        data-toggle="modal" data-target="#myModal">
+                                                        <i class="fa fa-plus"></i>
+                                                        Import User
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="card-body kK_import_assis_wizard">
+
+                                                
+
+                                                <div class="row">
+                                                    <div class="col-2 col-md-2" style="    border-right: 1px solid lightgrey;">
+                                                        <div class="nav flex-column nav-pills nav-secondary" id="v-pills-tab" role="tablist"
+                                                            aria-orientation="vertical">
+                                                            <a class="nav-link active show" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab"
+                                                                aria-controls="v-pills-1" aria-selected="true">1. Scan & Upload CSV File</a>
+                                                            <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab"
+                                                                aria-controls="v-pills-2" aria-selected="false">2. Import Options</a>
+                                                            <a class="nav-link" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab"
+                                                                aria-controls="v-pills-3" aria-selected="false">3. File Mapping</a>
+                                                                <a class="nav-link" id="v-pills-4-tab" data-toggle="pill" href="#v-pills-4" role="tab"
+                                                                    aria-controls="v-pills-4" aria-selected="false">4. Field Mapping</a>
+                                                                <a class="nav-link" id="v-pills-5-tab" data-toggle="pill" href="#v-pills-5" role="tab"
+                                                                    aria-controls="v-pills-5" aria-selected="false">5. Save & Start Import</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-10 col-md-10">
+                                                        <div class="tab-content" id="v-pills-tabContent">
+                                                            <div class="tab-pane fade active show" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
+                                                        <div class="form-group d-block">
+                                                            <label for="exampleFormControlSelect1">Import Type</label>
+                                                            <select class="form-control" id="exampleFormControlSelect1">
+                                                                <option>1</option>
+                                                                <option>2</option>
+                                                                <option>3</option>
+                                                                <option>4</option>
+                                                                <option>5</option>
+                                                            </select>
+                                                            <small class="form-text text-muted">Choose the category of data to import</small>
+                                                        </div>
+
+                                                        <div class="form-group d-block">
+                                                            <label for="exampleFormControlSelect1">Record Type</label>
+                                                            <select class="form-control" id="exampleFormControlSelect1">
+                                                                <option>1</option>
+                                                                <option>2</option>
+                                                                <option>3</option>
+                                                                <option>4</option>
+                                                                <option>5</option>
+                                                            </select>
+                                                            <small class="form-text text-muted">Choose the record type of data to import</small>
+                                                        </div>
+
+                                                        <div class="form-group d-block ">
+                                                            <label class="form-label">Upload File</label>
+                                                            <br>
+                                                            <label for="et_pb_contact_brand_file_request_0" class="et_pb_contact_form_label"></label>
+                                                            <input type="file" id="et_pb_contact_brand_file_request_0" class="file-upload">
+                                                        
+                                                        </div>
+
+                                                                    <ul class="list-inline pull-right">
+                                                                     <li><button type="button" class="btn next-step  btn-primary">Next</button></li>
+                                                                     </ul>
+                                                            </div>
+                                                            <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
+                                                                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic
+                                                                    life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the
+                                                                    far World of Grammar.</p>
+                                                                <p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question
+                                                                    Marks and devious Semikoli, but the Little Blind Text didnâ€™t listen. She packed her seven
+                                                                    versalia, put her initial into the belt and made herself on the way.
+                                                                </p>
+
+                                                                <ul class="list-inline pull-right">
+                                                                    <li><button type="button" class="btn prev-step btn-primary">Previous</button></li>
+                                                                    <li><button type="button" class="btn  next-step btn-primary">Next</button></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
+                                                                <p>Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a
+                                                                    copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a
+                                                                    thousand times and everything that was left from its origin would be the word "and" and the Little
+                                                                    Blind Text should turn around and return to its own, safe country.</p>
+                                                
+                                                                <p> But nothing the copy said could convince her and so it didnâ€™t take long until a few insidious Copy
+                                                                    Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where
+                                                                    they abused her for their</p>
+                                                                    <ul class="list-inline pull-right">
+                                                                        <li><button type="button" class="btn  prev-step">Previous</button></li>
+                                                                        <li><button type="button" class="btn  prev-step">Save</button></li>
+                                                                    </ul>
+                                                            </div>
+
+                                                            <div class="tab-pane fade" id="v-pills-4" role="tabpanel" aria-labelledby="v-pills-4-tab">
+                                                                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic
+                                                                    life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the
+                                                                    far World of Grammar.</p>
+                                                                <p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question
+                                                                    Marks and devious Semikoli, but the Little Blind Text didnâ€™t listen. She packed her seven
+                                                                    versalia, put her initial into the belt and made herself on the way.
+                                                                </p>
+                                                            
+                                                                <ul class="list-inline pull-right">
+                                                                    <li><button type="button" class="btn prev-step">Previous</button></li>
+                                                                    <li><button type="button" class="btn  next-step">Next</button></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="tab-pane fade" id="v-pills-5" role="tabpanel" aria-labelledby="v-pills-5-tab">
+                                                                <p>Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a
+                                                                    copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a
+                                                                    thousand times and everything that was left from its origin would be the word "and" and the Little
+                                                                    Blind Text should turn around and return to its own, safe country.</p>
+                                                            
+                                                                <p> But nothing the copy said could convince her and so it didnâ€™t take long until a few insidious Copy
+                                                                    Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where
+                                                                    they abused her for their</p>
+                                                                <ul class="list-inline pull-right">
+                                                                    <li><button type="button" class="btn  prev-step">Previous</button></li>
+                                                                    <li><button type="button" class="btn  prev-step">Save</button></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                
+                                                
+                                                </div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%-include('../partials/footer.ejs')%>
+           
+
+
+
+                    </div>
+
+    </div>
+    <!--   Core JS Files   -->
+
+    <!-- jQuery library -->
+    <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="/assets/js/core/bootstrap.js"></script>
+    <!-- Popper JS -->
+    <script src="/assets/js/core/popper.min.js"></script>
+    <!-- Atlantis JS -->
+    <script src="/assets/js/atlantis.min.js"></script>
+    <script src="/assets/js/iziToast.js"></script>
+    <script src="/assets/js/flashMessage.js"></script>
+    <!-- jQuery UI -->
+    <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+   <script>
+       $(document).ready(function () {
+
+            $(".next-step").click(function (e) {
+
+                var $active = $('.nav-tabs li.active');
+                $active.next().removeClass('disabled');
+                nextTab($active);
+
+            });
+            $(".prev-step").click(function (e) {
+
+                var $active = $('.nav-tabs li.active');
+                prevTab($active);
+
+            });
+        });
+        function nextTab(elem) {
+            $(elem).next().find('a[data-toggle="tab"]').click();
+        }
+        function prevTab(elem) {
+            $(elem).prev().find('a[data-toggle="tab"]').click();
+        }
+   </script>
+</body>
+
+</html>

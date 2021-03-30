@@ -1547,7 +1547,7 @@ border: 1px solid white;
 
 .form-control {
    border-color: #b7b7b7 !important;
-       padding: 3px;
+    
 }
 
 .bootstrap-tagsinput {
@@ -1573,4 +1573,59 @@ border-color: #b7b7b7 !important;
 .kk_product_page .form-check {
     bottom: 0px;
     position: absolute;
+}
+
+.kK_import_assis_wizard #v-pills-tab .nav-link {
+    display: block;
+    padding: 8px 30px;
+    border-radius: 30px;
+    background: transparent;
+    width: 100%;
+    margin: auto;
+    margin-bottom: 14px;
+    font-size: 15px;
+    color: #4d7393 !important;
+    border: 0px solid #eaf2f4;
+    text-align: left;
+}
+
+.kK_import_assis_wizard #v-pills-tab .nav-link.active {
+    background: #4d7393;
+    border: 1px solid #4d7393;
+    color: #fff !important;
+}
+
+.kk_newacc .ui-widget-content{
+  border:0px !important
+}
+
+.kk_newacc .accordion .kK_accordian_list li {
+    margin: 3px !important;
+    padding: 0.4em !important;
+    font-size: 14px;
+    color: #575962;
+}
+
+
+.kK_import_assis_wizard .list-inline.pull-right{
+  display: flex;
+     position: absolute;
+    bottom: 10px;
+    right: 20px;
+}
+
+.kK_import_assis_wizard .prev-step.btn-primary {
+    background: transparent !important;
+    border: 1px solid #5394ca !important;
+    color: #5394ca !important;
+    padding: 4px 12px;
+    border-radius: 0px;
+}
+
+.kK_import_assis_wizard .next-step.btn-primary {
+    background: #5394ca !important;
+    border: 1px solid #5394ca !important;
+    color: #fff !important;
+    padding: 4px 12px;
+    border-radius: 0px;
 }
