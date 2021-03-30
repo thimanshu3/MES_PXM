@@ -589,8 +589,11 @@ console.log(selectedFile);
       if (jsonPagesArray.length) {
         jsonPagesArray.forEach(pages => {
           if (pages.content.length) {
+            
             createHeader(pages.content[0])
             addDataTobody(pages.content)
+            //console.log(JSON.stringify(pages.content))
+            console.log(JSON.stringify(buildQueryData(pages.content)))
           }
         })
       }
@@ -657,3 +660,87 @@ const addDataTobody = (content) => {
   }
 }
 
+const buildQueryData = (data) => {
+  var querydata = []
+  var parentId = ''
+  var lastKeyOrder = ''
+  var idArray = []
+  var cnt = 0
+  var flag=false
+  var flag2 = false
+  data.forEach(object => {
+    temp={}
+    if (object.Name != null){
+      temp.id = Math.floor(Math.random() * 1000)
+      temp.parentId='-'
+      temp.text=object.Name
+      temp.active = '1'
+      temp.createdBy='admin'
+      console.log("Temp: ",temp)
+      querydata.push(temp)
+
+      cnt=0
+      lastKeyOrder = 'e'
+      idArray[cnt]=temp.id
+      flag=true
+      //parentId=temp.id
+    }
+    else{
+        let count = -1
+        
+        Object.keys(object).forEach((key) => {
+        count += 1
+        if(object[key] != null){
+          //Do not touch
+          // let index = Object.keys(object).indexOf(key)++
+          // while(object(Object.keys(index))!=null){
+          //   object[key] = object[key] + object(Object.keys(index))
+          //   index+=1
+          // }
+
+          temp.id = Math.floor(Math.random() * 1000)
+          if(flag){
+            cnt+=1
+            flag=false //came from root to inner
+            flag2 = true //in inner loop
+          }
+          if (lastKeyOrder == key.slice(-1)) {
+            idArray[cnt] = temp.id
+          }
+          else {
+            if(!flag2){
+              cnt+=1
+              //flag=3
+            }
+            if(cnt==count){
+
+              idArray[cnt] = temp.id
+            }
+            else{
+              idArray[count] = temp.id
+              cnt=count
+
+            }
+            flag = false
+            flag2=false
+          }
+          lastKeyOrder = key.slice(-1)
+          //idArray[count] = temp.id
+          //parentId = (lastKeyOrder != key.slice(-1) ? idArray[cnt] : parentId)
+          parentId = (idArray[cnt-1]==undefined ? idArray[cnt-2]:idArray[cnt-1])
+          
+          temp.parentId=parentId
+          temp.text=object[key]
+          temp.active = '1'
+          temp.createdBy = 'admin'
+          querydata.push(temp)
+          return
+        }
+        
+        });
+      
+    }
+    
+  })
+  return querydata
+}
