@@ -79,7 +79,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body"  >
-                                        <div class="row" style="height: 60vH;">
+                                        <div class="row" >
                                             <div class="col-md-3" style="border-right: 1px solid lightgrey;">
 
                                                 <div class="form-group" style="width: 100%;">
@@ -92,10 +92,13 @@
                                                             <% }); %>
                                                     </select>
                                                 </div>
-                                                <div id="files" class="jstree jstree-1 jstree-default" role="tree"
+                                                <input id="search-input" class="search-input" />
+                                                <div class="scroll-area-lg" style="height: 600px">
+                                                <div id="files" class="scrollbar-container ps--active-y ps jstree jstree-1 jstree-default" role="tree"
                                                     aria-multiselectable="true" tabindex="0"
                                                     aria-activedescendant="j1_5" aria-busy="false">
 
+                                                </div>
                                                 </div>
                                             </div>
 
@@ -301,7 +304,10 @@
                         'responsive': true
                     },
                 },
-
+                "search": {
+                    "case_sensitive": false,
+                    "show_only_matches": true
+                },
                 "types": {
                     "folder": {
                         "icon": "ti-folder text-warning",
@@ -310,7 +316,7 @@
                         "icon": "ti-file",
                     }
                 },
-                plugins: ["types", 'state', 'contextmenu', 'checkbox','wholerow']
+                plugins: ["types", 'state', 'contextmenu', 'checkbox','wholerow','search']
             })
 
                 .bind("create_node.jstree", function (event, data) {
@@ -383,23 +389,44 @@
         }
 
         $('#cataloghierarchy').on('select2:select', function (e) {
+            $('#files').append(`
+            <div id="loadercatalog" class="mx-auto Kk_no_assigned">
+                <img class="img-responsive" src="/assets/img/no_field_assigned.png">
+                <h4>Loading
+                </h4>
+                <h6>Please bear with us</h6>
+            </div>
+            `)
             var id = e.params.data.id;
             fetch(`/admin/catalog/${id}`)
                 .then(res => res.json())
                 .then(json => {
                     if (json.status == 200) {
                         const data = list_to_tree(json.catalog)
+                        $('#loadercatalog').remove()
                         initializeCatalog(data)
                     }
                     else {
                         iziToast.error({
                             message: json.message || 'Something Went Wrong!'
                         })
+                        $('#loadercatalog').remove()
+                        $('#files').append(`
+                            <div id="errorcatalog" class="mx-auto Kk_no_assigned">
+                                <img class="img-responsive" src="/assets/img/no_field_assigned.png">
+                                <h4>Something Went wrong please refresh
+                                </h4>
+                                <h6>Please bear with us</h6>
+                            </div>
+                            `)
                     }
 
                 })
         });
-
+         $(".search-input").keyup(function () {
+                var searchString = $(this).val();
+                $('#files').jstree('search', searchString);
+            });
     </script>
 </body>
 

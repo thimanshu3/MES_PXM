@@ -108,22 +108,23 @@
                                                                             <%= _a.inputType %>
                                                                                 <%if ( _a.inputType=='list/record' ) {
                                                                                     %>
+                                                                                    
                                                                                     <button type="button"
                                                                                         data-toggle="tooltip" title=""
-                                                                                        onclick="fetchListValues('<%= _a.lr %>','<%= _a.label%>')"
+                                                                                        onclick="fetchListValues('<%= _a.lr %>','<%= _a.label %>')"
                                                                                         class="btn btn-link btn-sm"
                                                                                         data-original-title="View List/Record Values">
                                                                                         <i class="fa fa-eye"></i>
                                                                                         
                                                                                     </button>
                                                                                     <% if (_a.lr=='-' ) { %>
-                                                                                        <button class="btn btn-link" data-toggle="modal" data-target="#ListModal" onclick="setFieldId('<%=_a.id%>')">
+                                                                                        <button class="btn btn-link" data-toggle="modal" data-target="#ListModal" onclick="setFieldId('<%=_a.id%>', null)">
                                                                                             <span class="badge">Attach a List</span>
                                                                                         </button>
                                                                                         
                                                                                         <%}else{%>
                                                                                             <button type="button" class="btn btn-link" data-toggle="modal" data-target="#ListModal"
-                                                                                                onclick="setFieldId('<%=_a.id%>')" data-original-title="Edit Task"><i class="fas fa-external-link-square-alt"></i>
+                                                                                                onclick="setFieldId('<%=_a.id%>','<%= _a.lr%>')" data-original-title="Edit Task"><i class="fas fa-external-link-square-alt"></i>
                                                                                             </button>
                                                                                             <%}%>
                                                                                             <% } %>
@@ -345,7 +346,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 id="demo" class="modal-title">List/Record Values of <strong style="color: blue;"
-                            id="nameV"></strong> </h4>
+                            id="nameV1"></strong> </h4>
 
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
@@ -450,7 +451,8 @@
             markStatusOrDelete(`/admin/inputfield/remove/${id}`, 'DELETE')
         }
 
-        function setFieldId(id){
+        function setFieldId(id, lid){
+            if(lid !== null)
             $('#fieldId').val(id)
         }
 
@@ -465,12 +467,12 @@
                             json.listRecordv.forEach(a => {
                                 data += `<li>${a.label}</li>`
                             })
-                            console.log(data);
+                            //console.log(data);
                         }
                         else {
                             data = '<center><h2>No Values in List!!</h2></center>'
                         }
-                        $('#nameV').text(label)
+                        $('#nameV1').text(label)
                         $('#lrValues').append(data)
                         $('#kk_list_modal').modal('show');
                     }
