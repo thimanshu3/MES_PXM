@@ -745,11 +745,12 @@
 
     <script>
         let counter = 0;
+        var current = null;
         $(function () {
             // right
             $("#system-fields").selectable({
                 selected: function (event, ui) {
-                    previewMapped(ui, false)
+                    previewMapped(ui, 'right')
                 }
             });
 
@@ -757,7 +758,30 @@
             $("#excelFields").selectable({
                 selected: function (event, ui) {
                     console.log(event, ui);
-                    previewMapped(ui, true)
+                    previewMapped(ui, 'left')
+                }
+            });
+
+            
+
+             $("#fieldLinkPreview").selectable({
+                selected: function (event, ui) {
+                    current = ui.selected.getAttribute('id')
+                    console.log(ui.selected.getAttribute('id'))
+                //    if(ui.selected.style.color=='red'){
+
+                //         ui.selected.style = "color: ;"
+                //         selected = ui;
+
+                //    }else{
+                //        console.log(ui.selected.children[0].getAttribute('id'))
+
+                //          ui.selected.style = "color: red;"
+                //    }
+                   
+                  
+                    // $(this).siblings().css("color","black");
+                    // console.log(this);
                 }
             });
         });
@@ -773,36 +797,36 @@
                     </div>
                 `)
             }
-            $('#basic-datatables').DataTable();
+            // $('#basic-datatables').DataTable();
 
-            $('#multi-filter-select').DataTable({
-                "pageLength": 5,
-                initComplete: function () {
-                    this.api().columns().every(function () {
-                        var column = this;
-                        var select = $('<select class="form-control"><option value=""></option></select>')
-                            .appendTo($(column.footer()).empty())
-                            .on('change', function () {
-                                var val = $.fn.dataTable.util.escapeRegex(
-                                    $(this).val()
-                                );
+             $('#multi-filter-select').DataTable({
+            //     "pageLength": 5,
+            //     initComplete: function () {
+            //         this.api().columns().every(function () {
+            //             var column = this;
+            //             var select = $('<select class="form-control"><option value=""></option></select>')
+            //                 .appendTo($(column.footer()).empty())
+            //                 .on('change', function () {
+            //                     var val = $.fn.dataTable.util.escapeRegex(
+            //                         $(this).val()
+            //                     );
 
-                                column
-                                    .search(val ? '^' + val + '$' : '', true, false)
-                                    .draw();
-                            });
+            //                     column
+            //                         .search(val ? '^' + val + '$' : '', true, false)
+            //                         .draw();
+            //                 });
 
-                        column.data().unique().sort().each(function (d, j) {
-                            select.append('<option value="' + d + '">' + d + '</option>')
-                        });
-                    });
-                }
-            });
+            //             column.data().unique().sort().each(function (d, j) {
+            //                 select.append('<option value="' + d + '">' + d + '</option>')
+            //             });
+            //         });
+            //     }
+            // });
 
             // Add Row
-            $('#add-row').DataTable({
-                "pageLength": 5,
-            });
+            // $('#add-row').DataTable({
+            //     "pageLength": 5,
+             });
 
             var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
 
@@ -840,51 +864,69 @@
 
         const previewMapped = (li, type) => {
             $('#nofield').hide();
-            if (prev != type) {
-                if (flag) {
-                    counter++;
-                    if (type) {
-                        $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
+            if(current===null) {
+                console.log(": ",current);
+                if (type=='left') {
+                    $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
                 <div class="k_field" id='left-${counter}'> ${li.selected.innerText || li.selected.innerHTML}</div>
                  <i class="fas fa-arrows-alt-h"></i>
                  <div id='right-${counter}' class="k_field"> </div>
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
                  </li>`)
-                        right = type;
-                    }
-                    else {
-                        $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
+                }
+                else if(type=='right') {
+                    $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
                 <div class="k_field" id='left-${counter}'> </div>
                  <i class="fas fa-arrows-alt-h"></i>
                  <div id='right-${counter}' class="k_field">${li.selected.innerText || li.selected.innerHTML} </div>
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
                  </li>`)
-                        right = type;
-                    }
-                    flag = false;
                 }
-                else {
-                    if (right) {
-                        document.getElementById(`right-${counter}`).innerText = li.selected.innerText;
-
-                    }
-                    else {
-                        document.getElementById(`left-${counter}`).innerText = li.selected.innerText;
-                    }
-                    flag = true;
-
-
-                }
-
-                prev = type;
-                if (flag) {
-                    prev = undefined;
-                }
-
-
+                counter+=1
+                $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
+                <div class="k_field" id='left-${counter}'> </div>
+                 <i class="fas fa-arrows-alt-h"></i>
+                 <div id='right-${counter}' class="k_field"> </div>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
+                 </li>`)
+                 $(`#preview-${counter}`).addClass('ui-selectee ui-selected').siblings().removeClass('ui-selectee ui-selected')
+                 current = "preview-"+counter
             }
-
-
+        else{
+            let n = current.slice(-1)
+            let leftElement= document.getElementById(`left-${n}`)
+            let rightElement= document.getElementById(`right-${n}`)
+            let isEmptyRow = ((leftElement.innerText == '' && rightElement.innerText == '')? true:false)
+            if (type=='right') {
+                rightElement.innerText = li.selected.innerText;
+            }
+            else if(type=='left') {
+               leftElement.innerText = li.selected.innerText;
+            }
+            if(isEmptyRow){
+                counter += 1
+                $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
+                <div class="k_field" id='left-${counter}'> </div>
+                <i class="fas fa-arrows-alt-h"></i>
+                <div id='right-${counter}' class="k_field"> </div>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
+                </li>`)
+                $(`#preview-${counter}`).addClass('ui-selectee ui-selected').siblings().removeClass('ui-selectee ui-selected')
+                current = "preview-" + counter
+            }
+            // if(!(document.getElementById(`left-${n}`).innerText=='' && document.getElementById(`right-${n}`).innerText == ''))
+            // {
+            //     counter += 1
+            //     $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
+            //     <div class="k_field" id='left-${counter}'> </div>
+            //         <i class="fas fa-arrows-alt-h"></i>
+            //         <div id='right-${counter}' class="k_field"> </div>
+            //     <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
+            //         </li>`)
+            //     $(`#preview-${counter}`).addClass('ui-selectee ui-selected').siblings().removeClass('ui-selectee ui-selected')
+            //     current = "preview-" + counter
+            // }
+        }
         }
         $('#addPriceBtn').on('click', function () {
             $('#addPrice').append(`
