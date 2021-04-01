@@ -143,46 +143,27 @@
                                             <div class="tab-content">
                                                 <div class="tab-pane fade active show" id="upload-file" role="tabpanel"
                                                     aria-labelledby="upload-file">
-                                                    <div class="form-group d-block">
-                                                        <label for="exampleFormControlSelect1">Import Type</label>
-                                                        <select class="form-control" id="exampleFormControlSelect1">
-                                                            <option>1</option>
-                                                            <option>2</option>
-                                                            <option>3</option>
-                                                            <option>4</option>
-                                                            <option>5</option>
-                                                        </select>
-                                                        <small class="form-text text-muted">Choose the category of data
-                                                            to import</small>
-                                                    </div>
+                                                    <form action="/admin/importassistant" method="POST" enctype="multipart/form-data">
+                                                        <input type="hidden" name="step" value="1">
+                                                   
 
-                                                    <div class="form-group d-block">
-                                                        <label for="exampleFormControlSelect1">Record Type</label>
-                                                        <select class="form-control" id="exampleFormControlSelect1">
-                                                            <option>1</option>
-                                                            <option>2</option>
-                                                            <option>3</option>
-                                                            <option>4</option>
-                                                            <option>5</option>
-                                                        </select>
-                                                        <small class="form-text text-muted">Choose the record type of
-                                                            data to import</small>
-                                                    </div>
+                                                   
 
-                                                    <div class="form-group d-block ">
+                                                    <div class="form-group d-block " style="    margin: auto;margin-top: 120px;">
                                                         <label class="form-label">Upload File</label>
                                                         <br>
                                                         <label for="et_pb_contact_brand_file_request_0"
                                                             class="et_pb_contact_form_label"></label>
-                                                        <input type="file" id="et_pb_contact_brand_file_request_0"
+                                                        <input type="file" name="file" id="et_pb_contact_brand_file_request_0"
                                                             class="file-upload">
 
                                                     </div>
 
                                                     <ul class="list-inline pull-right">
-                                                        <li><button type="button"
+                                                        <li><button type="submit"
                                                                 class="btn next-step btn-primary">Next</button></li>
                                                     </ul>
+                                                    </form>
                                                 </div>
                                                 <div class="tab-pane fade text-center" id="import-option" role="tabpanel"
                                                     aria-labelledby="import-option">
@@ -237,12 +218,15 @@
                                                                 <div style="height:600px" class="card-body scroll-area-lg">
                                                                     <ul class="selectable scrollbar-container ps--active-y ps"
                                                                         id="excelFields">
-                                                                        <% fields.forEach(function(field) { %>
-                                                                        <li class="" data-type="<%=field.inputType %>"
-                                                                            id="<%=field.id %>">
-                                                                            <%=field.label %>
-                                                                        </li>
-                                                                        <% }) %>
+                                                                        <% if(excelData !== null){ %> 
+                                                                        <% excelData.forEach(function(field) { %>
+                                                                            <% if(field!=null){ %>
+                                                                                <li class=""
+                                                                                    id="">
+                                                                                    <%=field.replace(/\s/g,'') %>
+                                                                                </li>
+                                                                            <%}%>
+                                                                        <% })} %>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -295,9 +279,10 @@
                                                                                 <div class="card-body scroll-area-lg">
                                                                                     <ul id="system-fields"
                                                                                         class="selectable kK_accordian_list scrollbar-container ps--active-y ps">
+                                                                                        
                                                                                         <% fields.forEach(function(field) { %>
                                                                                         <li class="ui-widget-content mb-3 p-1 h-100"
-                                                                                            id="<%=field.id %>">
+                                                                                            id="<%=field.id %>" field-type="<%=field.inputType %>" , field-description="<%=field.description%>">
                                                                                             <%=field.label %>
                                                                                         </li>
                                                                                         <% }) %>
@@ -305,72 +290,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="card">
-                                                                            <div
-                                                                                class="card-header collapsed d-flex justify-content-between">
-                                                                                <div class="span-mode"></div>
-                                                                                <div class="span-title" id="headingTwo"
-                                                                                    data-toggle="collapse"
-                                                                                    data-target="#collapseTwo"
-                                                                                    aria-expanded="false"
-                                                                                    aria-controls="collapseTwo">
-                                                                                    Item Pricing
-                                                                                </div>
-                                                                                <a id="addPriceBtn"
-                                                                                    class="btn btn-light btn-sm p-1"><i
-                                                                                        style="font-size:12px"
-                                                                                        class="fa fa-plus"></i></a>
-
-                                                                            </div>
-                                                                            <div id="collapseTwo" class="collapse"
-                                                                                aria-labelledby="headingTwo"
-                                                                                data-parent="#accordion">
-                                                                                <div class="card-body">
-                                                                                    <ul class="kK_accordian_list">
-                                                                                        <li class="acc_collapse">
-                                                                                            <div class="accordion accordion-secondary"
-                                                                                                id="addPrice">
-                                                                                                <div class="card">
-                                                                                                    <div class="card-header d-flex justify-content-between"
-                                                                                                        id="headingOne"
-                                                                                                        data-toggle="collapse"
-                                                                                                        data-target="#collapseOne.2"
-                                                                                                        aria-expanded="false"
-                                                                                                        aria-controls="collapseOne">
-                                                                                                        <div
-                                                                                                            class="span-mode">
-                                                                                                        </div>
-                                                                                                        <div
-                                                                                                            class="span-title">
-                                                                                                            Item price 1
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div id="collapseOne.2"
-                                                                                                        class="collapse"
-                                                                                                        aria-labelledby="headingOne"
-                                                                                                        data-parent="#accordion">
-                                                                                                        <div
-                                                                                                            class="card-body">
-                                                                                                            <ul
-                                                                                                                class="kK_accordian_list">
-                                                                                                                <li>One
-                                                                                                                </li>
-                                                                                                                <li>Two
-                                                                                                                </li>
-                                                                                                                <li>Three
-                                                                                                                </li>
-                                                                                                                <li>Four
-                                                                                                                </li>
-                                                                                                            </ul>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                                                                      
                                                                         <div class="card">
                                                                             <div
                                                                                 class="card-header collapsed d-flex justify-content-between">
@@ -779,23 +699,9 @@
              $("#fieldLinkPreview").selectable({
                 selected: function (event, ui) {
                     current = ui.selected.getAttribute('id')
-                    console.log(ui.selected.getAttribute('id'))
-                //    if(ui.selected.style.color=='red'){
-
-                //         ui.selected.style = "color: ;"
-                //         selected = ui;
-
-                //    }else{
-                //        console.log(ui.selected.children[0].getAttribute('id'))
-
-                //          ui.selected.style = "color: red;"
-                //    }
-                   
                   
-                    // $(this).siblings().css("color","black");
-                    // console.log(this);
                 }
-            });
+            })
         });
 
         $(document).ready(function () {
@@ -875,35 +781,38 @@
         }
 
         const previewMapped = (li, type) => {
-            console.log(current);
+            var list = li
             $('#nofield').hide();
             if(current===null) {
                
                 if (type=='left') {
-                    $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link"> <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-light"><i class="fas fa-edit"></i></a> 
+                    $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">  
+                        <a onclick="showModal('${list.selected.getAttribute('field-type')}')" class="btn btn-sm btn-light" style="z-index:999"><i class="fas fa-edit"></i></a>
                 <div class="k_field" id='left-${counter}'> ${li.selected.innerText || li.selected.innerHTML}</div>
                  <i class="fas fa-arrows-alt-h"></i>
                  <div id='right-${counter}' class="k_field"> </div>
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')" style="z-index:999"><i class="fas fa-times-circle"></i></a>
                
                  </li>`)
                 }
                 else if(type=='right') {
                     $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
+                          <a onclick="showModal('${list.selected.getAttribute('field-type')}')" class="btn btn-sm btn-light" style="z-index:999"><i class="fas fa-edit"></i></a>
                 <div class="k_field" id='left-${counter}'> </div>
                  <i class="fas fa-arrows-alt-h"></i>
                  <div id='right-${counter}' class="k_field">${li.selected.innerText || li.selected.innerHTML} </div>
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')" style="z-index:999"><i class="fas fa-times-circle"></i></a>
                                
 
                  </li>`)
                 }
                 counter+=1
                 $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
+                         <a onclick="showModal('${list.selected.getAttribute('field-type')}')" class="btn btn-sm btn-light" style="z-index:999"><i class="fas fa-edit"></i></a>
                 <div class="k_field" id='left-${counter}'> </div>
                  <i class="fas fa-arrows-alt-h"></i>
                  <div id='right-${counter}' class="k_field"> </div>
-                <a href="javascript:void(0)" class="closebtn mr-3" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
+                <a href="javascript:void(0)" class="closebtn mr-3" onclick="closeNav('preview-${counter}')" style="z-index:999"><i class="fas fa-times-circle"></i></a>
                  
 
                  </li>`)
@@ -925,10 +834,11 @@
             if(isEmptyRow){
                 counter += 1
                 $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
+                    <a onclick="showModal('${list.selected.getAttribute('field-type')}')" class="btn btn-sm btn-light" style="z-index:999"><i class="fas fa-edit"></i></a>
                 <div class="k_field" id='left-${counter}'> </div>
                 <i class="fas fa-arrows-alt-h"></i>
                 <div id='right-${counter}' class="k_field"> </div>
-                <a href="javascript:void(0)" class="closebtn mr-3" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
+                <a href="javascript:void(0)" class="closebtn mr-3" onclick="closeNav('preview-${counter}')" style="z-index:999"><i class="fas fa-times-circle"></i></a>
                                
 
                 </li>`)
@@ -936,18 +846,7 @@
                 current = "preview-" + counter
                 
             }
-            // if(!(document.getElementById(`left-${n}`).innerText=='' && document.getElementById(`right-${n}`).innerText == ''))
-            // {
-            //     counter += 1
-            //     $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
-            //     <div class="k_field" id='left-${counter}'> </div>
-            //         <i class="fas fa-arrows-alt-h"></i>
-            //         <div id='right-${counter}' class="k_field"> </div>
-            //     <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
-            //         </li>`)
-            //     $(`#preview-${counter}`).addClass('ui-selectee ui-selected').siblings().removeClass('ui-selectee ui-selected')
-            //     current = "preview-" + counter
-            // }
+           
         }
         }
         $('#addPriceBtn').on('click', function () {
@@ -1000,6 +899,10 @@
 
 
         // Javascript to enable link to tab
+        let step = '<%= step%>'
+        if(step){
+            $('.nav a[href="#' + step + '"]').tab('show'); 
+        }
             var hash = location.hash.replace(/^#/, '');
             if (hash) {
                 $('.nav a[href="#' + hash + '"]').tab('show');
@@ -1011,6 +914,11 @@
                 window.location.hash = e.target.hash;
                 $('html, body').animate({ scrollTop: '0px' },10);
             })
+
+        const showModal = function(type){
+            console.log(type);
+            $('exampleModal').modal('show')
+        }
     </script>
 
 </body>
