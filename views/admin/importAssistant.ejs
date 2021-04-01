@@ -122,10 +122,10 @@
                                         <div class="col-2 col-md-2" style="    border-right: 1px solid lightgrey;">
                                             <div class="nav flex-column nav-pills nav-secondary" id="v-pills-tab"
                                                 role="tablist" aria-orientation="vertical">
-                                                <a class="nav-link active show" id="v-pills-1-tab" data-toggle="pill"
+                                                <a class="nav-link active show tick_enable" id="v-pills-1-tab" data-toggle="pill"
                                                     href="#upload-file" role="tab" aria-controls="upload-file"
                                                     aria-selected="true">1. Scan & Upload CSV File</a>
-                                                <a class="nav-link" id="v-pills-2-tab" data-toggle="pill"
+                                                <a class="nav-link tick_enable" id="v-pills-2-tab" data-toggle="pill"
                                                     href="#import-option" role="tab" aria-controls="import-option"
                                                     aria-selected="false">2. Import Options</a>
                                                 <a class="nav-link" id="v-pills-3-tab" data-toggle="pill"
@@ -184,24 +184,36 @@
                                                                 class="btn next-step btn-primary">Next</button></li>
                                                     </ul>
                                                 </div>
-                                                <div class="tab-pane fade" id="import-option" role="tabpanel"
+                                                <div class="tab-pane fade text-center" id="import-option" role="tabpanel"
                                                     aria-labelledby="import-option">
-                                                    <p>Even the all-powerful Pointing has no control about the blind
-                                                        texts it is an almost
-                                                        unorthographic
-                                                        life One day however a small line of blind text by the name of
-                                                        Lorem Ipsum decided
-                                                        to leave for the
-                                                        far World of Grammar.</p>
-                                                    <p>The Big Oxmox advised her not to do so, because there were
-                                                        thousands of bad Commas,
-                                                        wild Question
-                                                        Marks and devious Semikoli, but the Little Blind Text didnâ€™t
-                                                        listen. She packed
-                                                        her seven
-                                                        versalia, put her initial into the belt and made herself on the
-                                                        way.
-                                                    </p>
+                                                <div class="form-group mt-5" style="width: 60%;">
+                                                  <div class="row">
+                                                        <div class="col-6 col-sm-4">
+                                                            <label class="imagecheck mb-4">
+                                                                <input name="imagecheck" type="radio" value="1" class="imagecheck-input">
+                                                                <figure class="imagecheck-figure">
+                                                                <img src="../../assets/img/add.svg" alt="title" class="imagecheck-image">
+                                                                </figure>
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-6 col-sm-4">
+                                                            <label class="imagecheck mb-4">
+                                                                <input name="imagecheck" type="radio" value="2" class="imagecheck-input" checked="">
+                                                                <figure class="imagecheck-figure">
+                                                                    <img src="../../assets/img/update.svg" alt="title" class="imagecheck-image">
+                                                                </figure>
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-6 col-sm-4">
+                                                            <label class="imagecheck mb-4">
+                                                                <input name="imagecheck" type="radio" value="3" class="imagecheck-input">
+                                                                <figure class="imagecheck-figure">
+                                                                    <img src="../../assets/img/addupdate.svg" alt="title" class="imagecheck-image">
+                                                                </figure>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                                     <ul class="list-inline pull-right">
                                                         <li><button type="button"
@@ -246,7 +258,7 @@
                                                                 </div>
                                                                 <div class="card-body">
                                                                     <ul id="fieldLinkPreview"
-                                                                        style="max-width: 80%;margin: 30px auto;">
+                                                                        style="max-width: 100%;margin: 30px auto;">
 
                                                                     </ul>
                                                                 </div>
@@ -845,6 +857,7 @@
                     counter++;
                     if (type) {
                         $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
+                         <a data-toggle="modal" href="#myModal" class="closebtn" ><i class="fas fa-marker"></i></a>
                 <div class="k_field" id='left-${counter}'> ${li.selected.innerText || li.selected.innerHTML}</div>
                  <i class="fas fa-arrows-alt-h"></i>
                  <div id='right-${counter}' class="k_field"> </div>
@@ -854,6 +867,7 @@
                     }
                     else {
                         $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
+                       <a data-toggle="modal" href="#myModal" class="closebtn" ><i class="fas fa-marker"></i></a>
                 <div class="k_field" id='left-${counter}'> </div>
                  <i class="fas fa-arrows-alt-h"></i>
                  <div id='right-${counter}' class="k_field">${li.selected.innerText || li.selected.innerHTML} </div>
