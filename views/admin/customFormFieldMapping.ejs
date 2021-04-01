@@ -107,7 +107,8 @@
                                                                 <% if(subComponent.type=='tab' ){ %>
                                                                 <li class="dd-item" data-id="<%= j++ %>">
                                                                     <div class="dd-handle">
-                                                                        <%=subComponent.name%> <span
+                                                                        <%=subComponent.name%> 
+                                                                        <span
                                                                             class="badge badge-pill badge-info"
                                                                             style="float: right;">
                                                                             <%= subComponent.type == 'sec' ? 'section' : 'Sub-Tab' %>
@@ -116,12 +117,53 @@
                                                                     <ol class="dd-list">
                                                                         <%subComponent.tabComponents.forEach(tabComponent=> { %> 
                                                                             <li class="dd-item" data-id="6">
-                                                                            <div class="dd-handle">
-                                                                                <%=tabComponent.name%>
-                                                                                <%=subComponent.name%> <span class="badge badge-pill badge-primary" style="float: right;">
-                                                                                    <%= tabComponent.type == 'sec' ? 'sub-section' : 'Tab-Page' %>
-                                                                                </span>
-                                                                            </div>
+                                                                                <%if(subComponent.type == 'tab'){%>
+                                                                                    <div class="dd-handle">
+                                                                                        <input name="component" class="form-check-input mr-2" type="radio" id="sec-<%=tabComponent.order %>"
+                                                                                            value="<%=tabComponent._id %> ">
+                                                                                        <%=tabComponent.name%>
+                                                                                            <a class="btn btn-light badge btn-sm" data-toggle="collapse" href="#multi-<%=tabComponent._id%>" role="button"
+                                                                                                aria-expanded="false" aria-controls="multiCollapseExample1" style="float: right;">
+                                                                                                <%= tabComponent.AssignedFields.length==0 ? 'N-A' : tabComponent.AssignedFields.length + '  Fields' %>
+                                                                                            </a>
+                                                                                    </div>
+                                                                                    <div class="col">
+                                                                                        <div class="collapse multi-collapse" id="multi-<%=tabComponent._id%>">
+                                                                                            <div class="card card-body">
+                                                                                                <div class="scroll-area-lg" style="height:300px">
+                                                                                                    <div class="scrollbar-container ps--active-y ps">
+                                                                                                        <% if(tabComponent.AssignedFields.length==0){ %>
+                                                                                                            <div class="mx-auto Kk_no_assigned">
+                                                                                                                <img class="img-responsive" src="/assets/img/no_field_assigned.png">
+                                                                                                                <h4>No Field Assigned
+                                                                                                                </h4>
+                                                                                                                <h6>Please Assign some Fields</h6>
+                                                                                                            </div>
+                                                                                                            <% } %>
+                                                                                                                <%tabComponent.AssignedFields.forEach(a=>{ %>
+                                                                                                                    <label class="selectgroup-item m-2">
+                                                                                                                        <input type="select" class="selectgroup-input fclass">
+                                                                                                                        <span class="selectgroup-button">
+                                                                                                                            <%= search(a.fieldId,data.itemFields) %>
+                                                                                                                        </span>
+                                                                                                                        </input>
+                                                                                                                    </label>
+                                                                                                                    <% }) %>
+                                                                                    
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                <%}else{%>
+                                                                                    <div class="dd-handle">
+                                                                                        <%=tabComponent.name%>
+                                                                                            <span class="badge badge-pill badge-primary" style="float: right;">
+                                                                                                <%= tabComponent.type=='sec' ? 'sub-section' : 'Tab-Page' %>
+                                                                                            </span>
+                                                                                    </div>
+                                                                                <%}%>
+                                             
 
                                                                             <% if(tabComponent.pageContent) {%>
                                                                             <ol class="dd-list">

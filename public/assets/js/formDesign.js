@@ -286,7 +286,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
             let allChild = Array.from(child)
 
             allChild.forEach((b, index) => {
-                let childObj = { tabComponentS: [] };
+                let childObj = { tabComponents: [] };
                 let id = b.getAttribute('id');
                 id = id.split('-');
                 let sub = Array.from(allTabSec[index].getElementsByTagName("div")[1].children);
@@ -308,6 +308,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
                 childObj.name = b.innerText || b.nodeValue
                 obj.subComponents.push(childObj)
             })
+            
         }
         AllData.push(obj);
     })
@@ -360,7 +361,6 @@ function scrollDown(id) {
 function validation(flag) {
     if (!flag) {
         AllData = [];
-        // console.log(AllData);
         iziToast.error({
             message: "please enter section name"
         })

@@ -593,7 +593,8 @@ console.log(selectedFile);
             createHeader(pages.content[0])
             addDataTobody(pages.content)
             //console.log(JSON.stringify(pages.content))
-            console.log(JSON.stringify(buildQueryData(pages.content)))
+            buildQueryData(pages.content)
+            console.log(JSON.stringify(buildQueryData(pages.content)));
           }
         })
       }
@@ -660,6 +661,14 @@ const addDataTobody = (content) => {
   }
 }
 
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
+
 const buildQueryData = (data) => {
   var querydata = []
   var parentId = ''
@@ -671,12 +680,11 @@ const buildQueryData = (data) => {
   data.forEach(object => {
     temp={}
     if (object.Name != null){
-      temp.id = Math.floor(Math.random() * 1000)
-      temp.parentId='-'
+      temp.id = uuidv4()
+      temp.parentId='1'
+      temp.catalogueHierarchy = 'bc77c4b6-8a0d-4150-b8ec-22af5a8e2172'
       temp.text=object.Name
-      temp.active = '1'
       temp.createdBy='admin'
-      console.log("Temp: ",temp)
       querydata.push(temp)
 
       cnt=0
@@ -698,7 +706,7 @@ const buildQueryData = (data) => {
           //   index+=1
           // }
 
-          temp.id = Math.floor(Math.random() * 1000)
+          temp.id = uuidv4()
           if(flag){
             cnt+=1
             flag=false //came from root to inner
@@ -731,9 +739,11 @@ const buildQueryData = (data) => {
           
           temp.parentId=parentId
           temp.text=object[key]
-          temp.active = '1'
           temp.createdBy = 'admin'
+          temp.catalogueHierarchy = 'bc77c4b6-8a0d-4150-b8ec-22af5a8e2172'
           querydata.push(temp)
+
+          
           return
         }
         
@@ -742,5 +752,11 @@ const buildQueryData = (data) => {
     }
     
   })
+  // console.log(getDuplicates(querydata, 'id'))
   return querydata
+}
+
+const getDuplicates = (arr, key) => {
+  const keys = arr.map(item => item[key]);
+  return keys.filter(key => keys.indexOf(key) !== keys.lastIndexOf(key))
 }
