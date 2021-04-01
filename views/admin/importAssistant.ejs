@@ -338,8 +338,8 @@
                                                                                                         data-parent="#accordion">
                                                                                                         <div
                                                                                                             class="card-body">
-                                                                                                            <ul
-                                                                                                                class="kK_accordian_list">
+                                                                                                            <ul id="vendor-1" onclick="addAll(this)" name="vendor"
+                                                                                                                class="ht_logic kK_accordian_list">
                                                                                                                 <li>One
                                                                                                                 </li>
                                                                                                                 <li>Two
@@ -799,7 +799,7 @@
                     $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
                           <a onclick="showModal('${list.selected.getAttribute('field-type')}')" class="btn btn-sm btn-light" style="z-index:999"><i class="fas fa-edit"></i></a>
                 <div class="k_field" id='left-${counter}'> </div>
-                 <i class="fas fa-arrows-alt-h"></i>
+                 <i id='arrow-${counter}' class="fas fa-arrows-alt-h"></i>
                  <div id='right-${counter}' class="k_field">${li.selected.innerText || li.selected.innerHTML} </div>
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')" style="z-index:999"><i class="fas fa-times-circle"></i></a>
                                
@@ -810,12 +810,13 @@
                 $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
                          <a onclick="showModal('${list.selected.getAttribute('field-type')}')" class="btn btn-sm btn-light" style="z-index:999"><i class="fas fa-edit"></i></a>
                 <div class="k_field" id='left-${counter}'> </div>
-                 <i class="fas fa-arrows-alt-h"></i>
+                 <i id='arrow-${counter}' class="fas fa-arrows-alt-h"></i>
                  <div id='right-${counter}' class="k_field"> </div>
                 <a href="javascript:void(0)" class="closebtn mr-3" onclick="closeNav('preview-${counter}')" style="z-index:999"><i class="fas fa-times-circle"></i></a>
                  
 
                  </li>`)
+                 $(`#arrow-${counter}`).addClass('btn btn-sm btn-primary btn-round').parent().siblings().removeClass('btn btn-sm btn-primary btn-round')
                  $(`#preview-${counter}`).addClass('ui-selectee ui-selected').siblings().removeClass('ui-selectee ui-selected')
                  current = "preview-"+counter
                  
@@ -824,6 +825,7 @@
             let n = current.slice(-1)
             let leftElement= document.getElementById(`left-${n}`)
             let rightElement= document.getElementById(`right-${n}`)
+            $(`#arrow-${n}`).addClass('btn btn-sm btn-primary btn-round').parent().siblings().removeClass('btn btn-sm btn-primary btn-round')
             let isEmptyRow = ((leftElement.innerText == '' && rightElement.innerText == '')? true:false)
             if (type=='right') {
                 rightElement.innerText = li.selected.innerText;
@@ -836,12 +838,13 @@
                 $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
                     <a onclick="showModal('${list.selected.getAttribute('field-type')}')" class="btn btn-sm btn-light" style="z-index:999"><i class="fas fa-edit"></i></a>
                 <div class="k_field" id='left-${counter}'> </div>
-                <i class="fas fa-arrows-alt-h"></i>
+                <i id='arrow-${counter}' class="fas fa-arrows-alt-h"></i>
                 <div id='right-${counter}' class="k_field"> </div>
                 <a href="javascript:void(0)" class="closebtn mr-3" onclick="closeNav('preview-${counter}')" style="z-index:999"><i class="fas fa-times-circle"></i></a>
                                
 
                 </li>`)
+                $(`#arrow-${counter}`).addClass('btn btn-sm btn-primary btn-round').parent().siblings().removeClass('btn btn-sm btn-primary btn-round')
                 $(`#preview-${counter}`).addClass('ui-selectee ui-selected').siblings().removeClass('ui-selectee ui-selected')
                 current = "preview-" + counter
                 
@@ -850,27 +853,27 @@
         }
         }
         $('#addPriceBtn').on('click', function () {
-            $('#addPrice').append(`
-        <div class="card">
-            <div class="card-header d-flex justify-content-between" id="headingOne" data-toggle="collapse"
-                data-target="#collapseOne.2-${$('#addPrice').children().length + 1}" aria-expanded="false" aria-controls="collapseOne">
-                <div class="span-mode"></div>
-                <div class="span-title">
-                    Item price ${$('#addPrice').children().length + 1}
-                </div>
-            </div>
-            <div id="collapseOne.2-${$('#addPrice').children().length + 1}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                <div class="card-body">
-                    <ul class="kK_accordian_list">
-                        <li>One</li>
-                        <li>Two</li>
-                        <li>Three</li>
-                        <li>Four</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        `)
+        //     $('#addPrice').append(`
+        // <div class="card">
+        //     <div class="card-header d-flex justify-content-between" id="headingOne" data-toggle="collapse"
+        //         data-target="#collapseOne.2-${$('#addPrice').children().length + 1}" aria-expanded="false" aria-controls="collapseOne">
+        //         <div class="span-mode"></div>
+        //         <div class="span-title">
+        //             Item price ${$('#addPrice').children().length + 1}
+        //         </div>
+        //     </div>
+        //     <div id="collapseOne.2-${$('#addPrice').children().length + 1}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+        //         <div class="card-body">
+        //             <ul class="kK_accordian_list">
+        //                 <li>One</li>
+        //                 <li>Two</li>
+        //                 <li>Three</li>
+        //                 <li>Four</li>
+        //             </ul>
+        //         </div>
+        //     </div>
+        // </div>
+        // `)
         })
 
         $('#addVendorBtn').on('click', function () {
@@ -885,7 +888,7 @@
             </div>
             <div id="collapseOne.2-v${$('#addVendor').children().length + 1}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="card-body">
-                    <ul class="kK_accordian_list">
+                    <ul name="vendor" onclick="addAll(this)" id="vendor-${$('#addVendor').children().length + 1}" class="kK_accordian_list ht_logic">
                         <li>One</li>
                         <li>Two</li>
                         <li>Three</li>
@@ -897,6 +900,34 @@
         `)
         })
 
+        const addAll = (content) =>{
+            console.log(content.id);
+            let child = Array.from(content.children)
+            $('#nofield').hide();
+            $('#fieldLinkPreview li:last-child').remove();
+            counter -=1
+            child.forEach((item,i) => {
+                
+                $('#fieldLinkPreview').append(`<li id="preview-${ }" class="kkay_field_map_link">
+                <div class="k_field" id='left-${counter}'> </div>
+                 <i id='arrow-${counter}' class="fas fa-arrows-alt-h"></i>
+                 <div id='right-${counter}' class="k_field">Item ${content.id} : ${item.innerText}</div>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
+                 </li>`)
+                 counter+=1
+            });
+            // let leftElement = document.getElementById(`left-${counter}`)
+            // let rightElement = document.getElementById(`right-${counter}`)
+            // let isEmptyRow = ((leftElement.innerText == '' && rightElement.innerText == '') ? true : false)
+            // if (isEmptyRow) {}
+            $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
+                <div class="k_field" id='left-${counter}'> </div>
+                 <i id='arrow-${counter}' class="fas fa-arrows-alt-h"></i>
+                 <div id='right-${counter}' class="k_field"> </div>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
+                 </li>`)
+        }
+      
 
         // Javascript to enable link to tab
         let step = '<%= step%>'
