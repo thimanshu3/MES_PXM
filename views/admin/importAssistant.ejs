@@ -645,7 +645,7 @@
                 </div>
             </div>
             <%-include('../partials/footer.ejs')%>
-            <div class="modal fade kk_modal_popup_form" id="myModal" style="display: none;" aria-hidden="true"
+            <div class="modal fade kk_modal_popup_form" id="exampleModal" style="display: none;" aria-hidden="true"
                 data-keyboard="false" data-backdrop="static">
                 <div class="modal-dialog ">
                     <div class="modal-content">
@@ -862,15 +862,17 @@
         }
 
         const previewMapped = (li, type) => {
+            console.log(current);
             $('#nofield').hide();
             if(current===null) {
-                console.log(": ",current);
+               
                 if (type=='left') {
-                    $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
+                    $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link"> <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-light"><i class="fas fa-edit"></i></a> 
                 <div class="k_field" id='left-${counter}'> ${li.selected.innerText || li.selected.innerHTML}</div>
                  <i id='arrow-${counter}' class="fas fa-arrows-alt-h"></i>
                   <div id='right-${counter}' class="k_field"> </div>
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
+               
                  </li>`)
                 }
                 else if(type=='right') {
@@ -879,6 +881,8 @@
                  <i id='arrow-${counter}' class="fas fa-arrows-alt-h"></i>
                  <div id='right-${counter}' class="k_field">${li.selected.innerText || li.selected.innerHTML} </div>
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
+                               
+
                  </li>`)
                 }
                 counter+=1
@@ -886,11 +890,14 @@
                 <div class="k_field" id='left-${counter}'> </div>
                  <i id='arrow-${counter}' class="fas fa-arrows-alt-h"></i>
                  <div id='right-${counter}' class="k_field"> </div>
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
+                <a href="javascript:void(0)" class="closebtn mr-3" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
+                 
+
                  </li>`)
                  $(`#arrow-${counter}`).addClass('btn btn-sm btn-primary btn-round').parent().siblings().removeClass('btn btn-sm btn-primary btn-round')
                  $(`#preview-${counter}`).addClass('ui-selectee ui-selected').siblings().removeClass('ui-selectee ui-selected')
                  current = "preview-"+counter
+                 
             }
         else{
             let n = current.slice(-1)
@@ -910,11 +917,14 @@
                 <div class="k_field" id='left-${counter}'> </div>
                 <i id='arrow-${counter}' class="fas fa-arrows-alt-h"></i>
                 <div id='right-${counter}' class="k_field"> </div>
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
+                <a href="javascript:void(0)" class="closebtn mr-3" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
+                               
+
                 </li>`)
                 $(`#arrow-${counter}`).addClass('btn btn-sm btn-primary btn-round').parent().siblings().removeClass('btn btn-sm btn-primary btn-round')
                 $(`#preview-${counter}`).addClass('ui-selectee ui-selected').siblings().removeClass('ui-selectee ui-selected')
                 current = "preview-" + counter
+                
             }
             // if(!(document.getElementById(`left-${n}`).innerText=='' && document.getElementById(`right-${n}`).innerText == ''))
             // {
