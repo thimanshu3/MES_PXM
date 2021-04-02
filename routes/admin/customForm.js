@@ -176,6 +176,18 @@ router.post('/:id/fieldmap/assign', async (req, res) => {
         res.redirect('/admin/customform')
     }
 })
+
+router.delete('/:id/fieldmap/unassign', async(req, res)=>{
+   
+    try {
+    //    you can do it bro
+
+    } catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        
+    }
+})
+
 //Preview Form
 router.get('/:id/form', async (req, res) => {
     try {

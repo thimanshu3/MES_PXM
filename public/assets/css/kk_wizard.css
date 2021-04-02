@@ -48,5 +48,5 @@
 
 .f1-buttons { text-align: right; }
 
-.f1 .input-error { border-color: #f35b3f; }
+.f1 .input-error { border-color: #f35b3f !important; }
 
