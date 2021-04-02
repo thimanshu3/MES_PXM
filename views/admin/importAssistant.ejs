@@ -915,8 +915,12 @@
                 window.location.hash = e.target.hash;
                 $('html, body').animate({ scrollTop: '0px' },10);
             })
-
+        const fields = ['number', 'text']
         const showModal = function(id,type,name){
+            $('#dmodal-body').empty();
+            if(fields.includes(type)){
+                
+            }
             console.log(id, type, name);
             $('#dmodal-default').text(' '+name);
             
