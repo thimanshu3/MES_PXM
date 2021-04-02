@@ -195,19 +195,18 @@
     
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 id="demo" class="modal-title">Select List/Record<strong style="color: blue;"
+                    <h4 id="demo" class="modal-title">Select List/Record<strong style="color:#5394ca;"
                             id="nameV"></strong> </h4>
     
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
-    
+                <form action="/admin/inputField/attachList" method="POST">
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="scroll-area-sm">
                         <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
-                            <form action="/admin/inputField/attachList" method="POST">
-                                <input id="fieldId" type="hidden" name="fieldId" value="">
-                                <div class="col-sm-6 mt-4" id="listDiv2">
+                            <input id="fieldId" type="hidden" name="fieldId" value="">
+                                <div class="col-sm-12 mt-4" id="listDiv2">
                                     <div class="form-group form-floating-label">
                                         <select name="listrecord" class="form-control input-border-bottom" id="listOptions">
                                             <option id="listValues" value="">&nbsp;</option>
@@ -217,18 +216,24 @@
                                                 </option>
                                                 <% }) %>
                                         </select>
-                                        <label for="selectFloatingLabel" class="placeholder">Select Associated List
+                                        <label for="selectFloatingLabel" class="placeholder mb-3">Select Associated List
                                             Record</label>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </form>
+                               
+                            
                             
                         </div>
     
                     </div>
     
                 </div>
+
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+
+                    </form>
                 <!-- <div class="modal-footer">
                     <button type="button" class="btn btn-primary">Import</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -345,7 +350,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 id="demo" class="modal-title">List/Record Values of <strong style="color: blue;"
+                    <h4 id="demo" class="modal-title">List/Record Values of <strong style="color: #5394ca;"
                             id="nameV1"></strong> </h4>
 
                     <button type="button" class="close" data-dismiss="modal">×</button>
@@ -353,10 +358,11 @@
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <div class="scroll-area-sm">
-                        <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
+                    <div class="scroll-area-sm" style="max-height: 600px;
+    overflow: auto;">
+                        <div class="scrollbar-container ">
                             <ol id="lrValues" class="custom-counter">
-
+                                
                             </ol>
                         </div>
 
