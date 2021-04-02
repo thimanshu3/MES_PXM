@@ -212,8 +212,9 @@ router.post('/attachList',async (req, res) => {
             user: req.user.id,
             timestamp: new Date()
         })
-        res.redirect('/admin/inputField')
         req.flash('success', `Successfully Updated!!`)
+        res.redirect('/admin/inputField')
+       
         
     }
     catch (err) {
