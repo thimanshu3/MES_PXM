@@ -33,6 +33,15 @@
         });
     </script>
 
+<style>
+    .Kk_delete_tab.twwo {
+    position: absolute;
+    margin-top: -15px;
+    padding: 0px;
+    color: #000;
+    right: -7px;
+}
+</style>
 </head>
 
 <body>
@@ -144,6 +153,10 @@
                                                                                                                     <label class="selectgroup-item m-2">
                                                                                                                         <input type="select" class="selectgroup-input fclass">
                                                                                                                         <span class="selectgroup-button">
+                                                                                                                            <button 
+                                                                                                                                class="btn btn-link Kk_delete_tab twwo"
+                                                                                                                                onclick="unassignField('<%=a.fieldId%>' ,'<%=tabComponent._id%>')"><i class="  fas fa-times-circle"></i></button>
+
                                                                                                                             <%= search(a.fieldId,data.itemFields) %>
                                                                                                                         </span>
                                                                                                                         </input>
@@ -199,6 +212,7 @@
                                                                                                                 <input type="select" 
                                                                                                                     class="selectgroup-input fclass" >
                                                                                                                 <span class="selectgroup-button">
+                                                                                                                    <button class="btn btn-link Kk_delete_tab twwo" onclick="unassignField('<%=a.fieldId%>' ,'<%=page._id%>')"><i class="  fas fa-times-circle"></i></button>
                                                                                                                    <%= search(a.fieldId,data.itemFields)  %> 
                                                                                                                 </span>
                                                                                                                 </input>
@@ -248,6 +262,7 @@
                                                                                         <label class="selectgroup-item m-2">
                                                                                             <input type="select" class="selectgroup-input fclass">
                                                                                             <span class="selectgroup-button">
+                                                                                                <button onclick="unassignField('<%=a.fieldId%>' ,'<%=subComponent._id%>', '')" class="btn btn-link Kk_delete_tab twwo"><i class="  fas fa-times-circle"></i></button>
                                                                                                 <%= search(a.fieldId,data.itemFields)  %>
                                                                                             </span>
                                                                                             </input>
@@ -458,6 +473,37 @@
                 },
                 body: JSON.stringify({
                     newForm
+                })
+            })
+                .then(function (res) {
+                    return res.json()
+                })
+                .then(function (json) {
+                    if (json.status == 200)
+                        iziToast.success({
+                            message: json.message
+                        })
+                    else if (json.status == 400)
+                        iziToast.error({
+                            title: json.message,
+                            message: json.error
+                        })
+                    else
+                        iziToast.error({
+                            message: json.message
+                        })
+                })
+                .catch(err => console.log(err))
+        }
+
+        const unassignField = (fieldId , componentId) => {
+             fetch(`/admin/customform/${parseForm.formId}/fieldmap/unassign`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    fieldId, componentId
                 })
             })
                 .then(function (res) {

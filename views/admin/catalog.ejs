@@ -81,7 +81,21 @@
                                     <div class="card-body"  >
                                         <div class="row" >
                                             <div class="col-md-3" style="border-right: 1px solid lightgrey;">
-
+                                                <div class="form-group catlog_search">
+                                                   <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <i class="fa fa-search search-icon" style="
+    position: absolute;
+    right: 14px;
+    z-index: 999;
+    top: 12px;
+    font-size: 18px;
+"></i>
+                                                          
+                                                        </div>
+                                                        <input id="search-input" type="text" placeholder="Search ..." class="form-control search-input">
+                                                    </div>
+                                                    </div>
                                                 <div class="form-group" style="width: 100%;">
                                                     <select name="catalogs" id="cataloghierarchy">
                                                         <option selected disabled>select catalog </option> 
@@ -92,8 +106,7 @@
                                                             <% }); %>
                                                     </select>
                                                 </div>
-                                                <input id="search-input" class="search-input" />
-                                                <div class="scroll-area-lg" style="height: 600px">
+                                              <div class="scroll-area-lg" style="height: 600px">
                                                 <div id="files" class="scrollbar-container ps--active-y ps jstree jstree-1 jstree-default" role="tree"
                                                     aria-multiselectable="true" tabindex="0"
                                                     aria-activedescendant="j1_5" aria-busy="false">

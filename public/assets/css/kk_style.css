@@ -733,21 +733,29 @@ body {
   counter-increment: step-counter;
   margin-bottom: 14px;
   font-size:18px;
-  margin-left:10px
+  margin-left:10px;
+  padding-left: 30px;
 }
 
 .custom-counter li::before {
-  content: counter(step-counter);
-  margin-right: 5px;
-  font-size: 80%;
-  background-color: #e4ca99;
-  color: white;
-  font-weight: bold;
-  padding: 3px 8px;
-  border-radius: 3px;
-      margin-right: 18px;
+    content: counter(step-counter);
+    margin-right: 5px;
+    /* font-size: 100%; */
+    background-color: #5394ca !important;
+    color: white;
+    font-weight: bold;
+    /* padding: 3px 8px; */
+    border-radius: 3px;
+    margin-right: 18px;
+    position: absolute;
+    width: 26px;
+    display: flex;
+    justify-content: center;
+    font-size: 15px;
+   left: 0px; 
+   align-items: center;
+   padding-top: 3px;
 }
-
 
 .list-grid-img img{
   width:50px;
@@ -1639,4 +1647,19 @@ border-color: #b7b7b7 !important;
     position: absolute;
     left: 24px;
     color: green;
+}
+
+
+.kk_file_tree  .col-md-3 .select2 {
+    width: 80% !important;
+}
+
+.form-button-action .fas.fa-toggle-on {
+    color: #5394ca9c !important;
+        transition: transform .2s;
+  
+}
+
+.form-button-action .fas.fa-toggle-on:hover {
+    transform: scale(1.3);
 }

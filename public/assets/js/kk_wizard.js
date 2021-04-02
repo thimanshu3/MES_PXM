@@ -487,11 +487,12 @@ jQuery(document).ready(function () {
     // navigation steps / progress steps
     var current_active_step = $(this).parents('.f1').find('.f1-step.active');
     var progress_line = $(this).parents('.f1').find('.f1-progress-line');
-
+    let error;
     // fields validation
     parent_fieldset.find('input[type="text"], input[type="radio"], textarea, input[type="file"]').each(function () {
       if ($(this).val() == "") {
         $(this).addClass('input-error');
+        error = true;
         next_step = false;
       }
       else {
@@ -500,7 +501,7 @@ jQuery(document).ready(function () {
       }
     });
     // fields validation
-
+    if(error){ sendErrorMessage(); error = false}
     if (next_step) {
       parent_fieldset.fadeOut(400, function () {
         // change icons
@@ -554,24 +555,25 @@ jQuery(document).ready(function () {
 
 });
 
-
+var column;
 $(document).ready(function () {
 
   $('input[type="text"], input[type="password"], textarea').each(function () {
     $(this).val($(this).attr('placeholder'));
   });
-
+ 
 });
+
 
 var headers;
 let selectedFile;
 document.getElementById('et_pb_contact_brand_file_request_0').addEventListener("change", (event) => {
-  selectedFile = event.target.files[0];
+    selectedFile = event.target.files[0];
+  
 })
 
 const previewTheData = () => {
-console.log(selectedFile);
-  if (selectedFile) {
+  if (selectedFile ) {
     let fileReader = new FileReader();
     fileReader.readAsBinaryString(selectedFile);
     fileReader.onload = (event) => {
@@ -592,21 +594,49 @@ console.log(selectedFile);
             
             createHeader(pages.content[0])
             addDataTobody(pages.content)
-            //console.log(JSON.stringify(pages.content))
-            buildQueryData(pages.content)
-            console.log(JSON.stringify(buildQueryData(pages.content)));
+            
           }
         })
       }
     }
   }
-  else {
-    iziToast.error({
-      message: 'not working'
-    })
-  }
-}
 
+}
+const sendFileToProcess = () => {
+  if(column == undefined){
+    iziToast.warning({message: "Please select one column to proceed..."})
+    return;
+  }
+  fetch(`/admin/importrawdata`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+     column,
+     
+    })
+  })
+    .then(function (res) {
+      return res.json()
+    })
+    .then(function (json) {
+      if (json.status == 200)
+        iziToast.success({
+          message: json.message
+        })
+      else if (json.status == 400)
+        iziToast.error({
+          title: json.message,
+          message: json.error
+        })
+      else
+        iziToast.error({
+          message: json.message
+        })
+    })
+    .catch(err => console.log(err))
+}
 
 const GetTable = () => {
   var table = $('#dytable').DataTable({
@@ -614,7 +644,7 @@ const GetTable = () => {
     scrollY: '60vh'
   });
   $('#preloader').hide()
-  $('#tableField').append(`<div class="f1-buttons mt-5"><button type="button" class="btn btn-previous" > Previous</button ><button type="submit" class="btn ml-3 btn-submit">Submit</button></div >`)
+  $('#tableField').append('<div class="f1-buttons mt-5"><button type="button" class="btn btn-previous" > Previous</button ><button id="sendFileToProcessBtn" onclick="sendFileToProcess()" class="btn ml-3 btn-submit">Submit</button></div>')
 }
 
 var executedH = false;
@@ -625,17 +655,13 @@ const createHeader = (fields) => {
     if (!executedH) {
       executedH = true;
       Object.keys(fields).forEach(field => {
-        if (field == '__EMPTY') {
-          throw new Error("Something went badly wrong!");
-        } else {
-          $('#headers').append(`<th scope="col">${field.toUpperCase()}</th>`)
-        }
+        $('#exampleFormControlSelect1').append(`<option value="${field}">${field}</option>`)
+        $('#headers').append(`<th scope="col">${field.toUpperCase()}</th>`)
       })
     }
   }
   catch (err) {
-    console.log(err)
-    return
+    console.log(err.toString())
   }
 }
 const addDataTobody = (content) => {
@@ -647,7 +673,7 @@ const addDataTobody = (content) => {
         for (var key in row) {
           if (row.hasOwnProperty(key) && key != '__EMPTY') {
             let td = document.createElement('td');
-            td.innerHTML = row[key] != null ? row[key] : 'N-A'
+            td.innerHTML = row[key] != null ? row[key] : '-'
             tr.appendChild(td);
           }
         }
@@ -668,7 +694,7 @@ function uuidv4() {
   });
 }
 
-
+// To import Catalogue
 const buildQueryData = (data) => {
   var querydata = []
   var parentId = ''
@@ -756,7 +782,21 @@ const buildQueryData = (data) => {
   return querydata
 }
 
-const getDuplicates = (arr, key) => {
-  const keys = arr.map(item => item[key]);
-  return keys.filter(key => keys.indexOf(key) !== keys.lastIndexOf(key))
+// const getDuplicates = (arr, key) => {
+//   const keys = arr.map(item => item[key]);
+//   return keys.filter(key => keys.indexOf(key) !== keys.lastIndexOf(key))
+// }
+
+const sendErrorMessage = () =>{ 
+  iziToast.error({
+    message: 'Please Fill All Required Fields'
+  })
 }
+
+
+
+
+$('#exampleFormControlSelect1').on('change', (e) =>{
+   column = $("option:selected").val()
+
+})
