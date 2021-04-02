@@ -122,7 +122,7 @@
 
 
 
-                                    <div class="row" style="height:75vh">
+                                    <div class="row" >
                                         <div class="col-2 col-md-2" style="    border-right: 1px solid lightgrey;">
                                             <div class="nav flex-column nav-pills nav-secondary" id="v-pills-tab"
                                                 role="tablist" aria-orientation="vertical">
@@ -332,8 +332,7 @@
                                                                                                         </div>
                                                                                                         <div
                                                                                                             class="span-title">
-                                                                                                            Item Vendor
-                                                                                                            1
+                                                                                                            Item Vendor 1
                                                                                                         </div>
                                                                                                     </div>
                                                                                                     <div id="collapseOne.2v"
@@ -385,7 +384,7 @@
                                                         <li><button type="button"
                                                                 class="btn  prev-step btn-primary">Previous</button>
                                                         </li>
-                                                        <li><button id="" type="button"
+                                                        <li><button id="fieldMappinggetObjBtn" type="button"
                                                                 class="btn  next-step btn-primary">Next</button></li>
                                                     </ul>
                                                 </div>
@@ -703,6 +702,11 @@
              $("#fieldLinkPreview").selectable({
                 selected: function (event, ui) {
                     current = ui.selected.getAttribute('id')
+                    counter=parseInt(current.slice(-1))
+                    $('#fieldLinkPreview li').each(function (i) {
+                         $(this).removeClass('current-active');
+                     });
+                     $(`#${current}`).addClass('current-active')
                   
                 }
             })
@@ -761,53 +765,55 @@
             if(current===null) {
                //send id . field-type and field-name in show modal function
                 if (type=='left') {
-                    $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">  
+                    $('#fieldLinkPreview').append(`<li id="preview-${counter.toString()}" class="kkay_field_map_link">  
                         
-                <div class="k_field" id='left-${counter}'> ${li.selected.innerText || li.selected.innerHTML}</div>
+                <div class="k_field" id='left-${counter.toString()}'> ${li.selected.innerText || li.selected.innerHTML}</div>
                  <i class="fas fa-arrows-alt-h"></i>
-                 <div id='right-${counter}' class="k_field"> </div>
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')" style="z-index:999"><i class="fas fa-times-circle"></i></a>
+                 <div id='right-${counter.toString()}' class="k_field"> </div>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter.toString()}')" style="z-index:999"><i class="fas fa-times-circle"></i></a>
                
                  </li>`)
                 }
                 else if(type=='right') {
-                    $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
-                          <a id="a-${counter}" onclick="showModal('${list.selected.getAttribute('id')}','${list.selected.getAttribute('field-type')}','${list.selected.innerText}')" class="btn btn-sm btn-light" style="z-index:999"><i class="fas fa-edit"></i></a>
-                <div class="k_field" id='left-${counter}'> </div>
-                 <i id='arrow-${counter}' style="color:green" class="fas fa-arrows-alt-h"></i>
-                 <div id='right-${counter}' class="k_field">${li.selected.innerText || li.selected.innerHTML} </div>
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')" style="z-index:999"><i class="fas fa-times-circle"></i></a>
+                    $('#fieldLinkPreview').append(`<li id="preview-${counter.toString()}" class="kkay_field_map_link">
+                          <a id="a-${counter.toString()}" onclick="showModal('${list.selected.getAttribute('id')}','${list.selected.getAttribute('field-type')}','${list.selected.innerText}')" class="btn btn-sm btn-light" style="z-index:999"><i class="fas fa-edit"></i></a>
+                <div class="k_field" id='left-${counter.toString()}'> </div>
+                 <i id='arrow-${counter.toString()}' style="color:green" class="fas fa-arrows-alt-h"></i>
+                 <div id='right-${counter.toString()}' class="k_field">${li.selected.innerText || li.selected.innerHTML} </div>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter.toString()}')" style="z-index:999"><i class="fas fa-times-circle"></i></a>
                                
 
                  </li>`)
                 }
-                counter+=1
-                $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
+                counter=parseInt(counter)+1
+                $('#fieldLinkPreview').append(`<li id="preview-${counter.toString()}" class="kkay_field_map_link">
                          
-                <div class="k_field" id='left-${counter}'> </div>
-                 <i id='arrow-${counter}' class="fas fa-arrows-alt-h"></i>
-                 <div id='right-${counter}' class="k_field"> </div>
-                <a href="javascript:void(0)" class="closebtn mr-3" onclick="closeNav('preview-${counter}')" style="z-index:999"><i class="fas fa-times-circle"></i></a>
+                <div class="k_field" id='left-${counter.toString()}'> </div>
+                 <i id='arrow-${counter.toString()}' class="fas fa-arrows-alt-h"></i>
+                 <div id='right-${counter.toString()}' class="k_field"> </div>
+                <a href="javascript:void(0)" class="closebtn mr-3" onclick="closeNav('preview-${counter.toString()}')" style="z-index:999"><i class="fas fa-times-circle"></i></a>
                  
 
                  </li>`)
                 
-                 $(`#preview-${counter}`).addClass('ui-selectee ui-selected').siblings().removeClass('ui-selectee ui-selected')
-                 current = "preview-"+counter
+                 $(`#preview-${counter.toString()}`).addClass('ui-selectee ui-selected').siblings().removeClass('ui-selectee ui-selected')
+                 current = "preview-"+counter.toString()
                  $('#fieldLinkPreview li').each(function (i) {
                     $(this).removeClass('current-active');
                 });
-                  $(`#preview-${counter-1}`).addClass('current-active')
+                  $(`#preview-${counter.toString()}`).addClass('current-active')
                  
             }
         else{
+            
             let n = current.slice(-1)
+            counter = parseInt(n)
             let leftElement= document.getElementById(`left-${n}`)
             let rightElement= document.getElementById(`right-${n}`)
             $('#fieldLinkPreview li').each(function (i) {
                     $(this).removeClass('current-active');
                 });
-            $(`#preview-${counter - 1}`).addClass('current-active')
+            $(`#preview-${n}`).addClass('current-active')
             let isEmptyRow = ((leftElement.innerText == '' && rightElement.innerText == '')? true:false)
             if (type=='right') {
                 rightElement.innerText = li.selected.innerText;
@@ -820,25 +826,26 @@
                leftElement.innerText = li.selected.innerText;
             }
             if(isEmptyRow){
-                counter += 1
-                $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
+                counter = parseInt(counter) + 1
+                $('#fieldLinkPreview').append(`<li id="preview-${counter.toString()}" class="kkay_field_map_link">
                     
-                <div class="k_field" id='left-${counter}'> </div>
-                <i id='arrow-${counter}' class="fas fa-arrows-alt-h"></i>
-                <div id='right-${counter}' class="k_field"> </div>
-                <a href="javascript:void(0)" class="closebtn mr-3" onclick="closeNav('preview-${counter}')" style="z-index:999"><i class="fas fa-times-circle"></i></a>
+                <div class="k_field" id='left-${counter.toString()}'> </div>
+                <i id='arrow-${counter.toString()}' class="fas fa-arrows-alt-h"></i>
+                <div id='right-${counter.toString()}' class="k_field"> </div>
+                <a href="javascript:void(0)" class="closebtn mr-3" onclick="closeNav('preview-${counter.toString()}')" style="z-index:999"><i class="fas fa-times-circle"></i></a>
                                
 
                 </li>`)
                  $('#fieldLinkPreview li').each(function (i) {
                     $(this).removeClass('current-active');
                 });
-                $(`#preview-${counter - 1}`).addClass('current-active')
-                $(`#preview-${counter}`).addClass('ui-selectee ui-selected').siblings().removeClass('ui-selectee ui-selected')
-                current = "preview-" + counter
+                $(`#preview-${counter.toString()}`).addClass('current-active')
+                $(`#preview-${counter.toString()}`).addClass('ui-selectee ui-selected').siblings().removeClass('ui-selectee ui-selected')
+                current = "preview-" + counter.toString()
                 
             }
-           
+           console.log("current: ", current);
+           console.log("counter: ",counter);
         }
         }
        
@@ -871,31 +878,54 @@
             let child = Array.from(content.children)
             $('#nofield').hide();
             $('#fieldLinkPreview li:last-child').remove();
-            counter -=1
+            counter =  parseInt(counter) + 1
+            if(parseInt(counter)){
+                counter = parseInt(counter) - 1
+                console.log("present");
+                console.log(counter);
+                if ($('#fieldLinkPreview').children().length != counter) {
+                    counter = $('#fieldLinkPreview').children().length
+                    current = "preview-" + counter.toString()
+                }
+            }
             child.forEach((item,i) => {
                 console.log(item, i);
-                $('#fieldLinkPreview').append(`<li name="__${content.id}" id="preview-${counter}" class="kkay_field_map_link">
-                <div class="k_field" id='left-${counter}'> </div>
-                 <i id='arrow-${counter}' class="fas fa-arrows-alt-h"></i>
-                 <div id='right-${counter}' class="k_field">Item ${content.id} : ${item.innerText}</div>
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
+                $('#fieldLinkPreview').append(`<li name="__${content.id}" id="preview-${counter.toString()}" class="kkay_field_map_link">
+                <div class="k_field" id='left-${counter.toString()}'> </div>
+                 <i id='arrow-${counter.toString()}' class="fas fa-arrows-alt-h"></i>
+                 <div id='right-${counter.toString()}' class="k_field">Item ${content.id} : ${item.innerText}</div>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter.toString()}')"><i class="fas fa-times-circle"></i></a>
                  </li>`)
-                if ($(`#preview-${counter}`).find("i.fa-edit").length == 0)
-                    $(`#preview-${counter}`).prepend(`<a id="a-${counter}" onclick="showModal('${item.getAttribute('id')}','${item.getAttribute('field-type')}','${item.innerText}')" class="btn btn-sm btn-light" style="z-index: 999;"><i class="fas fa-edit"></i></a>`);
+                if ($(`#preview-${counter.toString()}`).find("i.fa-edit").length == 0)
+                    $(`#preview-${counter.toString()}`).prepend(`<a id="a-${counter.toString()}" onclick="showModal('${item.getAttribute('id')}','${item.getAttribute('field-type')}','${item.innerText}')" class="btn btn-sm btn-light" style="z-index: 999;"><i class="fas fa-edit"></i></a>`);
                 else
-                    $(`#a-${counter}`).attr("onclick", `showModal('${item.getAttribute('id')}','${item.getAttribute('field-type')}','${item.innerText}')`)
-                 counter+=1
+                    $(`#a-${counter.toString()}`).attr("onclick", `showModal('${item.getAttribute('id')}','${item.getAttribute('field-type')}','${item.innerText}')`)
+                counter = parseInt(counter) + 1
             });
+            if(current==null){
+                current = 'preview-' + '4'
+                $('#fieldLinkPreview li').each(function (i) {
+                    $(this).removeClass('current-active');
+                });
+                $(`#${current}`).addClass('current-active')
+            }
+            else
+                current='preview-'+counter.toString()
             // let leftElement = document.getElementById(`left-${counter}`)
             // let rightElement = document.getElementById(`right-${counter}`)
             // let isEmptyRow = ((leftElement.innerText == '' && rightElement.innerText == '') ? true : false)
             // if (isEmptyRow) {}
-            $('#fieldLinkPreview').append(`<li id="preview-${counter}" class="kkay_field_map_link">
-                <div class="k_field" id='left-${counter}'> </div>
-                 <i id='arrow-${counter}' class="fas fa-arrows-alt-h"></i>
-                 <div id='right-${counter}' class="k_field"> </div>
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter}')"><i class="fas fa-times-circle"></i></a>
+            $('#fieldLinkPreview').append(`<li id="preview-${counter.toString()}" class="kkay_field_map_link">
+                <div class="k_field" id='left-${counter.toString()}'> </div>
+                 <i id='arrow-${counter.toString()}' class="fas fa-arrows-alt-h"></i>
+                 <div id='right-${counter.toString()}' class="k_field"> </div>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter.toString()}')"><i class="fas fa-times-circle"></i></a>
                  </li>`)
+                $('#fieldLinkPreview li').each(function (i) {
+                $(this).removeClass('current-active');
+                });
+                $(`#${current}`).addClass('current-active')
+                console.log("counter add: ",counter, current);
         }
       
 
@@ -937,6 +967,32 @@
 
         //Next -->
         //Delete all items of a selected vendor group (indentifiable by name starting with '__').
+
+        $('#fieldMappinggetObjBtn').on('click', ()=>{
+            let data =[];
+           let lists = Array.from($('#fieldLinkPreview').children())
+           if(lists.length != 0){
+               if(lists[0].getAttribute('id') == 'nofield'){
+                   lists.shift()
+               }
+            lists.forEach(list=>{
+                let obj = {};
+               Array.from(list.children).forEach((child,i)=>{
+                if(child.nodeName == 'DIV' || child.localName == 'div'){
+                   let id = child.id.split('-')
+                   if(id[0] == 'left'){
+                        obj.from = child.innerText || child.innerHTML
+                   }else{
+                        obj.to = child.innerText || child.innerHTML
+                   }
+                   
+                } 
+               })
+            data.push(obj)
+            })
+            console.log(data);
+           }
+        })
     </script>
 
 </body>
