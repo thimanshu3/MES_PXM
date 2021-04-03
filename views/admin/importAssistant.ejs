@@ -343,14 +343,14 @@
                                                                                                             class="card-body">
                                                                                                             <ul id="vendor-1" onclick="addAll(this)" name="vendor"
                                                                                                                 class="ht_logic kK_accordian_list">
-                                                                                                                <li field-type="demo1" id="test1">One
-                                                                                                                </li>
-                                                                                                                <li field-type="demo2" id="test2">Two
-                                                                                                                </li>
-                                                                                                                <li field-type="demo3" id="test3">Three
-                                                                                                                </li>
-                                                                                                                <li field-type="demo4" id="test4">Four
-                                                                                                                </li>
+                                                                                                                <%if(vendor !== null){%>
+                                                                                                                    <% JSON.parse(vendor[0].fields).forEach(v=>{ %>
+                                                                                                                        <li field-type="" id="test1">
+                                                                                                                            <%=v.name%>
+                                                                                                                        </li>
+                                                                                                                        <%})%>
+                                                                                                                <%}%>
+                                                                                                            
                                                                                                             </ul>
                                                                                                         </div>
                                                                                                     </div>

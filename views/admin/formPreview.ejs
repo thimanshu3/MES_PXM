@@ -86,6 +86,21 @@
                                                                                     <h6>Please assign some fields</h6>
                                                                                 </div>
                                                                                 <% }else{ %>
+                                                                                    <%if(subComponent.AssignedTable !==undefined){%>
+                                                                                        <table class="table">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <% JSON.parse(subComponent.table.fields).forEac(row=>{ %>
+                                                                                                        <th scope="col"><%= row.name%></th>
+                                                                                                     <% }) %>
+                                                                                    
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                    
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                        <%}%>
                                                                                     <%subComponent.AssignedFields.forEach(_a=> {%>
                                                                             
                                                                                         <% if(_a.field.inputType=='checkbox'){ %>
