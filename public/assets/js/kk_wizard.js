@@ -607,35 +607,27 @@ const sendFileToProcess = () => {
     iziToast.warning({message: "Please select one column to proceed..."})
     return;
   }
-  fetch(`/admin/importrawdata`, {
+  const formData = new FormData()
+  formData.append('filename', $('#defaultInput').val())
+  formData.append('file', document.getElementById("et_pb_contact_brand_file_request_0").files[0])
+  formData.append('description', $('#comment').val())
+  $('#modalBtn').attr('disabled', true)
+  fetch('/admin/importrawdata', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-     column,
-     
-    })
-  })
-    .then(function (res) {
-      return res.json()
-    })
-    .then(function (json) {
-      if (json.status == 200)
-        iziToast.success({
-          message: json.message
-        })
-      else if (json.status == 400)
-        iziToast.error({
-          title: json.message,
-          message: json.error
-        })
-      else
-        iziToast.error({
-          message: json.message
-        })
-    })
-    .catch(err => console.log(err))
+    body: formData
+  }).then(res => res.json()).then(json => {
+    if (json.status === 200) {
+      console.log(json);
+    }
+    else {
+      iziToast.error({
+        title: 'Error',
+        message: err.message || 'Something Went Wrong!',
+        position: 'topRight',
+        timeout: 10000
+      })
+    }
+  }).catch(err => console.log(err));
 }
 
 const GetTable = () => {
@@ -798,5 +790,4 @@ const sendErrorMessage = () =>{
 
 $('#exampleFormControlSelect1').on('change', (e) =>{
    column = $("option:selected").val()
-
 })
