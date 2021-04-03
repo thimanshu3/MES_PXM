@@ -164,6 +164,7 @@ router.post('/:id/fieldmap/assign', async (req, res) => {
                 console.log(err.toString());
                 return res.json({ status: 500, message: err.toString() || 'Something went wrong' });
             }
+            req.flash('success', 'Saved successfully')
             res.json({ status: 200, message: 'Field Mapped Successfully!' })
         });
 
@@ -177,16 +178,6 @@ router.post('/:id/fieldmap/assign', async (req, res) => {
     }
 })
 
-router.delete('/:id/fieldmap/unassign', async(req, res)=>{
-   
-    try {
-    //    you can do it bro
-
-    } catch (err) {
-        console.error('\x1b[31m%s\x1b[0m', err)
-        
-    }
-})
 
 //Preview Form
 router.get('/:id/form', async (req, res) => {
@@ -198,6 +189,10 @@ router.get('/:id/form', async (req, res) => {
             if (component.type == 'sec') {
                 await Promise.all(component.subComponents.map(async subComponent => {
                     if (subComponent.type == 'sec') {
+                        if (subComponent.AssignedTable !== undefined) {
+                            const table = await productTable.findOne({ where: { id: subComponent.AssignedTable } })
+                            subComponent.table = table
+                        }
                         await Promise.all(subComponent.AssignedFields.map(async a => {
                             const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,Case when inputFields.associatedList != "-"  then (select group_concat(label SEPARATOR "----") from listRecordValues where parentListId = inputFields.associatedList) else null  END as list,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
                             delete a.fieldId
@@ -224,6 +219,10 @@ router.get('/:id/form', async (req, res) => {
             else {
                 await Promise.all(component.subComponents.map(async subComponent => {
                     await Promise.all(subComponent.tabComponents.map(async tabComponent => {
+                        if (tabComponent.AssignedTable !== undefined) {
+                            const table = await productTable.findOne({ where: { id: tabComponent.AssignedTable } })
+                            tabComponent.table = table
+                        }
                         await Promise.all(tabComponent.AssignedFields.map(async a => {
                             const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,Case when inputFields.associatedList != "-"  then (select group_concat(label SEPARATOR "----") from listRecordValues where parentListId = inputFields.associatedList) else null  END as list,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
                             delete a.fieldId

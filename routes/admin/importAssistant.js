@@ -7,6 +7,7 @@ const path = require('path')
 const fs = require('fs')
 const readXlsxFile = require('read-excel-file/node')
 const { random } = require('../../util')
+const { ActivityLog, productTable } = require('../../models')
 
 const { MySql } = require('../../db')
 const { Router } = require('express')
@@ -33,15 +34,11 @@ const excelUpload = multer({
 router.get('/', async (req, res) => {
     
     const [fields] = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr, inputTypes.inputType from inputFields INNER join inputTypes on inputTypes.id = inputFields.typeOfField;')
-    res.render('admin/importAssistant', { User: req.user, fields, excelData: null, step: 'upload-file',  })
+    res.render('admin/importAssistant', { User: req.user, fields, excelData: null, step: 'upload-file', vendor: null  })
 })
 
 router.post('/', excelUpload.single('file'), async (req, res) => {
-    if (!req.file) {
-        req.flash('error', 'No File Uploaded')
-        res.redirect('/admin/importassistant')
-        return
-    }
+   
     if (req.fileValidationError) {
         req.flash('error', req.fileValidationError)
         res.redirect('/admin/importassistant')
@@ -58,7 +55,10 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
     }
     try{
         const [fields] = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr, inputTypes.inputType from inputFields INNER join inputTypes on inputTypes.id = inputFields.typeOfField;')
-        res.render('admin/importAssistant', { User: req.user, excelData:excelData[0], fields, step: 'field-mapping' })
+
+        const vendor = await productTable.findAll()
+
+        res.render('admin/importAssistant', { User: req.user, excelData:excelData[0], fields, step: 'field-mapping', vendor })
     }
     catch (err) {
         console.log(err);

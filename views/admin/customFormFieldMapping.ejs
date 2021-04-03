@@ -92,9 +92,11 @@
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="card">
-                                    <div class="card-header">
+                                    <div class="card-header d-flex justify-content-between">
                                         Form Layout
+                                        <button id="apply-changes" onclick="unassign()" class=" btn btn-primary btn-sm">Apply Changes</button>
                                     </div>
+                                    
                                     <div class="card-body">
                                         <div class="scroll-area-lg" style="height: 78vh;">
                                             <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
@@ -416,6 +418,7 @@
     <script>
         const form = '<%- JSON.stringify(data.formData) %>'
         const parseForm = JSON.parse(form)
+        var itemsToDelete = {}
         function getValues(obj, key, value, data,type) {
             for (var i in obj) {
                 if (!obj.hasOwnProperty(i)) continue;
@@ -434,6 +437,24 @@
             return obj
 
         }
+
+        function removeValues(obj, key, value, data, type) {
+                for (var i in obj) {
+                    if (!obj.hasOwnProperty(i)) continue;
+                    if (typeof obj[i] == 'object') {
+                        removeValues(obj[i], key, value, data, type)
+                    }
+                    else if (i == key && obj[i].toString().trim() == value.trim()) {
+                        if (type == 'table') obj.AssignedTable = data
+                        else if (type == 'field') {
+                        obj.AssignedFields = obj.AssignedFields.filter(ar => !data.find(rm => (rm === ar.fieldId)))
+                        
+                        }
+                    }
+                }
+                return obj
+
+            }
 
         document.getElementById("assignSelectedTable").addEventListener("click", function () {
             let component = $("input[name='component']:checked").val()
@@ -479,10 +500,7 @@
                     return res.json()
                 })
                 .then(function (json) {
-                    if (json.status == 200)
-                        iziToast.success({
-                            message: json.message
-                        })
+                    if (json.status == 200) location.reload(true);
                     else if (json.status == 400)
                         iziToast.error({
                             title: json.message,
@@ -497,23 +515,41 @@
         }
 
         const unassignField = (fieldId , componentId) => {
-             fetch(`/admin/customform/${parseForm.formId}/fieldmap/unassign`, {
-                method: 'DELETE',
+            if(!itemsToDelete.hasOwnProperty(componentId)){
+                temp =[fieldId]
+                itemsToDelete[componentId] = temp
+            }
+            else{
+                if(!itemsToDelete[componentId].includes(fieldId))
+                    itemsToDelete[componentId].push(fieldId)
+            }
+            
+        }
+        const unassign = () => {
+            var updateForm = []
+            let allFieldsUpdated = []
+            Object.keys(itemsToDelete).forEach(key => {
+                allFieldsUpdated.push(...itemsToDelete[key])
+                updateForm.push(removeValues(parseForm, '_id', key, itemsToDelete[key], 'field'))
+            })
+            let newForm =  updateForm[updateForm.length - 1]
+            newForm.allFields = newForm.allFields.filter(ar => !allFieldsUpdated.find(rm => (rm === ar)))
+            console.log(newForm);
+             fetch(`/admin/customform/${parseForm.formId}/fieldmap/assign`, {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    fieldId, componentId
+                   newForm
                 })
             })
                 .then(function (res) {
                     return res.json()
                 })
                 .then(function (json) {
-                    if (json.status == 200)
-                        iziToast.success({
-                            message: json.message
-                        })
+                    if (json.status == 200) location.reload(true);
+                        
                     else if (json.status == 400)
                         iziToast.error({
                             title: json.message,
@@ -526,7 +562,6 @@
                 })
                 .catch(err => console.log(err))
         }
-
     </script>
     <script>
 
