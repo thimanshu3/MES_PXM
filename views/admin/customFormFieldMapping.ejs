@@ -94,7 +94,7 @@
                                 <div class="card">
                                     <div class="card-header d-flex justify-content-between">
                                         Form Layout
-                                        <button id="apply-changes" onclick="unassign()" class=" btn btn-primary btn-sm">Apply Changes</button>
+                                        <button id="apply-changes" onclick="unassign(this)" class=" btn btn-primary btn-sm">Apply Changes<i class="ml-3"></i></button>
                                     </div>
                                     
                                     <div class="card-body">
@@ -157,7 +157,7 @@
                                                                                                                         <span class="selectgroup-button">
                                                                                                                             <button 
                                                                                                                                 class="btn btn-link Kk_delete_tab twwo"
-                                                                                                                                onclick="unassignField('<%=a.fieldId%>' ,'<%=tabComponent._id%>')"><i class="  fas fa-times-circle"></i></button>
+                                                                                                                                onclick="unassignField('<%=a.fieldId%>' ,'<%=tabComponent._id%>',this)"><i class="  fas fa-times-circle"></i></button>
 
                                                                                                                             <%= search(a.fieldId,data.itemFields) %>
                                                                                                                         </span>
@@ -214,7 +214,7 @@
                                                                                                                 <input type="select" 
                                                                                                                     class="selectgroup-input fclass" >
                                                                                                                 <span class="selectgroup-button">
-                                                                                                                    <button class="btn btn-link Kk_delete_tab twwo" onclick="unassignField('<%=a.fieldId%>' ,'<%=page._id%>')"><i class="  fas fa-times-circle"></i></button>
+                                                                                                                    <button class="btn btn-link Kk_delete_tab twwo" onclick="unassignField('<%=a.fieldId%>' ,'<%=page._id%>',this)"><i class="  fas fa-times-circle"></i></button>
                                                                                                                    <%= search(a.fieldId,data.itemFields)  %> 
                                                                                                                 </span>
                                                                                                                 </input>
@@ -264,7 +264,7 @@
                                                                                         <label class="selectgroup-item m-2">
                                                                                             <input type="select" class="selectgroup-input fclass">
                                                                                             <span class="selectgroup-button">
-                                                                                                <button onclick="unassignField('<%=a.fieldId%>' ,'<%=subComponent._id%>', '')" class="btn btn-link Kk_delete_tab twwo"><i class="  fas fa-times-circle"></i></button>
+                                                                                                <button onclick="unassignField('<%=a.fieldId%>' ,'<%=subComponent._id%>', this)" class="btn btn-link Kk_delete_tab twwo"><i class="  fas fa-times-circle"></i></button>
                                                                                                 <%= search(a.fieldId,data.itemFields)  %>
                                                                                             </span>
                                                                                             </input>
@@ -298,6 +298,7 @@
                                         </div>
                                         <button id="assignSelectedTable" class="btn btn-sm btn-primary">
                                             Assign Table
+                                            <i class="ml-3"></i>
                                         </button>
                                     </div>
                                     <div class="card-body">
@@ -321,6 +322,7 @@
                                         </div>
                                         <button id="assignSelectedGroup" class="btn btn-sm btn-primary">
                                             Assign Group
+                                            <i class="ml-3"></i>
                                         </button>
                                     </div>
                                     <div class="card-body">
@@ -348,6 +350,7 @@
                                         </div>
                                         <button id="assignSelectedFields" class="btn btn-sm btn-primary">
                                             Assign Fields
+                                            <i class="ml-3"></i>
                                         </button>
                                     </div>
                                     <div class="card-body">
@@ -457,18 +460,24 @@
             }
 
         document.getElementById("assignSelectedTable").addEventListener("click", function () {
+            $(this).children().addClass('fa fa-spinner fa-spin')
+            $(this).prop('disabled', true);
             let component = $("input[name='component']:checked").val()
             let data = $("input[name='itemtable']:checked").attr('id')
             console.log(data);
             assignFieldsAndGroups(component, data,'table')
         });
         document.getElementById("assignSelectedGroup").addEventListener("click", function () {
+            $(this).children().addClass('fa fa-spinner fa-spin')
+            $(this).prop('disabled', true);
             let component = $("input[name='component']:checked").val()
             let data = $("input[name='itemgroups']:checked").val().split(',')
             assignFieldsAndGroups(component, data,'field')
         });
 
         document.getElementById("assignSelectedFields").addEventListener("click", function () {
+            $(this).children().addClass('fa fa-spinner fa-spin')
+            $(this).prop('disabled', true);
             let component = $("input[name='component']:checked").val()
             let data = []
 
@@ -514,7 +523,8 @@
                 .catch(err => console.log(err))
         }
 
-        const unassignField = (fieldId , componentId) => {
+        const unassignField = (fieldId , componentId,element) => {
+
             if(!itemsToDelete.hasOwnProperty(componentId)){
                 temp =[fieldId]
                 itemsToDelete[componentId] = temp
@@ -523,18 +533,21 @@
                 if(!itemsToDelete[componentId].includes(fieldId))
                     itemsToDelete[componentId].push(fieldId)
             }
-            
+            element.parentNode.parentNode.remove()
         }
-        const unassign = () => {
+        const unassign = (element) => {
+            element.children[0].classList.add('fa', 'fa-spinner','fa-spin')
+            element.disabled = true
             var updateForm = []
             let allFieldsUpdated = []
+            
             Object.keys(itemsToDelete).forEach(key => {
                 allFieldsUpdated.push(...itemsToDelete[key])
                 updateForm.push(removeValues(parseForm, '_id', key, itemsToDelete[key], 'field'))
             })
+            if (updateForm.length) {
             let newForm =  updateForm[updateForm.length - 1]
             newForm.allFields = newForm.allFields.filter(ar => !allFieldsUpdated.find(rm => (rm === ar)))
-            console.log(newForm);
              fetch(`/admin/customform/${parseForm.formId}/fieldmap/assign`, {
                 method: 'POST',
                 headers: {
@@ -561,6 +574,13 @@
                         })
                 })
                 .catch(err => console.log(err))
+            }
+            else{
+                element.children[0].classList.remove('fa', 'fa-spinner', 'fa-spin')
+                element.disabled = false
+                iziToast.warning({message: 'select something to delete'})
+                
+            }
         }
     </script>
     <script>
@@ -624,6 +644,8 @@
 
 
     </script>
+        <script src="/assets/js/addSpinner.js"></script>
+
 </body>
 
 </html>

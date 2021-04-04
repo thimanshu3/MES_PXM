@@ -349,7 +349,7 @@
                                                         
                                                     </div>
                                                     <div class="card-footer d-flex justify-content-end">
-                                                        <button id="submitBtn" type="button" disabled class="btn  mr-3">Submit<i class="fa fa-spinner fa-spin ml-3"></i></button>
+                                                        <button id="submitBtn" type="button" disabled class="btn  mr-3">Submit<i class=" ml-3"></i></button>
                                                     </div>
                                                 </form>
 
@@ -481,9 +481,10 @@
             productType = this.value
         });
 
-        document.getElementById('submitBtn').addEventListener('click', () => {
+        document.getElementById('submitBtn').addEventListener('click', function() {
             if (Catalogue != ' ' && CatalogueHierarchy != ' ' && formId != ' ' && productType != ' ' && name != '') {
-
+                this.children[0].classList.add('fa', 'fa-spinner', 'fa-spin')
+                this.disabled = true
                 fetch('/admin/metainfo', {
                     method: 'POST',
                     headers: {

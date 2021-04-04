@@ -205,6 +205,8 @@ var AllData = [];
 
 //fire event on save button click
 document.getElementById("saveButton").addEventListener("click", function () {
+    this.children[0].classList.add('fa', 'fa-spinner', 'fa-spin')
+    this.disabled = true
     AllData = [];
     flag = true;
     let main = document.getElementById('builder');

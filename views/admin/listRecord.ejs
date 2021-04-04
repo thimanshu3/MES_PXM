@@ -115,7 +115,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="card-action">
-                                                    <button type="submit" class="btn btn-primary mr-3">Submit<i class="fa fa-spinner fa-spin ml-3"></i></button>
+                                                    <button type="submit" class="btn btn-primary mr-3">Submit<i class="ml-3"></i></button>
                                                 </div>
                                             </form>
                                         </div>
@@ -205,7 +205,7 @@
                                             <h4 class="modal-title">Import List/Record set</h4>
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
-                                        <form action="/admin/listrecord/import" method="POST"
+                                        <form id="importListRecord" action="/admin/listrecord/import" method="POST"
                                             enctype="multipart/form-data">
                                             <!-- Modal body -->
                                             <div class="modal-body">
@@ -226,7 +226,7 @@
 
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary">Import<i class="fa fa-spinner fa-spin ml-3"></i></button>
+                                                <button type="submit" class="btn btn-primary">Import<i class=" ml-3"></i></button>
                                                 <button type="button" class="btn btn-danger"
                                                     data-dismiss="modal">Close</button>
                                             </div>
@@ -306,33 +306,8 @@
                 });
             }
         });
-        // $('#saveChanges').on('click', function(){
-        //      fetch(`/admin/attributeset/${attrId}`, {
-        //         method: 'PATCH',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({
-        //             name: $('#newname').val()
-        //         })
-        //     })
-        //         .then(res => res.json())
-        //         .then(json => {
-        //             if (json.status === 200) {
-        //                 iziToast.info({
-        //                     message: json.message
-        //                 })
-        //             } else {
-        //                 iziToast.error({
-        //                     message: json.message
-        //                 })
-        //             }
-        //         })
-        //         .catch(err => {
-        //             console.log(err)
-        //         })
-        // })
     </script>
+    <script src="/assets/js/addSpinner.js"></script>
 </body>
 
 </html>

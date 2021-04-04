@@ -106,7 +106,7 @@
                                                             <% }); %>
                                                     </select>
                                                 </div>
-                                              <div class="scroll-area-lg" style="height: 600px">
+                                              <div class="scroll-area-lg">
                                                 <div id="files" class="scrollbar-container ps--active-y ps jstree jstree-1 jstree-default" role="tree"
                                                     aria-multiselectable="true" tabindex="0"
                                                     aria-activedescendant="j1_5" aria-busy="false">
@@ -230,7 +230,7 @@
 
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary">Save<i class="fa fa-spinner fa-spin ml-3"></i></button>
+                                                <button type="submit" class="btn btn-primary">Save<i class=" ml-3"></i></button>
                                                 <button type="button" class="btn btn-danger"
                                                     data-dismiss="modal">Close</button>
                                             </div>
@@ -441,6 +441,8 @@
                 $('#files').jstree('search', searchString);
             });
     </script>
+        <script src="/assets/js/addSpinner.js"></script>
+
 </body>
 
 </html>

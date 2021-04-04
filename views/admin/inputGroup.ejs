@@ -194,7 +194,7 @@
                                             <div class="card-footer">
                                                 <button class="d-flex justify-content-end btn btn-primary"
                                                     id="assigntogroup">
-                                                    Add to Group<i class="fa fa-spinner fa-spin ml-3"></i>
+                                                    Add to Group<i class=" ml-3"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -237,7 +237,7 @@
                                     </div>
 
                                     <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">Save<i class="fa fa-spinner fa-spin ml-3"></i></button>
+                                        <button type="submit" class="btn btn-primary">Save<i class=" ml-3"></i></button>
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                     </div>
                                     </form>
@@ -304,6 +304,8 @@
                                 )
                             });
                             if (checked.length !== 0) {
+                                $(this).children().addClass('fa fa-spinner fa-spin')
+                                $(this).prop('disabled', true);
                                 fetch('/admin/inputfield/inputgroup', {
                                     method: 'POST',
                                     headers: {
@@ -390,6 +392,8 @@
                                 .catch(err => console.log(err))
                         }
                     </script>
+                        <script src="/assets/js/addSpinner.js"></script>
+
 
 </body>
 

@@ -1122,9 +1122,9 @@ a:not(.active.list-group-item),a:not(.btn):hover,a:not(.btn):active,a:not(.btn):
   display: none;
 }
 
-.kk_file_tree{
+/* .kk_file_tree{
   height: 80vh;
-}
+} */
 
 .main-panel{
   height: max-content;
