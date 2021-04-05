@@ -129,7 +129,7 @@ $(function () {
     $("#fieldLinkPreview").selectable({
         selected: function (event, ui) {
             current = ui.selected.getAttribute('id')
-            counter = parseInt(current.slice(-1))
+            counter = parseInt(current.split('-')[1])
             $('#fieldLinkPreview li').each(function (i) {
                 $(this).removeClass('current-active');
             });
@@ -167,9 +167,9 @@ $(document).ready(function () {
 
 
 var flag = true;
-var left = false;
-var right = true;
-var prev;
+// var left = false;
+// var right = true;
+// var prev;
 
 function closeNav(id) {
     $(`#${id}`).remove();
@@ -188,6 +188,7 @@ function closeNav(id) {
 const previewMapped = (li, type) => {
     var list = li
     $('#nofield').hide();
+    console.log(current);
     if (current === null) {
         //send id . field-type and field-name in show modal function
         if (type == 'left') {
@@ -232,7 +233,7 @@ const previewMapped = (li, type) => {
     }
     else {
 
-        let n = current.slice(-1)
+        let n = current.split('-')[1]
         counter = parseInt(n)
         let leftElement = document.getElementById(`left-${n}`)
         let rightElement = document.getElementById(`right-${n}`)
@@ -403,6 +404,6 @@ $('#fieldMappinggetObjBtn').on('click', () => {
             })
             data.push(obj)
         })
-        console.log(data);
+        console.log(JSON.stringify(data));
     }
 })
