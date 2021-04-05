@@ -338,7 +338,7 @@
                                                                                                                 class="ht_logic kK_accordian_list">
                                                                                                                 <%if(vendor !== null){%>
                                                                                                                     <% JSON.parse(vendor[0].fields).forEach(v=>{ %>
-                                                                                                                        <li field-type="" id="test1">
+                                                                                                                        <li field-type="" id="<%= v.fieldId %>">
                                                                                                                             <%=v.name%>
                                                                                                                         </li>
                                                                                                                         <%})%>
