@@ -12,7 +12,6 @@ const helmet = require('helmet')
 
 const { Redis } = require('./db')
 const initializePassport = require('./passport/initializePassport')
-require('./cronjobs')
 
 const port = process.env.PORT
 const sessionSecret = process.env.SESSION_SECRET
