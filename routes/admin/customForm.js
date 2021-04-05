@@ -193,11 +193,17 @@ router.get('/:id/form', async (req, res) => {
                             const table = await productTable.findOne({ where: { id: subComponent.AssignedTable } })
                             subComponent.table = table
                         }
-                        await Promise.all(subComponent.AssignedFields.map(async a => {
-                            const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,Case when inputFields.associatedList != "-"  then (select group_concat(label SEPARATOR "----") from listRecordValues where parentListId = inputFields.associatedList) else null  END as list,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
-                            delete a.fieldId
-                            a.field = fields[0][0]
-                        }))
+                        if (subComponent.AssignedFields.length) {
+                            const [inputFields2] = await MySql.query(`select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,Case when inputFields.associatedList != "-"  then (select group_concat(label SEPARATOR "----") from listRecordValues where parentListId = inputFields.associatedList) else null  END as list,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id IN (${subComponent.AssignedFields.map(f => `"${f.fieldId}"`)})`)
+                            const inputFields2Obj = {}
+                            inputFields2.forEach(f => {
+                                inputFields2Obj[f.id] = f
+                            })
+                            subComponent.AssignedFields.forEach(a => {
+                                a.field = inputFields2Obj[a.fieldId]
+                                delete a.fieldId
+                            })
+                        }
                     } else {
                         await Promise.all(subComponent.tabComponents.map(async tabComponent => {
                             await Promise.all(tabComponent.pageContent.map(async page => {
@@ -205,12 +211,17 @@ router.get('/:id/form', async (req, res) => {
                                     const table = await productTable.findOne({ where: { id : page.AssignedTable}})
                                     page.table = table
                                 }
-                                await Promise.all(page.AssignedFields.map(async a => {
-                                    const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,Case when inputFields.associatedList != "-"  then (select group_concat(label SEPARATOR "----") from listRecordValues where parentListId = inputFields.associatedList) else null  END as list,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
-                                    delete a.fieldId
-                                    a.field = fields[0][0]
-
-                                }))
+                                if (page.AssignedFields.length) {
+                                    const [inputFields1] = await MySql.query(`select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,Case when inputFields.associatedList != "-"  then (select group_concat(label SEPARATOR "----") from listRecordValues where parentListId = inputFields.associatedList) else null  END as list,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id IN (${page.AssignedFields.map(af => `"${af.fieldId}"`)})`)
+                                    const inputFields1Obj = {}
+                                    inputFields1.forEach(f => {
+                                        inputFields1Obj[f.id] = f
+                                    })
+                                    page.AssignedFields.forEach(a => {
+                                        a.field = inputFields1Obj[a.fieldId]
+                                        delete a.fieldId
+                                    })
+                                }
                             }))
                         }))
                     }
@@ -223,11 +234,17 @@ router.get('/:id/form', async (req, res) => {
                             const table = await productTable.findOne({ where: { id: tabComponent.AssignedTable } })
                             tabComponent.table = table
                         }
-                        await Promise.all(tabComponent.AssignedFields.map(async a => {
-                            const fields = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,Case when inputFields.associatedList != "-"  then (select group_concat(label SEPARATOR "----") from listRecordValues where parentListId = inputFields.associatedList) else null  END as list,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id = ?', { replacements: [a.fieldId] })
-                            delete a.fieldId
-                            a.field = fields[0][0]
-                        }))
+                        if (tabComponent.AssignedFields.length){
+                            const [inputFields] = await MySql.query(`select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,Case when inputFields.associatedList != "-"  then (select group_concat(label SEPARATOR "----") from listRecordValues where parentListId = inputFields.associatedList) else null  END as list,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id IN (${tabComponent.AssignedFields.map(a => `"${a.fieldId}"`)})`)
+                            const inputFieldsObj = {}
+                            inputFields.forEach(f=>{
+                                inputFieldsObj[f.id] = f
+                            })
+                            tabComponent.AssignedFields.forEach(a => {
+                                a.field = inputFieldsObj[a.fieldId]
+                                delete a.fieldId
+                            })
+                        }
                     }))
                 }))
             }
