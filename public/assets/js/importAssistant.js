@@ -443,7 +443,7 @@ $('#fieldMappinggetObjBtn').on('click', () => {
         console.log(JSON.stringify(data));
         const formData = new FormData()
         formData.append('file', selectedFile)
-        formData.append('mappingsData', data)
+        formData.append('mappingsData', JSON.stringify(data))
         fetch('/admin/importAssistant', {
             method: 'POST',
             body: formData

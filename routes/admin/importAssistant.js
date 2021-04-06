@@ -1,13 +1,12 @@
 const express = require('express')
-const async = require('async')
 const multer = require('multer')
 const path = require('path')
 const fs = require('fs')
 const readXlsxFile = require('read-excel-file/node')
-const { ActivityLog, productTable } = require('../../models')
+const { productTable } = require('../../models')
+const { random } = require('../../util')
 
 const { MySql } = require('../../db')
-const { Router } = require('express')
 const router = express.Router()
 
 const uploadStorage = multer.diskStorage({
@@ -41,10 +40,12 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
             res.redirect('/admin/addUser')
             return
         }
-        const { mappingsData } = req.body
+        let { mappingsData } = req.body
+        mappingsData = JSON.parse(mappingsData)
         if (!Array.isArray(mappingsData) && !mappingsData.length) {
             return res.status(400).json({ message: 'No Mappings' })
         }
+        console.log(mappingsData)
         const excelDataRaw = await readXlsxFile(`uploads/${req.file.filename}`)
         fs.unlink(`uploads/${req.file.filename}`, err => err ? console.error('\x1b[31m%s\x1b[0m', err) : undefined)
         const headers = Object.values(excelDataRaw.shift()).map(v => v.trim())
@@ -68,7 +69,6 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
             })
             data.push(obj)
         })
-        console.log(data)
         res.json(data)
     } catch (err) {
         console.error(err)
