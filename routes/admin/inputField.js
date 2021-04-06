@@ -152,7 +152,7 @@ router.post('/import', excelUpload.single('file'), async (req, res) => {
 
 //Add an Item Field
 router.post('/add', async (req, res) => {
-    const { label, type, listrecord, description } = req.body
+    const { label, type, listrecord, description,required } = req.body
     // console.log(req.body);
     if (!label || !type || !description) {
         req.flash('error', 'Fill All Required Fields')
@@ -163,10 +163,10 @@ router.post('/add', async (req, res) => {
     let queryFields = {}
     if (listrecord) {
         // console.log("list detected");
-        queryFields = { label, createdBy: req.user.id, description, typeOfField: type, associatedList: listrecord }
+        queryFields = { label, createdBy: req.user.id, description,required, typeOfField: type, associatedList: listrecord }
     }
     else {
-        queryFields = { label, createdBy: req.user.id, description, typeOfField: type }
+        queryFields = { label, createdBy: req.user.id, description,required, typeOfField: type }
         console.log("list not detected");
     }
     try {

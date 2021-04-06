@@ -250,9 +250,15 @@ const previewMapped = (li, type) => {
         if (type == 'right') {
             rightElement.innerText = li.selected.innerText;
             if ($(`#preview-${n}`).find("i.fa-edit").length == 0)
+            {
                 $(`#preview-${n}`).prepend(`<a id="a-${n}" onclick="showModal('${list.selected.getAttribute('id')}','${list.selected.getAttribute('field-type')}','${list.selected.innerText}')" class="btn btn-sm btn-light" style="z-index: 999;"><i class="fas fa-edit"></i></a>`);
+            }
             else
+            {
                 $(`#a-${n}`).attr("onclick", `showModal('${list.selected.getAttribute('id')}','${list.selected.getAttribute('field-type')}','${list.selected.innerText}')`)
+                $(`#preview-${n}`).attr('default-value', '')
+            }
+                
         }
         else if (type == 'left') {
             leftElement.innerText = li.selected.innerText;

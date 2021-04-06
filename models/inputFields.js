@@ -37,6 +37,10 @@ const inputFields = MySql.define('inputFields', {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
     },
+    required: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+    },
     isItemField: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
@@ -46,12 +50,16 @@ const inputFields = MySql.define('inputFields', {
 
 module.exports = inputFields
 
-// Role
+// inputFields
 //     .sync({ force: process.env.NODE_ENV === 'production' ? false : true })
-//     .then(() => {
-//         Role.bulkCreate([{
-//             id: 0,
-//             name: 'admin'
-//         },
-//        ])
+//     .then(() => console.log('\x1b[32m%s\x1b[0m', 'inputFields Model Sync Complete!'))
+//     .catch(err => {
+//          if (err.name === 'SequelizeUniqueConstraintError') {
+//          console.log('Already Exists!')
+//          console.log('\x1b[32m%s\x1b[0m', 'User Model Sync Complete!')
+//          }
+//          else {
+//          console.error(err)
+//          process.exit(1)
+//          }
 //     })
