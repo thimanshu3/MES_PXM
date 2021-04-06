@@ -1,9 +1,8 @@
 const express = require('express')
 const async = require('async')
 
-const { MySql } = require('../../db')
-const { User, Catalogue, CatalogueHierarchy, form, productMetaData, ProductType } = require('../../models')
-const { formatDateMoment } = require('../../util')
+const {  Catalogue, CatalogueHierarchy, form, productMetaData, ProductType } = require('../../models')
+const { formatDateMoment, randomNumber } = require('../../util')
 
 const router = express.Router()
 
@@ -50,7 +49,7 @@ router.post('/', async (req, res) => {
 
     try {
         const result = await productMetaData.create({
-            id:
+            id: randomNumber(16),
                 formId, Catalogue, CatalogueHierarchy, productType, createdBy: req.user.id, name
         })
         if (result)
