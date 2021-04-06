@@ -1709,3 +1709,35 @@ border-color: #b7b7b7 !important;
 
 
 }
+
+#mt input{
+    font-size: 14px;
+    border-color: #ebedf2;
+    padding: .6rem 1rem;
+    height: inherit!important;
+    margin: 10px;
+      line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    width: 100%;
+  }
+
+  .kk_preview_add_row{
+width: 100%;
+text-align: end;
+font-size: 18px;
+z-index: 99;
+    margin-right: 32px;
+  }
+
+  #mt{
+  margin-top: -30px;
+  }
+
+   #mt thead{
+  border-bottom:1px solid #ccd1d8!important;
+  text-align: center;
+  }

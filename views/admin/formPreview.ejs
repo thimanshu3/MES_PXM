@@ -78,6 +78,7 @@
                                                                         <div class="row m-3">
                                                                             <% if(subComponent.AssignedFields.length==0){
                                                                                 %>
+                                                                                
                                                                                 <div class="mx-auto Kk_no_assigned">
                                                                                     <img class="img-responsive"
                                                                                         src="/assets/img/no_field_assigned.png">
@@ -87,17 +88,22 @@
                                                                                 </div>
                                                                                 <% }else{ %>
                                                                                     <%if(subComponent.AssignedTable !==undefined){%>
-                                                                                        <table class="table">
+                                                                                           <i id="addRow" class="fas fa-plus-circle kk_preview_add_row"></i>
+                                                                                         
+                                                                                        <table id="mt" class="table">
                                                                                             <thead>
                                                                                                 <tr>
                                                                                                     <% JSON.parse(subComponent.table.fields).forEach(row=>{ %>
                                                                                                         <th scope="col"><%= row.name%></th>
+                                                                                                        
                                                                                                      <% }) %>
-                                                                                    
+                                                                                   
                                                                                                 </tr>
+                                                                                            
                                                                                             </thead>
+                                                                                        
                                                                                             <tbody>
-                                                                                    
+                                                                                              
                                                                                             </tbody>
                                                                                         </table>
                                                                                         <%}%>
@@ -253,7 +259,7 @@
                                                                                                             <div
                                                                                                                 class="row m-3">
                                                                                                                 <%if(page.AssignedTable !== undefined){%>
-                                                                                                                    <table class="table">
+                                                                                                                    <table class="table ">
                                                                                                                         <thead>
                                                                                                                             <tr>
                                                                                                                             <% JSON.parse(page.table.fields).forEach(row=>{ %>
@@ -570,6 +576,40 @@
             .catch(error => {
                 console.error(error);
             });
+    </script>
+<script type='text/javascript' src='http://code.jquery.com/jquery-1.10.1.js'></script>
+    <script type='text/javascript'>//<![CDATA[ 
+        $(window).load(function () {
+            $(function () {
+               
+                $("#addRow").click(function () {
+                    var row = $(`<tr><td><div class="form-group">
+												<select class="form-control">
+													<option>1</option>
+													<option>2</option>
+													<option>3</option>
+													<option>4</option>
+													<option>5</option>
+												</select>
+											</div></td>
+                                            <td><div class="form-group">
+											<input type="text" class="form-control form-control" id="defaultInput" placeholder="Default Input">
+											</div></td>
+                                            <td><div class="form-group">
+												<input type="text" class="form-control form-control" id="defaultInput" placeholder="Default Input">
+											</div></td>
+                                            <td><div class="form-group">
+												<input type="text" class="form-control form-control" id="defaultInput" placeholder="Default Input">
+											</div></td>
+                                            <td><div class="form-group">
+												<input type="text" class="form-control form-control" id="defaultInput" placeholder="Default Input">
+											</div></td>
+                                            <td><i class="fas fa-trash-alt"></i></td>
+                                            </tr>`);
+                    $("#mt > tbody").append(row);
+                });
+            });
+        });
     </script>
 </body>
 
