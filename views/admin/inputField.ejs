@@ -92,8 +92,8 @@
                                                                     <th>Label</th>
                                                                     <th>Type</th>
                                                                     <th>Created By</th>
-                                                                    <th>Status</th>
                                                                     <th>Required</th>
+                                                                    <th>Status</th>
                                                                     <th>Action</th>
 
                                                                 </tr>
@@ -135,8 +135,7 @@
                                                                             <%= _a.firstName + ' ' + _a.lastName %>
                                                                         </td>
                                                                         <td><div class="form-group form-floating-label">
-                                                                            <input name="description" id="required" type="checkbox" class="form-control input-border-bottom" required="">
-                                                                            
+                                                                            <input name="description" id="required" type="checkbox" class="form-control input-border-bottom" <%=_a.required ? 'checked' : ''%>>
                                                                         </div></td>
                                                                         <td><span id="activeBadge-<%= _a.id%>"
                                                                                 style="background-color: <%= _a.active ? '#088e0c' : '#d20e18' %>"
