@@ -1,18 +1,13 @@
-const { Op } = require('sequelize')
 const express = require('express')
-const bcrypt = require('bcryptjs')
 const async = require('async')
 const multer = require('multer')
 const path = require('path')
 const fs = require('fs')
 const readXlsxFile = require('read-excel-file/node')
 const { random } = require('../../util')
-const { formatDateMoment } = require('../../util')
 
 const { MySql } = require('../../db')
 const { ActivityLog, listRecord, listRecordValues, inputFields } = require('../../models')
-const { addInputFieldSchema } = require('../../validation')
-const { Router } = require('express')
 const router = express.Router()
 
 const uploadStorage = multer.diskStorage({
