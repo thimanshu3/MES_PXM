@@ -2,7 +2,7 @@ const express = require('express')
 const { Op } = require('sequelize')
 const async = require('async')
 const { MySql } = require('../../db')
-const { ActivityLog, FormDesign, formParts, form, productTable } = require('../../models')
+const { ActivityLog, FormDesign, formParts, form, productTable, listRecordValues } = require('../../models')
 const { formatDateMoment } = require('../../util')
 const router = express.Router()
 
@@ -190,8 +190,14 @@ router.get('/:id/form', async (req, res) => {
                 await Promise.all(component.subComponents.map(async subComponent => {
                     if (subComponent.type == 'sec') {
                         if (subComponent.AssignedTable !== undefined) {
-                            const table = await productTable.findOne({ where: { id: subComponent.AssignedTable } })
-                            subComponent.table = table
+                            let table = await productTable.findOne({ where: { id: subComponent.AssignedTable } })
+                            if(table){
+                                table = table.toJSON()
+                                const values = await listRecordValues.findAll({where: {parentListId: JSON.parse(table.fields)[0].attachedList}})
+                                console.log(values);
+                                table.values = values
+                                subComponent.table = table
+                            }
                         }
                         if (subComponent.AssignedFields.length) {
                             const [inputFields2] = await MySql.query(`select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,Case when inputFields.associatedList != "-"  then (select group_concat(label SEPARATOR "----") from listRecordValues where parentListId = inputFields.associatedList) else null  END as list,inputTypes.inputType from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField where inputFields.id IN (${subComponent.AssignedFields.map(f => `"${f.fieldId}"`)})`)

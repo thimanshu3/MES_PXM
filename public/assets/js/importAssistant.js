@@ -199,8 +199,10 @@ const previewMapped = (li, type) => {
     console.log(current);
     if (current === null) {
         //send id . field-type and field-name in show modal function
+        // set this to previewMapped li 
+        // field-id="${list.selected.getAttribute('id')}"
         if (type == 'left') {
-            $('#fieldLinkPreview').append(`<li id="preview-${counter.toString()}" class="kkay_field_map_link">  
+            $('#fieldLinkPreview').append(`<li  id="preview-${counter.toString()}" class="kkay_field_map_link">  
                         
                 <div class="k_field" id='left-${counter.toString()}'> ${li.selected.innerText || li.selected.innerHTML}</div>
                  <i class="fas fa-arrows-alt-h"></i>
@@ -210,7 +212,7 @@ const previewMapped = (li, type) => {
                  </li>`)
         }
         else if (type == 'right') {
-            $('#fieldLinkPreview').append(`<li id="preview-${counter.toString()}" class="kkay_field_map_link">
+            $('#fieldLinkPreview').append(`<li field-id="${list.selected.getAttribute('id')}" id="preview-${counter.toString()}" class="kkay_field_map_link">
                           <a id="a-${counter.toString()}" onclick="showModal('${list.selected.getAttribute('id')}','${list.selected.getAttribute('field-type')}','${list.selected.innerText}')" class="btn btn-sm btn-light" style="z-index:999"><i class="fas fa-edit"></i></a>
                 <div class="k_field" id='left-${counter.toString()}'> </div>
                  <i id='arrow-${counter.toString()}' style="color:green" class="fas fa-arrows-alt-h"></i>
@@ -248,6 +250,7 @@ const previewMapped = (li, type) => {
         $(`#preview-${n}`).addClass('current-active')
         let isEmptyRow = ((leftElement.innerText == '' && rightElement.innerText == '') ? true : false)
         if (type == 'right') {
+            $(`#preview-${n}`).attr('field-id' , list.selected.getAttribute('id'))
             rightElement.innerText = li.selected.innerText;
             if ($(`#preview-${n}`).find("i.fa-edit").length == 0)
             {
@@ -324,7 +327,7 @@ const addAll = (content) => {
         }
     }
     child.forEach((item, i) => {
-        $('#fieldLinkPreview').append(`<li name="__${content.id}" id="preview-${counter.toString()}" class="kkay_field_map_link">
+        $('#fieldLinkPreview').append(`<li name="__${content.id}" field-id="${item.getAttribute('id')}" id="preview-${counter.toString()}" class="kkay_field_map_link">
                 <div class="k_field" id='left-${counter.toString()}'> </div>
                  <i id='arrow-${counter.toString()}' class="fas fa-arrows-alt-h"></i>
                  <div id='right-${counter.toString()}' name="${item.getAttribute('id')}" class="k_field">Item ${content.id} : ${item.innerText}</div>
@@ -433,6 +436,7 @@ $('#fieldMappinggetObjBtn').on('click', () => {
         lists.forEach(list => {
             let obj = {};
             obj.default = list.getAttribute('default-value')
+            obj.fieldId = list.getAttribute('field-id')
             Array.from(list.children).forEach((child, i) => {
                 if (child.nodeName == 'DIV' || child.localName == 'div') {
                     let id = child.id.split('-')

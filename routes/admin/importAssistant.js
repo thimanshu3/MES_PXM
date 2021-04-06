@@ -61,10 +61,10 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
         excelData.forEach(sd => {
             const obj = {}
             mappingsData.forEach(md => {
-                const { from, to } = md
-                if (from && to && from.trim() && to.trim()) {
-                    obj[to.trim()] = sd[from.trim()]
-                    if (md.default && !obj[to.trim()]) obj[to.trim()] = md.default
+                const { from, fieldId } = md
+                if (from && fieldId && from.trim() && fieldId.trim()) {
+                    obj[fieldId.trim()] = sd[from.trim()]
+                    if (md.default && !obj[fieldId.trim()]) obj[fieldId.trim()] = md.default
                 }
             })
             data.push(obj)

@@ -77,6 +77,35 @@ router.patch('/:id', async (req, res) => {
     }
 })
 
+// Mark an item Field as required/not required
+router.patch('/mark/:id', async (req, res) => {
+    const { newValue } = req.body
+    try {
+        await inputFields.update({
+            required: newValue,
+            updatedBy: req.params.id
+        }, {
+            where: { id: req.params.id },
+            returning: true,
+            plain: true
+        })
+
+        await ActivityLog.create({
+            id: req.params.id,
+            name: 'inputField',
+            type: 'Update',
+            user: req.user.id,
+            timestamp: new Date()
+        })
+        req.flash('success', `Changed Successfully !!`)
+        res.json({ status: 200 })
+    }
+    catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        req.flash('error', err.toString() || 'Something Went Wrong!')
+        res.redirect('/admin/inputField')
+    }
+})
 
 // Import Input Fields File
 router.post('/import', excelUpload.single('file'), async (req, res) => {

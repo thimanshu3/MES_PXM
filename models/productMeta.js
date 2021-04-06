@@ -13,7 +13,7 @@ const productMetaData = MySql.define('productMetaData', {
         defaultValue:"Sample Product"
     },
     formId: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING
     },
     active: {
         type: DataTypes.BOOLEAN,
