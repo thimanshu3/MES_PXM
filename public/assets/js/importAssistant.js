@@ -13,7 +13,7 @@ const createHeader = (fields) => {
             executedH = true;
             Object.keys(fields).forEach(field => {
                 $('#excelFields').append(`<li class="" id="" field-type='excelField'>
-                ${field.replace(/\s/g, '')}</li>`)
+                ${field.trim()}</li>`)
             })
             $('.nav a[href="#' + 'import-option' + '"]').tab('show');
             $('html, body').animate({ scrollTop: '0px' }, 10);
