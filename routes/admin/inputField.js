@@ -115,6 +115,7 @@ router.post('/import', excelUpload.single('file'), async (req, res) => {
                         label: row[0],
                         typeOfField: row[1],
                         description: row[2],
+                        required: !row[3] ? '0' : (row[3].toLowerCase() === 'yes' ? '1' : '0'),
                         createdBy: req.user.id
                     }))
                 }
@@ -152,13 +153,15 @@ router.post('/import', excelUpload.single('file'), async (req, res) => {
 
 //Add an Item Field
 router.post('/add', async (req, res) => {
-    const { label, type, listrecord, description,required } = req.body
+    const { label, type, listrecord, description } = req.body
+    let {required} = req.body
     // console.log(req.body);
     if (!label || !type || !description) {
         req.flash('error', 'Fill All Required Fields')
         res.redirect('/admin/inputfield')
         return
     }
+    required = (typeof required === 'undefined'? '0':'1') 
     // console.log(listrecord);
     let queryFields = {}
     if (listrecord) {
