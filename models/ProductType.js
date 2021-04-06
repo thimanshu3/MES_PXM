@@ -29,12 +29,17 @@ const ProductType = MySql.define('ProductType', {
 
 module.exports = ProductType
 
-// Role
+// ProductType
 //     .sync({ force: process.env.NODE_ENV === 'production' ? false : true })
 //     .then(() => {
-//         Role.bulkCreate([{
-//             id: 0,
-//             name: 'admin'
-//         },
-//        ])
+//         ProductType.bulkCreate([
+//             {
+//                 name: 'Matrix Item',
+//                 createdBy: 'admin'
+//             },
+//             {
+//                 name: 'Single Item',
+//                 createdBy: 'admin'
+//             }
+//         ])
 //     })

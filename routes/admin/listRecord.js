@@ -1,18 +1,13 @@
-const { Op } = require('sequelize')
 const express = require('express')
-const bcrypt = require('bcryptjs')
 const async = require('async')
 const multer = require('multer')
 const path = require('path')
 const fs = require('fs')
 const readXlsxFile = require('read-excel-file/node')
 const { random } = require('../../util')
-const { formatDateMoment } = require('../../util')
 
 const { MySql } = require('../../db')
-const { ActivityLog, listRecord, listRecordValues } = require('../../models')
-const { addInputFieldSchema } = require('../../validation')
-const { Router } = require('express')
+const { ActivityLog, listRecord, listRecordValues, inputFields } = require('../../models')
 const router = express.Router()
 
 const uploadStorage = multer.diskStorage({
@@ -182,13 +177,13 @@ router.delete('/:id', async (req, res) => {
 router.delete('/remove/:id', async (req, res) => {
     try {
         await async.parallel([
-            async () => 
+            async () =>
                 await listRecord.destroy({
                     where: {
                         id: req.params.id
                     }
                 }),
-            async () => 
+            async () =>
                 await listRecordValues.destroy({
                     where: {
                         parentListId: req.params.id
@@ -305,22 +300,22 @@ router.post('/import', excelUpload.single('file'), async (req, res) => {
     }
     const excelData = await readXlsxFile(`uploads/${req.file.filename}`)
     fs.unlink(`uploads/${req.file.filename}`, err => err ? console.error('\x1b[31m%s\x1b[0m', err) : undefined)
-  
+
 
     if (excelData.length === 0) {
         req.flash('error', 'No List record to Add!')
         res.redirect('/admin/listrecord')
         return
     }
-    const data =[];
+    const data = [];
     Promise
         .all(excelData.map(async (row, index) => {
             try {
-                const list = await listRecord.create({ name:row[0].toString(), createdBy: req.user.id , })
-                row.map(async a=>{ 
-                    if(a != null ){
+                const list = await listRecord.create({ name: row[0].toString(), createdBy: req.user.id, })
+                row.map(async a => {
+                    if (a != null) {
                         console.log(a);
-                        data.push({parentListId: list.id , createdBy: req.user.id , label: a})
+                        data.push({ parentListId: list.id, createdBy: req.user.id, label: a })
                     }
                 })
             } catch (err) {
@@ -352,5 +347,21 @@ router.post('/import', excelUpload.single('file'), async (req, res) => {
             req.flash('error', err.toString() || 'Validation Error!')
             res.redirect('/admin/listrecord')
         })
+})
+
+router.get('/getByInputFieldId/:id', async (req, res) => {
+    try {
+        const id = req.params.id
+        const { associatedList } = await inputFields.findOne({ where: { id }, attributes: ['associatedList'] })
+        if (!associatedList || associatedList === '-') {
+            res.json({ show: false })
+        } else {
+            const values = await listRecordValues.findAll({ where: { parentListId: associatedList, active: true }, attributes: ['id', 'label'] })
+            res.json({ show: true, values })
+        }
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({ err: err.toString(), message: 'Something Went Wrong!' })
+    }
 })
 module.exports = router

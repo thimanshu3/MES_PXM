@@ -234,9 +234,9 @@
 
                                                                     </div>
                                                                 </div>
-                                                                <div class="card-body">
+                                                                <div class="card-body scroll-area-lg">
                                                                     <ul id="fieldLinkPreview"
-                                                                        style="max-width: 100%;margin: 30px auto;">
+                                                                        class="scrollbar-container ps--active-y ps" style="max-width: 100%;margin: 30px auto;">
 
                                                                     </ul>
                                                                 </div>
@@ -274,7 +274,10 @@
                                                                                     <ul id="system-fields"
                                                                                         class="selectable kK_accordian_list scrollbar-container ps--active-y ps">
                                                                                         
-                                                                                        <% fields.forEach(function(field) { %>
+                                                                                        <% fields.sort((a , b) => {
+                                                                                            if(a.label < b.label) return -1
+                                                                                            return 1 
+                                                                                        }).forEach(function(field) { %>
                                                                                         <li class="ui-widget-content mb-3 p-1 h-100"
                                                                                             id="<%=field.id %>" field-type="<%=field.inputType %>" , field-description="<%=field.description%>">
                                                                                             <%=field.label %>
@@ -335,7 +338,7 @@
                                                                                                                 class="ht_logic kK_accordian_list">
                                                                                                                 <%if(vendor !== null){%>
                                                                                                                     <% JSON.parse(vendor[0].fields).forEach(v=>{ %>
-                                                                                                                        <li field-type="" id="test1">
+                                                                                                                        <li field-type="" id="<%= v.fieldId %>">
                                                                                                                             <%=v.name%>
                                                                                                                         </li>
                                                                                                                         <%})%>

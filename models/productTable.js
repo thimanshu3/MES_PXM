@@ -39,7 +39,7 @@ module.exports = productTable
 //         productTable.bulkCreate([{
 //             id: 0,
 //             name: 'Vendors',
-//             fields: '[{"name":"Vendor","fieldId","c777fbe1-065d-4062-8ba5-e4852f07c60a"},{"name":"Code","fieldId","no"},{"name":"Schedule","fieldId","no"},{"name":"Preferred","fieldId","f714e15d-447f-4f4a-bac9-e416e014fe3a"},{"name":"Purchase Prices","fieldId","00e86f78-cdcb-4bc5-82ab-80b39ab96aa6"}]',
+//             fields: '[{"name":"Vendor","fieldId":"c777fbe1-065d-4062-8ba5-e4852f07c60a","attachedList":"f4c0195d-7b3a-4cf8-bf90-57ef75602fdf"},{"name":"Code","fieldId":"no"},{"name":"Schedule","fieldId":"no"},{"name":"Preferred","fieldId":"f714e15d-447f-4f4a-bac9-e416e014fe3a"},{"name":"Purchase Price","fieldId":"1e987a9f-29bf-4bc2-acab-da0ad35bc694"}]',
 //             createdBy: 'admin'
 //         },
 //         {id: 1, name: ''}

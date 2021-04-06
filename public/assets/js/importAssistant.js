@@ -129,7 +129,7 @@ $(function () {
     $("#fieldLinkPreview").selectable({
         selected: function (event, ui) {
             current = ui.selected.getAttribute('id')
-            counter = parseInt(current.slice(-1))
+            counter = parseInt(current.split('-')[1])
             $('#fieldLinkPreview li').each(function (i) {
                 $(this).removeClass('current-active');
             });
@@ -167,12 +167,20 @@ $(document).ready(function () {
 
 
 var flag = true;
-var left = false;
-var right = true;
-var prev;
+// var left = false;
+// var right = true;
+// var prev;
 
-function closeNav(id) {
-    $(`#${id}`).remove();
+function closeNav(id,type) {
+    alert("hi1")
+    type = (typeof type !== 'undefined') ? type : null
+    if(type != null){
+        alert('hi')
+        $(`[name='${type}']`).remove()
+    }
+    else{
+        $(`#${id}`).remove()
+    }
     if ($('#fieldLinkPreview').children().length == 1) {
         $('#fieldLinkPreview').append(`
                      <div id="nofield" class="mx-auto Kk_no_assigned">
@@ -188,6 +196,7 @@ function closeNav(id) {
 const previewMapped = (li, type) => {
     var list = li
     $('#nofield').hide();
+    console.log(current);
     if (current === null) {
         //send id . field-type and field-name in show modal function
         if (type == 'left') {
@@ -217,9 +226,6 @@ const previewMapped = (li, type) => {
                 <div class="k_field" id='left-${counter.toString()}'> </div>
                  <i id='arrow-${counter.toString()}' class="fas fa-arrows-alt-h"></i>
                  <div id='right-${counter.toString()}' class="k_field"> </div>
-                <a href="javascript:void(0)" class="closebtn mr-3" onclick="closeNav('preview-${counter.toString()}')" style="z-index:999"><i class="fas fa-times-circle"></i></a>
-                 
-
                  </li>`)
 
         $(`#preview-${counter.toString()}`).addClass('ui-selectee ui-selected').siblings().removeClass('ui-selectee ui-selected')
@@ -232,7 +238,7 @@ const previewMapped = (li, type) => {
     }
     else {
 
-        let n = current.slice(-1)
+        let n = current.split('-')[1]
         counter = parseInt(n)
         let leftElement = document.getElementById(`left-${n}`)
         let rightElement = document.getElementById(`right-${n}`)
@@ -251,6 +257,8 @@ const previewMapped = (li, type) => {
         else if (type == 'left') {
             leftElement.innerText = li.selected.innerText;
         }
+        if ($(`#preview-${n}`).find("i.fa-times-circle").length == 0)
+            $(`#preview-${n}`).append(`<a href="javascript:void(0)" class="closebtn mr-3" onclick="closeNav('preview-${n}')" style="z-index:999"><i class="fas fa-times-circle"></i></a>`);
         if (isEmptyRow) {
             counter = parseInt(counter) + 1
             $('#fieldLinkPreview').append(`<li id="preview-${counter.toString()}" class="kkay_field_map_link">
@@ -258,9 +266,6 @@ const previewMapped = (li, type) => {
                 <div class="k_field" id='left-${counter.toString()}'> </div>
                 <i id='arrow-${counter.toString()}' class="fas fa-arrows-alt-h"></i>
                 <div id='right-${counter.toString()}' class="k_field"> </div>
-                <a href="javascript:void(0)" class="closebtn mr-3" onclick="closeNav('preview-${counter.toString()}')" style="z-index:999"><i class="fas fa-times-circle"></i></a>
-                               
-
                 </li>`)
             $('#fieldLinkPreview li').each(function (i) {
                 $(this).removeClass('current-active');
@@ -276,6 +281,9 @@ const previewMapped = (li, type) => {
 
 
 $('#addVendorBtn').on('click', function () {
+    const el = $('#vendor-1').clone()
+    const vid = `vendor-${$('#addVendor').children().length + 1}`
+    el.attr('id', vid)
     $('#addVendor').append(`
         <div class="card">
             <div class="card-header d-flex justify-content-between" id="headingOne" data-toggle="collapse"
@@ -287,12 +295,9 @@ $('#addVendorBtn').on('click', function () {
             </div>
             <div id="collapseOne.2-v${$('#addVendor').children().length + 1}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="card-body">
-                    <ul name="vendor" onclick="addAll(this)" id="vendor-${$('#addVendor').children().length + 1}" class="kK_accordian_list ht_logic">
-                        <li field-type="demo1" id="test1">One</li>
-                        <li field-type="demo2" id="test2">Two</li>
-                        <li field-type="demo3" id="test3">Three</li>
-                        <li field-type="demo4" id="test4">Four</li>
-                    </ul>
+                <ul id="${vid}" onclick="addAll(this)" name="vendor" class="ht_logic kK_accordian_list">
+                ${el[0].innerHTML}
+                </ul>
                 </div>
             </div>
         </div>
@@ -316,8 +321,8 @@ const addAll = (content) => {
         $('#fieldLinkPreview').append(`<li name="__${content.id}" id="preview-${counter.toString()}" class="kkay_field_map_link">
                 <div class="k_field" id='left-${counter.toString()}'> </div>
                  <i id='arrow-${counter.toString()}' class="fas fa-arrows-alt-h"></i>
-                 <div id='right-${counter.toString()}' class="k_field">Item ${content.id} : ${item.innerText}</div>
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter.toString()}')"><i class="fas fa-times-circle"></i></a>
+                 <div id='right-${counter.toString()}' name="${item.getAttribute('id')}" class="k_field">Item ${content.id} : ${item.innerText}</div>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter.toString()}','__${content.id}')" style="z-index:999"><i class="fas fa-times-circle"></i></a>
                  </li>`)
         if ($(`#preview-${counter.toString()}`).find("i.fa-edit").length == 0)
             $(`#preview-${counter.toString()}`).prepend(`<a id="a-${counter.toString()}" onclick="showModal('${item.getAttribute('id')}','${item.getAttribute('field-type')}','${item.innerText}')" class="btn btn-sm btn-light" style="z-index: 999;"><i class="fas fa-edit"></i></a>`);
@@ -339,7 +344,6 @@ const addAll = (content) => {
                 <div class="k_field" id='left-${counter.toString()}'> </div>
                  <i id='arrow-${counter.toString()}' class="fas fa-arrows-alt-h"></i>
                  <div id='right-${counter.toString()}' class="k_field"> </div>
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${counter.toString()}')"><i class="fas fa-times-circle"></i></a>
                  </li>`)
     $('#fieldLinkPreview li').each(function (i) {
         $(this).removeClass('current-active');
@@ -369,9 +373,7 @@ const showModal = function (id, type, name) {
     console.log(id, type, name);
     $('#dmodal-default').text(' ' + name);
 
-    $('#dmodal-body').append(`
-            
-            `)
+    $('#dmodal-body').append(``)
     $('#exampleModal').modal('show')
 }
 
@@ -403,6 +405,6 @@ $('#fieldMappinggetObjBtn').on('click', () => {
             })
             data.push(obj)
         })
-        console.log(data);
+        console.log(JSON.stringify(data));
     }
 })
