@@ -12,16 +12,15 @@ const createHeader = (fields) => {
         if (!executedH) {
             executedH = true;
             Object.keys(fields).forEach(field => {
-                $('#excelFields').append(`
-                             <li class="" id="" field-type='excelField'>${field.replace(/\s/g, '')}</li>
-                            `)
+                $('#excelFields').append(`<li class="" id="" field-type='excelField'>
+                ${field.replace(/\s/g, '')}</li>`)
             })
             $('.nav a[href="#' + 'import-option' + '"]').tab('show');
             $('html, body').animate({ scrollTop: '0px' }, 10);
         }
     }
     catch (err) {
-        iziToast.error({message: err})
+        iziToast.error({ message: err })
         console.log(err.toString())
     }
 }
@@ -60,8 +59,8 @@ const previewTheData = () => {
                 })
             }
         }
-    }else{
-        iziToast.warning({ message:'Please Upload excel file'})
+    } else {
+        iziToast.warning({ message: 'Please Upload excel file' })
     }
 
 }
@@ -171,14 +170,14 @@ var flag = true;
 // var right = true;
 // var prev;
 
-function closeNav(id,type) {
+function closeNav(id, type) {
     alert("hi1")
     type = (typeof type !== 'undefined') ? type : null
-    if(type != null){
+    if (type != null) {
         alert('hi')
         $(`[name='${type}']`).remove()
     }
-    else{
+    else {
         $(`#${id}`).remove()
     }
     if ($('#fieldLinkPreview').children().length == 1) {
@@ -192,6 +191,7 @@ function closeNav(id,type) {
                 `)
     }
 }
+
 
 const previewMapped = (li, type) => {
     var list = li
@@ -366,11 +366,45 @@ $('.nav a').on('shown.bs.tab', function (e) {
 })
 const fields = ['number', 'text']
 const showModal = function (id, type, name) {
+    let options = ''
     $('#dmodal-body').empty();
     if (fields.includes(type)) {
-
+        $('#dmodal-body').append(`
+            <div class="form-group">
+                <label for="smallInput">Choose a value to assign in this field</label>
+                <input type="text" class="form-control form-control-sm" id="smallInput">
+            </div>
+        `)
     }
-    console.log(id, type, name);
+    console.log(id)
+    if (type == 'list/record') {
+        fetch(`/admin/listrecord/getByInputFieldId/${id}`).then(res => res.json()).then(({ show, values }) => {
+
+            if (show && values) {
+                values.forEach(listRecordValue => {
+                    options += `<option value="${listRecordValue.label}">${listRecordValue.label}</option>`
+                    // options += `<option value="${listRecordValue.id}">${listRecordValue.label}</option>`
+                })
+                $('#dmodal-body').append(`
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Example select</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                        ${options}
+                    </select>
+                </div>
+        `)
+            }
+        }).catch(console.error)
+    }
+    // if (type) {
+    //     $('#dmodal-body').append(`
+    //         <div class="form-group">
+    //             <label for="smallInput">Choose a value to assign in this field</label>
+    //             <input type="text" class="form-control form-control-sm" id="smallInput">
+    //         </div>
+    //     `)
+    // }
+
     $('#dmodal-default').text(' ' + name);
 
     $('#dmodal-body').append(``)
@@ -392,6 +426,7 @@ $('#fieldMappinggetObjBtn').on('click', () => {
         }
         lists.forEach(list => {
             let obj = {};
+            obj.default = list.getAttribute('default-value')
             Array.from(list.children).forEach((child, i) => {
                 if (child.nodeName == 'DIV' || child.localName == 'div') {
                     let id = child.id.split('-')
@@ -406,5 +441,25 @@ $('#fieldMappinggetObjBtn').on('click', () => {
             data.push(obj)
         })
         console.log(JSON.stringify(data));
+        const formData = new FormData()
+        formData.append('file', selectedFile)
+        formData.append('mappingsData', data)
+        fetch('/admin/importAssistant', {
+            method: 'POST',
+            body: formData
+        }).then(res => res.json()).then(json => {
+            console.log(json)
+        }).catch(console.error)
+    }
+})
+
+
+document.getElementById('defaultValueSubmitBtn').addEventListener('click', function () {
+    const dmodalBody = document.getElementById('dmodal-body')
+    let dv = dmodalBody.getElementsByTagName('input')[0]
+    if (!dv) dv = dmodalBody.getElementsByTagName('select')[0]
+    if (dv && dv.value) {
+        dv = dv.value
+        document.getElementById(current).setAttribute('default-value', dv)
     }
 })
