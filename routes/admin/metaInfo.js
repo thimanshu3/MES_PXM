@@ -1,7 +1,8 @@
 const express = require('express')
+const async = require('async')
 
 const { MySql } = require('../../db')
-const { User, Catalogue, CatalogueHierarchy, form, productMetaData } = require('../../models')
+const { User, Catalogue, CatalogueHierarchy, form, productMetaData, ProductType } = require('../../models')
 const { formatDateMoment } = require('../../util')
 
 const router = express.Router()
@@ -9,9 +10,24 @@ const router = express.Router()
 
 router.get('/', async (req, res) => {
     try {
-        const catalogues = await CatalogueHierarchy.findAll()
-        const forms = await form.findAll()
-        res.render('admin/metaInfo', { User: req.user, formatDateMoment, catalogues, forms })
+        const [catalogues, forms, productTypes] = await async.parallel([
+            async () => await CatalogueHierarchy.findAll({
+                order: [
+                    ['name', 'ASC'],
+                ]
+            }),
+            async () => await form.findAll({
+                order: [
+                    ['name', 'ASC'],
+                ]
+            }),
+            async () => await ProductType.findAll({
+                order: [
+                    ['name', 'ASC'],
+                ]
+            })
+        ])
+        res.render('admin/metaInfo', { User: req.user, formatDateMoment, catalogues, forms, productTypes })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         req.flash('error', 'Something Went Wrong!')
@@ -33,7 +49,10 @@ router.post('/', async (req, res) => {
     const { CatalogueHierarchy, productType, Catalogue, formId, name } = req.body
 
     try {
-        const result = await productMetaData.create({ id: Math.floor(100000 + Math.random() * 90000000), formId, Catalogue, CatalogueHierarchy, productType, createdBy: req.user.id, name })
+        const result = await productMetaData.create({
+            id:
+                formId, Catalogue, CatalogueHierarchy, productType, createdBy: req.user.id, name
+        })
         if (result)
             res.json({ status: 200, message: 'Added Successfully', href: `/admin/form/${formId}/product/${result.id}`, formId })
         else
