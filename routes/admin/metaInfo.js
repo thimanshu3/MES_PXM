@@ -48,8 +48,9 @@ router.post('/', async (req, res) => {
     const { CatalogueHierarchy, productType, Catalogue, formId, name } = req.body
 
     try {
+        const newId = randomNumber(16)
         const result = await productMetaData.create({
-            id: randomNumber(16),
+           
                 formId, Catalogue, CatalogueHierarchy, productType, createdBy: req.user.id, name
         })
         if (result)

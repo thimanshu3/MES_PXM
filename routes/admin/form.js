@@ -1,12 +1,10 @@
 const express = require('express')
 
 const { MySql } = require('../../db')
-const { User, Catalogue, CatalogueHierarchy, form, productMetaData , FormDesign , productData } = require('../../models')
-const { formatDateMoment } = require('../../util')
+const { productMetaData, FormDesign, productData } = require('../../models')
 
 const router = express.Router()
 
-//Add Product to a Form
 router.get('/:formId/product/:productId', async (req, res) => {
     try {
         let layout = await FormDesign.findOne({ formId: req.params.formId })
@@ -46,7 +44,7 @@ router.get('/:formId/product/:productId', async (req, res) => {
                 }))
             }
         }))
-        res.render('admin/addProductFrom', { User: req.user, layout, productId: req.params.productId, formId: req.params.formId})
+        res.render('admin/addProductFrom', { User: req.user, layout, productId: req.params.productId, formId: req.params.formId })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         req.flash('error', 'Something Went Wrong!')
@@ -54,21 +52,20 @@ router.get('/:formId/product/:productId', async (req, res) => {
     }
 })
 
+//Add Product to a Form
 router.post('/', async (req, res) => {
     try {
-       const formdata = req.body
-       const formId = formdata.formId
-       delete formdata.formId
-       const pid = formdata.productId
-       delete formdata.productId
-
-       console.log(req.body);
-       Promise.all([
-        Object.keys(formdata).forEach(async a=>{
-            await productData.create({ fieldId: a, fieldValue: formdata[a] , createdBy: req.user.id , productId: pid })
-        })
-       ])
-       res.redirect(`/admin/product/${formId}/p/${pid}`)
+        const { formId, productId: pid } = req.body
+        const fd = await FormDesign.findOne({ formId }, { allFields: 1 })
+        if (!fd) return
+        await productData.bulkCreate(fd.allFields.map(fieldId => ({
+            fieldId,
+            fieldValue: req.body[fieldId] || '',
+            createdBy: req.user.id,
+            productId: pid
+        })))
+        await productMetaData.update({ stage: '2' }, { where: { id: pid } })
+        res.redirect(`/admin/product/${formId}/p/${pid}`)
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
         if (err.name === 'SequelizeUniqueConstraintError')

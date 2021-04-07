@@ -289,7 +289,7 @@
                                                                         </div>
                                                                         <% }else{ %>
                                                                         <% tabComponent.AssignedFields.forEach(_a=> {%>
-                                                                        <% if(_a.field.inputType=='list/record' ){ %>
+                                                                        <% if(_a.field && _a.field.inputType=='list/record' ){ %>
                                                                         <div class="col-md-3">
                                                                             <div class="form-group">
                                                                                 <label for="smallSelect" style="width: 100%"><%= _a.field.label%></label>
@@ -303,7 +303,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <%}%>
-                                                                        <% if(_a.field.inputType=='checkbox' ){ %>
+                                                                        <% if(_a.field && _a.field.inputType=='checkbox' ){ %>
                                                                         <div class="col-md-3 mb-3">
                                                                             <div class="form-check">
                                                                                 <label class="form-check-label">
@@ -317,7 +317,7 @@
                                                                             <input type="hidden" id="<%= _a.field.id%>" value="off" name="<%= _a.field.id%>">
                                                                         </div>
                                                                         <% } %>
-                                                                        <% if(inputs.includes(_a.field.inputType)){ %>
+                                                                        <% if(_a.field && inputs.includes(_a.field.inputType)){ %>
                                                                         <div class="col-md-3 mb-3">
                                                                             <div class="form-group">
                                                                                 <label for="email2">

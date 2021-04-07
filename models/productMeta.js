@@ -4,8 +4,9 @@ const { MySql } = require('../db')
 
 const productMetaData = MySql.define('productMetaData', {
     id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.UUID,
         unique: true,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
     },
     name: {
