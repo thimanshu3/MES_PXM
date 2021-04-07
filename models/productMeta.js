@@ -37,8 +37,11 @@ const productMetaData = MySql.define('productMetaData', {
     },
     updatedBy: {
         type: DataTypes.STRING
+    },
+    stage: {
+        type: DataTypes.TINYINT,
+        defaultValue: 1
     }
-
 })
 
 module.exports = productMetaData
