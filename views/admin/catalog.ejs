@@ -305,7 +305,8 @@
         };
 
         const initializeCatalog = (data) => {
-                                   
+                console.log(data)                       
+                                     $('#files').jstree("destroy");
 
             $('#files').jstree({
                 'core': {
@@ -414,9 +415,11 @@
             fetch(`/admin/catalog/${id}`)
                 .then(res => res.json())
                 .then(json => {
+                    $('#files').empty();
                     if (json.status == 200) {
                         const data = list_to_tree(json.catalog)
                         $('#loadercatalog').remove()
+
                         initializeCatalog(data)
                     }
                     else {
