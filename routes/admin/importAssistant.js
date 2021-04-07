@@ -65,6 +65,7 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
                 if (from && to && from.trim() && to.trim()) {
                     obj[to.trim()] = sd[from.trim()]
                     if (md.default && !obj[to.trim()]) obj[to.trim()] = md.default
+                    if (md.fieldId) obj.fieldId = md.fieldId
                 }
             })
             data.push(obj)
