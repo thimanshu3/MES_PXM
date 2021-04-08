@@ -173,7 +173,7 @@
                                                   <div class="row">
                                                         <div class="col-6 col-sm-4">
                                                             <label class="imagecheck mb-4">
-                                                                <input name="imagecheck" type="radio" value="1" class="imagecheck-input">
+                                                                <input name="imagecheck" type="radio" value="add" class="imagecheck-input">
                                                                 <figure class="imagecheck-figure">
                                                                 <img src="../../assets/img/add.svg" alt="title" class="imagecheck-image">
                                                                 </figure>
@@ -181,7 +181,7 @@
                                                         </div>
                                                         <div class="col-6 col-sm-4">
                                                             <label class="imagecheck mb-4">
-                                                                <input name="imagecheck" type="radio" value="2" class="imagecheck-input" checked="">
+                                                                <input name="imagecheck" type="radio" value="update" class="imagecheck-input" checked="">
                                                                 <figure class="imagecheck-figure">
                                                                     <img src="../../assets/img/update.svg" alt="title" class="imagecheck-image">
                                                                 </figure>
@@ -189,7 +189,7 @@
                                                         </div>
                                                         <div class="col-6 col-sm-4">
                                                             <label class="imagecheck mb-4">
-                                                                <input name="imagecheck" type="radio" value="3" class="imagecheck-input">
+                                                                <input name="imagecheck" type="radio" value="both" class="imagecheck-input">
                                                                 <figure class="imagecheck-figure">
                                                                     <img src="../../assets/img/addupdate.svg" alt="title" class="imagecheck-image">
                                                                 </figure>
@@ -280,7 +280,8 @@
                                                                                         }).forEach(function(field) { %>
                                                                                         <li class="ui-widget-content mb-3 p-1 h-100"
                                                                                             id="<%=field.id %>" field-type="<%=field.inputType %>" , field-description="<%=field.description%>">
-                                                                                            <%=field.label %>
+                                                                                           <strong style="color:<%=field.req ? 'red' : ''%>">
+                                                                                             <%=field.label %><%=field.req ? '(req)' : ''%></strong>
                                                                                         </li>
                                                                                         <% }) %>
                                                                                     </ul>
@@ -532,8 +533,18 @@
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
     <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+    <script>const fieldsData =<%- JSON.stringify(fields)%></script>
     <script src="/assets/js/importAssistant.js"></script>
+    <script>
+        $('[data-toggle=pill]').on('show.bs.tab', function (e) {
+            if(selectedFile){
+                console.log('done')
+            }else{
+                e.preventDefault();
+            }
+        });
 
+    </script>
 </body>
 
 </html>

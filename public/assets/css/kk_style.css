@@ -1741,3 +1741,8 @@ z-index: 99;
   border-bottom:1px solid #ccd1d8!important;
   text-align: center;
   }
+
+
+  table.dataTable th{
+    white-space: nowrap !important;
+  }
