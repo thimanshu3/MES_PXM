@@ -92,6 +92,7 @@
                                                                     <th>Label</th>
                                                                     <th>Type</th>
                                                                     <th>Created By</th>
+                                                                    <th>Required</th>
                                                                     <th>Status</th>
                                                                     <th>Action</th>
 
@@ -133,6 +134,9 @@
                                                                         <td>
                                                                             <%= _a.firstName + ' ' + _a.lastName %>
                                                                         </td>
+                                                                        <td><div class="form-group form-floating-label">
+                                                                            <input name="checkRequired" id="<%= _a.id %>" type="checkbox" class="form-control input-border-bottom" <%=_a.required ? 'checked' : ''%>>
+                                                                        </div></td>
                                                                         <td><span id="activeBadge-<%= _a.id%>"
                                                                                 style="background-color: <%= _a.active ? '#088e0c' : '#d20e18' %>"
                                                                                 class="badge badge-<%= _a.active ? 'success' : 'danger' %>">
@@ -299,11 +303,17 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-12 mt-3">
+                            <div class="col-sm-8 pr-0">
                                 <div class="form-group form-floating-label">
                                     <input name="description" id="desc" type="textarea"
                                         class="form-control input-border-bottom" required="">
                                     <label for="desc" class="placeholder">Description</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group form-floating-label">
+                                    <input name="required" id="required" type="checkbox" class="form-control input-border-bottom">
+                                    <label for="required" class="placeholder">Required Field</label>
                                 </div>
                             </div>
 
@@ -436,6 +446,37 @@
                 $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
             }, 0);
         });
+
+        $('[name="checkRequired"]').on('change', function (){
+             console.log(($(this)[0].id));
+             fetch(`/admin/inputfield/mark/${($(this)[0].id)}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    newValue: ($(this).prop("checked")? '1':'0')
+                })
+            })
+                .then(function (res) {
+                    return res.json()
+                })
+                .then(function (json) {
+                    //console.log(json)
+                    if (json.status == 200)
+                        location.reload(true)
+                    else if (json.status == 400)
+                        iziToast.error({
+                            title: json.message,
+                            message: json.error
+                        })
+                    else
+                        iziToast.error({
+                            message: json.message
+                        })
+                })
+                .catch(err => console.log(err))
+        })
 
         $(document).ready(function () {
             $("#selectFloatingLabel").on('change', () => {

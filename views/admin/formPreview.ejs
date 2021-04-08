@@ -103,7 +103,40 @@
                                                                                             </thead>
                                                                                         
                                                                                             <tbody>
-                                                                                              
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    <div class="form-group">
+                                                                                                        <select class="form-control">
+                                                                                                            <option>select one from this list</option>
+                                                                                                            <%subComponent.table.values.forEach(a=>{ %>
+                                                                                                            <option value="<%=a.id%>"><%=a.label%></option>
+                                                                                                           <% })%>
+                                                                                                            
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <div class="form-group">
+                                                                                                        <input type="text" class="form-control form-control" id="defaultInput" placeholder="Default Input">
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <div class="form-group">
+                                                                                                        <input type="text" class="form-control form-control" id="defaultInput" placeholder="Default Input">
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <div class="form-group">
+                                                                                                        <input type="text" class="form-control form-control" id="defaultInput" placeholder="Default Input">
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <div class="form-group">
+                                                                                                        <input type="text" class="form-control form-control" id="defaultInput" placeholder="Default Input">
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td><i class="fas fa-trash-alt"></i></td>
+                                                                                            </tr>
                                                                                             </tbody>
                                                                                         </table>
                                                                                         <%}%>

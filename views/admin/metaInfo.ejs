@@ -181,190 +181,176 @@
     <div class="wrapper">
         <%-include('../partials/config')%>
 
-            <!-- header -->
-            <%-include('../partials/header.ejs')%>
-                <!-- header end -->
+        <!-- header -->
+        <%-include('../partials/header.ejs')%>
+        <!-- header end -->
 
-                <!-- Sidebar -->
-                <%-include('../partials/sidebar.ejs')%>
-                    <!-- End Sidebar -->
+        <!-- Sidebar -->
+        <%-include('../partials/sidebar.ejs')%>
+        <!-- End Sidebar -->
 
-                    <div class="main-panel">
-                        <div class="content">
-                            <div class="page-inner">
-                                <div class="page-header">
+        <div class="main-panel">
+            <div class="content">
+                <div class="page-inner">
+                    <div class="page-header">
 
-                                    <ul class="breadcrumbs">
-                                        <li class="nav-home">
-                                            <a href="/admin/dashboard">
-                                                <i class="flaticon-home"></i>
-                                            </a>
-                                        </li>
-                                        <li class="separator">
-                                            <i class="flaticon-right-arrow"></i>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#">System</a>
-                                        </li>
-                                        <li class="separator">
-                                            <i class="flaticon-right-arrow"></i>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#">User Managment</a>
-                                        </li>
-                                        <li class="separator">
-                                            <i class="flaticon-right-arrow"></i>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#">Users</a>
-                                        </li>
+                        <ul class="breadcrumbs">
+                            <li class="nav-home">
+                                <a href="/admin/dashboard">
+                                    <i class="flaticon-home"></i>
+                                </a>
+                            </li>
+                            <li class="separator">
+                                <i class="flaticon-right-arrow"></i>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#">System</a>
+                            </li>
+                            <li class="separator">
+                                <i class="flaticon-right-arrow"></i>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#">User Managment</a>
+                            </li>
+                            <li class="separator">
+                                <i class="flaticon-right-arrow"></i>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#">Users</a>
+                            </li>
 
-                                    </ul>
-                                </div>
+                        </ul>
+                    </div>
 
-                                <div class="container-fluid ">
-                                    <div class="row">
-                                        <div class="col-md-12">
+                    <div class="container-fluid ">
+                        <div class="row">
+                            <div class="col-md-12">
 
 
-                                            <div class="card kk_full_form">
-                                                <div class="card-header text-center">
-                                                    <div class="step-wizard m-2" role="navigation">
-                                                        <div class="progress">
-                                                            <div class="progressbar empty"></div>
-                                                            <div id="prog" class="progressbar"></div>
-                                                        </div>
-                                                        <ul>
-                                                            <li id="1" class="active">
-                                                                <button id="step1">
-                                                                    <div class="step">1</div>
+                                <div class="card kk_full_form">
+                                    <div class="card-header text-center">
+                                        <div class="step-wizard m-2" role="navigation">
+                                            <div class="progress">
+                                                <div class="progressbar empty"></div>
+                                                <div id="prog" class="progressbar"></div>
+                                            </div>
+                                            <ul>
+                                                <li id="1" class="active">
+                                                    <button id="step1">
+                                                        <div class="step">1</div>
 
-                                                                </button>
-                                                            </li>
-                                                            <li id="2" class="">
-                                                                <button id="step2">
-                                                                    <div class="step">2</div>
+                                                    </button>
+                                                </li>
+                                                <li id="2" class="">
+                                                    <button id="step2">
+                                                        <div class="step">2</div>
 
-                                                                </button>
-                                                            </li>
-                                                            <li id="3" class="">
-                                                                <button id="step3">
-                                                                    <div class="step">3</div>
+                                                    </button>
+                                                </li>
+                                                <li id="3" class="">
+                                                    <button id="step3">
+                                                        <div class="step">3</div>
 
-                                                                </button>
-                                                            </li>
+                                                    </button>
+                                                </li>
 
-                                                        </ul>
+                                            </ul>
+                                        </div>
+
+
+
+                                    </div>
+                                    <form>
+
+                                        <div class="card-body">
+
+                                            <div class="row">
+
+                                                <div class="col-4 ">
+                                                    <div class="form-group w-100">
+                                                        <label for="productname">Product Name</label>
+                                                        <input type="text" name="name" class="form-control"
+                                                            id="productname" placeholder="Product Name">
+                                                    </div>
+                                                    <div class="form-group w-100">
+                                                        <label for="exampleFormControlSelect1">Select
+                                                            Form</label>
+                                                        <select class="form-control" id="exampleFormControlSelect1">
+                                                            <option value="" selected disabled>please select
+                                                                form</option>
+                                                            <% forms.forEach(element=> { %>
+
+                                                            <option value="<%=element.id  %>" <%=element.name=='master' ? 'selected'
+                                                                                : '' %>><%=element.name %>
+                                                            </option>
+                                                            <% }); %>
+                                                        </select>
                                                     </div>
 
 
 
                                                 </div>
-                                                <form>
 
-                                                    <div class="card-body">
+                                                <div class="col-4 "
+                                                    style="border-left:1px solid lightgrey;border-right:1px solid lightgrey">
+                                                    <div class="form-group w-100">
+                                                        <label for="cataloghierarchy">Assign Product to
+                                                            Catalog</label>
+                                                        <select class="form-control" id="cataloghierarchy" disabled>
+                                                            <option value="" selected disabled>please select
+                                                                catalog</option>
+                                                            <% catalogues.forEach(element=> { %>
 
-                                                        <div class="row" style="height: 60vh;">
+                                                            <option value="<%=element.id  %>">
+                                                                <%=element.name %>
+                                                            </option>
+                                                            <% }); %>
+                                                        </select>
+                                                    </div>
+                                                    <div id="files" class="jstree jstree-1 jstree-default" role="tree"
+                                                        aria-multiselectable="true" tabindex="0"
+                                                        aria-activedescendant="j1_5" aria-busy="false">
 
-                                                            <div class="col-4 ">
-                                                                <div class="form-group w-100">
-                                                                    <label for="productname">Product Name</label>
-                                                                    <input type="text" name="name" class="form-control"
-                                                                        id="productname" placeholder="Product Name">
-                                                                </div>
-                                                                <div class="form-group w-100">
-                                                                    <label for="exampleFormControlSelect1">Select
-                                                                        Form</label>
-                                                                    <select class="form-control"
-                                                                        id="exampleFormControlSelect1">
-                                                                        <option value="" selected disabled>please select
-                                                                            form</option>
-                                                                        <% forms.forEach(element=> { %>
+                                                    </div>
+                                                </div>
 
-                                                                            <option value="<%=element.id  %>"
-                                                                                <%=element.name=='master' ? 'selected'
-                                                                                : '' %> ><%=element.name %>
-                                                                            </option>
-                                                                            <% }); %>
-                                                                    </select>
-                                                                </div>
-
-
-
-                                                            </div>
-
-                                                            <div class="col-4 "
-                                                                style="border-left:1px solid lightgrey;border-right:1px solid lightgrey">
-                                                                <div class="form-group w-100">
-                                                                    <label for="cataloghierarchy">Assign Product to
-                                                                        Catalog</label>
-                                                                    <select class="form-control" id="cataloghierarchy"
-                                                                        disabled>
-                                                                        <option value="" selected disabled>please select
-                                                                            catalog</option>
-                                                                        <% catalogues.forEach(element=> { %>
-
-                                                                            <option value="<%=element.id  %>">
-                                                                                <%=element.name %>
-                                                                            </option>
-                                                                            <% }); %>
-                                                                    </select>
-                                                                </div>
-                                                                <div id="files" class="jstree jstree-1 jstree-default"
-                                                                    role="tree" aria-multiselectable="true" tabindex="0"
-                                                                    aria-activedescendant="j1_5" aria-busy="false">
-
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-4 ">
-                                                                <div class="form-group w-100">
-                                                                    <label class="form-label d-block">Choose Product
-                                                                        Type</label>
-                                                                    <div class="selectgroup selectgroup-pills">
-                                                                        <label class="selectgroup-item">
-                                                                            <input type="radio" name="type" value="HTML"
-                                                                                class="selectgroup-input" disabled>
-                                                                            <span class="selectgroup-button">Part</span>
-                                                                        </label>
-                                                                        <label class="selectgroup-item">
-                                                                            <input type="radio" name="type" value="CSS"
-                                                                                class="selectgroup-input" disabled>
-                                                                            <span class="selectgroup-button">Matirx
-                                                                                Product</span>
-                                                                        </label>
-                                                                        <label class="selectgroup-item">
-                                                                            <input type="radio" name="type" value="CSS"
-                                                                                class="selectgroup-input" disabled>
-                                                                            <span class="selectgroup-button">Single line
-                                                                                item</span>
-                                                                        </label>
-
-
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
+                                                <div class="col-4 ">
+                                                    <div class="form-group w-100">
+                                                        <label class="form-label d-block">Choose Product
+                                                            Type</label>
+                                                        <div class="selectgroup selectgroup-pills">
+                                                            <%productTypes.forEach(pt => {%>
+                                                            <label class="selectgroup-item">
+                                                                <input type="radio" name="type" value="<%=pt.id%>"
+                                                                    class="selectgroup-input" disabled>
+                                                                <span class="selectgroup-button"><%=pt.name%></span>
+                                                            </label>
+                                                            <%})%>
                                                         </div>
-                                                        
                                                     </div>
-                                                    <div class="card-footer d-flex justify-content-end">
-                                                        <button id="submitBtn" type="button" disabled class="btn  mr-3">Submit<i class=" ml-3"></i></button>
-                                                    </div>
-                                                </form>
 
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
 
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-end">
+                                            <button id="submitBtn" type="button" disabled class="btn  mr-3">Submit<i
+                                                    class=" ml-3"></i></button>
+                                        </div>
+                                    </form>
 
                                 </div>
                             </div>
-
-
                         </div>
-                        <%-include('../partials/footer.ejs')%>
+
+
                     </div>
+                </div>
+
+
+            </div>
+            <%-include('../partials/footer.ejs')%>
+        </div>
     </div>
     <!--   Core JS Files   -->
 
@@ -481,7 +467,7 @@
             productType = this.value
         });
 
-        document.getElementById('submitBtn').addEventListener('click', function() {
+        document.getElementById('submitBtn').addEventListener('click', function () {
             if (Catalogue != ' ' && CatalogueHierarchy != ' ' && formId != ' ' && productType != ' ' && name != '') {
                 this.children[0].classList.add('fa', 'fa-spinner', 'fa-spin')
                 this.disabled = true

@@ -106,9 +106,10 @@
                                                                     <th rowspan="1" colspan="1">Product Name</th>
                                                                     <th rowspan="1" colspan="1">Catalogue</th>
                                                                     <th rowspan="1" colspan="1">Product Type</th>
-                                                                    <th rowspan="1" colspan="1">Stauts</th>
+                                                                    <th rowspan="1" colspan="1">Stage</th>
+                                                                    <th rowspan="1" colspan="1">Status</th>
                                                                     <th rowspan="1" colspan="1">Action</th>
-
+                                
                                                                 </tr>
                                                             </thead>
                                                             
@@ -129,6 +130,23 @@
                                                                         <td><a class="text-info" href="/admin/product/<%=a.formId %>/p/<%=a.id%> "><%=a.name%></a></td>
                                                                         <td> <%=a.catalogue%> </td>
                                                                         <td><%= a.productType  %> </td>
+                                                                        <td>
+                                                                            <% if(a.stage!='1') { %>
+                                                                                
+                                                                                <a style="text-decoration: none;" href="/admin/product/<%=a.formId %>/p/<%=a.id%>" type="button" data-toggle="tooltip"
+                                                                                    title="" class="color_secondary" data-original-title="Edit Task">
+                                                                                    View Product 
+                                                                            
+                                                                                </a>
+                                                                                <% }else{ %>
+                                                                                    <a style="text-decoration: none;" href="/admin/form/<%= a.formId %>/product/<%=a.id%> %>" type="button" data-toggle="tooltip"
+                                                                                        title="" class="color_secondary" data-original-title="Edit Task">
+                                                                                        Enter Product Details
+                                                                            
+                                                                                    </a>
+                                                                                <% } %>
+                                                                            
+                                                                            </td>
                                                                         <td><span id="activeBadge-<%= a.id%>" class="badge badge-<%= a.active ? 'success' : 'danger' %>">
                                                                                 <%= a.active ? 'ACTIVE': 'INACTIVE' %></span></td>
                                                                         <td>

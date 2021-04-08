@@ -38,7 +38,7 @@ router.get('/', async (req, res) => {
     try {
         const inputType = await inputTypes.findAll()
         const listRecordResult = await listRecord.findAll({where: { active: true }})
-        const inputField = await MySql.query('select inputFields.id as id , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr, users.firstName as firstName, users.lastName as lastName, inputTypes.inputType from inputFields INNER JOIN users  ON users.id = inputFields.createdBy INNER join inputTypes on inputTypes.id = inputFields.typeOfField;')
+        const inputField = await MySql.query('select inputFields.id as id, inputFields.required as required , inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr, users.firstName as firstName, users.lastName as lastName, inputTypes.inputType from inputFields INNER JOIN users  ON users.id = inputFields.createdBy INNER join inputTypes on inputTypes.id = inputFields.typeOfField order by label;')
         res.render('admin/inputField', { User: req.user, inputField, inputType, listRecordResult })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
@@ -77,6 +77,35 @@ router.patch('/:id', async (req, res) => {
     }
 })
 
+// Mark an item Field as required/not required
+router.patch('/mark/:id', async (req, res) => {
+    const { newValue } = req.body
+    try {
+        await inputFields.update({
+            required: newValue,
+            updatedBy: req.params.id
+        }, {
+            where: { id: req.params.id },
+            returning: true,
+            plain: true
+        })
+
+        await ActivityLog.create({
+            id: req.params.id,
+            name: 'inputField',
+            type: 'Update',
+            user: req.user.id,
+            timestamp: new Date()
+        })
+        req.flash('success', `Changed Successfully !!`)
+        res.json({ status: 200 })
+    }
+    catch (err) {
+        console.error('\x1b[31m%s\x1b[0m', err)
+        req.flash('error', err.toString() || 'Something Went Wrong!')
+        res.redirect('/admin/inputField')
+    }
+})
 
 // Import Input Fields File
 router.post('/import', excelUpload.single('file'), async (req, res) => {
@@ -115,6 +144,7 @@ router.post('/import', excelUpload.single('file'), async (req, res) => {
                         label: row[0],
                         typeOfField: row[1],
                         description: row[2],
+                        required: !row[3] ? '0' : (row[3].toLowerCase() === 'yes' ? '1' : '0'),
                         createdBy: req.user.id
                     }))
                 }
@@ -153,20 +183,22 @@ router.post('/import', excelUpload.single('file'), async (req, res) => {
 //Add an Item Field
 router.post('/add', async (req, res) => {
     const { label, type, listrecord, description } = req.body
+    let {required} = req.body
     // console.log(req.body);
     if (!label || !type || !description) {
         req.flash('error', 'Fill All Required Fields')
         res.redirect('/admin/inputfield')
         return
     }
+    required = (typeof required === 'undefined'? '0':'1') 
     // console.log(listrecord);
     let queryFields = {}
     if (listrecord) {
         // console.log("list detected");
-        queryFields = { label, createdBy: req.user.id, description, typeOfField: type, associatedList: listrecord }
+        queryFields = { label, createdBy: req.user.id, description,required, typeOfField: type, associatedList: listrecord }
     }
     else {
-        queryFields = { label, createdBy: req.user.id, description, typeOfField: type }
+        queryFields = { label, createdBy: req.user.id, description,required, typeOfField: type }
         console.log("list not detected");
     }
     try {

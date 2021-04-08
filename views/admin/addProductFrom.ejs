@@ -2,507 +2,408 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Inbound PMS</title>
-    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-    <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Inbound PMS</title>
+  <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+  <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
 
-    <!-- CSS Files -->
-    <link rel="stylesheet" href="/assets/css/bootstrap.css">
-    <link rel="stylesheet" href="/assets/css/atlantis.min.css">
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="/assets/css/bootstrap.css">
+  <link rel="stylesheet" href="/assets/css/atlantis.min.css">
 
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link rel="stylesheet" href="/assets/css/demo.css">
-    <link rel="stylesheet" href="/assets/css/kk_style.css">
-    <link rel="stylesheet" href="/assets/css/iziToast.min.css">
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link rel="stylesheet" href="/assets/css/demo.css">
+  <link rel="stylesheet" href="/assets/css/kk_style.css">
+  <link rel="stylesheet" href="/assets/css/iziToast.min.css">
 
-    <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
-    <script>
-        WebFont.load({
-            google: { "families": ["Lato:300,400,700,900"] },
-            custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css'] },
-            active: function () {
-                sessionStorage.fonts = true;
-            }
-        });
-    </script>
+  <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+  <script>
+    WebFont.load({
+      google: { "families": ["Lato:300,400,700,900"] },
+      custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css'] },
+      active: function () {
+        sessionStorage.fonts = true;
+      }
+    });
+  </script>
 
 
 </head>
 
 <body>
-    <div class="wrapper">
-        <%-include('../partials/config')%>
+  <div class="wrapper">
+    <%-include('../partials/config')%>
 
-            <!-- header -->
-            <%-include('../partials/header.ejs')%>
-                <!-- header end -->
+      <!-- header -->
+      <%-include('../partials/header.ejs')%>
+        <!-- header end -->
 
-                <!-- Sidebar -->
-                <%-include('../partials/sidebar.ejs')%>
-                    <!-- End Sidebar -->
+        <!-- Sidebar -->
+        <%-include('../partials/sidebar.ejs')%>
+          <!-- End Sidebar -->
 
-                    <div class="main-panel kk_form_page bg-white kK_custom_form">
-                        <div class="content">
-                            <div class="page-inner">
+          <div class="main-panel kk_form_page bg-white kK_custom_form">
+            <div class="content">
+              <div class="page-inner">
 
-                                <div class="container-fluid ">
-                                    <form id="pData" action="/admin/form" method="POST">
-                                        <input type="hidden" name="productId" value="<%=productId %>">
-                                        <input type="hidden" name="formId" value="<%=formId %>">
-                                        
-                                        <% const inputs=['text' , 'number' , 'email' , 'tel' ] %>
-                                            <% layout.componets.forEach(component=>{ %>
-                                                <% if(component.type=='sec' ){ %>
-                                                    <section class="pad-40">
-                                                        <div class="level_1_header">
-                                                            <%=component.name %>
-                                                        </div>
-                                                        <% component.subComponents.forEach(subComponent=>{ %>
-                                                            <% if(subComponent.type=='sec' ){ %>
-                                                                <section class="pad-40">
-                                                                    <div class="level_2_header">
-                                                                        <%= subComponent.name %>
-                                                                    </div>
-                                                                    <div class="row m-3">
-                                                                        <% if(subComponent.AssignedFields.length==0){ %>
-                                                                            <div class="text-center">
-                                                                                <img
-                                                                                    src="/assets/img/no_field_assigned.svg">
-                                                                            </div>
-                                                                            <% }else{ %>
-                                                                                <%
-                                                                                    subComponent.AssignedFields.forEach(_a=>
-                                                                                    {%>
-                                                                                    <% if(_a.field.inputType=='checkbox'
-                                                                                        ){ %>
-                                                                                        <div class="col-md-3 mb-3">
-                                                                                            <div class="form-check">
-                                                                                                <label
-                                                                                                    class="form-check-label">
-                                                                                                    <input
-                                                                                                        class="form-check-input"
-                                                                                                        type="checkbox"
-                                                                                                        value="<%= _a.field.id%>">
+                <div class="container-fluid ">
+                  <form id="pData" action="/admin/form" method="POST">
+                    <input type="hidden" name="productId" value="<%=productId %>">
+                    <input type="hidden" name="formId" value="<%=formId %>">
 
-                                                                                                    <span
-                                                                                                        class="form-check-sign">
-                                                                                                        <%= _a.field.label
-                                                                                                            %>
-                                                                                                    </span>
-                                                                                                </label>
-                                                                                            </div>
-                                                                                            <input type="hidden"
-                                                                                                id="<%= _a.field.id %>"
-                                                                                                value="off"
-                                                                                                name="<%= _a.field.id%>">
-                                                                                        </div>
-                                                                                        <% } %>
-                                                                                            <% if(inputs.includes(_a.field.inputType)){
-                                                                                                %>
-                                                                                                <div
-                                                                                                    class="col-md-3 mb-3">
-                                                                                                    <div
-                                                                                                        class="form-group">
-                                                                                                        <label
-                                                                                                            for="email2">
-                                                                                                            <%= _a.field.label
-                                                                                                                %>
-                                                                                                        </label>
-                                                                                                        <input
-                                                                                                            type="<%=_a.field.inputType %>"
-                                                                                                            class="form-control"
-                                                                                                            name="<%= _a.field.id%>"
-                                                                                                            id="email2">
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <% } %>
-                                                                                                    <% if(_a.field.inputType=='list/record' ){ %>
-                                                                                                        <div class="col-md-3">
-                                                                                                            <div class="form-group">
-                                                                                                                <label for="smallSelect" style="width: 100%">
-                                                                                                                    <%= _a.field.label%>
-                                                                                                                </label>
-                                                                                                                <select name="<%= _a.field.id%>" class="form-control form-control-sm" id="smallSelect">
-                                                                                                                    <option>
-                                                                                                                    </option>
-                                                                                                                    <% if(_a.field.list !=null){ %>
-                                                                                                                        <% if(_a.field.list !=null) { _a.field.list.split('----').forEach(b=>
-                                                                                                                            {%>
-                                                                                                                            <option value=<%=b %>
-                                                                                                                                >
-                                                                                                                                <%= b %>
-                                                                                                                            </option>
-                                                                                                                            <%})}}%>
-                                                                                                    
-                                                                                                                </select>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                        <%}%>
-                                                                                                            <%})} %>
-                                                                    </div>
-                                                                </section>
-                                                                <% }else{ %>
-                                                                    <section class="pad-40">
-                                                                        <div class="level_2_header">
-                                                                            <%= subComponent.name %>
-                                                                        </div>
-                                                                        <div class="card-body">
-                                                                            <ul class="nav nav-pills nav-secondary"
-                                                                                id="pills-tab" role="tablist">
-                                                                                <%
-                                                                                    subComponent.tabComponents.forEach(tab=>
-                                                                                    {
-                                                                                    %>
-                                                                                    <li class="nav-item submenu">
-                                                                                        <a class="nav-link"
-                                                                                            id="pills-home-tab"
-                                                                                            data-toggle="pill"
-                                                                                            href="#pills-<%=tab.name %>"
-                                                                                            role="tab"
-                                                                                            aria-controls="pills-home"
-                                                                                            aria-selected="false">
-                                                                                            <%=tab.name %>
-                                                                                        </a>
-                                                                                    </li>
-                                                                                    <%}) %>
-                                                                            </ul>
-                                                                            <div class="tab-content mt-2 mb-3"
-                                                                                id="pills-tabContent">
-
-                                                                                <%
-                                                                                    subComponent.tabComponents.forEach(tab=>
-                                                                                    {
-                                                                                    %>
-                                                                                    <div class="tab-pane fade"
-                                                                                        id="pills-<%=tab.name %>"
-                                                                                        role="tabpanel"
-                                                                                        aria-labelledby="pills-home-tab">
-                                                                                        <%
-                                                                                            tab.pageContent.forEach(page=>
-                                                                                            {
-                                                                                            %>
-                                                                                            <section class="pad-40">
-                                                                                                <div
-                                                                                                    class="level_2_header">
-                                                                                                    <%= page.name %>
-                                                                                                </div>
-                                                                                                <div class="row m-3">
-                                                                                                    <% if(subComponent.AssignedFields.length==0){
-                                                                                                        %>
-                                                                                                        <div
-                                                                                                            class="mx-auto">
-                                                                                                            <img
-                                                                                                                src="/assets/img/no_field_assigned.svg">
-                                                                                                        </div>
-                                                                                                        <% }else{ %>
-                                                                                                            <%
-                                                                                                                page.AssignedFields.forEach(_a=>
-                                                                                                                {%>
-
-                                                                                                                <% if(_a.field.inputType=='checkbox'
-                                                                                                                    ){
-                                                                                                                    %>
-                                                                                                                    <div
-                                                                                                                        class="col-md-3 mb-3">
-                                                                                                                        <div
-                                                                                                                            class="form-check">
-                                                                                                                            <label
-                                                                                                                                class="form-check-label">
-                                                                                                                                <input
-                                                                                                                                    class="form-check-input"
-                                                                                                                                    type="checkbox"
-                                                                                                                                    value="<%= _a.field.id%>">
-
-                                                                                                                                <span
-                                                                                                                                    class="form-check-sign">
-                                                                                                                                    <%= _a.field.label
-                                                                                                                                        %>
-                                                                                                                                </span>
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                        <input
-                                                                                                                            type="hidden"
-                                                                                                                            id="<%= _a.field.id%>"
-                                                                                                                            value="off"
-                                                                                                                            name="<%= _a.field.id%>">
-                                                                                                                    </div>
-                                                                                                                    <% }%> <%
-                                                                                                                        if(_a.field.inputType=='list/record'
-                                                                                                                        ){
-                                                                                                                        %>
-                                                                                                                        <div
-                                                                                                                            class="col-md-3">
-                                                                                                                            <div
-                                                                                                                                class="form-group">
-                                                                                                                                <label
-                                                                                                                                    for="smallSelect"
-                                                                                                                                    style="width: 100%">
-                                                                                                                                    <%=
-                                                                                                                                        _a.field.label%>
-                                                                                                                                </label>
-                                                                                                                                <select
-                                                                                                                                    name="<%= _a.field.id%>"
-                                                                                                                                    class="form-control form-control-sm"
-                                                                                                                                    id="smallSelect">
-                                                                                                                                    <option>
-                                                                                                                                    </option>
-                                                                                                                                    <% if(_a.field.list
-                                                                                                                                        !=null){
-                                                                                                                                        %>
-                                                                                                                                        <% if(_a.field.list
-                                                                                                                                            !=null)
-                                                                                                                                            {
-                                                                                                                                            _a.field.list.split('----').forEach(b=>
-                                                                                                                                            {%>
-                                                                                                                                            <option
-                                                                                                                                                value=<%=b
-                                                                                                                                                %>
-                                                                                                                                                >
-                                                                                                                                                <%= b
-                                                                                                                                                    %>
-                                                                                                                                            </option>
-                                                                                                                                            <%})}}%>
-
-                                                                                                                                </select>
-                                                                                                                            </div>
-                                                                                                                        </div>
-                                                                                                                        <%}%>
-                                                                                                                            %>
-                                                                                                                            <% if(inputs.includes(_a.field.inputType)){
-                                                                                                                                %>
-                                                                                                                                <div
-                                                                                                                                    class="col-md-3 mb-3">
-                                                                                                                                    <div
-                                                                                                                                        class="form-group">
-                                                                                                                                        <label
-                                                                                                                                            for="email2">
-                                                                                                                                            <%= _a.field.label
-                                                                                                                                                %>
-                                                                                                                                        </label>
-                                                                                                                                        <input
-                                                                                                                                            type="<%=_a.field.inputType %>"
-                                                                                                                                            class="form-control"
-                                                                                                                                            id="email2"
-                                                                                                                                            name="<%= _a.field.id%>">
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                                                                                <% }
-                                                                                                                                    %>
-
-                                                                                                                                    <%})%>
-                                                                                                                                        <%}%>
-                                                                                                </div>
-                                                                                            </section>
-                                                                                            <% }) %>
-                                                                                    </div>
-                                                                                    <%}) %>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    </section>
-                                                                    <% } %>
-
-                                                                        <% }) %>
-                                                    </section>
-                                                    <% } %>
-                                                        <% if(component.type=='tab' ){ %>
-                                                            <section class="pad-40">
-                                                                <div class="level_1_header">
-                                                                    <%=component.name %>
-                                                                </div>
-                                                                <div class="card-body">
-                                                                    <ul class="nav nav-pills nav-secondary"
-                                                                        id="pills-tab" role="tablist">
-                                                                        <% component.subComponents.forEach((tab,
-                                                                            index)=>{ %>
-                                                                            <li class="nav-item submenu">
-                                                                                <a class="nav-link <%= index==0 ? 'active show' : ''%>"
-                                                                                    id="pills-home-tab"
-                                                                                    data-toggle="pill"
-                                                                                    href="#pills-<%=tab.name %>"
-                                                                                    role="tab"
-                                                                                    aria-controls="pills-home"
-                                                                                    aria-selected="<%= index==0 ? 'true' : '' %>">
-                                                                                    <%=tab.name %>
-                                                                                </a>
-                                                                            </li>
-                                                                            <%}) %>
-                                                                    </ul>
-                                                                    <div class="tab-content mt-2 mb-3"
-                                                                        id="pills-tabContent">
-                                                                        <% component.subComponents.forEach((subComponent,
-                                                                            index)=>{ %>
-                                                                            <div class="tab-pane fade <%= index==0 ? 'active show' : ''%>"
-                                                                                id="pills-<%=subComponent.name %>"
-                                                                                role="tabpanel"
-                                                                                aria-labelledby="pills-home-tab">
-                                                                                <%
-                                                                                    subComponent.tabComponents.forEach(tabComponent=>
-                                                                                    { %>
-                                                                                    <section class="pad-40">
-                                                                                        <div class="level_2_header">
-                                                                                            <%= tabComponent.name %>
-                                                                                        </div>
-                                                                                        <div class="row -3">
-                                                                                            <% if(tabComponent.AssignedFields.length==0){
-                                                                                                %>
-                                                                                                <div
-                                                                                                    class="mx-auto Kk_no_assigned">
-                                                                                                    <img class="img-responsive"
-                                                                                                        src="/assets/img/no_field_assigned.png">
-                                                                                                    <h4>No Fields
-                                                                                                        Assigned
-                                                                                                    </h4>
-                                                                                                    <h6>Please assign
-                                                                                                        some fields</h6>
-                                                                                                </div>
-                                                                                                <% }else{ %>
-                                                                                                    <%
-                                                                                                        tabComponent.AssignedFields.forEach(_a=>
-                                                                                                        {%>
-                                                                                                        <% if(_a.field.inputType=='list/record'
-                                                                                                            ){ %>
-                                                                                                            <div
-                                                                                                                class="col-md-3">
-                                                                                                                <div
-                                                                                                                    class="form-group">
-                                                                                                                    <label
-                                                                                                                        for="smallSelect"
-                                                                                                                        style="width: 100%">
-                                                                                                                        <%=
-                                                                                                                            _a.field.label%>
-                                                                                                                    </label>
-                                                                                                                    <select
-                                                                                                                        name="<%= _a.field.id%>"
-                                                                                                                        class="form-control form-control-sm"
-                                                                                                                        id="smallSelect">
-                                                                                                                        <option>
-                                                                                                                            1
-                                                                                                                        </option>
-                                                                                                                        <option>
-                                                                                                                            2
-                                                                                                                        </option>
-                                                                                                                        <option>
-                                                                                                                            3
-                                                                                                                        </option>
-                                                                                                                        <option>
-                                                                                                                            4
-                                                                                                                        </option>
-                                                                                                                        <option>
-                                                                                                                            5
-                                                                                                                        </option>
-                                                                                                                    </select>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <%}%>
-                                                                                                                <% if(_a.field.inputType=='checkbox'
-                                                                                                                    ){
-                                                                                                                    %>
-                                                                                                                    <div
-                                                                                                                        class="col-md-3 mb-3">
-                                                                                                                        <div
-                                                                                                                            class="form-check">
-                                                                                                                            <label
-                                                                                                                                class="form-check-label">
-                                                                                                                                <input
-                                                                                                                                    class="form-check-input"
-                                                                                                                                    type="checkbox"
-                                                                                                                                    value="<%= _a.field.id%>">
-
-                                                                                                                                <span
-                                                                                                                                    class="form-check-sign">
-                                                                                                                                    <%= _a.field.label
-                                                                                                                                        %>
-                                                                                                                                </span>
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                        <input
-                                                                                                                            type="hidden"
-                                                                                                                            id="<%= _a.field.id%>"
-                                                                                                                            value="off"
-                                                                                                                            name="<%= _a.field.id%>">
-                                                                                                                    </div>
-                                                                                                                    <% }
-                                                                                                                        %>
-                                                                                                                        <% if(inputs.includes(_a.field.inputType)){
-                                                                                                                            %>
-                                                                                                                            <div
-                                                                                                                                class="col-md-3 mb-3">
-                                                                                                                                <div
-                                                                                                                                    class="form-group">
-                                                                                                                                    <label
-                                                                                                                                        for="email2">
-                                                                                                                                        <%= _a.field.label
-                                                                                                                                            %>
-                                                                                                                                    </label>
-                                                                                                                                    <input
-                                                                                                                                        type="<%=_a.field.inputType %>"
-                                                                                                                                        class="form-control"
-                                                                                                                                        id="email2"
-                                                                                                                                        name="<%= _a.field.id%>">
-                                                                                                                                </div>
-                                                                                                                            </div>
-                                                                                                                            <% }
-                                                                                                                                %>
-                                                                                                                                <%})%>
-                                                                                                                                    <%}%>
-                                                                                        </div>
-                                                                                    </section>
-                                                                                    <% }) %>
-                                                                            </div>
-                                                                            <%}) %>
-                                                                    </div>
-                                                                </div>
-                                                            </section>
-                                                            <% } %>
-                                                                <% }) %>
-                                                                    <div class="card-footer d-flex justify-content-end">
-                                                                        <button class="btn btn-primary"
-                                                                            type="submit">Save Product</button>
-                                                                    </div>
-                                    </form>
-                                </div>
+                    <% const inputs=['text' , 'number' , 'email' , 'tel' ] %>
+                      <% layout.componets.forEach(component=>{ %>
+                        <% if(component.type=='sec' ){ %>
+                          <section class="pad-40">
+                            <div class="level_1_header">
+                              <%=component.name %>
                             </div>
+                            <% component.subComponents.forEach(subComponent=>{ %>
+                              <% if(subComponent.type=='sec' ){ %>
+                                <section class="pad-40">
+                                  <div class="level_2_header">
+                                    <%= subComponent.name %>
+                                  </div>
+                                  <div class="row m-3">
+                                    <% if(subComponent.AssignedFields.length==0){ %>
+                                      <div class="text-center">
+                                        <img src="/assets/img/no_field_assigned.svg">
+                                      </div>
+                                      <% }else{ %>
+                                        <% subComponent.AssignedFields.forEach(_a=>
+                                          {%>
+                                          <% if(_a.field.inputType=='checkbox' ){ %>
+                                            <div class="col-md-3 mb-3">
+                                              <div class="form-check">
+                                                <label class="form-check-label">
+                                                  <input class="form-check-input" type="checkbox"
+                                                    value="off" name="<%= _a.field.id%>">
+
+                                                  <span class="form-check-sign">
+                                                    <%= _a.field.label %>
+                                                  </span>
+                                                </label>
+                                              </div>
+                                            </div>
+                                            <% } %>
+                                              <% if(inputs.includes(_a.field.inputType)){ %>
+                                                <div class="col-md-3 mb-3">
+                                                  <div class="form-group">
+                                                    <label for="<%= _a.field.id %>">
+                                                      <%= _a.field.label %>
+                                                    </label>
+                                                    <input type="<%=_a.field.inputType %>" class="form-control"
+                                                      name="<%= _a.field.id%>" id="<%= _a.field.id %>">
+                                                  </div>
+                                                </div>
+                                                <% } %>
+                                                  <% if(_a.field.inputType=='list/record' ){ %>
+                                                    <div class="col-md-3">
+                                                      <div class="form-group">
+                                                        <label for="smallSelect" style="width: 100%">
+                                                          <%= _a.field.label%>
+                                                        </label>
+                                                        <select name="<%= _a.field.id%>"
+                                                          class="form-control form-control-sm" id="smallSelect">
+                                                          <option>
+                                                          </option>
+                                                          <% if(_a.field.list !=null){ %>
+                                                            <% if(_a.field.list !=null) {
+                                                              _a.field.list.split('----').forEach(b=>
+                                                              {%>
+                                                              <option value=<%=b %>
+                                                                >
+                                                                <%= b %>
+                                                              </option>
+                                                              <%})}}%>
+
+                                                        </select>
+                                                      </div>
+                                                    </div>
+                                                    <%}%>
+                                                      <%})} %>
+                                  </div>
+                                </section>
+                                <% }else{ %>
+                                  <section class="pad-40">
+                                    <div class="level_2_header">
+                                      <%= subComponent.name %>
+                                    </div>
+                                    <div class="card-body">
+                                      <ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
+                                        <% subComponent.tabComponents.forEach(tab=>
+                                          {
+                                          %>
+                                          <li class="nav-item submenu">
+                                            <a class="nav-link" id="pills-home-tab" data-toggle="pill"
+                                              href="#pills-<%=tab.name %>" role="tab" aria-controls="pills-home"
+                                              aria-selected="false">
+                                              <%=tab.name %>
+                                            </a>
+                                          </li>
+                                          <%}) %>
+                                      </ul>
+                                      <div class="tab-content mt-2 mb-3" id="pills-tabContent">
+
+                                        <% subComponent.tabComponents.forEach(tab=>
+                                          {
+                                          %>
+                                          <div class="tab-pane fade" id="pills-<%=tab.name %>" role="tabpanel"
+                                            aria-labelledby="pills-home-tab">
+                                            <% tab.pageContent.forEach(page=>
+                                              {
+                                              %>
+                                              <section class="pad-40">
+                                                <div class="level_2_header">
+                                                  <%= page.name %>
+                                                </div>
+                                                <div class="row m-3">
+                                                  <% if(subComponent.AssignedFields.length==0){ %>
+                                                    <div class="mx-auto">
+                                                      <img src="/assets/img/no_field_assigned.svg">
+                                                    </div>
+                                                    <% }else{ %>
+                                                      <% page.AssignedFields.forEach(_a=>
+                                                        {%>
+
+                                                        <% if(_a.field.inputType=='checkbox' ){ %>
+                                                          <div class="col-md-3 mb-3">
+                                                            <div class="form-check">
+                                                              <label class="form-check-label">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                  value="off">
+
+                                                                <span class="form-check-sign">
+                                                                  <%= _a.field.label %>
+                                                                </span>
+                                                              </label>
+                                                            </div>
+                                                            
+                                                          </div>
+                                                          <% }%>
+                                                            <% if(_a.field.inputType=='list/record' ){ %>
+                                                              <div class="col-md-3">
+                                                                <div class="form-group">
+                                                                  <label for="smallSelect" style="width: 100%">
+                                                                    <%= _a.field.label%>
+                                                                  </label>
+                                                                  <select name="<%= _a.field.id%>"
+                                                                    class="form-control form-control-sm"
+                                                                    id="smallSelect">
+                                                                    <option>
+                                                                    </option>
+                                                                    <% if(_a.field.list !=null){ %>
+                                                                      <% if(_a.field.list !=null) {
+                                                                        _a.field.list.split('----').forEach(b=>
+                                                                        {%>
+                                                                        <option value=<%=b %>
+                                                                          >
+                                                                          <%= b %>
+                                                                        </option>
+                                                                        <%})}}%>
+
+                                                                  </select>
+                                                                </div>
+                                                              </div>
+                                                              <%}%>
+                                                                %>
+                                                                <% if(inputs.includes(_a.field.inputType)){ %>
+                                                                  <div class="col-md-3 mb-3">
+                                                                    <div class="form-group">
+                                                                      <label for="<%= _a.field.id %>">
+                                                                        <%= _a.field.label %>
+                                                                      </label>
+                                                                      <input type="<%=_a.field.inputType %>"
+                                                                        class="form-control" id="<%= _a.field.id %>"
+                                                                        name="<%= _a.field.id%>">
+                                                                    </div>
+                                                                  </div>
+                                                                  <% } %>
+
+                                                                    <%})%>
+                                                                      <%}%>
+                                                </div>
+                                              </section>
+                                              <% }) %>
+                                          </div>
+                                          <%}) %>
+
+                                      </div>
+                                    </div>
+                                  </section>
+                                  <% } %>
+
+                                    <% }) %>
+                          </section>
+                          <% } %>
+                            <% if(component.type=='tab' ){ %>
+                              <section class="pad-40">
+                                <div class="level_1_header">
+                                  <%=component.name %>
+                                </div>
+                                <div class="card-body">
+                                  <ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
+                                    <% component.subComponents.forEach((tab, index)=>{ %>
+                                      <li class="nav-item submenu">
+                                        <a class="nav-link <%= index==0 ? 'active show' : ''%>" id="pills-home-tab"
+                                          data-toggle="pill" href="#pills-<%=tab.name %>" role="tab"
+                                          aria-controls="pills-home" aria-selected="<%= index==0 ? 'true' : '' %>">
+                                          <%=tab.name %>
+                                        </a>
+                                      </li>
+                                      <%}) %>
+                                  </ul>
+                                  <div class="tab-content mt-2 mb-3" id="pills-tabContent">
+                                    <% component.subComponents.forEach((subComponent, index)=>{ %>
+                                      <div class="tab-pane fade <%= index==0 ? 'active show' : ''%>"
+                                        id="pills-<%=subComponent.name %>" role="tabpanel"
+                                        aria-labelledby="pills-home-tab">
+                                        <% subComponent.tabComponents.forEach(tabComponent=>
+                                          { %>
+                                          <section class="pad-40">
+                                            <div class="level_2_header">
+                                              <%= tabComponent.name %>
+                                            </div>
+                                            <div class="row -3">
+                                              <% if(tabComponent.AssignedFields.length==0){ %>
+                                                <div class="mx-auto Kk_no_assigned">
+                                                  <img class="img-responsive" src="/assets/img/no_field_assigned.png">
+                                                  <h4>No Fields
+                                                    Assigned
+                                                  </h4>
+                                                  <h6>Please assign
+                                                    some fields</h6>
+                                                </div>
+                                                <% }else{ %>
+                                                  <% tabComponent.AssignedFields.forEach(_a=>
+                                                    {%>
+                                                    <% if(_a.field.inputType=='list/record' ){ %>
+                                                      <div class="col-md-3">
+                                                        <div class="form-group">
+                                                          <label for="smallSelect" style="width: 100%">
+                                                            <%= _a.field.label%>
+                                                          </label>
+                                                          <select name="<%= _a.field.id%>"
+                                                            class="form-control form-control-sm" id="smallSelect">
+                                                            <option>
+                                                              1
+                                                            </option>
+                                                            <option>
+                                                              2
+                                                            </option>
+                                                            <option>
+                                                              3
+                                                            </option>
+                                                            <option>
+                                                              4
+                                                            </option>
+                                                            <option>
+                                                              5
+                                                            </option>
+                                                          </select>
+                                                        </div>
+                                                      </div>
+                                                      <%}%>
+                                                        <% if(_a.field.inputType=='checkbox' ){ %>
+                                                          <div class="col-md-3 mb-3">
+                                                            <div class="form-check">
+                                                              <label class="form-check-label">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                  value="off" name="<%= _a.field.id%>">
+
+                                                                <span class="form-check-sign">
+                                                                  <%= _a.field.label %>
+                                                                </span>
+                                                              </label>
+                                                            </div>
+                                                          </div>
+                                                          <% } %>
+                                                            <% if(inputs.includes(_a.field.inputType)){ %>
+                                                              <div class="col-md-3 mb-3">
+                                                                <div class="form-group">
+                                                                  <label for="<%= _a.field.id %>">
+                                                                    <%= _a.field.label %>
+                                                                  </label>
+                                                                  <input type="<%=_a.field.inputType %>"
+                                                                    class="form-control" id="<%= _a.field.id %>"
+                                                                    name="<%= _a.field.id%>">
+                                                                </div>
+                                                              </div>
+                                                              <% } %>
+                                                                <%})%>
+                                                                  <%}%>
+                                            </div>
+                                          </section>
+                                          <% }) %>
+                                      </div>
+                                      <%}) %>
+                                  </div>
+                                </div>
+                              </section>
+                              <% } %>
+                                <% }) %>
+                                  <div class="card-footer d-flex justify-content-end">
+                                    <button class="btn btn-primary" type="submit">Save Product</button>
+                                  </div>
+                  </form>
+                </div>
+              </div>
 
 
-                        </div>
-                        <%-include('../partials/footer.ejs')%>
-                    </div>
+            </div>
+            <%-include('../partials/footer.ejs')%>
+          </div>
 
-    </div>
+  </div>
 
-    <!-- jQuery library -->
-    <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="/assets/js/core/bootstrap.js"></script>
-    <!-- Popper JS -->
-    <script src="/assets/js/core/popper.min.js"></script>
-    <!-- Atlantis JS -->
-    <script src="/assets/js/atlantis.min.js"></script>
-    <script src="/assets/js/iziToast.js"></script>
-    <script src="/assets/js/flashMessage.js"></script>
-    <!-- jQuery UI -->
-    <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-    <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-    <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+  <!-- jQuery library -->
+  <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="/assets/js/core/bootstrap.js"></script>
+  <!-- Popper JS -->
+  <script src="/assets/js/core/popper.min.js"></script>
+  <!-- Atlantis JS -->
+  <script src="/assets/js/atlantis.min.js"></script>
+  <script src="/assets/js/iziToast.js"></script>
+  <script src="/assets/js/flashMessage.js"></script>
+  <!-- jQuery UI -->
+  <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+  <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+  <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
 
-    <!-- jQuery Scrollbar -->
-    <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+  <!-- jQuery Scrollbar -->
+  <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 
-    <!--   Core JS Files   -->
-    <script>
-        $("#pData").submit(() => {
-            var inputs = document.querySelectorAll('.form-check-input');
-            inputs.forEach(i => {
-                if (i.checked == true) {
-                    document.getElementById(i.value).value = "on"
-                }
-            })
+  <!--   Core JS Files   -->
+  <script>
 
-        })
-    </script>
-        <script src="/assets/js/addSpinner.js"></script>
+    $("#pData").submit((e) => {
+      e.preventDefault();
+
+      var inputs = document.querySelectorAll('.form-check-input');
+      inputs.forEach(i => {
+        if (i.checked == true) {
+          document.getElementById(i.value).value = "on"
+        }
+        else{
+
+        }
+      })
+      let response = await fetch('/article/formdata/post/user', {
+        method: 'POST',
+        body: new FormData(formElem)
+      });
+      let data = []
+      let index = 0
+      $('#pData').find(':input').each(function () {
+        if($(this).attr('type') == 'checkbox'){
+          $
+        }
+      })
+      console.log(JSON.stringify(data));
+    })
+  </script>
+  <script src="/assets/js/addSpinner.js"></script>
 
 </body>
 

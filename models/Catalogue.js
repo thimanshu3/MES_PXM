@@ -4,8 +4,9 @@ const { MySql } = require('../db')
 
 const Catalogue = MySql.define('Catalogue', {
     id: {
-        type: Sequelize.INTEGER,
-        autoIncrement:true,
+        type: DataTypes.UUID,
+        unique: true,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
     },
     catalogueHierarchy:{
@@ -51,4 +52,3 @@ module.exports = Catalogue
 //         }
 //     })
 
-    

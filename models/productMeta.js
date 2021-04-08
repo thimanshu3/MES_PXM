@@ -4,8 +4,9 @@ const { MySql } = require('../db')
 
 const productMetaData = MySql.define('productMetaData', {
     id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.UUID,
         unique: true,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
     },
     name: {
@@ -13,7 +14,7 @@ const productMetaData = MySql.define('productMetaData', {
         defaultValue:"Sample Product"
     },
     formId: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING
     },
     active: {
         type: DataTypes.BOOLEAN,
@@ -36,8 +37,11 @@ const productMetaData = MySql.define('productMetaData', {
     },
     updatedBy: {
         type: DataTypes.STRING
+    },
+    stage: {
+        type: DataTypes.TINYINT,
+        defaultValue: 1
     }
-
 })
 
 module.exports = productMetaData
