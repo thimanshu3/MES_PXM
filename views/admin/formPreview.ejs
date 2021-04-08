@@ -637,13 +637,20 @@
                                             <td><div class="form-group">
 												<input type="text" class="form-control form-control" id="defaultInput" placeholder="Default Input">
 											</div></td>
-                                            <td><i class="fas fa-trash-alt"></i></td>
+                                            <td><i class="fas fa-trash-alt" type='button' onclick='productDelete(this);'></i>
+        </td>
                                             </tr>`);
                     $("#mt > tbody").append(row);
                 });
             });
         });
     </script>
+
+ <script>
+     function productDelete(ctl) {
+            $(ctl).parents("tr").remove();
+        }
+ </script>
 </body>
 
 </html>
