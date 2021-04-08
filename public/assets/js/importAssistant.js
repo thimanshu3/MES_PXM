@@ -1,4 +1,6 @@
 
+let alreadyMappedFields = []
+let required = []
 $('#importOptionBtn').on('click', function () {
     $('.nav a[href="#' + 'field-mapping' + '"]').tab('show');
     $('html, body').animate({ scrollTop: '0px' }, 10);
@@ -11,6 +13,20 @@ const createHeader = (fields) => {
     try {
         if (!executedH) {
             executedH = true;
+            alreadyMappedFields = fieldsData.filter(o => Object.keys(fields).some(i => o.label.toLowerCase() == i.toLocaleLowerCase()));
+            required = fieldsData.filter(function ({ req }) { return req == true })
+            if(alreadyMappedFields.length > 0) {
+                counter = alreadyMappedFields.length +1
+                $('#nofield').hide();
+                alreadyMappedFields.forEach((field,index) =>{
+                    index++
+                    $('#fieldLinkPreview').append(`<li field-id="${field.id}" id="preview-${index}" class="kkay_field_map_link"> <a id="a-${index}" onclick="showModal('${field.id}','${field.inputType}','${field.label}')" class="btn btn-sm btn-light" style="z-index:999"><i class="fas fa-edit"></i></a>
+                    <div class="k_field" id='left-${index}'> ${field.label} </div>
+                     <i id='arrow-${index}' class="fas fa-arrows-alt-h"></i>
+                     <div id='right-${index}' class="k_field">${field.label} </div>
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${index}')" style="z-index:999"><i class="fas fa-times-circle"></i></a></li>`)
+                })
+            }
             Object.keys(fields).forEach(field => {
                 $('#excelFields').append(`<li class="" id="" field-type='excelField'>
                 ${field.trim()}</li>`)
@@ -51,10 +67,8 @@ const previewTheData = () => {
             if (jsonPagesArray.length) {
                 jsonPagesArray.forEach(pages => {
                     if (pages.content.length) {
-
+                        
                         createHeader(pages.content[0])
-
-
                     }
                 })
             }
@@ -171,7 +185,7 @@ var flag = true;
 // var prev;
 
 function closeNav(id, type) {
-    alert("hi1")
+    alert("do you really want to delete this ?")
     type = (typeof type !== 'undefined') ? type : null
     if (type != null) {
         alert('hi')
@@ -196,7 +210,7 @@ function closeNav(id, type) {
 const previewMapped = (li, type) => {
     var list = li
     $('#nofield').hide();
-    console.log(current);
+    
     if (current === null) {
         //send id . field-type and field-name in show modal function
         // set this to previewMapped li 
@@ -362,9 +376,9 @@ const addAll = (content) => {
 
 
 // Javascript to enable link to tab
-var hash = location.hash.replace(/^#/, '');
-if (hash) {
-    $('.nav a[href="#' + hash + '"]').tab('show');
+if (!selectedFile) {
+    $('.nav a[href="#' + 'upload-file' + '"]').tab('show');
+    window.location.hash = 'upload-file';
     $('html, body').animate({ scrollTop: '0px' }, 10);
 }
 
@@ -392,7 +406,6 @@ const showModal = function (id, type, name) {
             if (show && values) {
                 values.forEach(listRecordValue => {
                     options += `<option value="${listRecordValue.label}">${listRecordValue.label}</option>`
-                    // options += `<option value="${listRecordValue.id}">${listRecordValue.label}</option>`
                 })
                 $('#dmodal-body').append(`
                 <div class="form-group">
@@ -403,16 +416,19 @@ const showModal = function (id, type, name) {
                 </div>
         `)
             }
+            else{
+                $('#dmodal-body').append(`
+                    <div id="nofield" class="mx-auto Kk_no_assigned">
+                        <img class="img-responsive"
+                            src="/assets/img/no_field_assigned.png">
+                        <h4>No List record</h4>
+                        <h6>Please attach a list to continue</h6>
+                    </div>
+                `)
+            }
         }).catch(console.error)
     }
-    // if (type) {
-    //     $('#dmodal-body').append(`
-    //         <div class="form-group">
-    //             <label for="smallInput">Choose a value to assign in this field</label>
-    //             <input type="text" class="form-control form-control-sm" id="smallInput">
-    //         </div>
-    //     `)
-    // }
+
 
     $('#dmodal-default').text(' ' + name);
 
@@ -420,26 +436,28 @@ const showModal = function (id, type, name) {
     $('#exampleModal').modal('show')
 }
 
-//Issues:
-// Duplicate id when we add vendor and item fields.
-
-//Next -->
-//Delete all items of a selected vendor group (indentifiable by name starting with '__').
-
 $('#fieldMappinggetObjBtn').on('click', () => {
     let data = [];
+    let notMappedCounter =0 
     let lists = Array.from($('#fieldLinkPreview').children())
     if (lists.length != 0) {
         if (lists[0].getAttribute('id') == 'nofield') {
             lists.shift()
+            lists.pop()
         }
         lists.forEach(list => {
             let obj = {};
+           let data1 = Array.from(list.children)
+            
+            console.log(data1);
             obj.default = list.getAttribute('default-value')
             obj.fieldId = list.getAttribute('field-id')
-            Array.from(list.children).forEach((child, i) => {
+            data1.forEach((child, i) => {
                 if (child.nodeName == 'DIV' || child.localName == 'div') {
                     let id = child.id.split('-')
+                    if (child.innerText == '' || child.innerHTML=='') {
+                        notMappedCounter++
+                    }
                     if (id[0] == 'left') {
                         obj.from = child.innerText || child.innerHTML
                     } else {
@@ -450,16 +468,28 @@ $('#fieldMappinggetObjBtn').on('click', () => {
             })
             data.push(obj)
         })
-        console.log(JSON.stringify(data));
-        const formData = new FormData()
-        formData.append('file', selectedFile)
-        formData.append('mappingsData', JSON.stringify(data))
-        fetch('/admin/importAssistant', {
-            method: 'POST',
-            body: formData
-        }).then(res => res.json()).then(json => {
-            console.log(json)
-        }).catch(console.error)
+        console.log(notMappedCounter, "this is something good")
+        if (notMappedCounter > 0){
+            const r2 = required.map(r => r.id)
+            if (required.length === data.filter(d => r2.includes(d.fieldId)).length) {
+                const formData = new FormData()
+                formData.append('file', selectedFile)
+                formData.append('mappingsData', JSON.stringify(data))
+                formData.append('type', $('input[name="imagecheck"]:checked').val())
+                fetch('/admin/importAssistant', {
+                    method: 'POST',
+                    body: formData
+                }).then(res => res.json()).then(json => {
+                    location.href = '/admin/product/all'
+                }).catch(console.error)
+         }
+         else{
+                iziToast.error({ message: `${notMappedCounter} fields are not mapped remove them or map them`})
+         }
+        }
+        else{
+            iziToast.warning({ message: 'One or more required fields are not Mapped', position: 'bottomCenter'})
+        }
     }
 })
 
