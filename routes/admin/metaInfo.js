@@ -18,14 +18,17 @@ router.get('/', async (req, res) => {
             async () => await form.findAll({
                 order: [
                     ['name', 'ASC'],
-                ]
+                ],
+                where: { active: true }
             }),
+            
             async () => await ProductType.findAll({
                 order: [
                     ['name', 'ASC'],
                 ]
             })
         ])
+        console.log(JSON.stringify(forms));
         res.render('admin/metaInfo', { User: req.user, formatDateMoment, catalogues, forms, productTypes })
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)

@@ -119,7 +119,7 @@
                                                                                         
                                                                                     </button>
                                                                                     <% if (_a.lr=='-' ) { %>
-                                                                                        <button class="btn btn-link" data-toggle="modal" data-target="#ListModal" onclick="setFieldId('<%=_a.id%>', null)">
+                                                                                        <button class="btn btn-link" data-toggle="modal" data-target="#ListModal" onclick="setFieldId('<%=_a.id%>', '<%= _a.lr%>')">
                                                                                             <span class="badge">Attach a List</span>
                                                                                         </button>
                                                                                         
@@ -135,7 +135,7 @@
                                                                             <%= _a.firstName + ' ' + _a.lastName %>
                                                                         </td>
                                                                         <td><div class="form-group form-floating-label">
-                                                                            <input name="checkRequired" id="<%= _a.id %>" type="checkbox" class="form-control input-border-bottom" <%=_a.required ? 'checked' : ''%>>
+                                                                            <input name="checkRequired" onchange="trigger(this)" id="<%= _a.id %>" type="checkbox" class="form-control input-border-bottom" <%=_a.required ? 'checked' : ''%>>
                                                                         </div></td>
                                                                         <td><span id="activeBadge-<%= _a.id%>"
                                                                                 style="background-color: <%= _a.active ? '#088e0c' : '#d20e18' %>"
@@ -199,8 +199,7 @@
     
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 id="demo" class="modal-title">Select List/Record<strong style="color:#5394ca;"
-                            id="nameV"></strong> </h4>
+                    <h4 id="demo" class="modal-title">Select List/Record<strong style="color:#5394ca;" id="nameV"></strong> </h4>
     
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
@@ -213,10 +212,10 @@
                                 <div class="col-sm-12 mt-4" id="listDiv2">
                                     <div class="form-group form-floating-label">
                                         <select name="listrecord" class="form-control input-border-bottom" id="listOptions">
-                                            <option id="listValues" value="">&nbsp;</option>
+                                            <option id="listValues" value="-"><-- No List/Record --></option>
                                             <% listRecordResult.forEach( _b=> { %>
-                                                <option value="<%= _b.id %>">
-                                                    <%= _b.name %>
+                                                <option value="<%= _b.id %>" >
+                                                    <%= _b.name %> 
                                                 </option>
                                                 <% }) %>
                                         </select>
@@ -413,8 +412,7 @@
             </div>
         </div>
     </div>
-    <!--   Core JS Files   -->
-    <script src="/assets/js/clientScript.js"></script>
+
     <!-- jQuery library -->
     <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
     <!-- Latest compiled JavaScript -->
@@ -428,13 +426,15 @@
     <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
     <!-- Popper JS -->
     <script src="/assets/js/core/popper.min.js"></script>
-    <script src="/assets/js/clientScript.js"></script>
     <!-- jQuery UI -->
     <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
 
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+    <!--   Core JS Files   -->
+    <script src="/assets/js/clientScript.js"></script>
     <script>
         $('#add-row').DataTable({
 
@@ -447,37 +447,36 @@
             }, 0);
         });
 
-        $('[name="checkRequired"]').on('change', function (){
-             console.log(($(this)[0].id));
-             fetch(`/admin/inputfield/mark/${($(this)[0].id)}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    newValue: ($(this).prop("checked")? '1':'0')
+        function trigger(element){
+                fetch(`/admin/inputfield/mark/${element.id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        newValue: (element.checked ? '1' : '0')
+                    })
                 })
-            })
-                .then(function (res) {
-                    return res.json()
-                })
-                .then(function (json) {
-                    //console.log(json)
-                    if (json.status == 200)
-                        location.reload(true)
-                    else if (json.status == 400)
-                        iziToast.error({
-                            title: json.message,
-                            message: json.error
-                        })
-                    else
-                        iziToast.error({
-                            message: json.message
-                        })
-                })
-                .catch(err => console.log(err))
-        })
-
+                    .then(function (res) {
+                        return res.json()
+                    })
+                    .then(function (json) {
+                        //console.log(json)
+                        if (json.status == 200)
+                            location.reload(true)
+                        else if (json.status == 400)
+                            iziToast.error({
+                                title: json.message,
+                                message: json.error
+                            })
+                        else
+                            iziToast.error({
+                                message: json.message
+                            })
+                    })
+                    .catch(err => console.log(err))
+            
+        }
         $(document).ready(function () {
             $("#selectFloatingLabel").on('change', () => {
                 if ($('option:selected', '#selectFloatingLabel').text().replace(/\s+/g, ' ').trim() === 'list/record') {

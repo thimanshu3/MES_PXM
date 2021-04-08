@@ -384,10 +384,11 @@ router.get('/lrValue/:id', async (req, res) => {
         })
 
         if (!foundList) return res.json({"status":404,"message":"List Record Not Found!!"})
-            
+        if (!foundList.active) return res.json({ "status": 404, "message": `Attached List/Record ${foundList.name} is Inactive...` })
         const listRecordv = await listRecordValues.findAll({
             where: {
-                parentListId: foundList.id
+                parentListId: foundList.id,
+                active:true
             },
         })
         // console.log(listRecordv);
