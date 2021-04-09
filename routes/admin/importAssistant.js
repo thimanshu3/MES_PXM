@@ -3,7 +3,7 @@ const multer = require('multer')
 const path = require('path')
 const fs = require('fs')
 const readXlsxFile = require('read-excel-file/node')
-const { productTable, form, Catalogue, CatalogueHierarchy, FormDesign, productData, productMetaData } = require('../../models')
+const { productTable, form, Catalogue, CatalogueHierarchy, FormDesign, productData, productMetaData, productSpecificTableData } = require('../../models')
 const { random } = require('../../util')
 const { v4: uuidv4 } = require('uuid')
 const memoizee = require('memoizee')
@@ -71,8 +71,12 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
             res.redirect('/admin/addUser')
             return
         }
-        let { mappingsData } = req.body
+        let { mappingsData, type, vendors } = req.body
         mappingsData = JSON.parse(mappingsData)
+        vendors = JSON.parse(vendors)
+        // TODO query with type
+        console.log({ type })
+        console.log({ vendors })
         if (!Array.isArray(mappingsData) && !mappingsData.length) {
             return res.status(400).json({ message: 'No Mappings' })
         }
@@ -101,11 +105,21 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
                         if (md.fieldId && !obj[md.fieldId]) obj[md.fieldId] = md.default
                     }
                 })
+                obj.vendors = []
+                vendors.forEach(vendorMapping => {
+                    console.log({ vendorMapping })
+                    const v = {}
+                    Object.keys(vendorMapping).forEach(key => {
+                        console.log({ key })
+                    })
+                    obj.vendors.push(v)
+                })
                 data.push(obj)
             })
         )
         const productMeta = []
         const productData1 = []
+        const vendorsData = []
         await Promise.all(data.map(async d => {
             const id = uuidv4()
             const allFields = await mGetAllFields(d.formId)
@@ -116,6 +130,9 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
                     fieldId,
                     fieldValue: d[fieldId] || ''
                 })
+            })
+            d.vendors.forEach(v => {
+                vendorsData.push({ productId: id, createdBy: req.user.id, data: JSON.stringify(v) })
             })
             productMeta.push({ id, createdBy: req.user.id, formId: d.formId, Catalogue: d.Catalogue, CatalogueHierarchy: d.CatalogueHierarchy, stage: 2 })
         }))
