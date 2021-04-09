@@ -147,8 +147,9 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
             async () => await productData.bulkCreate(productData1),
             async () => await productSpecificTableData.bulkCreate(vendorsData)
         ])
-        res.json({ productData: productData1, productMeta, vendorsData, data })
+        res.status(200).json({ productData: productData1, productMeta, vendorsData, data })
     } catch (err) {
+        res.status(500).json({message: err.toString() || 'Something Went Wrong!'})
         console.error(err)
     }
 })

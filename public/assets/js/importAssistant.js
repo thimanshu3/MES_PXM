@@ -516,7 +516,12 @@ $('#fieldMappinggetObjBtn').on('click', () => {
                     method: 'POST',
                     body: formData
                 }).then(res => res.json()).then(json => {
-                    // location.href = '/admin/product/all'
+                    if(json.status == 200){
+                        location.href = '/admin/product/all'
+                    }
+                    else{
+                        iziToast.error({message: json.message || 'Something Went Wrong!'})
+                    }
                 }).catch(console.error)
             }
             else {
