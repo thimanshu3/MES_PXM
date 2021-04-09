@@ -39,7 +39,7 @@ router.get('/:formId/p/:productId', async (req, res) => {
                             }
                         }
                         if (subComponent.AssignedFields.length) {
-                            const [inputFields2] = await MySql.query(`select inputFields.id as id, inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,Case when inputFields.associatedList != "-"  then (select group_concat(label SEPARATOR "----") from listRecordValues where parentListId = inputFields.associatedList) else null  END as list,inputTypes.inputType,pd.fieldValue as pfv from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField INNER join (SELECT * FROM productData where productId = ?) productData pd on pd.fieldId = inputFields.id where inputFields.id IN (${subComponent.AssignedFields.map(f => `"${f.fieldId}"`)})`, { replacements: [req.params.productId] })
+                            const [inputFields2] = await MySql.query(`select inputFields.id as id, inputFields.active as active , inputFields.label as label , inputFields.description as description, inputFields.associatedList as lr,Case when inputFields.associatedList != "-"  then (select group_concat(label SEPARATOR "----") from listRecordValues where parentListId = inputFields.associatedList) else null  END as list,inputTypes.inputType,pd.fieldValue as pfv from inputFields INNER JOIN inputTypes on inputTypes.id = inputFields.typeOfField INNER join (SELECT * FROM productData where productId = ?) pd on pd.fieldId = inputFields.id where inputFields.id IN (${subComponent.AssignedFields.map(f => `"${f.fieldId}"`)})`, { replacements: [req.params.productId] })
                             // console.log("1: ", JSON.stringify(inputFields2));
                             const inputFields2Obj = {}
                             inputFields2.forEach(f => {
@@ -97,7 +97,7 @@ router.get('/:formId/p/:productId', async (req, res) => {
                 }))
             }
         }))
-        console.log(JSON.stringify(layout));
+        require('fs').writeFileSync('data.txt', JSON.stringify(layout));
         const meta = await productMetaData.findOne({ where: { id: req.params.productId } })
         res.render('admin/kktest2', { User: req.user, layout, productId: req.params.productId, meta })
     } catch (err) {
