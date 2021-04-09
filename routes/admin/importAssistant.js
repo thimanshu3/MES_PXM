@@ -73,10 +73,9 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
         }
         let { mappingsData, type, vendors } = req.body
         mappingsData = JSON.parse(mappingsData)
-        vendors = JSON.parse(vendors)
+        vendors = Object.values(JSON.parse(vendors))
         // TODO query with type
         console.log({ type })
-        console.log({ vendors })
         if (!Array.isArray(mappingsData) && !mappingsData.length) {
             return res.status(400).json({ message: 'No Mappings' })
         }
@@ -106,14 +105,21 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
                     }
                 })
                 obj.vendors = []
-                vendors.forEach(vendorMapping => {
-                    console.log({ vendorMapping })
-                    const v = {}
-                    Object.keys(vendorMapping).forEach(key => {
-                        console.log({ key })
+                vendors.forEach(vendor => {
+                    const vendorsArr = []
+                    vendor.forEach(f => {
+                        const v = {}
+                        v.fieldId = f.fieldId
+                        if (f.from && f.from.trim())
+                            v.fieldValue = sd[f.from.trim()]
+                        else v.fieldValue = 'ohnoohnoohnoohnoohno'
+                        vendorsArr.push(v)
                     })
-                    obj.vendors.push(v)
+                    obj.vendors.push(vendorsArr)
                 })
+                if (sd.name) {
+                    obj.name = sd.name
+                } else if (sd.Name) obj.name = sd.Name
                 data.push(obj)
             })
         )
@@ -134,13 +140,14 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
             d.vendors.forEach(v => {
                 vendorsData.push({ productId: id, createdBy: req.user.id, data: JSON.stringify(v) })
             })
-            productMeta.push({ id, createdBy: req.user.id, formId: d.formId, Catalogue: d.Catalogue, CatalogueHierarchy: d.CatalogueHierarchy, stage: 2 })
+            productMeta.push({ id, createdBy: req.user.id, formId: d.formId, name: d.name ? d.name : undefined, Catalogue: d.Catalogue, CatalogueHierarchy: d.CatalogueHierarchy, stage: 2 })
         }))
         await async.parallel([
             async () => await productMetaData.bulkCreate(productMeta),
-            async () => await productData.bulkCreate(productData1)
+            async () => await productData.bulkCreate(productData1),
+            async () => await productSpecificTableData.bulkCreate(vendorsData)
         ])
-        res.json({ productData: productData1, productMeta, data })
+        res.json({ productData: productData1, productMeta, vendorsData, data })
     } catch (err) {
         console.error(err)
     }

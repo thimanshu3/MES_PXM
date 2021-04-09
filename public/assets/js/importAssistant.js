@@ -1,6 +1,6 @@
 
 let alreadyMappedFields = []
-let required = []
+let required;
 $('#importOptionBtn').on('click', function () {
     $('.nav a[href="#' + 'field-mapping' + '"]').tab('show');
     $('html, body').animate({ scrollTop: '0px' }, 10);
@@ -15,10 +15,11 @@ const createHeader = (fields) => {
             executedH = true;
             alreadyMappedFields = fieldsData.filter(o => Object.keys(fields).some(i => o.label.toLowerCase() == i.toLocaleLowerCase()));
             required = fieldsData.filter(function ({ req }) { return req == true })
-            if(alreadyMappedFields.length > 0) {
-                counter = alreadyMappedFields.length +1
+            console.log(required);
+            if (alreadyMappedFields.length > 0) {
+                counter = alreadyMappedFields.length + 1
                 $('#nofield').hide();
-                alreadyMappedFields.forEach((field,index) =>{
+                alreadyMappedFields.forEach((field, index) => {
                     index++
                     $('#fieldLinkPreview').append(`<li field-id="${field.id}" id="preview-${index}" class="kkay_field_map_link"> <a id="a-${index}" onclick="showModal('${field.id}','${field.inputType}','${field.label}')" class="btn btn-sm btn-light" style="z-index:999"><i class="fas fa-edit"></i></a>
                     <div class="k_field" id='left-${index}'> ${field.label} </div>
@@ -67,7 +68,7 @@ const previewTheData = () => {
             if (jsonPagesArray.length) {
                 jsonPagesArray.forEach(pages => {
                     if (pages.content.length) {
-                        
+
                         createHeader(pages.content[0])
                     }
                 })
@@ -210,7 +211,7 @@ function closeNav(id, type) {
 const previewMapped = (li, type) => {
     var list = li
     $('#nofield').hide();
-    
+
     if (current === null) {
         //send id . field-type and field-name in show modal function
         // set this to previewMapped li 
@@ -264,18 +265,16 @@ const previewMapped = (li, type) => {
         $(`#preview-${n}`).addClass('current-active')
         let isEmptyRow = ((leftElement.innerText == '' && rightElement.innerText == '') ? true : false)
         if (type == 'right') {
-            $(`#preview-${n}`).attr('field-id' , list.selected.getAttribute('id'))
+            $(`#preview-${n}`).attr('field-id', list.selected.getAttribute('id'))
             rightElement.innerText = li.selected.innerText;
-            if ($(`#preview-${n}`).find("i.fa-edit").length == 0)
-            {
+            if ($(`#preview-${n}`).find("i.fa-edit").length == 0) {
                 $(`#preview-${n}`).prepend(`<a id="a-${n}" onclick="showModal('${list.selected.getAttribute('id')}','${list.selected.getAttribute('field-type')}','${list.selected.innerText}')" class="btn btn-sm btn-light" style="z-index: 999;"><i class="fas fa-edit"></i></a>`);
             }
-            else
-            {
+            else {
                 $(`#a-${n}`).attr("onclick", `showModal('${list.selected.getAttribute('id')}','${list.selected.getAttribute('field-type')}','${list.selected.innerText}')`)
                 $(`#preview-${n}`).attr('default-value', '')
             }
-                
+
         }
         else if (type == 'left') {
             leftElement.innerText = li.selected.innerText;
@@ -416,7 +415,7 @@ const showModal = function (id, type, name) {
                 </div>
         `)
             }
-            else{
+            else {
                 $('#dmodal-body').append(`
                     <div id="nofield" class="mx-auto Kk_no_assigned">
                         <img class="img-responsive"
@@ -438,7 +437,9 @@ const showModal = function (id, type, name) {
 
 $('#fieldMappinggetObjBtn').on('click', () => {
     let data = [];
-    let notMappedCounter =0 
+    let vendor = []
+    let vendorMapped = []
+    var notMappedCounter = 0
     let lists = Array.from($('#fieldLinkPreview').children())
     if (lists.length != 0) {
         if (lists[0].getAttribute('id') == 'nofield') {
@@ -446,17 +447,19 @@ $('#fieldMappinggetObjBtn').on('click', () => {
             lists.pop()
         }
         lists.forEach(list => {
+            if (list.getAttribute('name') != null && list.getAttribute('name').startsWith("__vendor")) {
+                vendor.push(list)
+            }
             let obj = {};
-           let data1 = Array.from(list.children)
-            
-            console.log(data1);
+            let data1 = Array.from(list.children)
             obj.default = list.getAttribute('default-value')
             obj.fieldId = list.getAttribute('field-id')
             data1.forEach((child, i) => {
                 if (child.nodeName == 'DIV' || child.localName == 'div') {
                     let id = child.id.split('-')
-                    if (child.innerText == '' || child.innerHTML=='') {
+                    if (child.innerText == '' || child.innerHTML == '') {
                         notMappedCounter++
+                        console.log(child);
                     }
                     if (id[0] == 'left') {
                         obj.from = child.innerText || child.innerHTML
@@ -466,29 +469,62 @@ $('#fieldMappinggetObjBtn').on('click', () => {
 
                 }
             })
+
             data.push(obj)
         })
-        console.log(notMappedCounter, "this is something good")
-        if (notMappedCounter > 0){
+        if (vendor.length) {
+            vendor.forEach(a => {
+                let obj = {}
+                let data2 = Array.from(a.children)
+                obj.default = a.getAttribute('default-value')
+                obj.fieldId = a.getAttribute('field-id')
+                data2.forEach((child, i) => {
+                    if (child.nodeName == 'DIV' || child.localName == 'div') {
+                        let id = child.id.split('-')
+                        if (id[0] == 'left') {
+                            obj.from = child.innerText || child.innerHTML
+                        } else {
+                            obj.to = child.innerText || child.innerHTML
+                        }
+
+                    }
+                })
+                vendorMapped.push(obj)
+            })
+        }
+        const finalData = vendorMapped.reduce((finalVal, currenctVal, currenctIndex) => {
+            let index = Math.floor(currenctIndex / 5);
+            if (!finalVal[index]) {
+                finalVal[index] = [];
+            }
+            finalVal[index] = finalVal[index].concat(currenctVal);
+            return finalVal;
+
+        }, {});
+        console.log(notMappedCounter, 'this is our counter');
+        if (!notMappedCounter) {
             const r2 = required.map(r => r.id)
+            console.log({ required });
             if (required.length === data.filter(d => r2.includes(d.fieldId)).length) {
                 const formData = new FormData()
                 formData.append('file', selectedFile)
                 formData.append('mappingsData', JSON.stringify(data))
                 formData.append('type', $('input[name="imagecheck"]:checked').val())
+                formData.append('vendors', JSON.stringify(finalData))
+                console.log(formData);
                 fetch('/admin/importAssistant', {
                     method: 'POST',
                     body: formData
                 }).then(res => res.json()).then(json => {
-                    location.href = '/admin/product/all'
+                    // location.href = '/admin/product/all'
                 }).catch(console.error)
-         }
-         else{
-                iziToast.error({ message: `${notMappedCounter} fields are not mapped remove them or map them`})
-         }
+            }
+            else {
+                iziToast.warning({ message: 'One or more required fields are not Mapped', position: 'bottomCenter' })
+            }
         }
-        else{
-            iziToast.warning({ message: 'One or more required fields are not Mapped', position: 'bottomCenter'})
+        else {
+            iziToast.error({ message: `${notMappedCounter} fields are not mapped remove them or map them` })
         }
     }
 })
