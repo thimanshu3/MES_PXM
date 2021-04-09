@@ -193,7 +193,7 @@ router.get('/:id/form', async (req, res) => {
                             let table = await productTable.findOne({ where: { id: subComponent.AssignedTable } })
                             if(table){
                                 table = table.toJSON()
-                                const values = await listRecordValues.findAll({where: {parentListId: JSON.parse(table.fields)[0].attachedList}})
+                                const values = await listRecordValues.findAll({where: {parentListId: JSON.parse(table.fields)[0].attachedList},attributes:['id','label']})
                                 console.log(values);
                                 table.values = values
                                 subComponent.table = table
