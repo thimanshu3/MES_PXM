@@ -138,7 +138,7 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
                 })
             })
             d.vendors.forEach(v => {
-                vendorsData.push({ productId: id, createdBy: req.user.id, data: JSON.stringify(v) })
+                vendorsData.push({ productId: id, createdBy: req.user.id, data: JSON.stringify(v), tableId: '1' })
             })
             productMeta.push({ id, createdBy: req.user.id, formId: d.formId, name: d.name ? d.name : undefined, Catalogue: d.Catalogue, CatalogueHierarchy: d.CatalogueHierarchy, stage: 2 })
         }))

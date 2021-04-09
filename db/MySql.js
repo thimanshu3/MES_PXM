@@ -4,7 +4,7 @@ const sequelize = new Sequelize(process.env.MYSQLDB_URL, {
     timezone: '+05:30',
     logQueryParameters: true,
     logging: str => {
-        // console.log('\x1b[35m%s\x1b[0m', str)
+        console.log('\x1b[35m%s\x1b[0m', str)
     }
 })
 

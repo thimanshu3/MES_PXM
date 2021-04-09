@@ -307,7 +307,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
                 });
                 childObj.type = "tab";
                 childObj.order = id[2];
-                childObj.name = b.innerText || b.nodeValue
+                childObj.name = b.innerText.trim() || b.nodeValue.trim()
                 obj.subComponents.push(childObj)
             })
             
