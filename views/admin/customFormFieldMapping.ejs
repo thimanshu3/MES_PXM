@@ -419,7 +419,7 @@
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
     <script>
-        const form = '<%- JSON.stringify(data.formData) %>'
+        const form = '<%-JSON.stringify(data.formData)%>'
         const parseForm = JSON.parse(form)
         var itemsToDelete = {}
         function getValues(obj, key, value, data,type) {
