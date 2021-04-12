@@ -1746,3 +1746,64 @@ z-index: 99;
   table.dataTable th{
     white-space: nowrap !important;
   }
+
+
+.logo-header[data-background-color="blue"] {
+/**  background: #adb2b5 !important; **/
+      padding-left: 0px !important;
+}
+
+   .logo-header a{
+    max-width: 100% !important;
+  }
+
+  .nav-toggle .icon-options-vertical:before {
+    content: url(../img/logo-mini.png);
+}
+
+.icon-menu:before {
+    content: "\e602" !important;
+    font-family: simple-line-icons;;
+    font-weight: 400;
+}
+
+.sidebar{
+  width: 230px;
+}
+
+.logo-header{
+  width: 230px;
+}
+
+.main-panel {
+   width: calc(100% - 230px);
+   transition: all .5s;
+}
+.sidebar.sidebar-style-2 .nav .nav-item {
+    padding: 0 5px;
+}
+
+
+.col-md-4,.col-md-6,.col-md-3,.col-md-8,.col-md-5,.col-md-7{
+  display: flex !important;
+}
+
+
+
+.card{
+  width: 100%;
+  min-height: 600px;
+}
+
+
+@media screen and (max-width: 991px){
+.main-panel {
+    width: 100%;
+    transition: all .5s;
+}
+}
+
+
+*{
+  font-family: Lato,sans-serif ;
+}
