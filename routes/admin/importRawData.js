@@ -20,7 +20,7 @@ const uploadStorage = multer.diskStorage({
 })
 
 const excelFilter = (req, file, next) => {
-    if (!file.originalname.match(/\.(xlsx)$/)) {
+    if (!file.originalname.match(/\.(csv)$/)) {
         req.fileValidationError = 'Invalid File Type!'
         return next(null, false)
     }
@@ -41,14 +41,7 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
     const {fileName , description } = req.body
 
     if (req.fileValidationError) return res.json({ status: 400, message: req.fileValidationError })  
-
-    const excelData = await readXlsxFile(`uploads/${req.file.filename}`)
-    if (excelData.length === 0) {
-        fs.unlink(`uploads/${req.file.filename}`, err => err ? console.error('\x1b[31m%s\x1b[0m', err) : undefined)
-        return res.json({ status: 400, message: 'no data to process in excel file' })
-    }
-
-   await fetch('', {
+   await fetch('http://localhost:3000/matrix_item_logic', {
        method: 'POST',
        body: JSON.stringify({
            fileName,
@@ -57,8 +50,8 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
        }),
         headers: {'Content-Type': 'application/json'}
     }).then(res => res.json())
-        .then(json => console.log(json))
-        .catch(err => console.log(err))
+        .then(json => res.json({json, status: 200}))
+       .catch(err => res.json({ message: err || 'something went wrong', status: 500 }))
 })
 
 

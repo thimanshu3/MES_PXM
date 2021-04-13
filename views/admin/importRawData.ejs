@@ -125,11 +125,10 @@
                                 </fieldset>
 
                                 <fieldset id="tableField">
-                                <!--  <div id="preloader">
+                                 <div id="preloader">
                                     <div id="loader"></div>
                                   </div>
-
-                                  -->
+                                 
                                   <div class="table-responsive">
                                     <h4>PREVIEW RAW DATA</h4>
                                     <div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
@@ -209,7 +208,7 @@
 
   <script>
     $(document).ready(function () {
-      const allowedExtensions = /(\.xlsx|\.xls)$/i;
+      const allowedExtensions = /(\.csv|)$/i;
       $('input[type="file"]').on('click', function () {
         $(".file_names").html("");
       })

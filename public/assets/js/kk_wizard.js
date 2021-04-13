@@ -612,11 +612,14 @@ const sendFileToProcess = () => {
   formData.append('file', document.getElementById("et_pb_contact_brand_file_request_0").files[0])
   formData.append('description', $('#comment').val())
   $('#modalBtn').attr('disabled', true)
+  $('#preloader').show()
   fetch('/admin/importrawdata', {
     method: 'POST',
     body: formData
   }).then(res => res.json()).then(json => {
     if (json.status === 200) {
+      $('#preloader').hide()
+
       console.log(json);
     }
     else {
