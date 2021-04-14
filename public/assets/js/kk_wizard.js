@@ -617,7 +617,8 @@ const sendFileToProcess = () => {
   }).then(res => res.json()).then(json => {
     if (json.status === 200) {
       $('#preloader').hide()
-
+     if(executedH) executedH = false
+     if(executedB) executedB = false
       console.log(json);
     }
     else {
