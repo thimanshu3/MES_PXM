@@ -591,10 +591,8 @@ const previewTheData = () => {
       if (jsonPagesArray.length) {
         jsonPagesArray.forEach(pages => {
           if (pages.content.length) {
-            
-            createHeader(pages.content[0])
-            addDataTobody(pages.content)
-            
+            createHeader(pages.content[0] , 1)
+            addDataTobody(pages.content, 1)
           }
         })
       }
@@ -645,13 +643,13 @@ const GetTable = () => {
 var executedH = false;
 var executedB = false;
 
-const createHeader = (fields) => {
+const createHeader = (fields, type) => {
   try {
     if (!executedH) {
       executedH = true;
       Object.keys(fields).forEach(field => {
-        $('#exampleFormControlSelect1').append(`<option value="${field}">${field}</option>`)
-        $('#headers').append(`<th scope="col">${field.toUpperCase()}</th>`)
+       if(type)  $('#exampleFormControlSelect1').append(`<option value="${field}">${field}</option>`)
+        $(`${type == 1 ? '#headers' : '#pheaders' }`).append(`<th scope="col">${field.toUpperCase()}</th>`)
       })
     }
   }
@@ -672,7 +670,7 @@ const addDataTobody = (content) => {
             tr.appendChild(td);
           }
         }
-        $('#rowarea').append(tr)
+        $(`${type == 1 ? '#rowarea' : '#prowarea' }`).append(tr)
       })
       setTimeout(function () { GetTable() }, 10000);
     }
