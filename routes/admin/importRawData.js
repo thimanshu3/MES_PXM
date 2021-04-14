@@ -41,7 +41,7 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
     const {fileName , description } = req.body
 
     if (req.fileValidationError) return res.json({ status: 400, message: req.fileValidationError })  
-   await fetch('http://localhost:3000/matrix_item_logic', {
+    await fetch('http://192.168.2.104:3000/matrix_item_logic', {
        method: 'POST',
        body: JSON.stringify({
            fileName,
@@ -51,7 +51,7 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
         headers: {'Content-Type': 'application/json'}
     }).then(res => res.json())
         .then(json => res.json({json, status: 200}))
-       .catch(err => res.json({ message: err || 'something went wrong', status: 500 }))
+       .catch(err => res.json({ message: err.toString() || 'something went wrong', status: 500 }))
 })
 
 

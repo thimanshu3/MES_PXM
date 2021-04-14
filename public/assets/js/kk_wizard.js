@@ -617,14 +617,13 @@ const sendFileToProcess = () => {
   }).then(res => res.json()).then(json => {
     if (json.status === 200) {
       $('#preloader').hide()
-     if(executedH) executedH = false
-     if(executedB) executedB = false
+     
       console.log(json);
     }
     else {
       iziToast.error({
         title: 'Error',
-        message: err.message || 'Something Went Wrong!',
+        message: json.message || 'Something Went Wrong!',
         position: 'topRight',
         timeout: 10000
       })
@@ -658,7 +657,7 @@ const createHeader = (fields, type) => {
     console.log(err.toString())
   }
 }
-const addDataTobody = (content) => {
+const addDataTobody = (content, type) => {
   try {
     if (!executedB) {
       executedB = true;

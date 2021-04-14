@@ -23,6 +23,7 @@ const {
     formParts,
     formConfig,
     productData,
+    productTable,
     productMetaData
 } = require('./models')
 
