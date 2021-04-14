@@ -1807,3 +1807,67 @@ z-index: 99;
 *{
   font-family: Lato,sans-serif ;
 }
+
+
+
+.kk_product_page .level_1_header {
+    background: #4d7393;
+    padding: 5px 15px;
+    color: #ffffff;
+    font-size: 18px;
+    text-transform: capitalize;
+    border-bottom: 0px solid darkgrey;
+    margin-top: 20px;
+    margin-bottom: -10px;
+}
+
+
+.kk_product_page .card-header .progress {
+    width: 50%;
+
+}
+
+
+.kk_product_page #pills-tab{
+    background: #5394ca;
+}
+
+ .kk_product_page .nav-pills.nav-secondary .nav-link{
+   border:none;
+   color:#fff;
+   margin-top: 1px;
+   margin-bottom: 1px;
+ }
+
+
+ .kk_product_page .nav-pills.nav-secondary .nav-link.active {
+    background: #ffffff;
+  color: #4d7393 !important;
+}
+
+.form-control {
+  padding: 0.3rem 1rem;
+    border-radius: 0px  !important;
+}
+
+.form-preview .form-group{
+  width: 100%  !important;
+}
+
+
+.form-preview #pills-tab{
+    background: #5394ca;
+}
+
+.form-preview .nav-pills.nav-secondary .nav-link{
+   border:none;
+   color:#fff;
+   margin-top: 1px;
+   margin-bottom: 1px;
+ }
+
+
+ .form-preview .nav-pills.nav-secondary .nav-link.active {
+    background: #ffffff;
+  color: #4d7393 !important;
+}
