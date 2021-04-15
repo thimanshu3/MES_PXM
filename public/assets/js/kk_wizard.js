@@ -600,7 +600,7 @@ const previewTheData = () => {
   }
 
 }
-const sendFileToProcess = () => {
+function sendFileToProcess() {  
   if(column == undefined){
     iziToast.warning({message: "Please select one column to proceed..."})
     return;
@@ -616,9 +616,51 @@ const sendFileToProcess = () => {
     body: formData
   }).then(res => res.json()).then(json => {
     if (json.status === 200) {
+      executedH = false
+      executedB = false
       $('#preloader').hide()
-     
-      console.log(json);
+      $('#tableField').hide()
+      $('#previewProcess').show()
+      json.json.data.header.forEach(a=>{
+        $('#pheaders').append(`<th scope="col">${a.toUpperCase()}</th>`)
+      })
+      let body =  json.json.data.data 
+      console.log(body);
+      if(body.length){
+        body.forEach(row => {
+          var tr = document.createElement('tr');
+          for (var key in row) {
+            if (row.hasOwnProperty(key) && key != '__EMPTY') {
+              let td = document.createElement('td');
+              let options = row[key].split("//")
+              if(options.length > 1){
+                let d;
+                options = options.filter(function (item, index, inputArray) {
+                  return inputArray.indexOf(item) == index;
+                });
+                options.forEach(a=>{
+                  if(a== 'undefined') console.log(a)
+                  d+= `<option>${a}</option>`
+                })
+                td.innerHTML = `<div class="form-group form-group-default">
+                                    <label>Select</label>
+                                    <select class="form-control" id="formGroupDefaultSelect">
+                                      ${d}
+                                    </select>
+                                </div>`
+                
+              }else{
+                td.append(row[key])
+              }
+              tr.appendChild(td);
+            }
+          }
+          $('#prowarea').append(tr)
+        })
+        setTimeout(function () { GetTable(true) }, 10000);
+
+        temp1.forEach(row => { row.forEach(a => { console.log(a.split('//')) }) })
+      }
     }
     else {
       iziToast.error({
@@ -631,8 +673,9 @@ const sendFileToProcess = () => {
   }).catch(err => console.log(err));
 }
 
-const GetTable = () => {
-  var table = $('#dytable').DataTable({
+const GetTable = (type) => {
+
+  var table = $(`${type == true ? '#pdytable' : '#dytable'}`).DataTable({
     scrollX: true,
     scrollY: '60vh'
   });

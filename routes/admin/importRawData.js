@@ -50,7 +50,7 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
        }),
         headers: {'Content-Type': 'application/json'}
     }).then(res => res.json())
-        .then(json => res.json({json, status: 200}))
+        .then(json => res.json({ json, status: 200 }))
        .catch(err => res.json({ message: err.toString() || 'something went wrong', status: 500 }))
 })
 
