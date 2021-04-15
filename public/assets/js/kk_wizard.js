@@ -617,8 +617,10 @@ const sendFileToProcess = () => {
   }).then(res => res.json()).then(json => {
     if (json.status === 200) {
       $('#preloader').hide()
-     
-      console.log(json);
+      if(json.json.status){
+        iziToast.success({message: json.json.msg})
+        createHeader(json.json.data.header , false)
+      }
     }
     else {
       iziToast.error({
