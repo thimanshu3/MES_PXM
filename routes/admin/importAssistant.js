@@ -92,8 +92,21 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
         })
         const data = []
         await Promise.all(
-            excelData.map(async sd => {
+            excelData.map(async (sd, index) => {
+                index++
                 const obj = {}
+                if (!sd.form) {
+                    res.json({ message: `form id not found at row no. ${index}`, status: 400})
+                return
+                }
+                if (!sd.Catalogue) {
+                    res.json({ message: `Catalogue id not found at row no. ${index}` , status: 400})
+                 return 
+                }
+                if (!sd['Catalogue hierarchy']) {
+                    res.json({ message: `Catalogue hierarchy id not found at row no. ${index}`, status: 400 })
+                return
+             }
                 obj.formId = await mGetFormId(sd.form)
                 obj.Catalogue = await mGetCatalogueId(sd.Catalogue)
                 obj.CatalogueHierarchy = await mGetCatalogueHeirarchyId(sd['Catalogue hierarchy'])
