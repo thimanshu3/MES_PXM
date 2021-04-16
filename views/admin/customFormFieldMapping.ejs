@@ -291,7 +291,7 @@
                                 </div>
                             </div>
                             <div class="col-md-7">
-                                <div class="card">
+                                <div class="card" style="min-height: 50px;">
                                     <div class="card-header d-flex justify-content-between">
                                         <div class="title">
                                             Table
@@ -315,7 +315,7 @@
 
                                     </div>
                                 </div>
-                                <div class="card">
+                                <div class="card" style="min-height: 50px;">
                                     <div class="card-header d-flex justify-content-between">
                                         <div class="title">
                                             Field Groups
@@ -339,7 +339,7 @@
                                 
                                     </div>
                                 </div>
-                                <div class="card">
+                                <div class="card" >
                                     <div class="card-header d-flex justify-content-between">
                                         <div class="title">
                                             Field Items
@@ -357,7 +357,11 @@
                                         <div class="selectgroup selectgroup-pills">
                                             <div class="scroll-area-lg">
                                                 <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
-                                                    <% data.itemFields.forEach((item,i)=> { %>
+                                                    <% data.itemFields.sort(function(a, b){
+                                                        if(a.label < b.label) { return -1; }
+                                                        if(a.label > b.label) { return 1; }
+                                                        return 0;
+                                                    }).forEach((item,i)=> { %>
 
                                                     <% if(item.type=='list/record') {%>
                                                     <% if (item.lr != '-' ) { %>

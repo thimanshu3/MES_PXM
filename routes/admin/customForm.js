@@ -197,6 +197,7 @@ router.get('/:id/form', async (req, res) => {
                                 console.log(values);
                                 table.values = values
                                 subComponent.table = table
+                                // console.log(JSON.parse(table.fields))
                             }
                         }
                         if (subComponent.AssignedFields.length) {

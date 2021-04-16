@@ -88,7 +88,7 @@
                                                                                 </div>
                                                                                 <% }else{ %>
                                                                                     <%if(subComponent.AssignedTable !==undefined){%>
-                                                                                        <%= JSON.stringify(subComponent.table)%>
+                                                                                        
                                                                                            <i id="addRow" class="fas fa-plus-circle kk_preview_add_row"></i>
                                                                                          
                                                                                         <table id="mt" class="table">
@@ -107,7 +107,7 @@
                                                                                             <tr>
                                                                                                 <td>
                                                                                                     <div class="form-group">
-                                                                                                        <select class="form-control">
+                                                                                                        <select id="mainVendorItem" class="form-control">
                                                                                                             <option>select one from this list</option>
                                                                                                             <%subComponent.table.values.forEach(a=>{ %>
                                                                                                             <option value="<%=a.id%>"><%=a.label%></option>
@@ -292,23 +292,68 @@
                                                                                                             </div>
                                                                                                             <div
                                                                                                                 class="row m-3">
-                                                                                                                <%if(page.AssignedTable !== undefined){%>
-                                                                                                                    <table class="table ">
+                                                                                                                <%if(page.AssignedTable !==undefined){%>
+                                                                                                                
+                                                                                                                    <i id="addRow" class="fas fa-plus-circle kk_preview_add_row"></i>
+                                                                                                                
+                                                                                                                    <table id="mt" class="table">
                                                                                                                         <thead>
                                                                                                                             <tr>
-                                                                                                                            <% JSON.parse(page.table.fields).forEach(row=>{ %>
-                                                                                                                                <th scope="col">
-                                                                                                                                    <%= row.name%>
-                                                                                                                                </th>
-                                                                                                                                <% }) %>
-                                                                                                                            
+                                                                                                                                <% JSON.parse(page.table.fields).forEach(row=>{ %>
+                                                                                                                                    <th scope="col">
+                                                                                                                                        <%= row.name%>
+                                                                                                                                    </th>
+                                                                                                                
+                                                                                                                                    <% }) %>
+                                                                                                                
                                                                                                                             </tr>
+                                                                                                                
                                                                                                                         </thead>
-                                                                                                                        <tbody>  
-                                                                                                                            
+                                                                                                                
+                                                                                                                        <tbody>
+                                                                                                                            <tr>
+                                                                                                                                <td>
+                                                                                                                                    <div class="form-group">
+                                                                                                                                        <select id="mainVendorItem" class="form-control">
+                                                                                                                                            <option>select one from this list</option>
+                                                                                                                                            <%page.table.values.forEach(a=>{ %>
+                                                                                                                                                <option value="<%=a.id%>">
+                                                                                                                                                    <%=a.label%>
+                                                                                                                                                </option>
+                                                                                                                                                <% })%>
+                                                                                                                
+                                                                                                                                        </select>
+                                                                                                                                    </div>
+                                                                                                                                </td>
+                                                                                                                                <td>
+                                                                                                                                    <div class="form-group">
+                                                                                                                                        <input type="text" class="form-control form-control" id="defaultInput"
+                                                                                                                                            placeholder="Default Input">
+                                                                                                                                    </div>
+                                                                                                                                </td>
+                                                                                                                                <td>
+                                                                                                                                    <div class="form-group">
+                                                                                                                                        <input type="text" class="form-control form-control" id="defaultInput"
+                                                                                                                                            placeholder="Default Input">
+                                                                                                                                    </div>
+                                                                                                                                </td>
+                                                                                                                                <td>
+                                                                                                                                    <div class="form-group">
+                                                                                                                                        <input type="text" class="form-control form-control" id="defaultInput"
+                                                                                                                                            placeholder="Default Input">
+                                                                                                                                    </div>
+                                                                                                                                </td>
+                                                                                                                                <td>
+                                                                                                                                    <div class="form-group">
+                                                                                                                                        <input type="text" class="form-control form-control" id="defaultInput"
+                                                                                                                                            placeholder="Default Input">
+                                                                                                                                    </div>
+                                                                                                                                </td>
+                                                                                                                                <td><i class="fas fa-trash-alt"></i></td>
+                                                                                                                            </tr>
                                                                                                                         </tbody>
                                                                                                                     </table>
-                                                                                                                <%}else{%>
+                                                                                                                    <%}else{%>
                                                                                                                 <% if(page.AssignedFields.length==0){ %>
                                                                                                                     <div class="mx-auto Kk_no_assigned">
                                                                                                                         <img class="img-responsive"
@@ -400,6 +445,16 @@
                                                                                                                                                 </div>
                                                                                                                                                 <% }
                                                                                                                                                     %>
+                                                                                                                                                    <%if(_a.field.inputType=='inline html'){%>
+                                                                                                                                                        <div class="col-md-6 mb-3">
+                                                                                                                                                            <div class="form-group">
+                                                                                                                                                                <label style="font-size: 14px !important; font-weight: 500" for="email2"></label>
+                                                                                                                                                                <%= _a.field.label %>
+                                                                                                                                                                    </label>
+                                                                                                                                                                    <div id="editor"></div>
+                                                                                                                                                            </div>
+                                                                                                                                                        </div>
+                                                                                                                                                        <%}%>
                                                                                                                                                     <%})%>
                                                                                                                      <%}}%>
                                                                                                             </div>
@@ -550,6 +605,16 @@
                                                                                                                         </div>
                                                                                                                         <% }
                                                                                                                             %>
+                                                                                                                            <%if(_a.field.inputType=='inline html'){%>
+                                                                                                                                <div class="col-md-6 mb-3">
+                                                                                                                                    <div class="form-group">
+                                                                                                                                        <label style="font-size: 14px !important; font-weight: 500" for="email2"></label>
+                                                                                                                                        <%= _a.field.label %>
+                                                                                                                                            </label>
+                                                                                                                                            <div id="editor"></div>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                                <%}%>
                                                                                                                             <%})%>
                                                                                                                                 <%}%>
                                                                                     </div>
@@ -586,7 +651,6 @@
     <!-- jQuery UI -->
     <script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-    <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
 
     <!-- jQuery Scrollbar -->
     <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
@@ -602,28 +666,27 @@
         }
     </script>
     <script>
+        if(document.getElementById("editor")){
         ClassicEditor
             .create(document.querySelector('#editor'))
             .then(editor => {
                 console.log(editor);
             })
             .catch(error => {
-                console.error(error);
+                console.table(error);
             });
+        }
     </script>
 <script type='text/javascript' src='http://code.jquery.com/jquery-1.10.1.js'></script>
-    <script type='text/javascript'>//<![CDATA[ 
+    <script type='text/javascript'>
+   
         $(window).load(function () {
             $(function () {
-               
                 $("#addRow").click(function () {
+                   console.table($('#mainVendorItem').html())
                     var row = $(`<tr><td><div class="form-group">
 												<select class="form-control">
-													<option>1</option>
-													<option>2</option>
-													<option>3</option>
-													<option>4</option>
-													<option>5</option>
+													${$('#mainVendorItem').html()}
 												</select>
 											</div></td>
                                             <td><div class="form-group">
