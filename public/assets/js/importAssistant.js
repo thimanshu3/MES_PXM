@@ -519,6 +519,9 @@ $('#fieldMappinggetObjBtn').on('click', () => {
                     if(json.status == 200){
                         location.href = '/admin/product/all'
                     }
+                    if(json.status == 400){
+                        iziToast.warning({ message: json.message || 'Something Went Wrong!' })
+                    }
                     else{
                         iziToast.error({message: json.message || 'Something Went Wrong!'})
                     }

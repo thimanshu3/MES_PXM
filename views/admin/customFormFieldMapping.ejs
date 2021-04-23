@@ -309,7 +309,7 @@ $(document).ready(function(){
                                 </div>
                             </div>
                             <div class="col-md-7">
-                                <div class="card">
+                                <div class="card" style="min-height: 50px;">
                                     <div class="card-header d-flex justify-content-between">
                                         <div class="title">
                                             Table
@@ -333,7 +333,7 @@ $(document).ready(function(){
 
                                     </div>
                                 </div>
-                                <div class="card">
+                                <div class="card" style="min-height: 50px;">
                                     <div class="card-header d-flex justify-content-between">
                                         <div class="title">
                                             Field Groups
@@ -357,7 +357,7 @@ $(document).ready(function(){
                                 
                                     </div>
                                 </div>
-                                <div class="card">
+                                <div class="card" >
                                     <div class="card-header d-flex justify-content-between">
                                         <div class="title">
                                             Field Items
@@ -374,8 +374,17 @@ $(document).ready(function(){
                                     <div class="card-body">
                                         <div class="selectgroup selectgroup-pills">
                                             <div class="scroll-area-lg">
+<<<<<<< HEAD
                                                 <div id="fieldListArea1" class="scrollbar-container ps--active-y ps">
                                                     <% data.itemFields.forEach((item,i)=> { %>
+=======
+                                                <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
+                                                    <% data.itemFields.sort(function(a, b){
+                                                        if(a.label < b.label) { return -1; }
+                                                        if(a.label > b.label) { return 1; }
+                                                        return 0;
+                                                    }).forEach((item,i)=> { %>
+>>>>>>> 545ec81e9b256ae8cec9bc6a439735bad32eeef7
 
                                                     <% if(item.type=='list/record') {%>
                                                     <% if (item.lr != '-' ) { %>
