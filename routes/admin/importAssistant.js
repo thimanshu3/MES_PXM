@@ -75,7 +75,7 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
         mappingsData = JSON.parse(mappingsData)
         vendors = Object.values(JSON.parse(vendors))
         // TODO query with type
-        console.log({ type })
+        // console.log({ type })
         if (!Array.isArray(mappingsData) && !mappingsData.length) {
             return res.status(400).json({ message: 'No Mappings' })
         }
@@ -153,7 +153,9 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
             d.vendors.forEach(v => {
                 vendorsData.push({ productId: id, createdBy: req.user.id, data: JSON.stringify(v), tableId: '1' })
             })
-            productMeta.push({ id, createdBy: req.user.id, formId: d.formId, name: d.name ? d.name : undefined, Catalogue: d.Catalogue, CatalogueHierarchy: d.CatalogueHierarchy, stage: 2 })
+            if (!d.Catalogue) console.log('NO CAT')
+            if (!d.CatalogueHierarchy) console.log('d.CatalogueHierarchy')
+            productMeta.push({ id, createdBy: req.user.id, formId: d.formId, name: d.name ? d.name : undefined, Catalogue: d.Catalogue,CatalogueHierarchy: d.CatalogueHierarchy, stage: 2, productType: 'Item' })
         }))
         await async.parallel([
             async () => await productMetaData.bulkCreate(productMeta),
@@ -163,7 +165,6 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
         res.status(200).json({ productData: productData1, productMeta, vendorsData, data })
     } catch (err) {
         res.status(500).json({message: err.toString() || 'Something Went Wrong!'})
-        console.error(err)
     }
 })
 

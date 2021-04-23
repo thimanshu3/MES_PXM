@@ -285,6 +285,7 @@
                         roots.push(node);
                     }
                 }
+                console.log(roots)
                 return roots;
             }
             $(function () {
@@ -304,10 +305,12 @@
             return $state;
         };
 
-        const initializeCatalog = (data) => {
-                console.log(data)                       
-                                     $('#files').jstree("destroy");
 
+        const initializeCatalog = (data) => {
+                                
+            console.log(data)
+            $("#files").jstree('destroy');
+           
             $('#files').jstree({
                 'core': {
                     data,
@@ -398,7 +401,7 @@
 
                         }).catch(err => console.log(err))
                 });
-            $('#files').jstree("refresh");
+                 
 
         }
 
@@ -417,6 +420,7 @@
                 .then(json => {
                     $('#files').empty();
                     if (json.status == 200) {
+                        // console.log(json.catalog)
                         const data = list_to_tree(json.catalog)
                         $('#loadercatalog').remove()
 
@@ -443,9 +447,19 @@
                 var searchString = $(this).val();
                 $('#files').jstree('search', searchString);
             });
+
+        
     </script>
         <script src="/assets/js/addSpinner.js"></script>
 
 </body>
 
 </html>
+
+
+
+
+
+
+
+
