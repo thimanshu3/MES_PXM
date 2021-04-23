@@ -33,6 +33,24 @@
         });
     </script>
 
+<!-- searching for group fields -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<script>
+$(document).ready(function(){
+  $("#searchColumn1").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#fieldListArea1 *").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    }).trim();
+  });
+});
+</script>
+<!--  -->
+
+
+
 <style>
     .Kk_delete_tab.twwo {
     position: absolute;
@@ -346,7 +364,7 @@
                                         </div>
                                         <div class="input-group">
                                             <input type="text" class="form-control" name="searchColumn"
-                                                id="searchColumn">
+                                                id="searchColumn1">
                                         </div>
                                         <button id="assignSelectedFields" class="btn btn-sm btn-primary">
                                             Assign Fields
@@ -356,12 +374,17 @@
                                     <div class="card-body">
                                         <div class="selectgroup selectgroup-pills">
                                             <div class="scroll-area-lg">
+<<<<<<< HEAD
+                                                <div id="fieldListArea1" class="scrollbar-container ps--active-y ps">
+                                                    <% data.itemFields.forEach((item,i)=> { %>
+=======
                                                 <div id="fieldListArea" class="scrollbar-container ps--active-y ps">
                                                     <% data.itemFields.sort(function(a, b){
                                                         if(a.label < b.label) { return -1; }
                                                         if(a.label > b.label) { return 1; }
                                                         return 0;
                                                     }).forEach((item,i)=> { %>
+>>>>>>> 545ec81e9b256ae8cec9bc6a439735bad32eeef7
 
                                                     <% if(item.type=='list/record') {%>
                                                     <% if (item.lr != '-' ) { %>
