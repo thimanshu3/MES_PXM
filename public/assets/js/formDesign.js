@@ -55,27 +55,10 @@ const addComponent = (type, where) => {
                     </div>
                     <div class="card-body">
                         <ul  class="nav nav-pills nav-secondary nav-pills-no-bd" id="ctabc-${order}-list" role="tablist">
-                            <li class="nav-item submenu" id="ctabc-${order}-1-item">
                             
-                                <a class="nav-link"  data-toggle="pill" href="#ctabc-${order}-1-content_item" role="tab" aria-controls="pills-home-nobd" aria-selected="false">Home<button onclick="deleteComponent('ctabc-${order}-1-item');deleteComponent('ctabc-${order}-1-content_item')" class="btn btn-link Kk_delete_tab"><i class="  fas fa-times-circle" ></i></button></a>
-                                
-                                
-                            </li>
                         </ul>
                         <div id="ctabc-${order}" class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
-                        <div class="tab-pane fade" id="ctabc-${order}-1-content_item" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
-                                <div class="d-flex justify-content-between">
-                                <p>default tab</p>
-                                
-                                
-                                </div>
-                                 <div id="ctabc-sec-${order}">
-                                </div> <button onclick="addComponent(3,'ctabc-sec-${order}')" class="btn btn-link">
-                                Add new sub section
-                                </button>
-                            </div>
-                           
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -144,24 +127,13 @@ const addComponent = (type, where) => {
                     </div>
                     <div class="card-body">
                         <ul  class="nav nav-pills nav-secondary nav-pills-no-bd" id="ctabc-${str1}-${orderObject[where]}-list" role="tablist">
-                            <li class="nav-item submenu" id="ctabc-${str1}-${orderObject[where]}-1-item">
-                                <a class="nav-link"  data-toggle="pill" href="#ctabc-${str1}-${orderObject[where]}-1-content_item" role="tab" aria-controls="pills-home-nobd" aria-selected="false"> Home <button onclick="deleteComponent('ctabc-${str1}-${orderObject[where]}-1-item');deleteComponent('ctabc-${str1}-${orderObject[where]}-1-content_item')" class="btn btn-link Kk_delete_tab"><i class="  fas fa-times-circle" ></i></button></a>
-                            </li>
+
+                            
+
                         </ul>
                         <div id="ctabc-${str1}-${orderObject[where]}" class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
-                            <div class="tab-pane fade" id="ctabc-${str1}-${orderObject[where]}-1-content_item" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
-                               <div class="d-flex justify-content-between">
-                                <p>default tab</p>
-                                
-                                
-                                </div>
-                                 <div id="ctabc-sec-${order}-${orderObject[where]}-1">
-                                
-                            </div><button onclick="addComponent(3,'ctabc-sec-${order}-${orderObject[where]}-1')" class="btn btn-link">
-                                Add new sub section
-                                </button>
-                            </div>
-                        </div>
+                            
+                              
                     </div>
                 </div>
             </div>
@@ -185,10 +157,7 @@ const addTab = (val) => {
         $(`#${val}`).append(` <div class="tab-pane fade" 
                         id='${val}-${orderObject[path]}-content_item' role="tabpanel" aria-labelledby="pills-home-tab-nobd">
         
-         <div class="d-flex justify-content-between">
-                                <p>default tab${val}-sec-${orderObject[path]}</p>
-                               
-                                </div>
+         
                                
                                 <div id="${val}-sec-${orderObject[path]}">
                             </div> <button onclick="addComponent(3,'${val}-sec-${orderObject[path]}')" class="btn btn-link">
@@ -210,6 +179,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
     AllData = [];
     flag = true;
     let main = document.getElementById('builder');
+    
     let allComponent = Array.from(main.children);
 
     allComponent.forEach(component => {
@@ -220,12 +190,13 @@ document.getElementById("saveButton").addEventListener("click", function () {
         id = id.split('-')
         obj.type = id[0];
         obj.order = id[1];
-        obj.name = name
+        obj.name = name.replace(/\s+/g, ' ').trim()
         if (name == '') {
             flag = false;
         }
         if (obj.type != "tab") {
             var child = component.getElementsByClassName("card-body")[0].getElementsByClassName("m-3")[0];
+            
             let allChild = Array.from(child.children);
 
             allChild.forEach(b => {
@@ -236,7 +207,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
 
                 childObj.order = id[3];
                 childObj.type = id[2];
-                childObj.name = name;
+                childObj.name = name.replace(/\s+/g, ' ').trim();
                 if (name == '') {
                     flag = false;
                 }
@@ -244,6 +215,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
                 if (id.includes('tab')) {
                     let child = b.getElementsByTagName('ul')[0].getElementsByTagName("li");
                     let val = b.getElementsByClassName("card-body")[0].getElementsByTagName("div")[0]
+                    // console.log(child[0])
                     let allTabSec = Array.from(val.children);
 
                     let allTabs = Array.from(child)
@@ -251,16 +223,20 @@ document.getElementById("saveButton").addEventListener("click", function () {
                         let tab = { pageContent: [] }
                         let id = b.getAttribute('id');
 
-                        let sub = Array.from(allTabSec[index].getElementsByTagName("div")[1].children);
+                        let sub = Array.from(allTabSec[index].getElementsByTagName("div")[0].children);
+                        
                         sub.forEach(i => {
                             let obj = {}
-                            let subid = i.getAttribute('id')
+                           
+                            let subid =  i.getAttribute('id') !== undefined ? i.getAttribute('id') : ''
+                           
                             let name = i.querySelectorAll("input")[0].value;
-                            // console.log(name)
+                            
+
                             subid = subid.split('-')
                             obj.type = 'sec'
                             obj.order = "5";
-                            obj.name = name;
+                            obj.name = name.replace(/\s+/g, ' ').trim();
                             if (name == '') {
 
                                 flag = false;
@@ -271,7 +247,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
                         id = id.split('-');
                         tab.type = "tablist";
                         tab.order = "5";
-                        tab.name = b.innerText || b.nodeValue
+                        tab.name = b.innerText.replace(/\s+/g, ' ').trim() || b.nodeValue.replace(/\s+/g, ' ').trim()
                         childObj.tabComponents.push(tab)
                     })
                 }
@@ -291,7 +267,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
                 let childObj = { tabComponents: [] };
                 let id = b.getAttribute('id');
                 id = id.split('-');
-                let sub = Array.from(allTabSec[index].getElementsByTagName("div")[1].children);
+                let sub = Array.from(allTabSec[index].getElementsByTagName("div")[0].children);
                 sub.forEach(i => {
                     let obj = {}
                     let subid = i.getAttribute('id')
@@ -299,7 +275,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
                     subid = subid.split('-')
                     obj.type = 'sec'
                     obj.order = subid[3]
-                    obj.name = name;
+                    obj.name = name.replace(/\s+/g, ' ').trim();
                     if (name == '') {
                         flag = false;
                     }
@@ -307,7 +283,7 @@ document.getElementById("saveButton").addEventListener("click", function () {
                 });
                 childObj.type = "tab";
                 childObj.order = id[2];
-                childObj.name = b.innerText.trim() || b.nodeValue.trim()
+                childObj.name = b.innerText.replace(/\s+/g, ' ').trim() || b.nodeValue.replace(/\s+/g, ' ').trim()
                 obj.subComponents.push(childObj)
             })
             
