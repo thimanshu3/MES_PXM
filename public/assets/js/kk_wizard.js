@@ -555,7 +555,6 @@ jQuery(document).ready(function () {
 
 });
 
-var column;
 $(document).ready(function () {
 
   $('input[type="text"], input[type="password"], textarea').each(function () {
@@ -565,258 +564,27 @@ $(document).ready(function () {
 });
 
 
-var headers;
 let selectedFile;
 document.getElementById('et_pb_contact_brand_file_request_0').addEventListener("change", (event) => {
     selectedFile = event.target.files[0];
-  
 })
 
-const previewTheData = () => {
-  if (selectedFile ) {
-    let fileReader = new FileReader();
-    fileReader.readAsBinaryString(selectedFile);
-    fileReader.onload = (event) => {
-      let data = event.target.result;
-      let workbook = XLSX.read(data, { type: "binary" });
-      const sheet_name_list = workbook.SheetNames;
-      let jsonPagesArray = [];
-      sheet_name_list.forEach(function (sheet) {
-        const jsonPage = {
-          name: sheet,
-          content: XLSX.utils.sheet_to_json(workbook.Sheets[sheet], { defval: null })
-        };
-        jsonPagesArray.push(jsonPage);
-      });
-      if (jsonPagesArray.length) {
-        jsonPagesArray.forEach(pages => {
-          if (pages.content.length) {
-            createHeader(pages.content[0] , 1)
-            addDataTobody(pages.content, 1)
-          }
-        })
-      }
-    }
-  }
 
-}
 function sendFileToProcess() {  
-  if(column == undefined){
-    iziToast.warning({message: "Please select one column to proceed..."})
-    return;
-  }
   const formData = new FormData()
-  formData.append('filename', $('#defaultInput').val())
   formData.append('file', document.getElementById("et_pb_contact_brand_file_request_0").files[0])
-  formData.append('description', $('#comment').val())
   $('#modalBtn').attr('disabled', true)
   $('#preloader').show()
-  fetch('/admin/importrawdata', {
+  fetch('/api/processRawData', {
     method: 'POST',
     body: formData
   }).then(res => res.json()).then(json => {
-    if (json.status === 200) {
-      executedH = false
-      executedB = false
-      $('#preloader').hide()
-      $('#tableField').hide()
-      $('#previewProcess').show()
-      json.json.data.header.forEach(a=>{
-        $('#pheaders').append(`<th scope="col">${a.toUpperCase()}</th>`)
-      })
-      let body =  json.json.data.data 
-      console.log(body);
-      if(body.length){
-        body.forEach(row => {
-          var tr = document.createElement('tr');
-          for (var key in row) {
-            if (row.hasOwnProperty(key) && key != '__EMPTY') {
-              let td = document.createElement('td');
-              let options = row[key].split("//")
-              if(options.length > 1){
-                let d;
-                options = options.filter(function (item, index, inputArray) {
-                  return inputArray.indexOf(item) == index;
-                });
-                options.forEach(a=>{
-                  if(a== 'undefined') console.log(a)
-                  d+= `<option>${a}</option>`
-                })
-                td.innerHTML = `<div class="form-group form-group-default">
-                                    <label>Select</label>
-                                    <select class="form-control" id="formGroupDefaultSelect">
-                                      ${d}
-                                    </select>
-                                </div>`
-                
-              }else{
-                td.append(row[key])
-              }
-              tr.appendChild(td);
-            }
-          }
-          $('#prowarea').append(tr)
-        })
-        setTimeout(function () { GetTable(true) }, 10000);
-
-        temp1.forEach(row => { row.forEach(a => { console.log(a.split('//')) }) })
-      }
-    }
-    else {
-      iziToast.error({
-        title: 'Error',
-        message: json.message || 'Something Went Wrong!',
-        position: 'topRight',
-        timeout: 10000
-      })
-    }
+   location.reload()
   }).catch(err => console.log(err));
 }
 
-const GetTable = (type) => {
 
-  var table = $(`${type == true ? '#pdytable' : '#dytable'}`).DataTable({
-    scrollX: true,
-    scrollY: '60vh'
-  });
-  $('#preloader').hide()
-  $('#tableField').append('<div class="f1-buttons mt-5"><button type="button" class="btn btn-previous" > Previous</button ><button id="sendFileToProcessBtn" onclick="sendFileToProcess()" class="btn ml-3 btn-submit">Submit</button></div>')
-}
 
-var executedH = false;
-var executedB = false;
-
-const createHeader = (fields, type) => {
-  try {
-    if (!executedH) {
-      executedH = true;
-      Object.keys(fields).forEach(field => {
-       if(type)  $('#exampleFormControlSelect1').append(`<option value="${field}">${field}</option>`)
-        $(`${type == 1 ? '#headers' : '#pheaders' }`).append(`<th scope="col">${field.toUpperCase()}</th>`)
-      })
-    }
-  }
-  catch (err) {
-    console.log(err.toString())
-  }
-}
-const addDataTobody = (content, type) => {
-  try {
-    if (!executedB) {
-      executedB = true;
-      content.forEach(row => {
-        var tr = document.createElement('tr');
-        for (var key in row) {
-          if (row.hasOwnProperty(key) && key != '__EMPTY') {
-            let td = document.createElement('td');
-            td.innerHTML = row[key] != null ? row[key] : '-'
-            tr.appendChild(td);
-          }
-        }
-        $(`${type == 1 ? '#rowarea' : '#prowarea' }`).append(tr)
-      })
-      setTimeout(function () { GetTable() }, 10000);
-    }
-  }
-  catch (err) {
-    console.log(err)
-  }
-}
-
-function uuidv4() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
-}
-
-// To import Catalogue
-const buildQueryData = (data) => {
-  var querydata = []
-  var parentId = ''
-  var lastKeyOrder = ''
-  var idArray = []
-  var cnt = 0
-  var flag=false
-  var flag2 = false
-  data.forEach(object => {
-    temp={}
-    if (object.Name != null){
-      temp.id = uuidv4()
-      temp.parentId='1'
-      temp.catalogueHierarchy = 'bc77c4b6-8a0d-4150-b8ec-22af5a8e2172'
-      temp.text=object.Name
-      temp.createdBy='admin'
-      querydata.push(temp)
-
-      cnt=0
-      lastKeyOrder = 'e'
-      idArray[cnt]=temp.id
-      flag=true
-      //parentId=temp.id
-    }
-    else{
-        let count = -1
-        
-        Object.keys(object).forEach((key) => {
-        count += 1
-        if(object[key] != null){
-          //Do not touch
-          // let index = Object.keys(object).indexOf(key)++
-          // while(object(Object.keys(index))!=null){
-          //   object[key] = object[key] + object(Object.keys(index))
-          //   index+=1
-          // }
-
-          temp.id = uuidv4()
-          if(flag){
-            cnt+=1
-            flag=false //came from root to inner
-            flag2 = true //in inner loop
-          }
-          if (lastKeyOrder == key.slice(-1)) {
-            idArray[cnt] = temp.id
-          }
-          else {
-            if(!flag2){
-              cnt+=1
-              //flag=3
-            }
-            if(cnt==count){
-
-              idArray[cnt] = temp.id
-            }
-            else{
-              idArray[count] = temp.id
-              cnt=count
-
-            }
-            flag = false
-            flag2=false
-          }
-          lastKeyOrder = key.slice(-1)
-          //idArray[count] = temp.id
-          //parentId = (lastKeyOrder != key.slice(-1) ? idArray[cnt] : parentId)
-          parentId = (idArray[cnt-1]==undefined ? idArray[cnt-2]:idArray[cnt-1])
-          
-          temp.parentId=parentId
-          temp.text=object[key]
-          temp.createdBy = 'admin'
-          temp.catalogueHierarchy = 'bc77c4b6-8a0d-4150-b8ec-22af5a8e2172'
-          querydata.push(temp)
-
-          
-          return
-        }
-        
-        });
-      
-    }
-    
-  })
-  // console.log(getDuplicates(querydata, 'id'))
-  return querydata
-}
 
 // const getDuplicates = (arr, key) => {
 //   const keys = arr.map(item => item[key]);
@@ -828,10 +596,3 @@ const sendErrorMessage = () =>{
     message: 'Please Fill All Required Fields'
   })
 }
-
-
-
-
-$('#exampleFormControlSelect1').on('change', (e) =>{
-   column = $("option:selected").val()
-})
