@@ -575,7 +575,7 @@ function sendFileToProcess() {
   formData.append('file', document.getElementById("et_pb_contact_brand_file_request_0").files[0])
   $('#modalBtn').attr('disabled', true)
   $('#preloader').show()
-  fetch('/api/processRawData', {
+  fetch('http://localhost:4000/api/processRawData', {
     method: 'POST',
     body: formData
   }).then(res => res.json()).then(json => {
