@@ -82,13 +82,13 @@
                             aria-describedby="add-row_info">
                             <thead>
                               <tr>
-                                <th rowspan="1" colspan="1">Input File Name</th>
+                                <th rowspan="1" colspan="1">Input File</th>
                                 <th rowspan="1" colspan="1">Action</th>
                                 <th rowspan="1" colspan="1">
                                   Status
                                 </th>
                                 <th rowspan="1" colspan="1">
-                                  created At
+                                  Started At
                                 </th>
                                 
                               </tr>
@@ -175,7 +175,7 @@
             let td
             if (key == 'inputFile') {
                td = document.createElement('td');
-              td.innerHTML = process.inputFile.originalname
+               td.innerHTML = `<a href="http://localhost:4000/api/processes/${process._id}/input" class="text-primary" download>${process.inputFile.originalname}<a>`
             }
              if (key == 'status') {
               td = document.createElement('td');
@@ -183,7 +183,11 @@
             }
             if (key == '_id') {
                td = document.createElement('td'); 
-              td.innerHTML = `<a href="http://localhost:4000/api/processes/${process._id}/output" class="text-primary" download>download<a>`
+               if(process.status === 'Done'){
+                 td.innerHTML = `<a href="http://localhost:4000/api/processes/${process._id}/output" class="text-primary" download>download<a>`
+                  }else{
+                    td.innerHTML = `<a href="#" class="text-primary">In Progress<a>`
+                  }
                }
            
             if (key == 'createdAt') {
