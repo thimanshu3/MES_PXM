@@ -167,9 +167,9 @@
   <script>
     $(document).ready(function () {
      
-       fetch('jobhi').then(res => res.json()).then(json => {
-      if (json1.processes.length) {
-        json1.processes.forEach(process => {
+       fetch('http://localhost:4000/api/processes').then(res => res.json()).then(json => {
+      if (json.processes.length) {
+        json.processes.forEach(process => {
           var tr = document.createElement('tr');
           for (var key in process) {
             let td
@@ -183,7 +183,7 @@
             }
             if (key == '_id') {
                td = document.createElement('td'); 
-              td.innerHTML = `<a href="url/${process._id}" class="text-primary">download<a>`
+              td.innerHTML = `<a href="http://localhost:4000/api/processes/${process._id}/output" class="text-primary" download>download<a>`
                }
            
             if (key == 'createdAt') {
