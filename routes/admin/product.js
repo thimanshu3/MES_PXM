@@ -2,18 +2,28 @@ const express = require('express')
 
 const { MySql } = require('../../db')
 const { productMetaData, FormDesign, listRecordValues, productTable } = require('../../models')
-const async = require('async')
-const QueryBuilder = require('datatable');
 
 const router = express.Router()
 
 //
 router.get('/all', async (req, res) => {
-
     try {
-        let { skip = 0, limit = 10 } = req.query
-        const [result] = await MySql.query(`SELECT productMetaData.id as id, productMetaData.name as name, productMetaData.formId as formId, productMetaData.active as active,productMetaData.Catalogue as catalogueId, productMetaData.CatalogueHierarchy as catalogueHierarchy, productMetaData.stage as stage, productMetaData.createdBy as createdBy, cat.text as catalogue, ch.name as catalogueHierarchy, pt.name as productType FROM (SELECT * FROM productMetaData LIMIT ${limit} OFFSET ${skip}) productMetaData inner join Catalogues cat on productMetaData.Catalogue = cat.id inner join CatalogueHierarchies ch on productMetaData.CatalogueHierarchy = ch.id left join ProductTypes pt on productMetaData.productType = pt.id`)
-        res.render('admin/kktest', { User: req.user, result })
+        let { page = 1, limit = 10 } = req.query
+        page = parseInt(page)
+        limit = parseInt(limit)
+        const skip = (page - 1) * limit
+        const count = await productMetaData.count()
+        const totalPages = Math.ceil(count / limit)
+        let next = ''
+        let prev = ''
+        if(page < totalPages) {
+            next = `?page=${page + 1}&limit=${limit}`
+        }
+        if(page > 1) {
+            prev = `?page=${page - 1}&limit=${limit}`
+        }
+        const [result] = await MySql.query(`SELECT productMetaData.id as id, productMetaData.name as name, productMetaData.formId as formId, productMetaData.active as active,productMetaData.Catalogue as catalogueId, productMetaData.CatalogueHierarchy as catalogueHierarchy, productMetaData.stage as stage, productMetaData.createdBy as createdBy, cat.text as catalogue, ch.name as catalogueHierarchy, pt.name as productType FROM (SELECT * FROM productMetaData order by createdAt DESC limit ${limit} offset ${skip}) productMetaData left join Catalogues cat on productMetaData.Catalogue = cat.id left join CatalogueHierarchies ch on productMetaData.CatalogueHierarchy = ch.id left join ProductTypes pt on productMetaData.productType = pt.id`)
+        res.render('admin/kktest', { User: req.user, result, totalPages, currentPage: page, next, prev })
     }
     catch (err) {
         console.error('\x1b[31m%s\x1b[0m', err)
