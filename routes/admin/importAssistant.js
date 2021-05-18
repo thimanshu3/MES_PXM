@@ -75,7 +75,7 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
         mappingsData = JSON.parse(mappingsData)
         vendors = Object.values(JSON.parse(vendors))
         // TODO query with type
-        // console.log({ type })
+        console.log({ type })
         if (!Array.isArray(mappingsData) && !mappingsData.length) {
             return res.status(400).json({ message: 'No Mappings' })
         }
@@ -95,18 +95,9 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
             excelData.map(async (sd, index) => {
                 index++
                 const obj = {}
-                if (!sd.form) {
-                    res.json({ message: `form id not found at row no. ${index}`, status: 400})
-                return
-                }
-                if (!sd.Catalogue) {
-                    res.json({ message: `Catalogue id not found at row no. ${index}` , status: 400})
-                 return 
-                }
-                if (!sd['Catalogue hierarchy']) {
-                    res.json({ message: `Catalogue hierarchy id not found at row no. ${index}`, status: 400 })
-                return
-             }
+                if (!sd.form) throw new Error(`form id not found at row no. ${index}`)
+                if (!sd.Catalogue) throw new Error(`Catalogue id not found at row no. ${index}`)
+                if (!sd['Catalogue hierarchy']) throw new Error(`Catalogue hierarchy id not found at row no. ${index}`)
                 obj.formId = await mGetFormId(sd.form)
                 obj.Catalogue = await mGetCatalogueId(sd.Catalogue)
                 obj.CatalogueHierarchy = await mGetCatalogueHeirarchyId(sd['Catalogue hierarchy'])

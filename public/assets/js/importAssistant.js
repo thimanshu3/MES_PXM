@@ -14,8 +14,9 @@ const createHeader = (fields) => {
         if (!executedH) {
             executedH = true;
             alreadyMappedFields = fieldsData.filter(o => Object.keys(fields).some(i => o.label.toLowerCase() == i.toLocaleLowerCase()));
+            const notMapped = fieldsData.filter(o => !(Object.keys(fields).some(i => o.label.toLowerCase() == i.toLocaleLowerCase())))
+            console.log(notMapped)
             required = fieldsData.filter(function ({ req }) { return req == true })
-            console.log(required);
             if (alreadyMappedFields.length > 0) {
                 counter = alreadyMappedFields.length + 1
                 $('#nofield').hide();
