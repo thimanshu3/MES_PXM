@@ -122,7 +122,6 @@ router.get('/:formId/p/:productId', async (req, res) => {
                 }))
             }
         }))
-        require('fs').writeFileSync('data.txt', JSON.stringify(layout));
         const meta = await productMetaData.findOne({ where: { id: req.params.productId } })
         res.render('admin/kktest2', { User: req.user, layout, productId: req.params.productId, meta })
     } catch (err) {

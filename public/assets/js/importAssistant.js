@@ -13,17 +13,18 @@ const createHeader = (fields) => {
     try {
         if (!executedH) {
             executedH = true;
-            alreadyMappedFields = fieldsData.filter(o => Object.keys(fields).some(i => o.label.toLowerCase() == i.toLocaleLowerCase()));
-            const notMapped = fieldsData.filter(o => !(Object.keys(fields).some(i => o.label.toLowerCase() == i.toLocaleLowerCase())))
-            console.log(notMapped)
+            alreadyMappedFields = fieldsData.filter(o => Object.keys(fields).some(i => o.label.toLowerCase() == i.toLowerCase()));
             required = fieldsData.filter(function ({ req }) { return req == true })
             if (alreadyMappedFields.length > 0) {
                 counter = alreadyMappedFields.length + 1
                 $('#nofield').hide();
+                const oFields = Object.keys(fields)
                 alreadyMappedFields.forEach((field, index) => {
                     index++
+                    const foundField = oFields.find(f => (field.label.toLowerCase() === f.toLowerCase()))
+                    if (foundField) field.excelLabel = foundField
                     $('#fieldLinkPreview').append(`<li field-id="${field.id}" id="preview-${index}" class="kkay_field_map_link"> <a id="a-${index}" onclick="showModal('${field.id}','${field.inputType}','${field.label}')" class="btn btn-sm btn-light" style="z-index:999"><i class="fas fa-edit"></i></a>
-                    <div class="k_field" id='left-${index}'> ${field.label} </div>
+                    <div class="k_field" id='left-${index}'> ${field.excelLabel} </div>
                      <i id='arrow-${index}' class="fas fa-arrows-alt-h"></i>
                      <div id='right-${index}' class="k_field">${field.label} </div>
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav('preview-${index}')" style="z-index:999"><i class="fas fa-times-circle"></i></a></li>`)
@@ -517,14 +518,14 @@ $('#fieldMappinggetObjBtn').on('click', () => {
                     method: 'POST',
                     body: formData
                 }).then(res => res.json()).then(json => {
-                    if(json.status == 200){
+                    if (json.status == 200) {
                         location.href = '/admin/transactions'
                     }
-                    if(json.status == 400){
+                    if (json.status == 400) {
                         iziToast.warning({ message: json.message || 'Something Went Wrong!' })
                     }
-                    else{
-                        iziToast.error({message: json.message || 'Something Went Wrong!'})
+                    else {
+                        iziToast.error({ message: json.message || 'Something Went Wrong!' })
                     }
                 }).catch(console.error)
             }
