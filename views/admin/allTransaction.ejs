@@ -114,14 +114,16 @@
                                                                         </thead>
 
                                                                         <tbody>
-                                                                           <tr>
-                                                                               <td>1.</td>
-                                                                               <td>let us find</td>
-                                                                               <td>something like 100</td>
-                                                                               <td>admin name</td>
-                                                                               <td><a href="/">view Products</a></td>
-
-                                                                           </tr>
+                                                                            <%transactions.forEach(t => {%>
+                                                                                <tr>
+                                                                                    <td>1.</td>
+                                                                                    <td>let us find</td>
+                                                                                    <td>something like 100</td>
+                                                                                    <td>admin name</td>
+                                                                                    <td><a href="/admin/product/all?page=1&limit=10&transactionId=<%=t.id%>"><%=t.id%>View Products</a></td>
+                                                                                </tr>
+                                                                            <%})%>
+                                                                           
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
@@ -130,15 +132,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div>
-                                                <%=totalPages%>
-                                                    <br>
-                                                    <%=currentPage%>
-                                                        <br>
-                                                        <a href="<%=next ? next : '#'%>">Next</a>
-                                                        <br>
-                                                        <a href="<%=prev ? prev : '#'%>">Prev</a>
                                             </div>
                                         </div>
                                     </div>

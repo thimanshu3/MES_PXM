@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
             ['createdAt', 'DESC']
         ]
     })
-    res.render('admin/transactions', { User: req.user, transactions })
+    res.render('admin/allTransaction', { User: req.user, transactions })
 })
 
 module.exports = router
