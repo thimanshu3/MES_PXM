@@ -2,8 +2,8 @@ const express = require('express')
 const multer = require('multer')
 const path = require('path')
 const fs = require('fs')
-const readXlsxFile = require('read-excel-file/node')
-const { productTable, form, Catalogue, CatalogueHierarchy, FormDesign, productData, productMetaData, productSpecificTableData } = require('../../models')
+const csvtojson = require('csvtojson')
+const { productTable, form, Catalogue, CatalogueHierarchy, FormDesign, productData, productMetaData, productSpecificTableData, Transaction } = require('../../models')
 const { random } = require('../../util')
 const { v4: uuidv4 } = require('uuid')
 const memoizee = require('memoizee')
@@ -18,7 +18,7 @@ const uploadStorage = multer.diskStorage({
 })
 
 const excelFilter = (req, file, next) => {
-    if (!file.originalname.match(/\.(xlsx)$/)) {
+    if (!file.originalname.match(/\.(csv)$/)) {
         req.fileValidationError = 'Invalid File Type!'
         return next(null, false)
     }
@@ -79,17 +79,18 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
         if (!Array.isArray(mappingsData) && !mappingsData.length) {
             return res.status(400).json({ message: 'No Mappings' })
         }
-        const excelDataRaw = await readXlsxFile(`uploads/${req.file.filename}`)
+        // const excelDataRaw = await readXlsxFile(`uploads/${req.file.filename}`)
         fs.unlink(`uploads/${req.file.filename}`, err => err ? console.error('\x1b[31m%s\x1b[0m', err) : undefined)
-        const headers = Object.values(excelDataRaw.shift()).map(v => v.trim())
-        const excelData = []
-        excelDataRaw.forEach(d => {
-            const obj = {}
-            headers.forEach((h, i) => {
-                obj[h] = d[i]
-            })
-            excelData.push(obj)
-        })
+        // const headers = Object.values(excelDataRaw.shift()).map(v => v.trim())
+        // const excelData = []
+        // excelDataRaw.forEach(d => {
+        //     const obj = {}
+        //     headers.forEach((h, i) => {
+        //         obj[h] = d[i]
+        //     })
+        //     excelData.push(obj)
+        // })
+        const excelData = await csvtojson().fromFile(`uploads/${req.file.filename}`)
         const data = []
         await Promise.all(
             excelData.map(async (sd, index) => {
@@ -127,6 +128,7 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
                 data.push(obj)
             })
         )
+        const transactionData = (await Transaction.create({ userId: req.user.id })).toJSON()
         const productMeta = []
         const productData1 = []
         const vendorsData = []
@@ -146,16 +148,18 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
             })
             if (!d.Catalogue) console.log('NO CAT')
             if (!d.CatalogueHierarchy) console.log('d.CatalogueHierarchy')
-            productMeta.push({ id, createdBy: req.user.id, formId: d.formId, name: d.name ? d.name : undefined, Catalogue: d.Catalogue,CatalogueHierarchy: d.CatalogueHierarchy, stage: 2, productType: 'Item' })
+            productMeta.push({ id, createdBy: req.user.id, formId: d.formId, name: d.name ? d.name : undefined, Catalogue: d.Catalogue, CatalogueHierarchy: d.CatalogueHierarchy, stage: 2, productType: 'Item', transactionId: transactionData.id })
         }))
+        console.log('Inserting', productMeta.length, productData1.length, vendorsData.length)
         await async.parallel([
             async () => await productMetaData.bulkCreate(productMeta),
             async () => await productData.bulkCreate(productData1),
             async () => await productSpecificTableData.bulkCreate(vendorsData)
         ])
-        res.status(200).json({ productData: productData1, productMeta, vendorsData, data })
+        console.log('Done')
+        res.status(200).json({ status: 200, productData: productData1, productMeta, vendorsData, data })
     } catch (err) {
-        res.status(500).json({message: err.toString() || 'Something Went Wrong!'})
+        res.status(500).json({ message: err.toString() || 'Something Went Wrong!' })
     }
 })
 

@@ -81,7 +81,7 @@ const previewTheData = () => {
 
 }
 $(document).ready(function () {
-    const allowedExtensions = /(\.xlsx|\.xls)$/i;
+    const allowedExtensions = /(\.csv)$/i;
     $('input[type="file"]').on('click', function () {
         $(".file_names").html("");
     })

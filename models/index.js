@@ -27,9 +27,8 @@ module.exports = {
     productTable: require('./productTable'),
     tableFieldGroup: require('./tableFieldGroup'),
     productSpecificTableData: require('./productSpecificTableData'),
+    Transaction: require('./Transaction'),
     //mongo Models
     ActivityLog: require('./ActivityLogModel'),
     FormDesign:require('./FormDataModel')
-
-
 }

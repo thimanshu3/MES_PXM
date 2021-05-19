@@ -16,6 +16,10 @@ const productMetaData = MySql.define('productMetaData', {
     formId: {
         type: DataTypes.STRING
     },
+    transactionId: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,

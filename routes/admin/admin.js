@@ -42,6 +42,8 @@ router.use('/product', require('./product'))
 
 router.use('/importassistant', require('./importAssistant'))
 
+router.use('/transactions', require('./transaction'))
+
 router.use('/kktest',async (req, res) => {
 res.render('admin/kktest', { User: req.user })
 })

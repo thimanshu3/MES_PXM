@@ -3,5 +3,7 @@
     "editor.formatOnPaste": true,
     "editor.formatOnSave": false,
     "editor.wordWrap": "on",
-   
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    }
 }
