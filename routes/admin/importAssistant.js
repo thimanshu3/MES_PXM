@@ -80,7 +80,6 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
             return res.status(400).json({ message: 'No Mappings' })
         }
         // const excelDataRaw = await readXlsxFile(`uploads/${req.file.filename}`)
-        fs.unlink(`uploads/${req.file.filename}`, err => err ? console.error('\x1b[31m%s\x1b[0m', err) : undefined)
         // const headers = Object.values(excelDataRaw.shift()).map(v => v.trim())
         // const excelData = []
         // excelDataRaw.forEach(d => {
@@ -91,6 +90,7 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
         //     excelData.push(obj)
         // })
         const excelData = await csvtojson().fromFile(`uploads/${req.file.filename}`)
+        fs.unlink(`uploads/${req.file.filename}`, err => err ? console.error('\x1b[31m%s\x1b[0m', err) : undefined)
         const data = []
         await Promise.all(
             excelData.map(async (sd, index) => {

@@ -518,7 +518,7 @@ $('#fieldMappinggetObjBtn').on('click', () => {
                     body: formData
                 }).then(res => res.json()).then(json => {
                     if(json.status == 200){
-                        location.href = '/admin/product/all'
+                        location.href = '/admin/transactions'
                     }
                     if(json.status == 400){
                         iziToast.warning({ message: json.message || 'Something Went Wrong!' })
