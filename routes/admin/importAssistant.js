@@ -26,7 +26,7 @@ const imageUpload = multer({
         }
     }),
     fileFilter: (req, file, next) => {
-        if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|csv)$/)) {
+        if (!file.originalname.match(/\.(jpg|csv)$/)) {
             req.fileValidationError = 'Invalid File Type!'
             return next(null, false)
         }

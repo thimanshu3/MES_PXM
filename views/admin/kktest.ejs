@@ -103,7 +103,7 @@
                                                                     <th rowspan="1" colspan="1"> </th>
                                                                     <th rowspan="1" colspan="1">Featured Image </th>
                                                                     <th rowspan="1" colspan="1">Product ID</th>
-                                                                    <th rowspan="1" colspan="1">Product Name</th>
+                                                                    <th rowspan="1" colspan="1">SKU</th>
                                                                     <th rowspan="1" colspan="1">Catalogue</th>
                                                                     <th rowspan="1" colspan="1">Product Type</th>
                                                                     <th rowspan="1" colspan="1">Stage</th>
@@ -124,10 +124,10 @@
                                                                         </td>
                                                                     
                                                                         <td class="list-grid-img">
-                                                                            <img class="card-img-top" src="https://www.medicaleshop.com/core/media/media.nl?id=669592&c=3635909&h=aeec525357b80053c9e3">
+                                                                            <img class="card-img-top" src="/uploads/productImages/<%=a.sku%>.jpg">
                                                                         </td>
                                                                         <td><%=a.id%> </td>
-                                                                        <td><a class="text-info" href="/admin/product/<%=a.formId %>/p/<%=a.id%> "><%=a.name%></a></td>
+                                                                        <td><a class="text-info" href="/admin/product/<%=a.formId %>/p/<%=a.id%> "><%=a.sku%></a></td>
                                                                         <td> <%=a.catalogue%> </td>
                                                                         <td><%= a.productType  %> </td>
                                                                         <td>

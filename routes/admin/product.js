@@ -4,7 +4,7 @@ const { MySql } = require('../../db')
 const { productMetaData, FormDesign, listRecordValues, productTable } = require('../../models')
 
 const router = express.Router()
-
+const inputFieldIdSKU = '82ef7383-e2b2-4763-8934-63a80802308d'
 //
 router.get('/all', async (req, res) => {
     try {
@@ -28,12 +28,12 @@ router.get('/all', async (req, res) => {
             prev = `?page=${page - 1}&limit=${limit}`
         }
         if (!transactionId) {
-            const [result] = await MySql.query(`SELECT productMetaData.id as id, productMetaData.name as name, productMetaData.formId as formId, productMetaData.active as active,productMetaData.Catalogue as catalogueId, productMetaData.CatalogueHierarchy as catalogueHierarchy, productMetaData.stage as stage, productMetaData.createdBy as createdBy, cat.text as catalogue, ch.name as catalogueHierarchy, pt.name as productType FROM (SELECT * FROM productMetaData order by createdAt DESC limit ${limit} offset ${skip}) productMetaData left join Catalogues cat on productMetaData.Catalogue = cat.id left join CatalogueHierarchies ch on productMetaData.CatalogueHierarchy = ch.id left join ProductTypes pt on productMetaData.productType = pt.id`)
+            const [result] = await MySql.query(`SELECT productMetaData.id as id, productMetaData.name as name, productMetaData.formId as formId, productMetaData.active as active,productMetaData.Catalogue as catalogueId, productMetaData.CatalogueHierarchy as catalogueHierarchy, productMetaData.stage as stage, productMetaData.createdBy as createdBy, productMetaData.fieldValue as sku, cat.text as catalogue, ch.name as catalogueHierarchy, pt.name as productType FROM (SELECT * FROM (SELECT * FROM productMetaData order by createdAt DESC limit ${limit} offset ${skip}) pm inner join (SELECT productId, fieldValue FROM productData WHERE fieldId = "${inputFieldIdSKU}") pd on pm.id = pd.productId) productMetaData left join Catalogues cat on productMetaData.Catalogue = cat.id left join CatalogueHierarchies ch on productMetaData.CatalogueHierarchy = ch.id left join ProductTypes pt on productMetaData.productType = pt.id`)
             res.render('admin/kktest', { User: req.user, result, totalPages, currentPage: page, next, prev })
         } else {
             next += `&transactionId=${transactionId}`
             prev += `&transactionId=${transactionId}`
-            const [result] = await MySql.query(`SELECT productMetaData.id as id, productMetaData.name as name, productMetaData.formId as formId, productMetaData.active as active,productMetaData.Catalogue as catalogueId, productMetaData.CatalogueHierarchy as catalogueHierarchy, productMetaData.stage as stage, productMetaData.createdBy as createdBy, cat.text as catalogue, ch.name as catalogueHierarchy, pt.name as productType FROM (SELECT * FROM productMetaData WHERE transactionId="${transactionId}" order by createdAt DESC limit ${limit} offset ${skip}) productMetaData left join Catalogues cat on productMetaData.Catalogue = cat.id left join CatalogueHierarchies ch on productMetaData.CatalogueHierarchy = ch.id left join ProductTypes pt on productMetaData.productType = pt.id`)
+            const [result] = await MySql.query(`SELECT productMetaData.id as id, productMetaData.name as name, productMetaData.formId as formId, productMetaData.active as active,productMetaData.Catalogue as catalogueId, productMetaData.CatalogueHierarchy as catalogueHierarchy, productMetaData.stage as stage, productMetaData.createdBy as createdBy, productMetaData.fieldValue as sku, cat.text as catalogue, ch.name as catalogueHierarchy, pt.name as productType FROM (SELECT * FROM (SELECT * FROM productMetaData WHERE transactionId = "${transactionId}" order by createdAt DESC limit ${limit} offset ${skip}) pm inner join (SELECT productId, fieldValue FROM productData WHERE fieldId = "${inputFieldIdSKU}") pd on pm.id = pd.productId) productMetaData left join Catalogues cat on productMetaData.Catalogue = cat.id left join CatalogueHierarchies ch on productMetaData.CatalogueHierarchy = ch.id left join ProductTypes pt on productMetaData.productType = pt.id`)
             res.render('admin/kktest', { User: req.user, result, totalPages, currentPage: page, next, prev })
         }
     }
