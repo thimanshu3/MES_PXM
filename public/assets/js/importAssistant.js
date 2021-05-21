@@ -437,6 +437,12 @@ const showModal = function (id, type, name) {
     $('#exampleModal').modal('show')
 }
 
+let selectedFiles
+document.getElementById('imageFiles').addEventListener("change", (event) => {
+    selectedFiles = event.target.files;
+})
+
+
 $('#fieldMappinggetObjBtn').on('click', () => {
     let data = [];
     let vendor = []
@@ -510,6 +516,9 @@ $('#fieldMappinggetObjBtn').on('click', () => {
             if (required.length === data.filter(d => r2.includes(d.fieldId)).length) {
                 const formData = new FormData()
                 formData.append('file', selectedFile)
+                Object.keys(selectedFiles).forEach(key => {
+                    formData.append('images', selectedFiles[key])
+                })
                 formData.append('mappingsData', JSON.stringify(data))
                 formData.append('type', $('input[name="imagecheck"]:checked').val())
                 formData.append('vendors', JSON.stringify(finalData))

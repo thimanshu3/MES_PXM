@@ -12,22 +12,26 @@ const async = require('async')
 const { MySql } = require('../../db')
 const router = express.Router()
 
-const uploadStorage = multer.diskStorage({
-    destination: (req, file, next) => next(null, 'uploads'),
-    filename: (req, file, next) => next(null, `${random(16).toLowerCase()}-${Date.now()}${path.extname(file.originalname)}`)
-})
-
-const excelFilter = (req, file, next) => {
-    if (!file.originalname.match(/\.(csv)$/)) {
-        req.fileValidationError = 'Invalid File Type!'
-        return next(null, false)
+const imageUpload = multer({
+    storage: multer.diskStorage({
+        destination: (req, file, next) => {
+            if (file && path.extname(file.originalname) === '.csv')
+                return next(null, 'uploads')
+            return next(null, 'uploads/productImages')
+        },
+        filename: (req, file, next) => {
+            if (file && path.extname(file.originalname) === '.csv')
+                return next(null, `${random(16).toLowerCase()}-${Date.now()}${path.extname(file.originalname)}`)
+            return next(null, file.originalname)
+        }
+    }),
+    fileFilter: (req, file, next) => {
+        if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|csv)$/)) {
+            req.fileValidationError = 'Invalid File Type!'
+            return next(null, false)
+        }
+        next(null, true)
     }
-    next(null, true)
-}
-
-const excelUpload = multer({
-    storage: uploadStorage,
-    fileFilter: excelFilter
 })
 
 const mGetFormId = memoizee(async name => {
@@ -64,13 +68,14 @@ router.get('/', async (req, res) => {
     res.render('admin/importAssistant', { User: req.user, fields, vendor })
 })
 
-router.post('/', excelUpload.single('file'), async (req, res) => {
+router.post('/', imageUpload.any(), async (req, res) => {
     try {
-        if (req.fileValidationError) {
-            req.flash('error', req.fileValidationError)
-            res.redirect('/admin/addUser')
-            return
-        }
+        if (req.fileValidationError)
+            return res.json({ status: 400, message: req.fileValidationError })
+        let csvFile = req.files[0]
+        req.files.forEach(f => {
+            if (f.fieldname === 'file') csvFile = f
+        })
         let { mappingsData, type, vendors } = req.body
         mappingsData = JSON.parse(mappingsData)
         vendors = Object.values(JSON.parse(vendors))
@@ -79,18 +84,8 @@ router.post('/', excelUpload.single('file'), async (req, res) => {
         if (!Array.isArray(mappingsData) && !mappingsData.length) {
             return res.status(400).json({ message: 'No Mappings' })
         }
-        // const excelDataRaw = await readXlsxFile(`uploads/${req.file.filename}`)
-        // const headers = Object.values(excelDataRaw.shift()).map(v => v.trim())
-        // const excelData = []
-        // excelDataRaw.forEach(d => {
-        //     const obj = {}
-        //     headers.forEach((h, i) => {
-        //         obj[h] = d[i]
-        //     })
-        //     excelData.push(obj)
-        // })
-        const excelData = await csvtojson().fromFile(`uploads/${req.file.filename}`)
-        fs.unlink(`uploads/${req.file.filename}`, err => err ? console.error('\x1b[31m%s\x1b[0m', err) : undefined)
+        const excelData = await csvtojson().fromFile(`uploads/${csvFile.filename}`)
+        fs.unlink(`uploads/${csvFile.filename}`, err => err ? console.error('\x1b[31m%s\x1b[0m', err) : undefined)
         const data = []
         await Promise.all(
             excelData.map(async (sd, index) => {
