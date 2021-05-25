@@ -12,6 +12,10 @@ const transaction = MySql.define('transaction', {
     userId: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    productCount: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 })
 

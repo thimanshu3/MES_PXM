@@ -103,11 +103,7 @@
                                                                         <thead>
                                                                             <tr>
                                                                                 <th rowspan="1" colspan="1"># </th>
-                                                                                <th rowspan="1" colspan="1">
-                                                                                    Transiction Name </th>
                                                                                 <th rowspan="1" colspan="1">Product Count 
-                                                                                </th>
-                                                                                <th rowspan="1" colspan="1">Uploaded by
                                                                                 </th>
                                                                                 <th>action</th>
                                                                             </tr>
@@ -117,10 +113,8 @@
                                                                             <%transactions.forEach(t => {%>
                                                                                 <tr>
                                                                                     <td>1.</td>
-                                                                                    <td>let us find</td>
-                                                                                    <td>something like 100</td>
-                                                                                    <td>admin name</td>
-                                                                                    <td><a href="/admin/product/all?page=1&limit=10&transactionId=<%=t.id%>"><%=t.id%>View Products</a></td>
+                                                                                    <td><%=t.productCount%></td>
+                                                                                    <td><a href="/admin/product/all?page=1&limit=10&transactionId=<%=t.id%>">View Products</a></td>
                                                                                 </tr>
                                                                             <%})%>
                                                                            

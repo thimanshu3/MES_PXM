@@ -123,7 +123,7 @@ router.post('/', imageUpload.any(), async (req, res) => {
                 data.push(obj)
             })
         )
-        const transactionData = (await Transaction.create({ userId: req.user.id })).toJSON()
+        const transactionData = (await Transaction.create({ userId: req.user.id, productCount: data.length })).toJSON()
         const productMeta = []
         const productData1 = []
         const vendorsData = []
