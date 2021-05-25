@@ -103,6 +103,7 @@
                                                                         <thead>
                                                                             <tr>
                                                                                 <th rowspan="1" colspan="1"># </th>
+                                                                                <th>Timestamp</th>
                                                                                 <th rowspan="1" colspan="1">Product Count 
                                                                                 </th>
                                                                                 <th>action</th>
@@ -113,6 +114,7 @@
                                                                             <%transactions.forEach(t => {%>
                                                                                 <tr>
                                                                                     <td>1.</td>
+                                                                                    <td><%=t.createdAt%></td>
                                                                                     <td><%=t.productCount%></td>
                                                                                     <td><a href="/admin/product/all?page=1&limit=10&transactionId=<%=t.id%>">View Products</a></td>
                                                                                 </tr>
